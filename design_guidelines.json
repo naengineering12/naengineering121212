@@ -1,0 +1,59 @@
+{
+  "project_name": "NA Engineering Solutions",
+  "tagline": "Engineering Excellence, Industrial Infrastructure & General Order Supply",
+  "context": "Marketing & Corporate Website",
+  "archetype": "THE PERFORMANCE PRO / INDUSTRIAL MINIMALIST",
+  "typography": {
+    "headings": "Chivo, sans-serif",
+    "body": "Inter, sans-serif"
+  },
+  "colors": {
+    "primary": "#0A1128",
+    "secondary": "#005F73",
+    "accent": "#F4A261",
+    "dark_obsidian": "#0A0A0A",
+    "navy": "#0B192C",
+    "metallic_blue": "#1E3E62",
+    "surface_dark": "#121824",
+    "text_main": "#F8FAFC",
+    "text_muted": "#94A3B8"
+  },
+  "visual_enhancers": {
+    "borders": "1px solid rgba(255, 255, 255, 0.1)",
+    "glass_blur": "backdrop-blur-xl bg-[#0B192C]/80",
+    "glow_accent": "0 0 25px rgba(244, 162, 97, 0.25)"
+  },
+  "layouts": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "bento_grid": "grid grid-cols-1 md:grid-cols-12 gap-6"
+  },
+  "image_urls": [
+    {
+      "category": "Hero / Industrial Construction",
+      "url": "https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea",
+      "description": "Gray concrete building under construction representing Civil & Structural Engineering"
+    },
+    {
+      "category": "HVAC & Mechanical Plant",
+      "url": "https://images.unsplash.com/photo-1615309662243-70f6df917b59",
+      "description": "Industrial HVAC piping and mechanical systems"
+    },
+    {
+      "category": "General Order Supply & Warehousing",
+      "url": "https://images.unsplash.com/photo-1592589185394-1849d2e75d75",
+      "description": "Industrial logistics and supply infrastructure"
+    }
+  ],
+  "pages_and_features": [
+    "Home",
+    "About Us",
+    "Services (Civil Engineering, HVAC, Mechanical Engineering, PEB Works, Electrical Works, Fire Fighting, Safety & Security Systems, General Order Supplies & Services)",
+    "Dedicated Service Detail Views",
+    "Industries / Projects Showcase",
+    "Contact Us & Request a Quote Form with BOQ Upload"
+  ],
+  "accessibility": {
+    "contrast_ratio": "WCAG AA compliant (>4.5:1)",
+    "interactive_elements": "Explicit focus states and data-testid attributes for all interactive elements"
+  }
+}
