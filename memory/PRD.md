@@ -16,6 +16,7 @@ Build a premium, modern, professional and fully functional corporate website for
 - Service, supply category, industry, process, mission, vision and core value content based on supplied company information.
 - Footer now includes clickable phone contacts +92 300 9596393 and +92 302 6880298.
 - About page now includes an image-led field-note feature section with responsive construction imagery and a company signature treatment.
+- Company logo (user-provided) now replaces text branding in the sticky header and footer, served locally as a transparent, trimmed PNG at /logo.png and used as the site favicon.
 
 ## Prioritized Backlog
 - P0: Connect an outbound email provider if automatic email notifications are required.
