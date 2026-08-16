@@ -175,6 +175,7 @@ CHAT_SYSTEM = (
 class ChatInput(BaseModel):
     session_id: str
     message: str
+    model: str = "gpt"
 
 @api_router.post("/chat")
 async def chat_with_ai(input: ChatInput):
@@ -186,7 +187,8 @@ async def chat_with_ai(input: ChatInput):
     if history:
         context = "Conversation so far:\n" + "\n".join(f"{m['role']}: {m['text']}" for m in history[-12:]) + "\n\nVisitor: "
     await db.chat_messages.insert_one({"session_id": input.session_id, "role": "visitor", "text": message, "created_at": datetime.now(timezone.utc).isoformat()})
-    chat = LlmChat(api_key=os.environ["EMERGENT_LLM_KEY"], session_id=f"na-{input.session_id}", system_message=CHAT_SYSTEM).with_model("openai", "gpt-5.4")
+    provider, model_name = ("gemini", "gemini-3.5-flash") if input.model == "gemini" else ("openai", "gpt-5.4")
+    chat = LlmChat(api_key=os.environ["EMERGENT_LLM_KEY"], session_id=f"na-{input.session_id}-{provider}", system_message=CHAT_SYSTEM).with_model(provider, model_name)
     async def event_generator():
         parts = []
         async for event in chat.stream_message(UserMessage(text=context + message)):

@@ -30,6 +30,8 @@ Build a premium, modern, professional and fully functional corporate website for
 - 2026-08-16: Resend email notification on quote submission is code-complete and config-ready; activates when RESEND_API_KEY is added to backend/.env (currently logs a skip, quotes still save).
 - 2026-08-16: Attachments now stored in Emergent object storage (na-engineering/uploads/...); admins download the real BOQ file from the dashboard via GET /api/admin/files/{quote_id} (verified byte-for-byte).
 - 2026-08-16: Read/unread follow-up tracking — PATCH /api/admin/quotes/{id}/handled plus a "Mark handled / Handled ✓" toggle in the dashboard Status column.
+- 2026-08-16: Gemini AI added — chat widget now has a GPT / Gemini model switcher; /api/chat accepts model="gpt" (gpt-5.4) or "gemini" (gemini-3.5-flash), both streaming via Emergent universal key.
+- 2026-08-16: About page — sparkle icons removed from Core Values; Our Process rebuilt as 6 image cards with explanations, moved above Core Values.
 - Company logo (user-provided) now replaces text branding in the sticky header and footer, served locally as a transparent, trimmed PNG at /logo.png and used as the site favicon.
 
 ## Prioritized Backlog
