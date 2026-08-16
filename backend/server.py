@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, APIRouter, UploadFile, File, Form, HTTPException, Depends, Header
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -10,9 +10,13 @@ from typing import List, Optional
 import uuid
 import json
 from pathlib import Path as FilePath
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from fastapi.responses import StreamingResponse
 from emergentintegrations.llm.chat import LlmChat, UserMessage, TextDelta, StreamDone
+import asyncio
+import html as html_lib
+import jwt
+import resend
 
 
 ROOT_DIR = Path(__file__).parent
@@ -80,7 +84,65 @@ async def submit_quote(
     doc = record.model_dump()
     doc["created_at"] = doc["created_at"].isoformat()
     await db.quote_requests.insert_one(doc)
+    await send_quote_email(record)
     return record
+
+async def send_quote_email(record: QuoteRequest):
+    api_key = os.environ.get("RESEND_API_KEY")
+    if not api_key:
+        logger.info("RESEND_API_KEY not set - skipping quote notification email")
+        return
+    resend.api_key = api_key
+    fields = [("Name", record.full_name), ("Company", record.company_name or "-"), ("Email", record.email),
+              ("Phone", record.phone or "-"), ("Service", record.service_required), ("Message", record.message),
+              ("Attachment", record.attachment_name or "None")]
+    rows = "".join(
+        f"<tr><td style='padding:8px 12px;border:1px solid #ddd;color:#555;font-size:13px'>{k}</td>"
+        f"<td style='padding:8px 12px;border:1px solid #ddd;font-size:13px'>{html_lib.escape(str(v))}</td></tr>"
+        for k, v in fields)
+    params = {
+        "from": os.environ.get("SENDER_EMAIL", "onboarding@resend.dev"),
+        "to": [os.environ.get("NOTIFY_EMAIL", "na.engineeringsolutions2023@gmail.com")],
+        "subject": f"New Quote Request - {record.service_required}",
+        "html": f"<div style='font-family:Arial,sans-serif;max-width:560px'><h2 style='color:#0A1128'>New Quote Request</h2><table style='border-collapse:collapse;width:100%'>{rows}</table><p style='color:#888;font-size:11px'>Submitted via the NA Engineering Solutions website.</p></div>",
+    }
+    try:
+        await asyncio.to_thread(resend.Emails.send, params)
+    except Exception as e:
+        logger.error(f"Quote email failed: {e}")
+
+JWT_ALGORITHM = "HS256"
+
+class AdminLogin(BaseModel):
+    email: str
+    password: str
+
+async def require_admin(authorization: str = Header(None)):
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    try:
+        payload = jwt.decode(authorization[7:], os.environ["JWT_SECRET"], algorithms=[JWT_ALGORITHM])
+        if payload.get("type") != "admin":
+            raise HTTPException(status_code=401, detail="Invalid token")
+        return payload
+    except jwt.PyJWTError:
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
+
+@api_router.post("/admin/login")
+async def admin_login(input: AdminLogin):
+    if input.email.lower() != os.environ["ADMIN_EMAIL"].lower() or input.password != os.environ["ADMIN_PASSWORD"]:
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    payload = {"sub": "admin", "email": input.email.lower(), "type": "admin",
+               "exp": datetime.now(timezone.utc) + timedelta(hours=12)}
+    return {"token": jwt.encode(payload, os.environ["JWT_SECRET"], algorithm=JWT_ALGORITHM), "email": input.email.lower()}
+
+@api_router.get("/admin/quotes")
+async def list_quotes(admin=Depends(require_admin)):
+    return await db.quote_requests.find({}, {"_id": 0}).sort("created_at", -1).to_list(500)
+
+@api_router.get("/admin/chats")
+async def list_chats(admin=Depends(require_admin)):
+    return await db.chat_messages.find({}, {"_id": 0}).sort("created_at", 1).to_list(2000)
 
 CHAT_SYSTEM = (
     "You are the friendly AI assistant on the NA Engineering Solutions website. "

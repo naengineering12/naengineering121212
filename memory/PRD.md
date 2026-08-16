@@ -25,6 +25,9 @@ Build a premium, modern, professional and fully functional corporate website for
 - 2026-08-16: "Why NA Engineering" section restyled from dark navy to a warm sand gradient with white cards per user request.
 - 2026-08-16: Industries page rebuilt — all 11 industries now have matching photos and short description cards.
 - 2026-08-16: Fixed "Can't resolve 'lenis'" compile error (frontend restart after yarn add lenis).
+- 2026-08-16: WhatsApp tap-to-chat button (wa.me/923009596393) added beside the AI assistant.
+- 2026-08-16: Private admin dashboard at /admin — JWT login (env credentials), quote requests table, chat conversation viewer. Endpoints: POST /api/admin/login, GET /api/admin/quotes, GET /api/admin/chats.
+- 2026-08-16: Resend email notification on quote submission is code-complete and config-ready; activates when RESEND_API_KEY is added to backend/.env (currently logs a skip, quotes still save).
 - Company logo (user-provided) now replaces text branding in the sticky header and footer, served locally as a transparent, trimmed PNG at /logo.png and used as the site favicon.
 
 ## Prioritized Backlog
