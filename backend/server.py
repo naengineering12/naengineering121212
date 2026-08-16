@@ -8,8 +8,11 @@ from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional
 import uuid
+import json
 from pathlib import Path as FilePath
 from datetime import datetime, timezone
+from fastapi.responses import StreamingResponse
+from emergentintegrations.llm.chat import LlmChat, UserMessage, TextDelta, StreamDone
 
 
 ROOT_DIR = Path(__file__).parent
@@ -78,6 +81,42 @@ async def submit_quote(
     doc["created_at"] = doc["created_at"].isoformat()
     await db.quote_requests.insert_one(doc)
     return record
+
+CHAT_SYSTEM = (
+    "You are the friendly AI assistant on the NA Engineering Solutions website. "
+    "NA Engineering Solutions is an engineering, construction, industrial solutions and general order supply company based at 593, A-Block LDA, Avenue-1, Raiwind Road, Lahore, Pakistan. "
+    "Services: Civil Engineering, HVAC (installation, GI ducting, ventilation, maintenance), Mechanical Engineering (pumps, motors, conveyors, fabrication, welding, spare parts), PEB Works (pre-engineered buildings, structural steel), Electrical Works (industrial installation, lighting, cables), Fire Fighting (extinguishers, refilling, inspection), Safety & Security Systems (PPE and facility safety). "
+    "General Order Supplies & Services: mechanical, electrical, hardware & tools, safety & PPE, facility maintenance, office supplies and industrial/project materials sourced to customer specification. "
+    "Contact: na.engineeringsolutions2023@gmail.com, +92 300 9596393, +92 302 6880298. "
+    "Answer questions about services, supplies and quotes. Keep answers concise (2-4 sentences), professional and helpful. For pricing or detailed requirements, invite the visitor to use the Request a Quote form. Never invent completed projects or clients."
+)
+
+class ChatInput(BaseModel):
+    session_id: str
+    message: str
+
+@api_router.post("/chat")
+async def chat_with_ai(input: ChatInput):
+    message = input.message.strip()
+    if not message:
+        raise HTTPException(status_code=400, detail="Message is required")
+    history = await db.chat_messages.find({"session_id": input.session_id}, {"_id": 0}).sort("created_at", 1).to_list(20)
+    context = ""
+    if history:
+        context = "Conversation so far:\n" + "\n".join(f"{m['role']}: {m['text']}" for m in history[-12:]) + "\n\nVisitor: "
+    await db.chat_messages.insert_one({"session_id": input.session_id, "role": "visitor", "text": message, "created_at": datetime.now(timezone.utc).isoformat()})
+    chat = LlmChat(api_key=os.environ["EMERGENT_LLM_KEY"], session_id=f"na-{input.session_id}", system_message=CHAT_SYSTEM).with_model("openai", "gpt-5.4")
+    async def event_generator():
+        parts = []
+        async for event in chat.stream_message(UserMessage(text=context + message)):
+            if isinstance(event, TextDelta):
+                parts.append(event.content)
+                yield f"data: {json.dumps({'delta': event.content})}\n\n"
+            elif isinstance(event, StreamDone):
+                break
+        await db.chat_messages.insert_one({"session_id": input.session_id, "role": "assistant", "text": "".join(parts), "created_at": datetime.now(timezone.utc).isoformat()})
+        yield "data: [DONE]\n\n"
+    return StreamingResponse(event_generator(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):

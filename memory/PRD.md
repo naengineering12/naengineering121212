@@ -20,6 +20,11 @@ Build a premium, modern, professional and fully functional corporate website for
 - 2026-08-16: "Home" added to header navigation; logo click returns to Home page.
 - 2026-08-16: All 7 service images replaced with verified topic-matching photos (construction cranes, HVAC ducts, lathe machining, steel structure, power lines, fire, safety helmet).
 - 2026-08-16: All 7 General Order Supplies category cards now display matching photos (industrial pump, breaker panel, tools, PPE gloves, cleaning, office desk, warehouse shelving).
+- 2026-08-16: AI chat assistant (NA Assistant) added sitewide — floating widget, streaming GPT-5.4 replies via Emergent universal key through POST /api/chat (SSE), conversation history stored in MongoDB chat_messages.
+- 2026-08-16: Motion/design upgrade — Lenis smooth scrolling, framer-motion masked line-by-line hero reveal with parallax, page-intro reveals, scroll-reveal sections, slow editorial marquee strip.
+- 2026-08-16: "Why NA Engineering" section restyled from dark navy to a warm sand gradient with white cards per user request.
+- 2026-08-16: Industries page rebuilt — all 11 industries now have matching photos and short description cards.
+- 2026-08-16: Fixed "Can't resolve 'lenis'" compile error (frontend restart after yarn add lenis).
 - Company logo (user-provided) now replaces text branding in the sticky header and footer, served locally as a transparent, trimmed PNG at /logo.png and used as the site favicon.
 
 ## Prioritized Backlog
