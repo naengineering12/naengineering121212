@@ -14,7 +14,7 @@ Build a premium, modern, professional and fully functional corporate website for
 - Sticky responsive header, mobile menu, footer, internal links, social links, quote CTAs, animations, metadata and mobile-safe layouts.
 - Quote form with required fields, optional BOQ upload, success feedback, size and extension/MIME validation.
 - Service, supply category, industry, process, mission, vision and core value content based on supplied company information.
-- Footer now includes clickable phone contacts +92 300 9596393 and +92 302 6880298.
+- Footer now includes clickable phone contacts +92 300 8596393 and +92 302 6880398 (updated 2026-08-16; WhatsApp button also uses the first number).
 - About page now includes an image-led field-note feature section with responsive construction imagery and a company signature treatment.
 - 2026-08-16: Company logo (transparent PNG processed from user upload) now shown in sticky header and footer, and used as favicon.
 - 2026-08-16: "Home" added to header navigation; logo click returns to Home page.
