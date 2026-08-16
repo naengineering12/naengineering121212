@@ -28,6 +28,8 @@ Build a premium, modern, professional and fully functional corporate website for
 - 2026-08-16: WhatsApp tap-to-chat button (wa.me/923009596393) added beside the AI assistant.
 - 2026-08-16: Private admin dashboard at /admin — JWT login (env credentials), quote requests table, chat conversation viewer. Endpoints: POST /api/admin/login, GET /api/admin/quotes, GET /api/admin/chats.
 - 2026-08-16: Resend email notification on quote submission is code-complete and config-ready; activates when RESEND_API_KEY is added to backend/.env (currently logs a skip, quotes still save).
+- 2026-08-16: Attachments now stored in Emergent object storage (na-engineering/uploads/...); admins download the real BOQ file from the dashboard via GET /api/admin/files/{quote_id} (verified byte-for-byte).
+- 2026-08-16: Read/unread follow-up tracking — PATCH /api/admin/quotes/{id}/handled plus a "Mark handled / Handled ✓" toggle in the dashboard Status column.
 - Company logo (user-provided) now replaces text branding in the sticky header and footer, served locally as a transparent, trimmed PNG at /logo.png and used as the site favicon.
 
 ## Prioritized Backlog

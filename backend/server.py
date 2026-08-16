@@ -17,6 +17,8 @@ import asyncio
 import html as html_lib
 import jwt
 import resend
+import requests
+from fastapi import Response
 
 
 ROOT_DIR = Path(__file__).parent
@@ -54,6 +56,9 @@ class QuoteRequest(BaseModel):
     service_required: str
     message: str
     attachment_name: Optional[str] = None
+    attachment_path: Optional[str] = None
+    attachment_content_type: Optional[str] = None
+    handled: bool = False
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 # Add your routes to the router instead of directly to app
@@ -78,9 +83,23 @@ async def submit_quote(
         if extension not in allowed_extensions or (attachment.content_type and attachment.content_type not in allowed_types):
             raise HTTPException(status_code=415, detail="Unsupported attachment type")
     attachment_name = attachment.filename if attachment else None
+    attachment_path = None
+    attachment_content_type = None
+    if attachment:
+        file_data = await attachment.read()
+        ext = FilePath(attachment.filename or "file").suffix.lower().lstrip(".") or "bin"
+        attachment_path = f"na-engineering/uploads/{uuid.uuid4()}.{ext}"
+        attachment_content_type = attachment.content_type
+        try:
+            await asyncio.to_thread(put_object, attachment_path, file_data, attachment.content_type or "application/octet-stream")
+        except Exception as e:
+            logger.error(f"Attachment upload failed: {e}")
+            attachment_path = None
+            attachment_content_type = None
     record = QuoteRequest(full_name=full_name, company_name=company_name, email=email,
                           phone=phone, service_required=service_required, message=message,
-                          attachment_name=attachment_name)
+                          attachment_name=attachment_name, attachment_path=attachment_path,
+                          attachment_content_type=attachment_content_type)
     doc = record.model_dump()
     doc["created_at"] = doc["created_at"].isoformat()
     await db.quote_requests.insert_one(doc)
@@ -180,6 +199,29 @@ async def chat_with_ai(input: ChatInput):
         yield "data: [DONE]\n\n"
     return StreamingResponse(event_generator(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
+class HandledUpdate(BaseModel):
+    handled: bool
+
+@api_router.patch("/admin/quotes/{quote_id}/handled")
+async def set_handled(quote_id: str, update: HandledUpdate, admin=Depends(require_admin)):
+    result = await db.quote_requests.update_one({"id": quote_id}, {"$set": {"handled": update.handled}})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Quote not found")
+    return {"id": quote_id, "handled": update.handled}
+
+@api_router.get("/admin/files/{quote_id}")
+async def download_attachment(quote_id: str, admin=Depends(require_admin)):
+    quote = await db.quote_requests.find_one({"id": quote_id}, {"_id": 0})
+    if not quote or not quote.get("attachment_path"):
+        raise HTTPException(status_code=404, detail="Attachment not found")
+    try:
+        data, content_type = await asyncio.to_thread(get_object, quote["attachment_path"])
+    except Exception:
+        raise HTTPException(status_code=404, detail="File missing from storage")
+    filename = quote.get("attachment_name") or "attachment"
+    return Response(content=data, media_type=quote.get("attachment_content_type") or content_type,
+                    headers={"Content-Disposition": f'attachment; filename="{filename}"'})
+
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
     status_dict = input.model_dump()
@@ -221,6 +263,39 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+STORAGE_BASE = (os.environ.get("INTEGRATION_PROXY_URL") or "").strip() or "https://integrations.emergentagent.com"
+STORAGE_URL = STORAGE_BASE.rstrip("/") + "/objstore/api/v1/storage"
+storage_key = None
+
+def init_storage(force: bool = False):
+    global storage_key
+    if storage_key and not force:
+        return storage_key
+    resp = requests.post(f"{STORAGE_URL}/init", json={"emergent_key": os.environ.get("EMERGENT_LLM_KEY")}, timeout=30)
+    resp.raise_for_status()
+    storage_key = resp.json()["storage_key"]
+    return storage_key
+
+def put_object(path: str, data: bytes, content_type: str) -> dict:
+    key = init_storage()
+    resp = requests.put(f"{STORAGE_URL}/objects/{path}", headers={"X-Storage-Key": key, "Content-Type": content_type}, data=data, timeout=120)
+    resp.raise_for_status()
+    return resp.json()
+
+def get_object(path: str):
+    key = init_storage()
+    resp = requests.get(f"{STORAGE_URL}/objects/{path}", headers={"X-Storage-Key": key}, timeout=60)
+    resp.raise_for_status()
+    return resp.content, resp.headers.get("Content-Type", "application/octet-stream")
+
+@app.on_event("startup")
+async def startup_storage():
+    try:
+        await asyncio.to_thread(init_storage)
+        logger.info("Object storage initialized")
+    except Exception as e:
+        logger.error(f"Storage init failed: {e}")
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
