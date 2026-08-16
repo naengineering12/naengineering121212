@@ -16,6 +16,10 @@ Build a premium, modern, professional and fully functional corporate website for
 - Service, supply category, industry, process, mission, vision and core value content based on supplied company information.
 - Footer now includes clickable phone contacts +92 300 9596393 and +92 302 6880298.
 - About page now includes an image-led field-note feature section with responsive construction imagery and a company signature treatment.
+- 2026-08-16: Company logo (transparent PNG processed from user upload) now shown in sticky header and footer, and used as favicon.
+- 2026-08-16: "Home" added to header navigation; logo click returns to Home page.
+- 2026-08-16: All 7 service images replaced with verified topic-matching photos (construction cranes, HVAC ducts, lathe machining, steel structure, power lines, fire, safety helmet).
+- 2026-08-16: All 7 General Order Supplies category cards now display matching photos (industrial pump, breaker panel, tools, PPE gloves, cleaning, office desk, warehouse shelving).
 - Company logo (user-provided) now replaces text branding in the sticky header and footer, served locally as a transparent, trimmed PNG at /logo.png and used as the site favicon.
 
 ## Prioritized Backlog
