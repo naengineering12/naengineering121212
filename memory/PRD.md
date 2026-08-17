@@ -32,6 +32,7 @@ Build a premium, modern, professional and fully functional corporate website for
 - 2026-08-16: Read/unread follow-up tracking — PATCH /api/admin/quotes/{id}/handled plus a "Mark handled / Handled ✓" toggle in the dashboard Status column.
 - 2026-08-16: Gemini AI added — chat widget now has a GPT / Gemini model switcher; /api/chat accepts model="gpt" (gpt-5.4) or "gemini" (gemini-3.5-flash), both streaming via Emergent universal key.
 - 2026-08-16: About page — sparkle icons removed from Core Values; Our Process rebuilt as 6 image cards with explanations, moved above Core Values.
+- 2026-08-17: New "Our Clients" page at /clients (in header nav + footer) — 6 client cards, project showcase with images, animated stat counters, Why Clients Choose Us cards, hover gallery, testimonials, CTA with Get a Free Quote / Contact Us / WhatsApp Us buttons.
 - Company logo (user-provided) now replaces text branding in the sticky header and footer, served locally as a transparent, trimmed PNG at /logo.png and used as the site favicon.
 
 ## Prioritized Backlog
