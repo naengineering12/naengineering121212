@@ -72,6 +72,8 @@ async def submit_quote(
     phone: str = Form(""), service_required: str = Form(...), message: str = Form(...),
     attachment: Optional[UploadFile] = File(None),
 ):
+    if attachment and not attachment.filename:
+        attachment = None
     if attachment and attachment.size and attachment.size > 8 * 1024 * 1024:
         raise HTTPException(status_code=413, detail="Attachment must be smaller than 8 MB")
     allowed_extensions = {".pdf", ".doc", ".docx", ".xls", ".xlsx", ".csv", ".jpg", ".jpeg", ".png"}
