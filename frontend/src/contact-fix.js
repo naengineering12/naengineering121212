@@ -1,5 +1,6 @@
 /* Contact form reliability layer: use the API when available, then fall back to a pre-filled Gmail draft instead of showing a dead-end error. */
 const CONTACT_EMAIL = 'na.engineeringsolutions2023@gmail.com';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 
 function getField(form, name) {
   return form.elements.namedItem(name)?.value?.trim() || '';
@@ -62,12 +63,11 @@ function handleQuoteSubmit(event) {
   if (submitButton?.disabled) return;
   if (submitButton) {
     submitButton.disabled = true;
-    submitButton.dataset.originalText = submitButton.textContent;
     submitButton.textContent = 'Sending request...';
   }
 
   const data = new FormData(form);
-  fetch(`${window.__NA_BACKEND_URL__ || ''}/api/quote`, { method: 'POST', body: data })
+  fetch(`${BACKEND_URL}/api/quote`, { method: 'POST', body: data })
     .then(async response => {
       if (!response.ok) throw new Error(`Quote API returned ${response.status}`);
       return response.json();
