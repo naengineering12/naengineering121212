@@ -1,0 +1,21 @@
+/* Our Clients: responsive layout and logo treatment */
+.logos-row{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px!important;margin:36px 0 34px!important}
+.logo-chip-enhanced{min-height:88px;background:#fff;border:1px solid var(--line);padding:14px 16px;display:flex;align-items:center;gap:12px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;overflow:hidden}
+.logo-chip-enhanced:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(10,17,40,.08);border-color:#b9c7cf}
+.logo-chip-enhanced img{width:42px;height:42px;object-fit:contain;flex:none}
+.logo-chip-enhanced .logo-mono{display:none}
+.logo-chip-name{font:700 13px/1.25 Chivo,sans-serif;color:var(--ink)}
+.clients-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px!important}
+.client-card-enhanced{background:#fff;border:1px solid var(--line);padding:25px!important;min-height:245px!important;position:relative;display:flex!important;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.client-card-enhanced:hover{transform:translateY(-5px);box-shadow:0 18px 38px rgba(10,17,40,.09);border-color:#b9c7cf}
+.client-logo-wrap{height:64px;display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.client-logo-wrap img{width:58px;height:58px;object-fit:contain;display:block}
+.client-logo-fallback{width:58px;height:58px;display:flex;align-items:center;justify-content:center;border:2px solid var(--amber);color:var(--navy);font:800 13px Chivo,sans-serif;background:#fff}
+.client-logo-wrap img:not([style*="display: none"])+.client-logo-fallback{display:none}
+.client-card-enhanced .client-ind{display:inline-block!important;width:max-content!important;max-width:100%;margin-bottom:9px!important}
+.client-card-enhanced h3{font-size:21px!important;line-height:1.15;margin:0 28px 9px 0!important}
+.client-card-enhanced p{color:#647284;font-size:13px;line-height:1.7;margin:0!important}
+.client-card-arrow{position:absolute;right:22px;bottom:20px;color:var(--blue);font-size:21px}
+@media(max-width:1000px){.logos-row{grid-template-columns:repeat(3,minmax(0,1fr))!important}.clients-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:680px){.logos-row{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.logo-chip-enhanced{min-height:74px;padding:11px}.logo-chip-enhanced img{width:34px;height:34px}.logo-chip-name{font-size:11px}.clients-grid{grid-template-columns:1fr!important;gap:12px!important}.client-card-enhanced{min-height:220px!important;padding:22px!important}.client-logo-wrap{height:58px;margin-bottom:15px}.client-logo-wrap img,.client-logo-fallback{width:52px;height:52px}.section{padding:78px 0}.section-heading{display:block}.section-heading p{margin-top:16px}.container{width:min(100% - 32px,1180px)}}
+@media(max-width:430px){.logos-row{grid-template-columns:1fr!important}.logo-chip-enhanced{min-height:68px}.client-card-enhanced h3{font-size:19px!important}}
