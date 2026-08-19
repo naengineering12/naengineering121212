@@ -1,4 +1,4 @@
-/* Our Clients enhancement: verified company domains, reliable logo fallback and complete client grid. */
+/* Our Clients enhancement: verified company domains, sharper logo sources and complete client grid. */
 const CLIENTS = [
   { name: "Gerry's dnata", category: "Aviation & Ground Handling", initials: "GD", domain: "gerrysdnata.com", href: "https://www.gerrysdnata.com/", description: "Ground handling, cargo and airport support services across Pakistan." },
   { name: "Interloop Limited", category: "Textile Manufacturing", initials: "IL", domain: "interloop-pk.com", href: "https://interloop-pk.com/", description: "Engineering, facility and industrial support for large-scale textile manufacturing." },
@@ -13,10 +13,13 @@ const CLIENTS = [
   { name: "Nimir Chemicals", category: "Chemical & Industrial", initials: "NC", domain: "nimirchemicals.com", href: "https://nimirchemicals.com/", description: "Industrial supplies, maintenance and engineering support for chemical processing." },
 ];
 
-const logoUrl = (domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=256`;
+const logoUrl = (domain) => `https://logo.clearbit.com/${domain}`;
+const fallbackLogoUrl = (domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=512`;
 
 function logoImage(client, className = '') {
-  return `<img class="${className}" src="${logoUrl(client.domain)}" alt="${client.name} logo" loading="lazy" decoding="async" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />`;
+  const primary = logoUrl(client.domain);
+  const fallback = fallbackLogoUrl(client.domain);
+  return `<img class="${className}" src="${primary}" data-fallback="${fallback}" alt="${client.name} logo" loading="lazy" decoding="async" onload="this.previousElementSibling.style.display='none'" onerror="if(this.dataset.fallback && this.src!==this.dataset.fallback){this.src=this.dataset.fallback}else{this.style.display='none'}" />`;
 }
 
 function cardHtml(client, index) {
