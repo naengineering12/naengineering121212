@@ -1,0 +1,34 @@
+name: Fix About page JSX
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repair missing About fragment close
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('frontend/src/App.js')
+          s = p.read_text()
+          old = '</main>}\n\nfunction Industries'
+          new = '</main></>}\n\nfunction Industries'
+          if old in s:
+              p.write_text(s.replace(old, new, 1))
+              print('Fixed missing About fragment close.')
+          else:
+              print('About fragment is already closed.')
+          PY
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add frontend/src/App.js
+          git diff --cached --quiet || (git commit -m "Fix About page JSX fragment" && git push)
