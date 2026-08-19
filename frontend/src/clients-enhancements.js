@@ -1,3 +1,4 @@
+/* Same-site Our Clients enhancement: replaces the old client list on the existing /clients route. */
 const CLIENTS = [
   { name: "Gerry's dnata", category: "Aviation & Ground Handling", initials: "GD", domain: "gerrysdnata.com", href: "https://www.gerrysdnata.com/", description: "Ground handling, cargo and airport support services across Pakistan." },
   { name: "Interloop Limited", category: "Textile Manufacturing", initials: "IL", domain: "interloop-pk.com", href: "https://interloop-pk.com/", description: "Engineering, facility and industrial support for large-scale textile manufacturing." },
@@ -14,7 +15,7 @@ const CLIENTS = [
 
 const logoUrl = (domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
 
-function cardHtml(client, index) {
+function cardHtml(client) {
   const external = client.href !== '#';
   return `<a class="client-card client-card-enhanced" href="${client.href}" ${external ? 'target="_blank" rel="noreferrer"' : ''} aria-label="${client.name}">
     <div class="client-logo-wrap"><span class="client-logo-fallback">${client.initials}</span><img src="${logoUrl(client.domain)}" alt="${client.name} logo" loading="lazy" onerror="this.style.display='none'" /></div>
