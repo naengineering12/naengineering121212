@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import "./clients-responsive.css";
 import "./clients-enhancements";
-import "./contact-fix";
 import App from "./App";
 const queryClient = new QueryClient({
   defaultOptions: {
