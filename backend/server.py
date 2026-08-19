@@ -31,7 +31,7 @@ db = client[os.environ['DB_NAME']]
 
 # Create the main app without a prefix
 app = FastAPI()
-
+handler = app
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
