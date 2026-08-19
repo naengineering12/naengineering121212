@@ -63,7 +63,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "node scripts/patch-clients.js && craco build",
+    "build": "craco build",
     "test": "craco test"
   },
   "browserslist": {
