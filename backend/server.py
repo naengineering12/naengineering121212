@@ -28,6 +28,7 @@ client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
 app = FastAPI()
+handler = app
 api_router = APIRouter(prefix="/api")
 
 class StatusCheck(BaseModel):
