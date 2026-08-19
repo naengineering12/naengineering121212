@@ -12,7 +12,7 @@ import json
 from pathlib import Path as FilePath
 from datetime import datetime, timezone, timedelta
 from fastapi.responses import StreamingResponse
-from emergentintegrations.llm.chat import LlmChat, UserMessage, TextDelta, StreamDone
+from openai import AsyncOpenAI
 import asyncio
 import html as html_lib
 import jwt
