@@ -64,8 +64,6 @@ async def submit_quote(
     phone: str = Form(""), service_required: str = Form(...), message: str = Form(...),
     attachment: Optional[UploadFile] = File(None),
 ):
-    if db is None:
-        raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
     if attachment and not attachment.filename:
         attachment = None
     if attachment and attachment.size and attachment.size > 8 * 1024 * 1024:
@@ -76,40 +74,54 @@ async def submit_quote(
         extension = FilePath(attachment.filename or "").suffix.lower()
         if extension not in allowed_extensions or (attachment.content_type and attachment.content_type not in allowed_types):
             raise HTTPException(status_code=415, detail="Unsupported attachment type")
+
     attachment_name = attachment.filename if attachment else None
     attachment_path = None
-    attachment_content_type = None
+    attachment_content_type = attachment.content_type if attachment else None
+    attachment_data = None
     if attachment:
-        file_data = await attachment.read()
+        attachment_data = await attachment.read()
         ext = FilePath(attachment.filename or "file").suffix.lower().lstrip(".") or "bin"
         attachment_path = f"na-engineering/uploads/{uuid.uuid4()}.{ext}"
-        attachment_content_type = attachment.content_type
-        try:
-            await asyncio.to_thread(put_object, attachment_path, file_data, attachment.content_type or "application/octet-stream")
-        except Exception as e:
-            logger.error(f"Attachment upload failed: {e}")
-            attachment_path = None
-            attachment_content_type = None
+        if db is not None:
+            try:
+                await asyncio.to_thread(put_object, attachment_path, attachment_data, attachment.content_type or "application/octet-stream")
+            except Exception as e:
+                logger.error(f"Attachment upload failed: {e}")
+                attachment_path = None
+                attachment_content_type = None
+
     record = QuoteRequest(full_name=full_name, company_name=company_name, email=email, phone=phone, service_required=service_required, message=message, attachment_name=attachment_name, attachment_path=attachment_path, attachment_content_type=attachment_content_type)
-    doc = record.model_dump()
-    doc["created_at"] = doc["created_at"].isoformat()
-    await db.quote_requests.insert_one(doc)
-    await send_quote_email(record)
+
+    # Email is the primary delivery mechanism. MongoDB is optional storage only.
+    if db is not None:
+        try:
+            doc = record.model_dump()
+            doc["created_at"] = doc["created_at"].isoformat()
+            await db.quote_requests.insert_one(doc)
+        except Exception as e:
+            logger.error(f"Quote database save failed: {e}")
+
+    try:
+        await send_quote_email(record, attachment_data)
+    except Exception as e:
+        logger.error(f"Quote email failed: {e}")
+        raise HTTPException(status_code=503, detail="Quote email service is unavailable. Please email na.engineeringsolutions2023@gmail.com directly.")
+
     return record
 
-async def send_quote_email(record: QuoteRequest):
+async def send_quote_email(record: QuoteRequest, attachment_data: Optional[bytes] = None):
     api_key = os.environ.get("RESEND_API_KEY")
     if not api_key:
-        logger.info("RESEND_API_KEY not set - skipping quote notification email")
-        return
+        raise RuntimeError("RESEND_API_KEY is not configured")
     resend.api_key = api_key
     fields = [("Name", record.full_name), ("Company", record.company_name or "-"), ("Email", record.email), ("Phone", record.phone or "-"), ("Service", record.service_required), ("Message", record.message), ("Attachment", record.attachment_name or "None")]
     rows = "".join(f"<tr><td style='padding:8px 12px;border:1px solid #ddd;color:#555;font-size:13px'>{k}</td><td style='padding:8px 12px;border:1px solid #ddd;font-size:13px'>{html_lib.escape(str(v))}</td></tr>" for k, v in fields)
-    params = {"from": os.environ.get("SENDER_EMAIL", "onboarding@resend.dev"), "to": [os.environ.get("NOTIFY_EMAIL", "na.engineeringsolutions2023@gmail.com")], "subject": f"New Quote Request - {record.service_required}", "html": f"<div style='font-family:Arial,sans-serif;max-width:560px'><h2 style='color:#0A1128'>New Quote Request</h2><table style='border-collapse:collapse;width:100%'>{rows}</table><p style='color:#888;font-size:11px'>Submitted via the NA Engineering Solutions website.</p></div>"}
-    try:
-        await asyncio.to_thread(resend.Emails.send, params)
-    except Exception as e:
-        logger.error(f"Quote email failed: {e}")
+    params = {"from": os.environ.get("SENDER_EMAIL", "onboarding@resend.dev"), "to": [os.environ.get("NOTIFY_EMAIL", "na.engineeringsolutions2023@gmail.com")], "reply_to": [record.email], "subject": f"New Quote Request - {record.service_required}", "html": f"<div style='font-family:Arial,sans-serif;max-width:560px'><h2 style='color:#0A1128'>New Quote Request</h2><table style='border-collapse:collapse;width:100%'>{rows}</table><p style='color:#888;font-size:11px'>Submitted via the NA Engineering Solutions website.</p></div>"}
+    if attachment_data and record.attachment_name:
+        import base64
+        params["attachments"] = [{"filename": record.attachment_name, "content": base64.b64encode(attachment_data).decode("ascii")}]
+    await asyncio.to_thread(resend.Emails.send, params)
 
 JWT_ALGORITHM = "HS256"
 
