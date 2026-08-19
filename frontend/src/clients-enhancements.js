@@ -1,4 +1,4 @@
-/* Same-site Our Clients enhancement: replaces the old client list on the existing /clients route. */
+/* Same-site Our Clients enhancement: richer content, client story panel and distinctive cards. */
 const CLIENTS = [
   { name: "Gerry's dnata", category: "Aviation & Ground Handling", initials: "GD", domain: "gerrysdnata.com", href: "https://www.gerrysdnata.com/", description: "Ground handling, cargo and airport support services across Pakistan." },
   { name: "Interloop Limited", category: "Textile Manufacturing", initials: "IL", domain: "interloop-pk.com", href: "https://interloop-pk.com/", description: "Engineering, facility and industrial support for large-scale textile manufacturing." },
@@ -15,19 +15,35 @@ const CLIENTS = [
 
 const logoUrl = (domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
 
-function cardHtml(client) {
+function cardHtml(client, index) {
   const external = client.href !== '#';
   return `<a class="client-card client-card-enhanced" href="${client.href}" ${external ? 'target="_blank" rel="noreferrer"' : ''} aria-label="${client.name}">
+    <span class="client-card-number">${String(index + 1).padStart(2, '0')}</span>
     <div class="client-logo-wrap"><span class="client-logo-fallback">${client.initials}</span><img src="${logoUrl(client.domain)}" alt="${client.name} logo" loading="lazy" onerror="this.style.display='none'" /></div>
     <span class="client-ind">${client.category}</span>
     <h3>${client.name}</h3>
     <p>${client.description}</p>
-    ${external ? '<span class="client-card-arrow">↗</span>' : ''}
+    ${external ? '<span class="client-card-arrow">↗</span>' : '<span class="client-card-arrow client-card-arrow-muted">•</span>'}
   </a>`;
 }
 
 function logoChipHtml(client) {
   return `<a class="logo-chip logo-chip-enhanced" href="${client.href}" ${client.href !== '#' ? 'target="_blank" rel="noreferrer"' : ''} title="${client.name}"><span class="logo-mono">${client.initials}</span><img src="${logoUrl(client.domain)}" alt="${client.name} logo" loading="lazy" onerror="this.style.display='none'"/><span class="logo-chip-name">${client.name}</span></a>`;
+}
+
+function storyHtml() {
+  return `<div class="clients-story-panel" data-na-story="true">
+    <div class="clients-story-main">
+      <span class="clients-story-kicker">ENGINEERING × PARTNERSHIP</span>
+      <h3>Built around the way our clients work.</h3>
+      <p>Every client requirement is different. We combine engineering know-how, dependable sourcing and practical site support to help organizations keep projects moving — from airport operations and manufacturing plants to industrial, commercial and facility environments.</p>
+    </div>
+    <div class="clients-story-points">
+      <div><strong>01</strong><span>Understand the requirement</span></div>
+      <div><strong>02</strong><span>Source the right solution</span></div>
+      <div><strong>03</strong><span>Deliver with site-ready support</span></div>
+    </div>
+  </div>`;
 }
 
 function enhanceClientsPage() {
@@ -36,9 +52,20 @@ function enhanceClientsPage() {
   const logos = document.querySelector('.logos-row');
   if (!grid || !logos) return false;
   if (grid.dataset.naEnhanced === 'true') return true;
+
+  const sectionHeading = logos.parentElement?.querySelector('.section-heading');
+  if (sectionHeading) {
+    const paragraph = sectionHeading.querySelector('p');
+    if (paragraph) paragraph.textContent = 'From aviation and textiles to chemicals, cement, real estate and consumer operations, our support is shaped around real-world requirements, dependable delivery and long-term relationships.';
+  }
+
+  if (!document.querySelector('.clients-story-panel')) {
+    logos.insertAdjacentHTML('afterend', storyHtml());
+  }
+
   grid.innerHTML = CLIENTS.map(cardHtml).join('');
-  logos.innerHTML = CLIENTS.map(logoChipHtml).join('');
   grid.dataset.naEnhanced = 'true';
+  logos.innerHTML = CLIENTS.map(logoChipHtml).join('');
   logos.dataset.naEnhanced = 'true';
   return true;
 }
