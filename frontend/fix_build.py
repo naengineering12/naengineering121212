@@ -1,9 +1,14 @@
-"""Compatibility no-op for the existing Vercel build command.
+"""Apply deterministic frontend syntax repairs required by the current Vercel build."""
+from pathlib import Path
 
-The Vercel project currently runs `python3 fix_build.py && craco build`.
-Source-mutating repair logic was removed; this file intentionally does not
-modify the frontend source and simply allows the normal build to continue.
-"""
+path = Path("src/App.js")
+source = path.read_text()
 
-if __name__ == "__main__":
-    print("Frontend source is left unchanged; continuing with craco build.")
+# About() must close its React fragment before Industries().
+source = source.replace("</main>}\nfunction Industries", "</main></>}\nfunction Industries", 1)
+
+# Keep the streamed chat parser's separator as a normal escaped literal.
+source = source.replace("const parts=buf.split('\\n\\n');", "const parts=buf.split('\\n\\n');", 1)
+
+path.write_text(source)
+print("Frontend syntax repairs applied before build.")
