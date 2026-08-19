@@ -56,9 +56,7 @@ function ChatWidget(){
       const res=await fetch(`${API}/chat`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:session.current,message,model})});
       if(!res.ok||!res.body)throw new Error('chat failed');
       const reader=res.body.getReader();const dec=new TextDecoder();let buf='';let acc='';
-      for(;;){const{done,value}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});const parts=buf.split('
-
-');buf=parts.pop();
+      for(;;){const{done,value}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});const parts=buf.split('\n\n');buf=parts.pop();
         for(const p of parts){const line=p.trim();if(!line.startsWith('data:'))continue;const data=line.slice(5).trim();if(data==='[DONE]')continue;try{acc+=JSON.parse(data).delta;const snapshot=acc;setMsgs(m=>{const c=[...m];c[c.length-1]={role:'assistant',text:snapshot};return c})}catch(parseErr){}}}
     }catch(err){setMsgs(m=>{const c=[...m];c[c.length-1]={role:'assistant',text:'Sorry — I could not answer right now. Please use the contact form or email na.engineeringsolutions2023@gmail.com.'};return c})}
     setBusy(false);
