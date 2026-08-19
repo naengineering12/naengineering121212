@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from dotenv import load_dotenv
 from pathlib import Path
 from datetime import datetime, timezone
@@ -40,6 +40,9 @@ class QuoteResponse(BaseModel):
     handled: bool = False
     created_at: datetime
 
+@app.get("/api/quote")
+async def quote_health():
+    return {"ok": True, "service": "quote-email", "recipient": "na.engineeringsolutions2023@gmail.com"}
 
 def email_row(label: str, value: str) -> str:
     return (
@@ -48,7 +51,6 @@ def email_row(label: str, value: str) -> str:
         f"<td style='padding:8px 12px;border:1px solid #ddd;font-size:13px'>{html.escape(value or '-')}</td>"
         "</tr>"
     )
-
 
 async def send_quote_email(
     *,
@@ -66,7 +68,7 @@ async def send_quote_email(
     if not api_key:
         raise HTTPException(status_code=503, detail="Quote email service is not configured")
 
-    recipient = "na.engineeringsolutions2023@gmail.com"
+    recipient = os.environ.get("NOTIFY_EMAIL") or "na.engineeringsolutions2023@gmail.com"
     sender = os.environ.get("SENDER_EMAIL") or os.environ.get("RESEND_FROM_EMAIL") or "onboarding@resend.dev"
     resend.api_key = api_key
 
@@ -105,8 +107,7 @@ async def send_quote_email(
     try:
         await asyncio.to_thread(resend.Emails.send, params)
     except Exception as exc:
-        raise HTTPException(status_code=502, detail=f"Could not send quote email: {exc}")
-
+        raise HTTPException(status_code=502, detail="Could not send quote email. Please try again.") from exc
 
 @app.post("/api/quote", response_model=QuoteResponse)
 async def submit_quote(
@@ -132,8 +133,6 @@ async def submit_quote(
         if extension not in ALLOWED_EXTENSIONS:
             raise HTTPException(status_code=415, detail="Unsupported attachment type")
 
-    # Email is intentionally the primary delivery path. A database outage cannot
-    # prevent a customer quote from reaching the company inbox.
     await send_quote_email(
         full_name=full_name.strip(),
         company_name=company_name.strip(),
