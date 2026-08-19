@@ -3,15 +3,21 @@ import re
 
 path = Path("src/App.js")
 source = path.read_text()
-pattern = r"const parts=buf\.split\('[^']*'\);"
-fixed = re.sub(
-    pattern,
+
+# Repair the malformed chat stream separator if it ever reappears.
+source = re.sub(
+    r"const parts=buf\.split\('[^']*'\);",
     lambda _: "const parts=buf.split('\\n\\n');",
     source,
     count=1,
 )
-if fixed != source:
-    path.write_text(fixed)
-    print("Fixed malformed chat stream split before build.")
-else:
-    print("Chat stream split is already valid.")
+
+# Repair the missing closing fragment in About().
+source = source.replace(
+    "</main>}\n\nfunction Industries",
+    "</main></>}\n\nfunction Industries",
+    1,
+)
+
+path.write_text(source)
+print("Frontend syntax repairs applied before build.")
