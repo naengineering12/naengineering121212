@@ -20,26 +20,18 @@ import resend
 import requests
 from fastapi import Response
 
-
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# Create the main app without a prefix
 app = FastAPI()
-handler = app
-# Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
-
-# Define Models
 class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
+    model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     client_name: str
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
@@ -61,7 +53,6 @@ class QuoteRequest(BaseModel):
     handled: bool = False
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-# Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
     return {"message": "NA Engineering Solutions API"}
@@ -77,9 +68,7 @@ async def submit_quote(
     if attachment and attachment.size and attachment.size > 8 * 1024 * 1024:
         raise HTTPException(status_code=413, detail="Attachment must be smaller than 8 MB")
     allowed_extensions = {".pdf", ".doc", ".docx", ".xls", ".xlsx", ".csv", ".jpg", ".jpeg", ".png"}
-    allowed_types = {"application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                     "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                     "text/csv", "image/jpeg", "image/png"}
+    allowed_types = {"application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "text/csv", "image/jpeg", "image/png"}
     if attachment:
         extension = FilePath(attachment.filename or "").suffix.lower()
         if extension not in allowed_extensions or (attachment.content_type and attachment.content_type not in allowed_types):
@@ -98,10 +87,7 @@ async def submit_quote(
             logger.error(f"Attachment upload failed: {e}")
             attachment_path = None
             attachment_content_type = None
-    record = QuoteRequest(full_name=full_name, company_name=company_name, email=email,
-                          phone=phone, service_required=service_required, message=message,
-                          attachment_name=attachment_name, attachment_path=attachment_path,
-                          attachment_content_type=attachment_content_type)
+    record = QuoteRequest(full_name=full_name, company_name=company_name, email=email, phone=phone, service_required=service_required, message=message, attachment_name=attachment_name, attachment_path=attachment_path, attachment_content_type=attachment_content_type)
     doc = record.model_dump()
     doc["created_at"] = doc["created_at"].isoformat()
     await db.quote_requests.insert_one(doc)
@@ -114,19 +100,9 @@ async def send_quote_email(record: QuoteRequest):
         logger.info("RESEND_API_KEY not set - skipping quote notification email")
         return
     resend.api_key = api_key
-    fields = [("Name", record.full_name), ("Company", record.company_name or "-"), ("Email", record.email),
-              ("Phone", record.phone or "-"), ("Service", record.service_required), ("Message", record.message),
-              ("Attachment", record.attachment_name or "None")]
-    rows = "".join(
-        f"<tr><td style='padding:8px 12px;border:1px solid #ddd;color:#555;font-size:13px'>{k}</td>"
-        f"<td style='padding:8px 12px;border:1px solid #ddd;font-size:13px'>{html_lib.escape(str(v))}</td></tr>"
-        for k, v in fields)
-    params = {
-        "from": os.environ.get("SENDER_EMAIL", "onboarding@resend.dev"),
-        "to": [os.environ.get("NOTIFY_EMAIL", "na.engineeringsolutions2023@gmail.com")],
-        "subject": f"New Quote Request - {record.service_required}",
-        "html": f"<div style='font-family:Arial,sans-serif;max-width:560px'><h2 style='color:#0A1128'>New Quote Request</h2><table style='border-collapse:collapse;width:100%'>{rows}</table><p style='color:#888;font-size:11px'>Submitted via the NA Engineering Solutions website.</p></div>",
-    }
+    fields = [("Name", record.full_name), ("Company", record.company_name or "-"), ("Email", record.email), ("Phone", record.phone or "-"), ("Service", record.service_required), ("Message", record.message), ("Attachment", record.attachment_name or "None")]
+    rows = "".join(f"<tr><td style='padding:8px 12px;border:1px solid #ddd;color:#555;font-size:13px'>{k}</td><td style='padding:8px 12px;border:1px solid #ddd;font-size:13px'>{html_lib.escape(str(v))}</td></tr>" for k, v in fields)
+    params = {"from": os.environ.get("SENDER_EMAIL", "onboarding@resend.dev"), "to": [os.environ.get("NOTIFY_EMAIL", "na.engineeringsolutions2023@gmail.com")], "subject": f"New Quote Request - {record.service_required}", "html": f"<div style='font-family:Arial,sans-serif;max-width:560px'><h2 style='color:#0A1128'>New Quote Request</h2><table style='border-collapse:collapse;width:100%'>{rows}</table><p style='color:#888;font-size:11px'>Submitted via the NA Engineering Solutions website.</p></div>"}
     try:
         await asyncio.to_thread(resend.Emails.send, params)
     except Exception as e:
@@ -153,8 +129,7 @@ async def require_admin(authorization: str = Header(None)):
 async def admin_login(input: AdminLogin):
     if input.email.lower() != os.environ["ADMIN_EMAIL"].lower() or input.password != os.environ["ADMIN_PASSWORD"]:
         raise HTTPException(status_code=401, detail="Invalid email or password")
-    payload = {"sub": "admin", "email": input.email.lower(), "type": "admin",
-               "exp": datetime.now(timezone.utc) + timedelta(hours=12)}
+    payload = {"sub": "admin", "email": input.email.lower(), "type": "admin", "exp": datetime.now(timezone.utc) + timedelta(hours=12)}
     return {"token": jwt.encode(payload, os.environ["JWT_SECRET"], algorithm=JWT_ALGORITHM), "email": input.email.lower()}
 
 @api_router.get("/admin/quotes")
@@ -189,9 +164,26 @@ async def chat_with_ai(input: ChatInput):
     if history:
         context = "Conversation so far:\n" + "\n".join(f"{m['role']}: {m['text']}" for m in history[-12:]) + "\n\nVisitor: "
     await db.chat_messages.insert_one({"session_id": input.session_id, "role": "visitor", "text": message, "created_at": datetime.now(timezone.utc).isoformat()})
-    provider, model_name = ("gemini", "gemini-3.5-flash") if input.model == "gemini" else ("openai", "gpt-5.4")
+    api_key = os.environ.get("OPENAI_API_KEY") or os.environ.get("EMERGENT_LLM_KEY")
+    if not api_key:
+        raise HTTPException(status_code=500, detail="AI API key is not configured")
+    ai_client = AsyncOpenAI(api_key=api_key)
+
+    async def event_generator():
+        parts = []
+        response = await ai_client.chat.completions.create(
+            model="gpt-5.4",
+            messages=[{"role": "system", "content": CHAT_SYSTEM}, {"role": "user", "content": context + message}],
+            stream=True,
+        )
+        async for chunk in response:
+            delta = chunk.choices[0].delta.content if chunk.choices else None
+            if delta:
+                parts.append(delta)
+                yield f"data: {json.dumps({'delta': delta})}\n\n"
         await db.chat_messages.insert_one({"session_id": input.session_id, "role": "assistant", "text": "".join(parts), "created_at": datetime.now(timezone.utc).isoformat()})
         yield "data: [DONE]\n\n"
+
     return StreamingResponse(event_generator(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
 class HandledUpdate(BaseModel):
@@ -214,49 +206,28 @@ async def download_attachment(quote_id: str, admin=Depends(require_admin)):
     except Exception:
         raise HTTPException(status_code=404, detail="File missing from storage")
     filename = quote.get("attachment_name") or "attachment"
-    return Response(content=data, media_type=quote.get("attachment_content_type") or content_type,
-                    headers={"Content-Disposition": f'attachment; filename="{filename}"'})
+    return Response(content=data, media_type=quote.get("attachment_content_type") or content_type, headers={"Content-Disposition": f'attachment; filename="{filename}"'})
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
+    status_obj = StatusCheck(**input.model_dump())
     doc = status_obj.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
+    await db.status_checks.insert_one(doc)
     return status_obj
 
 @api_router.get("/status", response_model=List[StatusCheck])
 async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
     status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
     for check in status_checks:
         if isinstance(check['timestamp'], str):
             check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
     return status_checks
 
-# Include the router in the main app
 app.include_router(api_router)
+app.add_middleware(CORSMiddleware, allow_credentials=True, allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','), allow_methods=["*"], allow_headers=["*"])
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 STORAGE_BASE = (os.environ.get("INTEGRATION_PROXY_URL") or "").strip() or "https://integrations.emergentagent.com"
