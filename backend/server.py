@@ -23,9 +23,9 @@ from fastapi import Response
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+mongo_url = os.environ.get('MONGO_URL')
+client = AsyncIOMotorClient(mongo_url) if mongo_url else None
+db = client[os.environ.get('DB_NAME', 'na_engineering')] if client else None
 
 app = FastAPI()
 handler = app
@@ -64,6 +64,8 @@ async def submit_quote(
     phone: str = Form(""), service_required: str = Form(...), message: str = Form(...),
     attachment: Optional[UploadFile] = File(None),
 ):
+    if db is None:
+        raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
     if attachment and not attachment.filename:
         attachment = None
     if attachment and attachment.size and attachment.size > 8 * 1024 * 1024:
@@ -118,8 +120,11 @@ class AdminLogin(BaseModel):
 async def require_admin(authorization: str = Header(None)):
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Not authenticated")
+    secret = os.environ.get("JWT_SECRET")
+    if not secret:
+        raise HTTPException(status_code=503, detail="Admin authentication is not configured")
     try:
-        payload = jwt.decode(authorization[7:], os.environ["JWT_SECRET"], algorithms=[JWT_ALGORITHM])
+        payload = jwt.decode(authorization[7:], secret, algorithms=[JWT_ALGORITHM])
         if payload.get("type") != "admin":
             raise HTTPException(status_code=401, detail="Invalid token")
         return payload
@@ -128,17 +133,26 @@ async def require_admin(authorization: str = Header(None)):
 
 @api_router.post("/admin/login")
 async def admin_login(input: AdminLogin):
-    if input.email.lower() != os.environ["ADMIN_EMAIL"].lower() or input.password != os.environ["ADMIN_PASSWORD"]:
+    admin_email = os.environ.get("ADMIN_EMAIL")
+    admin_password = os.environ.get("ADMIN_PASSWORD")
+    jwt_secret = os.environ.get("JWT_SECRET")
+    if not admin_email or not admin_password or not jwt_secret:
+        raise HTTPException(status_code=503, detail="Admin authentication is not configured")
+    if input.email.lower() != admin_email.lower() or input.password != admin_password:
         raise HTTPException(status_code=401, detail="Invalid email or password")
     payload = {"sub": "admin", "email": input.email.lower(), "type": "admin", "exp": datetime.now(timezone.utc) + timedelta(hours=12)}
-    return {"token": jwt.encode(payload, os.environ["JWT_SECRET"], algorithm=JWT_ALGORITHM), "email": input.email.lower()}
+    return {"token": jwt.encode(payload, jwt_secret, algorithm=JWT_ALGORITHM), "email": input.email.lower()}
 
 @api_router.get("/admin/quotes")
 async def list_quotes(admin=Depends(require_admin)):
+    if db is None:
+        raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
     return await db.quote_requests.find({}, {"_id": 0}).sort("created_at", -1).to_list(500)
 
 @api_router.get("/admin/chats")
 async def list_chats(admin=Depends(require_admin)):
+    if db is None:
+        raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
     return await db.chat_messages.find({}, {"_id": 0}).sort("created_at", 1).to_list(2000)
 
 CHAT_SYSTEM = (
@@ -157,6 +171,8 @@ class ChatInput(BaseModel):
 
 @api_router.post("/chat")
 async def chat_with_ai(input: ChatInput):
+    if db is None:
+        raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
     message = input.message.strip()
     if not message:
         raise HTTPException(status_code=400, detail="Message is required")
@@ -192,6 +208,8 @@ class HandledUpdate(BaseModel):
 
 @api_router.patch("/admin/quotes/{quote_id}/handled")
 async def set_handled(quote_id: str, update: HandledUpdate, admin=Depends(require_admin)):
+    if db is None:
+        raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
     result = await db.quote_requests.update_one({"id": quote_id}, {"$set": {"handled": update.handled}})
     if result.matched_count == 0:
         raise HTTPException(status_code=404, detail="Quote not found")
@@ -199,6 +217,8 @@ async def set_handled(quote_id: str, update: HandledUpdate, admin=Depends(requir
 
 @api_router.get("/admin/files/{quote_id}")
 async def download_attachment(quote_id: str, admin=Depends(require_admin)):
+    if db is None:
+        raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
     quote = await db.quote_requests.find_one({"id": quote_id}, {"_id": 0})
     if not quote or not quote.get("attachment_path"):
         raise HTTPException(status_code=404, detail="Attachment not found")
@@ -211,6 +231,8 @@ async def download_attachment(quote_id: str, admin=Depends(require_admin)):
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
+    if db is None:
+        raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
     status_obj = StatusCheck(**input.model_dump())
     doc = status_obj.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
@@ -219,6 +241,8 @@ async def create_status_check(input: StatusCheckCreate):
 
 @api_router.get("/status", response_model=List[StatusCheck])
 async def get_status_checks():
+    if db is None:
+        raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
     status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
     for check in status_checks:
         if isinstance(check['timestamp'], str):
@@ -266,4 +290,5 @@ async def startup_storage():
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
-    client.close()
+    if client is not None:
+        client.close()
