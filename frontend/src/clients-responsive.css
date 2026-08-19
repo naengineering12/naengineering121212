@@ -19,3 +19,10 @@
 @media(max-width:1000px){.logos-row{grid-template-columns:repeat(3,minmax(0,1fr))!important}.clients-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:680px){.logos-row{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.logo-chip-enhanced{min-height:74px;padding:11px}.logo-chip-enhanced img{width:34px;height:34px}.logo-chip-name{font-size:11px}.clients-grid{grid-template-columns:1fr!important;gap:12px!important}.client-card-enhanced{min-height:220px!important;padding:22px!important}.client-logo-wrap{height:58px;margin-bottom:15px}.client-logo-wrap img,.client-logo-fallback{width:52px;height:52px}.section{padding:78px 0}.section-heading{display:block}.section-heading p{margin-top:16px}.container{width:min(100% - 32px,1180px)}}
 @media(max-width:430px){.logos-row{grid-template-columns:1fr!important}.logo-chip-enhanced{min-height:68px}.client-card-enhanced h3{font-size:19px!important}}
+
+/* Footer brand: keep the exact same company name treatment as the header. */
+.footer .logo{display:flex;align-items:center;gap:11px;letter-spacing:.03em}
+.footer .logo-img{height:48px;width:auto;display:block}
+.footer .logo-text b{display:block;font:700 12px Chivo;letter-spacing:.08em}
+.footer .logo-text small{display:block;color:#9ba7bb;font:600 9px Inter;letter-spacing:.25em;margin-top:3px}
+@media(max-width:680px){.footer .logo-img{height:44px}.footer .logo-text b{font-size:11px}.footer .logo-text small{font-size:8px}}
