@@ -1,0 +1,47 @@
+name: Fix frontend build
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix-app-js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fix malformed chat stream split
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('frontend/src/App.js')
+          s = p.read_text()
+          fixed = re.sub(
+              r"const parts=buf\.split\('[^']*'\);",
+              "const parts=buf.split('\\n\\n');",
+              s,
+              count=1,
+          )
+          if fixed != s:
+              p.write_text(fixed)
+              print('Fixed malformed chat stream split expression.')
+          else:
+              print('No malformed chat stream split expression found.')
+          PY
+
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add frontend/src/App.js
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Fix frontend build syntax error"
+            git push
+          fi
