@@ -1,25 +1,29 @@
-/* Same-site Our Clients enhancement: richer content, client story panel and distinctive cards. */
+/* Our Clients enhancement: verified company domains, reliable logo fallback and complete client grid. */
 const CLIENTS = [
   { name: "Gerry's dnata", category: "Aviation & Ground Handling", initials: "GD", domain: "gerrysdnata.com", href: "https://www.gerrysdnata.com/", description: "Ground handling, cargo and airport support services across Pakistan." },
   { name: "Interloop Limited", category: "Textile Manufacturing", initials: "IL", domain: "interloop-pk.com", href: "https://interloop-pk.com/", description: "Engineering, facility and industrial support for large-scale textile manufacturing." },
-  { name: "Lahore International Airport", category: "Aviation & Infrastructure", initials: "LA", domain: "airportauthority.com.pk", href: "#", description: "Facility, engineering and technical support for airport operations." },
+  { name: "Lahore International Airport", category: "Aviation & Infrastructure", initials: "LA", domain: "paa.gov.pk", href: "#", description: "Facility, engineering and technical support for airport operations." },
   { name: "Sialkot International Airport", category: "Aviation & Infrastructure", initials: "SA", domain: "sial.com.pk", href: "https://www.sial.com.pk/", description: "Maintenance, engineering and supply support for airport infrastructure." },
-  { name: "Multan International Airport", category: "Aviation & Infrastructure", initials: "MA", domain: "multaninternationalairport.com", href: "#", description: "Technical, maintenance and supply support for airport operations." },
+  { name: "Multan International Airport", category: "Aviation & Infrastructure", initials: "MA", domain: "paa.gov.pk", href: "#", description: "Technical, maintenance and supply support for airport operations." },
   { name: "Joyland Group", category: "Recreation & Entertainment", initials: "JG", domain: "joyland.com.pk", href: "https://joyland.com.pk/", description: "Facility engineering, maintenance and operational support." },
   { name: "Lake City", category: "Real Estate & Facilities", initials: "LC", domain: "lakecitylahore.com", href: "https://www.lakecitylahore.com/", description: "Engineering, facility maintenance and site support for real estate operations." },
-  { name: "Fatima Fertilizer", category: "Fertilizer & Industrial", initials: "FF", domain: "fatimafertilizer.com", href: "https://fatimafertilizer.com/", description: "Industrial engineering, maintenance and supply support for fertilizer operations." },
+  { name: "Fatima Fertilizer", category: "Fertilizer & Industrial", initials: "FF", domain: "fatima-group.com", href: "https://www.fatima-group.com/", description: "Industrial engineering, maintenance and supply support for fertilizer operations." },
   { name: "ZIC Oil", category: "Lubricants & Industrial", initials: "ZIC", domain: "zicoil.pk", href: "https://zicoil.pk/", description: "Industrial lubricant and facility support requirements." },
   { name: "Dandot Cement", category: "Cement & Construction Materials", initials: "DC", domain: "dandotcement.com", href: "https://www.dandotcement.com/", description: "Mechanical, electrical and industrial support for cement plant environments." },
   { name: "Nimir Chemicals", category: "Chemical & Industrial", initials: "NC", domain: "nimirchemicals.com", href: "https://nimirchemicals.com/", description: "Industrial supplies, maintenance and engineering support for chemical processing." },
 ];
 
-const logoUrl = (domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+const logoUrl = (domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=256`;
+
+function logoImage(client, className = '') {
+  return `<img class="${className}" src="${logoUrl(client.domain)}" alt="${client.name} logo" loading="lazy" decoding="async" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'" />`;
+}
 
 function cardHtml(client, index) {
   const external = client.href !== '#';
   return `<a class="client-card client-card-enhanced" href="${client.href}" ${external ? 'target="_blank" rel="noreferrer"' : ''} aria-label="${client.name}">
     <span class="client-card-number">${String(index + 1).padStart(2, '0')}</span>
-    <div class="client-logo-wrap"><span class="client-logo-fallback">${client.initials}</span><img src="${logoUrl(client.domain)}" alt="${client.name} logo" loading="lazy" onerror="this.style.display='none'" /></div>
+    <div class="client-logo-wrap"><span class="client-logo-fallback">${client.initials}</span>${logoImage(client, 'client-company-logo')}</div>
     <span class="client-ind">${client.category}</span>
     <h3>${client.name}</h3>
     <p>${client.description}</p>
@@ -28,7 +32,7 @@ function cardHtml(client, index) {
 }
 
 function logoChipHtml(client) {
-  return `<a class="logo-chip logo-chip-enhanced" href="${client.href}" ${client.href !== '#' ? 'target="_blank" rel="noreferrer"' : ''} title="${client.name}"><span class="logo-mono">${client.initials}</span><img src="${logoUrl(client.domain)}" alt="${client.name} logo" loading="lazy" onerror="this.style.display='none'"/><span class="logo-chip-name">${client.name}</span></a>`;
+  return `<a class="logo-chip logo-chip-enhanced" href="${client.href}" ${client.href !== '#' ? 'target="_blank" rel="noreferrer"' : ''} title="${client.name}"><span class="logo-mono">${client.initials}</span>${logoImage(client, 'client-company-logo-chip')}<span class="logo-chip-name">${client.name}</span></a>`;
 }
 
 function storyHtml() {
@@ -59,10 +63,7 @@ function enhanceClientsPage() {
     if (paragraph) paragraph.textContent = 'From aviation and textiles to chemicals, cement, real estate and consumer operations, our support is shaped around real-world requirements, dependable delivery and long-term relationships.';
   }
 
-  if (!document.querySelector('.clients-story-panel')) {
-    logos.insertAdjacentHTML('afterend', storyHtml());
-  }
-
+  if (!document.querySelector('.clients-story-panel')) logos.insertAdjacentHTML('afterend', storyHtml());
   grid.innerHTML = CLIENTS.map(cardHtml).join('');
   grid.dataset.naEnhanced = 'true';
   logos.innerHTML = CLIENTS.map(logoChipHtml).join('');
@@ -75,7 +76,6 @@ const boot = () => {
   if (enhanceClientsPage()) return;
   if (attempts++ < 120) window.setTimeout(boot, 100);
 };
-
 boot();
 const observer = new MutationObserver(() => {
   if (window.location.pathname === '/clients') enhanceClientsPage();
