@@ -1,0 +1,4 @@
+{
+  "buildCommand": "python3 fix_build.py && craco build",
+  "outputDirectory": "build"
+}
