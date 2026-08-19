@@ -12,11 +12,13 @@ source = re.sub(
     count=1,
 )
 
-# Repair the missing closing fragment in About().
-source = source.replace(
-    "</main>}\n\nfunction Industries",
-    "</main></>}\n\nfunction Industries",
-    1,
+# Repair the missing closing fragment in About(). The source may contain
+# either one or multiple blank lines before the next component.
+source = re.sub(
+    r"</main>}\s*function Industries",
+    "</main></>}\nfunction Industries",
+    source,
+    count=1,
 )
 
 path.write_text(source)
