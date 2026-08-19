@@ -4,17 +4,9 @@
     {
       "src": "server.py",
       "use": "@vercel/python"
-    },
-    {
-      "src": "quote.py",
-      "use": "@vercel/python"
     }
   ],
   "routes": [
-    {
-      "src": "/api/quote",
-      "dest": "quote.py"
-    },
     {
       "src": "/(.*)",
       "dest": "server.py"
