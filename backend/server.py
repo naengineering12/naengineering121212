@@ -190,15 +190,6 @@ async def chat_with_ai(input: ChatInput):
         context = "Conversation so far:\n" + "\n".join(f"{m['role']}: {m['text']}" for m in history[-12:]) + "\n\nVisitor: "
     await db.chat_messages.insert_one({"session_id": input.session_id, "role": "visitor", "text": message, "created_at": datetime.now(timezone.utc).isoformat()})
     provider, model_name = ("gemini", "gemini-3.5-flash") if input.model == "gemini" else ("openai", "gpt-5.4")
-    chat = LlmChat(api_key=os.environ["EMERGENT_LLM_KEY"], session_id=f"na-{input.session_id}-{provider}", system_message=CHAT_SYSTEM).with_model(provider, model_name)
-    async def event_generator():
-        parts = []
-        async for event in chat.stream_message(UserMessage(text=context + message)):
-            if isinstance(event, TextDelta):
-                parts.append(event.content)
-                yield f"data: {json.dumps({'delta': event.content})}\n\n"
-            elif isinstance(event, StreamDone):
-                break
         await db.chat_messages.insert_one({"session_id": input.session_id, "role": "assistant", "text": "".join(parts), "created_at": datetime.now(timezone.utc).isoformat()})
         yield "data: [DONE]\n\n"
     return StreamingResponse(event_generator(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
