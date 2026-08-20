@@ -1,9 +1,9 @@
 from pathlib import Path
 
-path = Path("src/App.css")
-source = path.read_text()
+# Keep the existing services hover interaction.
+css = Path("src/App.css")
+source = css.read_text()
 marker = "/* NA SERVICES HOVER EFFECT */"
-
 if marker not in source:
     source += r'''
 
@@ -30,39 +30,58 @@ if marker not in source:
 .service-row:hover .service-copy .button{transform:translateY(-3px);box-shadow:0 10px 24px rgba(10,17,40,.12)}
 @media(max-width:800px){.service-row:hover{transform:none}.service-row:after{display:none}.service-row:hover .service-image{transform:none;box-shadow:none}.service-row:hover .service-copy h2{transform:none}.service-row:hover .service-image img{transform:scale(1.02)}}
 '''
-    path.write_text(source)
-    print("Services hover effects applied.")
-else:
-    print("Services hover effects already applied.")
+    css.write_text(source)
 
-# Replace service-page photography with tiny local SVG assets shipped by the frontend.
-# The SVG files are under 1 KB each, so image size is not a build or browser-load issue.
+# The service listing and service detail pages must never depend on an external
+# image host. Use small inline SVG artwork instead. This is deliberately generated
+# at build time so there is no network request, no CORS issue and no missing asset.
 app = Path("src/App.js")
-app_source = app.read_text()
-service_images = {
-    "https://images.unsplash.com/photo-1565008447742-97f6f38c985c": "/service-images/civil-engineering.svg",
-    "https://images.unsplash.com/photo-1615309662243-70f6df917b59": "/service-images/hvac.svg",
-    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64": "/service-images/mechanical-engineering.svg",
-    "https://images.unsplash.com/photo-1429497419816-9ca5cfb4571a": "/service-images/peb-works.svg",
-    "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e": "/service-images/electrical-works.svg",
-    "https://images.unsplash.com/photo-1523861751938-121b5323b48b": "/service-images/fire-fighting.svg",
-    "https://images.unsplash.com/photo-1567954970774-58d6aa6c50dc": "/service-images/safety-security.svg",
+source = app.read_text()
+
+art = {
+    "civil-engineering": '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07112f"/><stop offset="1" stop-color="#34556a"/></linearGradient></defs><rect width="1200" height="900" fill="url(#g)"/><path d="M120 690h960M190 690V350l160-120 160 120v340M690 690V300l170-110 160 110v390" fill="none" stroke="#ffb15c" stroke-width="18"/><path d="M350 250v-80M800 220v-80" stroke="#fff" stroke-width="12"/><text x="70" y="110" fill="#fff" font-family="Arial" font-size="52" font-weight="700">CIVIL ENGINEERING</text></svg>''',
+    "hvac": '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07112f"/><stop offset="1" stop-color="#0b7285"/></linearGradient></defs><rect width="1200" height="900" fill="url(#g)"/><g fill="none" stroke="#fff" stroke-width="22"><path d="M160 300h880v170H160zM260 470v210M940 470v210M330 300V190h540v110"/></g><path d="M470 555h260" stroke="#ffb15c" stroke-width="28"/><text x="70" y="110" fill="#fff" font-family="Arial" font-size="52" font-weight="700">HVAC SYSTEMS</text></svg>''',
+    "mechanical-engineering": '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07112f"/><stop offset="1" stop-color="#40556d"/></linearGradient></defs><rect width="1200" height="900" fill="url(#g)"/><circle cx="600" cy="470" r="210" fill="none" stroke="#ffb15c" stroke-width="35"/><circle cx="600" cy="470" r="80" fill="none" stroke="#fff" stroke-width="28"/><path d="M600 230v-90M600 700v90M360 470h-90M840 470h90" stroke="#fff" stroke-width="24"/><text x="70" y="110" fill="#fff" font-family="Arial" font-size="48" font-weight="700">MECHANICAL ENGINEERING</text></svg>''',
+    "peb-works": '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07112f"/><stop offset="1" stop-color="#52677a"/></linearGradient></defs><rect width="1200" height="900" fill="url(#g)"/><path d="M130 700h940M190 700V360l410-220 410 220v340M360 700V430h480v270" fill="none" stroke="#ffb15c" stroke-width="22"/><path d="M600 140v560" stroke="#fff" stroke-width="16"/><text x="70" y="105" fill="#fff" font-family="Arial" font-size="52" font-weight="700">PEB WORKS</text></svg>''',
+    "electrical-works": '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07112f"/><stop offset="1" stop-color="#0b7285"/></linearGradient></defs><rect width="1200" height="900" fill="url(#g)"/><g fill="none" stroke="#ffb15c" stroke-width="18"><path d="M150 690h900M220 690V310l160-110 160 110v380M730 690V270l170-90 170 90v420"/></g><g fill="#fff"><rect x="300" y="370" width="70" height="120" rx="8"/><rect x="450" y="370" width="70" height="120" rx="8"/><rect x="790" y="340" width="70" height="120" rx="8"/><rect x="940" y="340" width="70" height="120" rx="8"/></g><path d="M590 300l-80 190h75l-40 120 150-220h-80z" fill="#ffb15c"/><text x="70" y="110" fill="#fff" font-family="Arial" font-size="52" font-weight="700">ELECTRICAL WORKS</text></svg>''',
+    "fire-fighting": '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07112f"/><stop offset="1" stop-color="#7b2d2d"/></linearGradient></defs><rect width="1200" height="900" fill="url(#g)"/><path d="M510 650h180V300H510zM540 300v-70h120v70" fill="#ffb15c"/><path d="M690 360h90v120" fill="none" stroke="#fff" stroke-width="22"/><path d="M600 190c-70 70-85 125-35 175 20-55 55-70 70-115 45 55 55 105 10 155 90-25 105-110 35-215-20 50-45 70-80 0z" fill="#fff"/><text x="70" y="110" fill="#fff" font-family="Arial" font-size="52" font-weight="700">FIRE FIGHTING</text></svg>''',
+    "safety-security": '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07112f"/><stop offset="1" stop-color="#1c4258"/></linearGradient></defs><rect width="1200" height="900" fill="url(#g)"/><path d="M600 220c115 25 190 65 190 65v185c0 150-90 245-190 285-100-40-190-135-190-285V285s75-40 190-65z" fill="#ffb15c"/><path d="M510 445l60 60 125-145" fill="none" stroke="#07112f" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/><path d="M360 690h480" stroke="#fff" stroke-width="20"/><circle cx="340" cy="690" r="35" fill="#ffb15c"/><circle cx="860" cy="690" r="35" fill="#ffb15c"/><text x="70" y="110" fill="#fff" font-family="Arial" font-size="52" font-weight="700">SAFETY &amp; SECURITY</text><text x="72" y="160" fill="#c9d6e6" font-family="Arial" font-size="25">PPE • FACILITY SAFETY • PROTECTION</text></svg>'''
 }
-changed = 0
-for old, new in service_images.items():
-    if old in app_source:
-        app_source = app_source.replace(old, new)
-        changed += 1
 
-# Do not append Unsplash query parameters to local SVG files.
-old_img = 'const img = (url) => `${url}?auto=format&fit=crop&w=1600&q=82`;'
-new_img = 'const img = (url) => url.startsWith("/service-images/") ? url : `${url}?auto=format&fit=crop&w=1600&q=82`;'
-if old_img in app_source:
-    app_source = app_source.replace(old_img, new_img, 1)
-    changed += 1
+# Store artwork as a compact JS object and make the image helper return it for
+# service images. All other website photography keeps the existing Unsplash path.
+art_js = "const SERVICE_ART = " + repr(art).replace("'", '"') + ";\n"
+# repr is not valid JS for embedded apostrophes, so use JSON instead.
+import json
+art_js = "const SERVICE_ART = " + json.dumps(art, ensure_ascii=False) + ";\n"
+map_js = '''const SERVICE_IMAGE_MAP = {\n  "https://images.unsplash.com/photo-1565008447742-97f6f38c985c":"civil-engineering",\n  "https://images.unsplash.com/photo-1615309662243-70f6df917b59":"hvac",\n  "https://images.unsplash.com/photo-1558618666-fcd25c85cd64":"mechanical-engineering",\n  "https://images.unsplash.com/photo-1429497419816-9ca5cfb4571a":"peb-works",\n  "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e":"electrical-works",\n  "https://images.unsplash.com/photo-1523861751938-121b5323b48b":"fire-fighting",\n  "https://images.unsplash.com/photo-1567954970774-58d6aa6c50dc":"safety-security"\n};\n'''
+helper = '''const serviceFallback = (slug) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(SERVICE_ART[slug] || SERVICE_ART["electrical-works"])}`;\nconst img = (url) => { const slug = SERVICE_IMAGE_MAP[url]; return slug ? serviceFallback(slug) : `${url}?auto=format&fit=crop&w=1600&q=82`; };'''
 
-if changed:
-    app.write_text(app_source)
-    print(f"Applied service image reliability patch ({changed} source replacements).")
-else:
-    print("Service image reliability patch already applied.")
+# Remove any previous service-art block if the build runs more than once.
+start = source.find('const SERVICE_ART = ')
+if start != -1:
+    end = source.find('const services = [', start)
+    if end != -1:
+        source = source[:start] + source[end:]
+
+# Replace the original helper with the fail-safe version and inject the constants once.
+source = source.replace('const img = (url) => `${url}?auto=format&fit=crop&w=1600&q=82`;', art_js + map_js + helper, 1)
+
+# Also convert the seven service URLs to stable service keys. This makes the
+# source readable and prevents accidental external image reintroduction.
+for url, slug in {
+    "https://images.unsplash.com/photo-1565008447742-97f6f38c985c":"/service-images/civil-engineering.svg",
+    "https://images.unsplash.com/photo-1615309662243-70f6df917b59":"/service-images/hvac.svg",
+    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64":"/service-images/mechanical-engineering.svg",
+    "https://images.unsplash.com/photo-1429497419816-9ca5cfb4571a":"/service-images/peb-works.svg",
+    "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e":"/service-images/electrical-works.svg",
+    "https://images.unsplash.com/photo-1523861751938-121b5323b48b":"/service-images/fire-fighting.svg",
+    "https://images.unsplash.com/photo-1567954970774-58d6aa6c50dc":"/service-images/safety-security.svg",
+}.items():
+    source = source.replace(url, slug)
+
+# The inline service artwork is already final; don't append Unsplash parameters to it.
+source = source.replace('const img = (url) => `${url}?auto=format&fit=crop&w=1600&q=82`;', helper, 1)
+
+app.write_text(source)
+print("Service image fallback rewritten: service pages now use inline SVG artwork with zero external image requests.")
