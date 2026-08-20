@@ -22,6 +22,9 @@ partner_old = "NA Engineering Solutions provides reliable engineering, construct
 partner_new = "We help businesses move from requirement to reality with one dependable engineering partner. Our team brings together Civil Engineering, HVAC, Mechanical Engineering, PEB Works, Electrical Works, Fire Fighting and Safety & Security — backed by General Order Supplies & Services for the materials, equipment and support your project needs. From planned work to urgent site requirements, we focus on practical solutions, clear communication and dependable execution."
 source = source.replace(partner_old, partner_new, 1)
 
+# Remove the short footer tagline shown above the footer bottom bar.
+source = source.replace('<span>Built for dependable project delivery.</span>', '', 1)
+
 path.write_text(source)
 
 # Expand the footer vertically while preserving the existing layout and responsive behavior.
@@ -31,4 +34,4 @@ footer_css = "\n/* Expanded footer layout */\n.footer{padding:105px 0 30px;min-h
 if "/* Expanded footer layout */" not in css:
     css_path.write_text(css + footer_css)
 
-print("Frontend syntax repairs, homepage copy, and expanded footer styling applied before build.")
+print("Frontend syntax repairs, homepage copy, expanded footer styling, and footer tagline removal applied before build.")
