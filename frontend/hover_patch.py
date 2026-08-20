@@ -35,8 +35,8 @@ if marker not in source:
 else:
     print("Services hover effects already applied.")
 
-# Replace all service-page photography URLs with local SVG artwork.
-# These assets are shipped with the frontend build, so service images cannot 404.
+# Replace service-page photography with tiny local SVG assets shipped by the frontend.
+# The SVG files are under 1 KB each, so image size is not a build or browser-load issue.
 app = Path("src/App.js")
 app_source = app.read_text()
 service_images = {
@@ -53,8 +53,16 @@ for old, new in service_images.items():
     if old in app_source:
         app_source = app_source.replace(old, new)
         changed += 1
+
+# Do not append Unsplash query parameters to local SVG files.
+old_img = 'const img = (url) => `${url}?auto=format&fit=crop&w=1600&q=82`;'
+new_img = 'const img = (url) => url.startsWith("/service-images/") ? url : `${url}?auto=format&fit=crop&w=1600&q=82`;'
+if old_img in app_source:
+    app_source = app_source.replace(old_img, new_img, 1)
+    changed += 1
+
 if changed:
     app.write_text(app_source)
-    print(f"Replaced {changed} service image URLs with local guaranteed-load artwork.")
+    print(f"Applied service image reliability patch ({changed} source replacements).")
 else:
-    print("Service image URLs already use local artwork or source mapping changed.")
+    print("Service image reliability patch already applied.")
