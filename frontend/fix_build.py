@@ -23,4 +23,12 @@ partner_new = "We help businesses move from requirement to reality with one depe
 source = source.replace(partner_old, partner_new, 1)
 
 path.write_text(source)
-print("Frontend syntax repairs, homepage hero update and service-rich partner copy applied before build.")
+
+# Expand the footer vertically while preserving the existing layout and responsive behavior.
+css_path = path.parent / "App.css"
+css = css_path.read_text()
+footer_css = "\n/* Expanded footer layout */\n.footer{padding:105px 0 30px;min-height:500px}.footer-grid{gap:60px}.footer-intro{max-width:310px;margin:28px 0}.footer h4{margin-bottom:28px}.footer-grid>div:not(:first-child){gap:16px}.footer-grid a,.footer-grid span{font-size:13px;line-height:1.75}.footer-bottom{margin-top:82px;padding-top:22px}\n@media(max-width:800px){.footer{padding:80px 0 26px;min-height:0}.footer-grid{gap:42px}.footer-bottom{margin-top:55px}}\n@media(max-width:480px){.footer{padding:70px 0 24px}.footer-grid{gap:36px}.footer-bottom{margin-top:45px}}\n"
+if "/* Expanded footer layout */" not in css:
+    css_path.write_text(css + footer_css)
+
+print("Frontend syntax repairs, homepage copy, and expanded footer styling applied before build.")
