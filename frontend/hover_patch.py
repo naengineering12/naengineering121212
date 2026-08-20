@@ -1,6 +1,5 @@
 from pathlib import Path
 
-# Keep the existing services hover interaction.
 css = Path("src/App.css")
 source = css.read_text()
 marker = "/* NA SERVICES HOVER EFFECT */"
@@ -32,9 +31,6 @@ if marker not in source:
 '''
     css.write_text(source)
 
-# The service listing and service detail pages must never depend on an external
-# image host. Use small inline SVG artwork instead. This is deliberately generated
-# at build time so there is no network request, no CORS issue and no missing asset.
 app = Path("src/App.js")
 source = app.read_text()
 
@@ -48,28 +44,21 @@ art = {
     "safety-security": '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07112f"/><stop offset="1" stop-color="#1c4258"/></linearGradient></defs><rect width="1200" height="900" fill="url(#g)"/><path d="M600 220c115 25 190 65 190 65v185c0 150-90 245-190 285-100-40-190-135-190-285V285s75-40 190-65z" fill="#ffb15c"/><path d="M510 445l60 60 125-145" fill="none" stroke="#07112f" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/><path d="M360 690h480" stroke="#fff" stroke-width="20"/><circle cx="340" cy="690" r="35" fill="#ffb15c"/><circle cx="860" cy="690" r="35" fill="#ffb15c"/><text x="70" y="110" fill="#fff" font-family="Arial" font-size="52" font-weight="700">SAFETY &amp; SECURITY</text><text x="72" y="160" fill="#c9d6e6" font-family="Arial" font-size="25">PPE • FACILITY SAFETY • PROTECTION</text></svg>'''
 }
 
-# Store artwork as a compact JS object and make the image helper return it for
-# service images. All other website photography keeps the existing Unsplash path.
-art_js = "const SERVICE_ART = " + repr(art).replace("'", '"') + ";\n"
-# repr is not valid JS for embedded apostrophes, so use JSON instead.
 import json
 art_js = "const SERVICE_ART = " + json.dumps(art, ensure_ascii=False) + ";\n"
 map_js = '''const SERVICE_IMAGE_MAP = {\n  "https://images.unsplash.com/photo-1565008447742-97f6f38c985c":"civil-engineering",\n  "https://images.unsplash.com/photo-1615309662243-70f6df917b59":"hvac",\n  "https://images.unsplash.com/photo-1558618666-fcd25c85cd64":"mechanical-engineering",\n  "https://images.unsplash.com/photo-1429497419816-9ca5cfb4571a":"peb-works",\n  "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e":"electrical-works",\n  "https://images.unsplash.com/photo-1523861751938-121b5323b48b":"fire-fighting",\n  "https://images.unsplash.com/photo-1567954970774-58d6aa6c50dc":"safety-security"\n};\n'''
-helper = '''const serviceFallback = (slug) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(SERVICE_ART[slug] || SERVICE_ART["electrical-works"])}`;\nconst img = (url) => { const slug = SERVICE_IMAGE_MAP[url]; return slug ? serviceFallback(slug) : `${url}?auto=format&fit=crop&w=1600&q=82`; };'''
+helper = '''const serviceFallback = (slug) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(SERVICE_ART[slug] || SERVICE_ART["electrical-works"])}`;\nconst img = (url) => { const slug = SERVICE_IMAGE_MAP[url] || (url.startsWith("/service-images/") ? url.split("/").pop().replace(".svg", "") : null); return slug && SERVICE_ART[slug] ? serviceFallback(slug) : `${url}?auto=format&fit=crop&w=1600&q=82`; };'''
 
-# Remove any previous service-art block if the build runs more than once.
+# Remove previous generated artwork block on repeated builds.
 start = source.find('const SERVICE_ART = ')
 if start != -1:
     end = source.find('const services = [', start)
     if end != -1:
         source = source[:start] + source[end:]
 
-# Replace the original helper with the fail-safe version and inject the constants once.
 source = source.replace('const img = (url) => `${url}?auto=format&fit=crop&w=1600&q=82`;', art_js + map_js + helper, 1)
 
-# Also convert the seven service URLs to stable service keys. This makes the
-# source readable and prevents accidental external image reintroduction.
-for url, slug in {
+for url, local_path in {
     "https://images.unsplash.com/photo-1565008447742-97f6f38c985c":"/service-images/civil-engineering.svg",
     "https://images.unsplash.com/photo-1615309662243-70f6df917b59":"/service-images/hvac.svg",
     "https://images.unsplash.com/photo-1558618666-fcd25c85cd64":"/service-images/mechanical-engineering.svg",
@@ -78,10 +67,7 @@ for url, slug in {
     "https://images.unsplash.com/photo-1523861751938-121b5323b48b":"/service-images/fire-fighting.svg",
     "https://images.unsplash.com/photo-1567954970774-58d6aa6c50dc":"/service-images/safety-security.svg",
 }.items():
-    source = source.replace(url, slug)
-
-# The inline service artwork is already final; don't append Unsplash parameters to it.
-source = source.replace('const img = (url) => `${url}?auto=format&fit=crop&w=1600&q=82`;', helper, 1)
+    source = source.replace(url, local_path)
 
 app.write_text(source)
 print("Service image fallback rewritten: service pages now use inline SVG artwork with zero external image requests.")
