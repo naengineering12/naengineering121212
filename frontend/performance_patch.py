@@ -13,10 +13,10 @@ source = source.replace('const img = (url) => `${url}?auto=format&fit=crop&w=160
 source = source.replace('<img src={img(', '<img loading="lazy" decoding="async" src={img(')
 source = source.replace('<img className="detail-image" src={img(', '<img loading="eager" decoding="async" className="detail-image" src={img(')
 
-# Replace known broken service image IDs with verified, stable Unsplash photo IDs.
+# Replace known broken service images with verified service-specific visuals.
 replacements = {
-    'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e': 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e',
-    'https://images.unsplash.com/photo-1567954970774-58d6aa6c50dc': 'https://images.unsplash.com/photo-1581092160607-ee22621dd758',
+    'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e': 'https://static.ssb.ee/images/universal/ELEKTRITOOD-ELEKTRIPAIGALDUS-UUSEHITUSTELE-RENOVEERIMISELE-JA-TOOSTUSELE_23168146_m_l.jpeg',
+    'https://images.unsplash.com/photo-1567954970774-58d6aa6c50dc': 'https://otintertrade.fra1.cdn.digitaloceanspaces.com/2022/10/blog_23.jpeg',
     'https://images.unsplash.com/photo-1581093458791-9d42e3c2b4f': 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158',
 }
 for old, new in replacements.items():
@@ -28,4 +28,4 @@ perf_css = '''\n/* Performance: reserve image space and keep below-the-fold medi
 if '/* Performance: reserve image space' not in style:
     css.write_text(style + perf_css)
 
-print('Image loading optimized: smaller requests, lazy loading, async decoding, stable layout, and broken service image URLs repaired.')
+print('Image loading optimized and Electrical Works / Safety & Security now use service-specific industrial visuals.')
