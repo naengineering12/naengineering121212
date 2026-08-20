@@ -63,7 +63,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "python hover_patch.py && python remove_safety_security.py && craco build",
+    "build": "python hover_patch.py && craco build",
     "test": "craco test"
   },
   "browserslist": {
