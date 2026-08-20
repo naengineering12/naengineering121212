@@ -34,3 +34,27 @@ if marker not in source:
     print("Services hover effects applied.")
 else:
     print("Services hover effects already applied.")
+
+# Replace all service-page photography URLs with local SVG artwork.
+# These assets are shipped with the frontend build, so service images cannot 404.
+app = Path("src/App.js")
+app_source = app.read_text()
+service_images = {
+    "https://images.unsplash.com/photo-1565008447742-97f6f38c985c": "/service-images/civil-engineering.svg",
+    "https://images.unsplash.com/photo-1615309662243-70f6df917b59": "/service-images/hvac.svg",
+    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64": "/service-images/mechanical-engineering.svg",
+    "https://images.unsplash.com/photo-1429497419816-9ca5cfb4571a": "/service-images/peb-works.svg",
+    "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e": "/service-images/electrical-works.svg",
+    "https://images.unsplash.com/photo-1523861751938-121b5323b48b": "/service-images/fire-fighting.svg",
+    "https://images.unsplash.com/photo-1567954970774-58d6aa6c50dc": "/service-images/safety-security.svg",
+}
+changed = 0
+for old, new in service_images.items():
+    if old in app_source:
+        app_source = app_source.replace(old, new)
+        changed += 1
+if changed:
+    app.write_text(app_source)
+    print(f"Replaced {changed} service image URLs with local guaranteed-load artwork.")
+else:
+    print("Service image URLs already use local artwork or source mapping changed.")
