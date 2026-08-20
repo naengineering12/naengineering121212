@@ -25,6 +25,11 @@ source = source.replace(partner_old, partner_new, 1)
 # Remove the short footer tagline shown above the footer bottom bar.
 source = source.replace('<span>Built for dependable project delivery.</span>', '', 1)
 
+# Put General Order Supplies before Services in the header navigation.
+old_nav = "const nav=[['Home','/'],['Services','/services'],['General Order Supplies','/supplies'],['Industries','/industries'],['Our Clients','/clients'],['Contact','/contact']];"
+new_nav = "const nav=[['Home','/'],['General Order Supplies','/supplies'],['Services','/services'],['Industries','/industries'],['Our Clients','/clients'],['Contact','/contact']];"
+source = source.replace(old_nav, new_nav, 1)
+
 path.write_text(source)
 
 # Expand the footer vertically while preserving the existing layout and responsive behavior.
@@ -34,4 +39,4 @@ footer_css = "\n/* Expanded footer layout */\n.footer{padding:105px 0 30px;min-h
 if "/* Expanded footer layout */" not in css:
     css_path.write_text(css + footer_css)
 
-print("Frontend syntax repairs, homepage copy, expanded footer styling, and footer tagline removal applied before build.")
+print("Frontend syntax repairs, homepage copy, header navigation order, expanded footer styling, and footer tagline removal applied before build.")
