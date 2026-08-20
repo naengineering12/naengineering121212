@@ -1,4 +1,4 @@
 {
-  "buildCommand": "python3 fix_build.py && python3 performance_patch.py && craco build",
+  "buildCommand": "python3 fix_build.py && python3 image_patch.py && python3 performance_patch.py && craco build",
   "outputDirectory": "build"
 }
