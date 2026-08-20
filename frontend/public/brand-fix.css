@@ -36,3 +36,14 @@
     letter-spacing: 3px !important;
   }
 }
+
+/* Reliable service-specific fallbacks for images that were failing to load. */
+img[alt="Electrical Works service"] {
+  content: url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1100&q=70") !important;
+  object-fit: cover !important;
+}
+
+img[alt="Safety & Security service"] {
+  content: url("https://www.buchen-group.be/fileadmin/_processed_/6/1/csm_BUCHEN-_DSC4125-2-FINAL_teaser_033546d692.webp") !important;
+  object-fit: cover !important;
+}
