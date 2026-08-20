@@ -1,0 +1,2 @@
+Frontend production deployment trigger
+Build dependencies verified: @radix-ui/react-slider is not present in current frontend/package.json.
