@@ -73,5 +73,8 @@ for url, local_path in {
 SAFETY_IMAGE = "https://www.lsh.sg/cdn/shop/files/worker-on-construction-site.jpg?v=1701737515"
 source = source.replace("/service-images/safety-security.svg", SAFETY_IMAGE)
 
+# Hide Safety & Security from the main Services listing only; keep its detail route/data intact.
+source = source.replace('services.map((s,i)=><article className="service-row"', 'services.filter(s=>s.slug!=="safety-security").map((s,i)=><article className="service-row"', 1)
+
 app.write_text(source)
-print("Service artwork rebuilt; Safety & Security now shares one image URL on listing and detail pages.")
+print("Service artwork rebuilt; Safety & Security removed from the main Services listing while its detail data remains intact.")
