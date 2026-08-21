@@ -12,7 +12,7 @@ import json
 from pathlib import Path as FilePath
 from datetime import datetime, timezone, timedelta
 from fastapi.responses import StreamingResponse
-from openai import AsyncOpenAI
+from emergentintegrations.llm.chat import LlmChat, UserMessage, TextDelta, StreamDone
 import asyncio
 import html as html_lib
 import jwt
@@ -93,20 +93,26 @@ async def submit_quote(
 
     record = QuoteRequest(full_name=full_name, company_name=company_name, email=email, phone=phone, service_required=service_required, message=message, attachment_name=attachment_name, attachment_path=attachment_path, attachment_content_type=attachment_content_type)
 
-    # Email is the primary delivery mechanism. MongoDB is optional storage only.
+    # Persist to MongoDB (primary storage). Email is a best-effort notification.
+    db_saved = False
     if db is not None:
         try:
             doc = record.model_dump()
             doc["created_at"] = doc["created_at"].isoformat()
             await db.quote_requests.insert_one(doc)
+            db_saved = True
         except Exception as e:
             logger.error(f"Quote database save failed: {e}")
 
+    email_sent = False
     try:
         await send_quote_email(record, attachment_data)
+        email_sent = True
     except Exception as e:
-        logger.error(f"Quote email failed: {e}")
-        raise HTTPException(status_code=503, detail="Quote email service is unavailable. Please email na.engineeringsolutions2023@gmail.com directly.")
+        logger.error(f"Quote email skipped/failed: {e}")
+
+    if not db_saved and not email_sent:
+        raise HTTPException(status_code=503, detail="We could not record your request right now. Please email na.engineeringsolutions2023@gmail.com directly.")
 
     return record
 
@@ -193,23 +199,23 @@ async def chat_with_ai(input: ChatInput):
     if history:
         context = "Conversation so far:\n" + "\n".join(f"{m['role']}: {m['text']}" for m in history[-12:]) + "\n\nVisitor: "
     await db.chat_messages.insert_one({"session_id": input.session_id, "role": "visitor", "text": message, "created_at": datetime.now(timezone.utc).isoformat()})
-    api_key = os.environ.get("OPENAI_API_KEY") or os.environ.get("EMERGENT_LLM_KEY")
+    api_key = os.environ.get("EMERGENT_LLM_KEY") or os.environ.get("OPENAI_API_KEY")
     if not api_key:
         raise HTTPException(status_code=500, detail="AI API key is not configured")
-    ai_client = AsyncOpenAI(api_key=api_key)
+    chat = LlmChat(
+        api_key=api_key,
+        session_id=input.session_id,
+        system_message=CHAT_SYSTEM,
+    ).with_model("openai", "gpt-5.4")
 
     async def event_generator():
         parts = []
-        response = await ai_client.chat.completions.create(
-            model="gpt-5.4",
-            messages=[{"role": "system", "content": CHAT_SYSTEM}, {"role": "user", "content": context + message}],
-            stream=True,
-        )
-        async for chunk in response:
-            delta = chunk.choices[0].delta.content if chunk.choices else None
-            if delta:
-                parts.append(delta)
-                yield f"data: {json.dumps({'delta': delta})}\n\n"
+        async for event in chat.stream_message(UserMessage(text=context + message)):
+            if isinstance(event, TextDelta):
+                parts.append(event.content)
+                yield f"data: {json.dumps({'delta': event.content})}\n\n"
+            elif isinstance(event, StreamDone):
+                break
         await db.chat_messages.insert_one({"session_id": input.session_id, "role": "assistant", "text": "".join(parts), "created_at": datetime.now(timezone.utc).isoformat()})
         yield "data: [DONE]\n\n"
 

@@ -62,7 +62,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "python hover_patch.py && python service_routes_patch.py && python remove_service_learn_more.py && craco build",
+    "build": "craco build",
     "test": "craco test"
   },
   "browserslist": {

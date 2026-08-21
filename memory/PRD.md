@@ -39,3 +39,9 @@ Build a premium, modern, professional and fully functional corporate website for
 - P0: Connect an outbound email provider if automatic email notifications are required.
 - P1: Add a private team inbox/dashboard for reviewing quote requests and attachments.
 - P2: Add a downloadable company capability statement and project case-study content when approved by the company.
+- 2026-08-21: Repo imported to preview. Restored missing .env files (backend MONGO_URL/DB_NAME/CORS_ORIGINS + EMERGENT_LLM_KEY; frontend REACT_APP_BACKEND_URL). Fixed missing </> fragment in About(); installed 'resend' module.
+- 2026-08-21: AI chat endpoint (/api/chat) rewritten to use emergentintegrations LlmChat (openai/gpt-5.4) with Emergent universal key; SSE streaming + MongoDB persistence verified by testing agent.
+- 2026-08-21: Quote endpoint (/api/quote) made MongoDB-primary; email via Resend is now best-effort (no longer 503 when RESEND_API_KEY absent). Verified.
+- 2026-08-21: Mechanical Engineering service image replaced with an on-topic machinery photo.
+- 2026-08-21: Added 9 new services to the Services page (below Fire Fighting) as cards with detail pages + bullet lists: Mechanical & Electrical Supplies, Utilities & Facility Maintenance, Boiler Chemicals, Seamless MS & SS Pipes, WWTP, HVAC Systems Supplies, Fire Fighting Equipment, Waterproofing Solutions, Pumps/Valves/Pneumatic. Services page now lists 15 services.
+- 2026-08-21: REMOVED all Python build-patch scripts. Baked their effects into source (services array, detailFeatures, services hover CSS). Both package.json "build" and frontend/vercel.json buildCommand are now plain "craco build"; deleted 9 .py patch files. Production build verified passing (CI=true).
