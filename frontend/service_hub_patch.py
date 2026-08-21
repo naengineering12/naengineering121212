@@ -5,7 +5,7 @@ path = Path("src/App.js")
 source = path.read_text()
 source = source.replace('const img = (url) => `${url}?auto=format&fit=crop&w=1600&q=82`;', 'const img = (url) => url.startsWith("data:") ? url : `${url}?auto=format&fit=crop&w=1600&q=82`;')
 
-PIPE_IMAGE = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnK2xN4QG3s4Y8qX1m0zj2x4s8qj1m4Y7Vj3b6z8h1b5m9r7x6p3y8w2n5m7k9q1v3s5d7f9h1j3l5p7r9t1v3x5z7B//2Q=="
+PIPE_IMAGE = "https://image.made-in-china.com/2f0j00nrAcGvgMnbuz/ASTM-A312-304-201-316-309-310-321-409-439-2205-2507-904L-Stainless-Steel-Seamless-Pipe.jpg"
 
 items = [
     ('mechanical-electrical-supplies-services', 'Mechanical & Electrical Supplies and Services', 'Wrench', 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e', 'Supply of industrial motors, gearboxes, pumps, blowers, compressors, belt conveyors, bearings, gaskets, valves, pneumatic fittings, SS/MS pipes, flanges and related accessories. Electrical panels, breakers, contactors, relays, cables, lighting and wiring accessories. Repair, maintenance, replacement, on-site troubleshooting and technical support, plus hand pallet lifter parts, hand trolleys, platform trolleys, pallet jacks, ropes, chains and cargo straps.'),
