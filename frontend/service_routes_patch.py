@@ -69,3 +69,6 @@ if universal not in source:
 
 app.write_text(source)
 print("All service Learn More routes configured.")
+
+# Trigger a fresh Vercel build after the routing fix.
+# 2026-08-21: deployment retry marker.
