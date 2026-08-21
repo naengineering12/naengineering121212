@@ -6,8 +6,6 @@ CSS = Path("src/App.css")
 source = APP.read_text()
 
 # Keep the detailed content data already present in App.js.
-# The important fix here is that every service URL must resolve even when
-# the service is injected by a build-time patch rather than the base array.
 route_fallback = r'''
 const specialistRouteFallbacks={
   "mechanical-electrical-supplies-services":{
@@ -44,7 +42,7 @@ if 'const specialistRouteFallbacks=' not in source:
     source=source.replace(marker, route_fallback+'\n'+marker, 1)
 
 # Make ServiceRoute resolve both the normal services array and every patched
-# service slug. This prevents an injected service from falling back to Civil.
+# service slug. Match both the old one-line route and a previously expanded route.
 new_route=r'''function ServiceRoute(){
   const {pathname}=useLocation();
   const slug=pathname.split('/').filter(Boolean).pop()||'';
@@ -53,9 +51,13 @@ new_route=r'''function ServiceRoute(){
   );
   return <ServiceDetail service={service}/>;
 }'''
-source,n=re.subn(r'function ServiceRoute\(\)\{.*?\n\}', new_route, source, count=1, flags=re.S)
-if n!=1:
-    raise SystemExit(f'ServiceRoute replacement failed: {n}')
+old_route=r'function ServiceRoute(){const {pathname}=useLocation();const service=services.find(s=>pathname.endsWith(s.slug))||services[0];return <ServiceDetail service={service}/>}'
+if old_route in source:
+    source=source.replace(old_route,new_route,1)
+else:
+    source,n=re.subn(r'function ServiceRoute\(\)\{[\s\S]*?\n\}\s*\n\nexport default App;', new_route+'\n\nexport default App;', source, count=1)
+    if n!=1:
+        raise SystemExit(f'ServiceRoute replacement failed: {n}')
 
 APP.write_text(source)
 
