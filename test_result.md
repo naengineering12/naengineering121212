@@ -125,6 +125,9 @@ backend:
         -working: true
         -agent: "testing"
         -comment: "✅ RETEST COMPLETE - All tests passed! The MongoDB-primary fix is working correctly. Test results: (1) Valid submission with required fields returns 200 with UUID (b6ebb008-daba-42a9-bcd1-214cb16c68f1) and persists to MongoDB quote_requests collection. (2) Valid submission with attachment (warehouse_specs.pdf) returns 200, persists with attachment_path to object storage. (3) Missing required field (email) correctly returns 422 validation error, not 500. (4) Invalid attachment extension (.exe) returns 415, oversized file (>8MB) returns 413 - both graceful 4xx rejections, not 500. MongoDB persistence verified by direct database query - all records saved correctly with full_name, email, service_required, message, and attachment metadata. The endpoint now works WITHOUT RESEND_API_KEY configured - email is best-effort, MongoDB is primary storage."
+        -working: true
+        -agent: "testing"
+        -comment: "✅ REGRESSION TEST PASSED (Jan 21, 2026) - Verified after backend/main.py simplification and admin query limit changes. All 5 test scenarios passed: (1) Basic quote submission returns 200 with UUID (4d0ecad8-96ac-4cd0-abff-e4f105557407) ✅ (2) Quote with attachment saves correctly ✅ (3) Oversized attachment (>8MB) correctly rejected with 413 ✅ (4) Invalid extension (.exe) correctly rejected with 415 ✅ (5) Missing required fields correctly return 422 validation error ✅. MongoDB persistence working correctly. Endpoint works WITHOUT RESEND_API_KEY as designed (best-effort email, MongoDB primary storage). Backend logs show expected 'Quote email skipped/failed: RESEND_API_KEY is not configured' which is acceptable behavior."
 
   - task: "AI chat POST /api/chat streaming via emergentintegrations (gpt-5.4, Emergent key)"
     implemented: true
@@ -140,6 +143,9 @@ backend:
         -working: true
         -agent: "testing"
         -comment: "✅ POST /api/chat fully working. Tested with session 2d1951b4-3121-42a3-b121-6d1339b8c922. Returns proper SSE stream (text/event-stream), streamed 77 delta chunks with real LLM response (446 chars), ends with [DONE] marker. Multi-turn conversation verified: sent 2 messages in same session, both received proper responses. Persistence verified in MongoDB: 4 messages total (2 visitor + 2 assistant) correctly stored in chat_messages collection with session_id, role, text, and created_at fields. LLM integration with emergentintegrations gpt-5.4 working perfectly - responses are relevant, professional, and contextually appropriate."
+        -working: true
+        -agent: "testing"
+        -comment: "✅ REGRESSION TEST PASSED (Jan 21, 2026) - AI chat endpoint verified after code changes. Test results: (1) SSE streaming works correctly, received 94 delta chunks with non-empty LLM response (preview: 'NA Engineering Solutions provides a range of industrial and engineering services, including Civil En...') ✅ (2) Content-type header correctly set to text/event-stream (with charset=utf-8) ✅ (3) Stream ends with [DONE] marker ✅ (4) Multi-turn conversation tested with session 4059c85a-c062-4dda-9367-b1a1e012bd28, both messages received proper SSE responses ✅. Persistence to chat_messages collection working (verified by successful multi-turn context). emergentintegrations gpt-5.4 integration fully functional."
 
   - task: "Status endpoints GET/POST /api/status and root /api/"
     implemented: true
@@ -155,6 +161,9 @@ backend:
         -working: true
         -agent: "testing"
         -comment: "✅ All status endpoints working. GET /api/ returns 200 with correct message 'NA Engineering Solutions API'. POST /api/status successfully creates status check records with UUID (tested: created record with ID 11723cee-0fd8-4d0d-b5b9-9b7040e197f5). GET /api/status successfully retrieves records from MongoDB (retrieved 1 status check). MongoDB integration working correctly for status_checks collection."
+        -working: true
+        -agent: "testing"
+        -comment: "✅ REGRESSION TEST PASSED (Jan 21, 2026) - Status endpoints verified after admin query limit changes. Test results: (1) GET /api/ returns 200 with correct message 'NA Engineering Solutions API' ✅ (2) POST /api/status creates status check with UUID (9c8f6386-4177-422a-a36a-e5a46305c7ba) ✅ (3) GET /api/status retrieves 2 status checks from MongoDB ✅. All status endpoints working correctly with MongoDB integration."
 
 frontend:
   - task: "Full site pages + 9 new services on Services page (UI)"
@@ -175,10 +184,25 @@ frontend:
         -agent: "testing"
         -comment: "✅ UI REGRESSION TEST COMPLETE - All tests PASSED! Comprehensive regression testing after recent changes (Services page now 13 services, Supplies/Industries pages redesigned with alternating service-row layout). TEST RESULTS: (1) Header Navigation: All 6 nav links work correctly (Home, Services, General Order Supplies, Industries, Our Clients, Contact) ✅ (2) Services Page: Exactly 13 service cards found, NO number badge overlays on images ✅, 'HVAC Systems - Supplies and Services' present ✅, 'Fire Fighting Equipment - Supplies and Services' present ✅, old plain 'HVAC' and 'Fire Fighting' names NOT present ✅. Learn More buttons tested on 2 services (Civil Engineering, Boiler Chemicals) - both open detail pages with headings and 4 feature bullets ✅ (3) General Order Supplies Page: Exactly 9 category blocks in alternating image+copy layout ✅, all 9 expected categories present (General Hardware & Tools, Electrical General Items, Safety & PPE Items, Cleaning & Janitorial Supplies, Industrial & Maintenance Consumables, Packaging Materials, Canteen & Pantry Items, IT & Miscellaneous Items, Office & Stationery Items) ✅, each block has title, description, and bullet list (ul.feature-list) ✅, 'Our Commitment' section with 4 cards and 'Discuss your requirement' button present ✅, all 11 images load successfully ✅ (4) Industries Page: Exactly 11 industry blocks in alternating layout ✅, all blocks have 'INDUSTRY / NN' labels (01-11) ✅, all 13 images load successfully ✅ (5) Contact Form: Form submission works, success message displays correctly ✅ (6) Console Errors: Only non-critical external resource errors (Clearbit logo API, Google favicon 404s, CDN RUM analytics) - no functional impact ✅. CONCLUSION: All functionality working correctly, no broken images, no regressions detected. Site is production-ready."
 
+  - task: "IT Services page with 7 service blocks and performance optimizations"
+    implemented: true
+    working: true
+    file: "App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        -working: "NA"
+        -agent: "main"
+        -comment: "Added new IT Services page at /it-services with 7 IT service categories (Computers/Laptops/Displays, PC Components/Storage, Printing/Peripherals/Consumables, Networking/Connectivity, Servers/Storage/Power Backup, Security/AV/Conferencing, Software/IT Services). Updated header navigation to include IT Services link (now 7 nav links total). Implemented performance optimizations with lazy loading on images. Need to verify: (1) Header shows 7 nav links in correct order, (2) IT Services page loads with correct heading and 7 blocks in alternating layout, (3) No broken images, (4) Regression test on other pages, (5) Performance measurements."
+        -working: true
+        -agent: "testing"
+        -comment: "✅ IT SERVICES PAGE & PERFORMANCE TEST COMPLETE (Jan 21, 2026) - ALL TESTS PASSED! Comprehensive testing of new IT Services page and performance optimizations. TEST RESULTS: (1) Header Navigation: Verified exactly 7 main nav links in correct order (Home, Services, General Order Supplies, IT Services, Industries, Our Clients, Contact) plus 1 CTA button ✅ All navigation links work correctly and navigate to proper pages ✅ (2) IT Services Page (/it-services): Page heading 'IT Services & Equipment' correct ✅ Exactly 7 service blocks found in alternating image+copy layout ✅ All 7 blocks have correct titles in exact order: Computers/Laptops/Displays, PC Components/Storage, Printing/Peripherals/Consumables, Networking/Connectivity, Servers/Storage/Power Backup, Security/AV/Conferencing, Software/IT Services ✅ Each block has title, description paragraph, and bullet list (ul.feature-list) ✅ NO broken images - all 7 images load correctly (naturalWidth > 0) ✅ (3) Regression Tests: All pages load without errors (Home, Services, General Order Supplies, Industries, Our Clients, Contact) ✅ No broken images detected on any page ✅ (4) Performance - EXCELLENT RESULTS: Home: 0.59s, Services: 0.44s, General Order Supplies: 0.62s, IT Services: 0.42s, Industries: 0.43s - ALL well under 3-second target ✅ Lazy loading implemented on images across all pages (6-13 images per page use loading='lazy') ✅ (5) Console Errors: No critical console errors found ✅ All errors are from external resources (logos/favicons/analytics) which are non-critical ✅ CONCLUSION: IT Services page fully functional with all required content, navigation working perfectly, performance is excellent (all pages load under 1 second), lazy loading implemented, no regressions detected. Site is production-ready."
+
 metadata:
   created_by: "main_agent"
-  version: "1.5"
-  test_sequence: 5
+  version: "1.7"
+  test_sequence: 7
   run_ui: false
 
 test_plan:
@@ -200,3 +224,7 @@ agent_communication:
     -message: "✅ FRONTEND TESTING COMPLETE - All tests passed! Comprehensive UI testing performed on NA Engineering Solutions website. Services page verified: exactly 15 service cards in correct order (6 original + 9 new services). All 9 NEW services display correctly with images, intro text, numbered badges, and Learn More buttons. Detail pages tested for Boiler Chemicals, Waterproofing Solutions, and Pumps Valves Pneumatic - all show correct headings, 4+ feature bullets, and working images. No broken images found (all 15 service images load with naturalWidth > 0). All pages smoke-tested successfully: Home, About, Supplies, Industries, Clients, Contact - all load with header navigation working. Contact form submission works correctly with success message displayed. Minor non-critical issues: console errors for external resources and 404s for client logo favicons (doesn't affect functionality). Site is fully functional and production-ready."
     -agent: "testing"
     -message: "✅ UI REGRESSION TEST COMPLETE (Jan 21, 2026) - All tests PASSED after recent redesign! Tested comprehensive regression after Services page reduced to 13 services (from 15), and Supplies/Industries pages redesigned with alternating service-row layout. All 6 test sections passed: (1) Header nav works for all pages ✅ (2) Services page: 13 services, no number badges, correct HVAC/Fire Fighting names, Learn More buttons work ✅ (3) Supplies page: 9 categories in alternating layout with bullet lists, Our Commitment section present ✅ (4) Industries page: 11 industries with INDUSTRY/NN labels in alternating layout ✅ (5) Contact form submission works ✅ (6) No broken images, only non-critical external resource errors ✅. Site is production-ready with no regressions detected."
+    -agent: "testing"
+    -message: "✅ BACKEND REGRESSION TEST COMPLETE (Jan 21, 2026) - All tests PASSED after backend/main.py simplification and admin query limit changes. Comprehensive test suite executed covering all 4 requested scenarios: (1) GET /api/ health check returns 200 ✅ (2) POST /api/quote: basic submission, with attachment, oversized rejection (413), invalid extension rejection (415), missing field validation (422) - all 5 scenarios passed, works WITHOUT RESEND_API_KEY as designed ✅ (3) POST /api/chat: SSE streaming with 94 chunks, non-empty LLM response from emergentintegrations gpt-5.4, multi-turn persistence verified ✅ (4) GET/POST /api/status: both endpoints working with MongoDB ✅. Minor test fix applied: updated content-type assertion to accept 'text/event-stream; charset=utf-8' (more specific than bare 'text/event-stream'). All backend APIs fully functional, no regressions detected. Backend logs show expected 'Quote email skipped/failed: RESEND_API_KEY is not configured' which is acceptable behavior per MongoDB-primary design."
+    -agent: "testing"
+    -message: "✅ IT SERVICES PAGE & PERFORMANCE VERIFICATION COMPLETE (Jan 21, 2026) - ALL TESTS PASSED! Comprehensive testing of new IT Services page and performance optimizations completed successfully. All 6 test sections passed with excellent results. See detailed test results in the IT Services task status_history. Key findings: Header navigation now has 7 links (added IT Services), IT Services page has exactly 7 service blocks with all required content, no broken images anywhere, all pages load under 1 second (well under 3s target), lazy loading implemented across all pages, no critical console errors. No regressions detected on existing pages. Site is production-ready and performing excellently."

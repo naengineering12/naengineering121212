@@ -165,13 +165,13 @@ async def admin_login(input: AdminLogin):
 async def list_quotes(admin=Depends(require_admin)):
     if db is None:
         raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
-    return await db.quote_requests.find({}, {"_id": 0}).sort("created_at", -1).to_list(500)
+    return await db.quote_requests.find({}, {"_id": 0}).sort("created_at", -1).to_list(200)
 
 @api_router.get("/admin/chats")
 async def list_chats(admin=Depends(require_admin)):
     if db is None:
         raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
-    return await db.chat_messages.find({}, {"_id": 0}).sort("created_at", 1).to_list(2000)
+    return await db.chat_messages.find({}, {"_id": 0}).sort("created_at", 1).to_list(500)
 
 CHAT_SYSTEM = (
     "You are the friendly AI assistant on the NA Engineering Solutions website. "
@@ -261,7 +261,7 @@ async def create_status_check(input: StatusCheckCreate):
 async def get_status_checks():
     if db is None:
         raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
+    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(100)
     for check in status_checks:
         if isinstance(check['timestamp'], str):
             check['timestamp'] = datetime.fromisoformat(check['timestamp'])

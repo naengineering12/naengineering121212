@@ -131,7 +131,8 @@ def test_chat_streaming():
     )
     
     assert response.status_code == 200, f"Expected 200, got {response.status_code}: {response.text}"
-    assert response.headers.get("content-type") == "text/event-stream", f"Expected text/event-stream, got {response.headers.get('content-type')}"
+    content_type = response.headers.get("content-type", "")
+    assert content_type.startswith("text/event-stream"), f"Expected text/event-stream, got {content_type}"
     
     chunks = []
     assistant_text = []
