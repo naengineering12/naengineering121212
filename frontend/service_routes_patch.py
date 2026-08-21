@@ -1,13 +1,21 @@
 from pathlib import Path
+import re
 
-app = Path('src/App.js')
+# The detailed-page patch contains the actual content/layout for the new service
+# pages. Run it as part of the existing build hook so it cannot be skipped.
+detail_patch = Path("service_detail_pages_patch.py")
+if detail_patch.exists():
+    exec(compile(detail_patch.read_text(), str(detail_patch), "exec"), {"__name__": "service_detail_pages_patch"})
+
+app = Path("src/App.js")
 source = app.read_text()
 
 # Ensure useParams is available for the universal service detail route.
-source = source.replace(
-    'BrowserRouter, Routes, Route, Link, useLocation, useNavigate',
-    'BrowserRouter, Routes, Route, Link, useLocation, useNavigate, useParams',
-    1,
+source = re.sub(
+    r"BrowserRouter, Routes, Route, Link, useLocation, useNavigate(?!, useParams)",
+    "BrowserRouter, Routes, Route, Link, useLocation, useNavigate, useParams",
+    source,
+    count=1,
 )
 
 component = r'''
@@ -17,45 +25,56 @@ function UniversalServiceRoute(){
   if(!service){
     return <PageIntro eyebrow="SERVICES / NOT FOUND" title="Service not found">The requested service could not be found. Please return to our services catalogue and select a service.</PageIntro>;
   }
-  const features=(typeof specialistDetailFeatures!=='undefined'&&specialistDetailFeatures[service.title])||detailFeatures[service.title]||[
-    `Supply and support for ${service.title.toLowerCase()}`,
-    'Site-ready planning, sourcing and technical coordination',
-    'Installation, repair, replacement and maintenance support',
-    'Project-specific solutions based on customer requirements'
-  ];
+  const data=(typeof specialistDetailData!=='undefined'&&specialistDetailData[service.title])||null;
+  const features=(typeof specialistDetailFeatures!=='undefined'&&specialistDetailFeatures[service.title])||detailFeatures[service.title]||[];
   return <>
-    <PageIntro eyebrow={`SERVICES / ${service.title.toUpperCase()}`} title={service.title}>{service.text}</PageIntro>
+    <PageIntro eyebrow={`SERVICES / ${service.title.toUpperCase()}`} title={service.title}>{data?.intro||service.text}</PageIntro>
     <main className="section section-light">
       <div className="container detail-grid">
-        <div className="detail-image-wrap">
-          <img className="detail-image" src={img(service.image)} alt={`${service.title} professional project`} />
-        </div>
-        <div className="detail-copy">
-          <SectionLabel>WHAT WE SUPPORT</SectionLabel>
-          <h2>Practical support for demanding environments.</h2>
-          <p>NA Engineering Solutions helps customers plan, source and execute the work required to keep their sites, systems and projects operating effectively. We build the scope around your requirements, technical specifications and actual site conditions.</p>
-          <ul className="feature-list">{features.map(x=><li key={x}><CheckCircle2 size={17}/>{x}</li>)}</ul>
-          <p>From material sourcing and technical coordination to installation, maintenance and replacement support, our team works to provide a dependable and practical solution for each requirement.</p>
+        <img className="detail-image" src={img(service.image)} alt={`${service.title} professional service`} />
+        <div>
+          <SectionLabel>WHAT WE PROVIDE</SectionLabel>
+          <h2>{data?.overview||'Professional supply, technical support and execution.'}</h2>
+          <p>{service.text}</p>
+          <ul className="feature-list">
+            {(data?.items?.slice(0,6)||features).map((x,i)=><li key={typeof x==='string'?x:x.title}><CheckCircle2 size={17}/>{typeof x==='string'?x:x.title}</li>)}
+          </ul>
+          <Button to="/contact" secondary testid={`service-detail-contact-${service.slug}`}>Discuss This Requirement</Button>
         </div>
       </div>
+      {data&&<div className="container specialist-detail-block">
+        <SectionLabel>DETAILED SCOPE</SectionLabel>
+        <div className="specialist-grid">
+          {data.items.map((x,i)=><article className="specialist-card" key={x.title}><span>{String(i+1).padStart(2,'0')}</span><h3>{x.title}</h3><p>{x.text}</p></article>)}
+        </div>
+        <div className="detail-bottom-grid">
+          <div><SectionLabel>APPLICATIONS</SectionLabel><h2>Where we support your requirement.</h2><div className="application-list">{data.applications.map(x=><span key={x}><CheckCircle2 size={16}/>{x}</span>)}</div></div>
+          <div className="detail-callout"><span>NA ENGINEERING SOLUTIONS</span><h3>Requirement-based sourcing and dependable project support.</h3><p>Share your BOQ, drawing, specification or site requirement and our team can help define the right supply or service scope.</p><Button to="/contact" secondary>Request a Quote</Button></div>
+        </div>
+      </div>}
     </main>
   </>;
 }
 '''
 
-if 'function UniversalServiceRoute()' not in source:
-    marker = '\nfunction App() {'
+if "function UniversalServiceRoute()" not in source:
+    marker = "\nfunction App() {"
     if marker not in source:
-        raise SystemExit('Could not find App component marker')
-    source = source.replace(marker, '\n' + component + marker, 1)
+        raise SystemExit("Could not find App component marker")
+    source = source.replace(marker, "\n" + component + marker, 1)
 
-# Route every service slug through the universal detail page. This replaces any
-# older ServiceRoute implementation so newly-added services cannot fall through.
-source = source.replace(
-    '<Route path="/services/:slug" element={<ServiceRoute/>}/>',
-    '<Route path="/services/:slug" element={<UniversalServiceRoute/>}/>',
-    1,
-)
+# Replace any older service-detail route, regardless of the component name used
+# by the previous implementation.
+route_re = r'<Route\s+path=["\']/services/:slug["\']\s+element=\{\{?[^}]+\}?\}\s*/>'
+source, count = re.subn(route_re, '<Route path="/services/:slug" element={<UniversalServiceRoute/>}/>', source, count=1)
+
+# If the old route was absent entirely, insert the universal route before the
+# closing Routes tag. This guarantees every service card has a working detail URL.
+if count == 0 and '<Route path="/services/:slug" element={<UniversalServiceRoute/>}/>' not in source:
+    closing = "</Routes>"
+    if closing not in source:
+        raise SystemExit("Could not find Routes closing tag")
+    source = source.replace(closing, '        <Route path="/services/:slug" element={<UniversalServiceRoute/>}/>\n' + closing, 1)
 
 app.write_text(source)
-print('Universal service detail routing applied.')
+print("Service detail pages and universal service routing applied.")
