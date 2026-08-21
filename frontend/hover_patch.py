@@ -95,5 +95,12 @@ if 'const specialistDetailFeatures=' not in source:
     source = source.replace('\nfunction Logo(){', new_features + '\nfunction Logo(){', 1)
 
 source = source.replace('{(detailFeatures[service.title]||[]).map(x=><li key={x}><CheckCircle2 size={17}/>{x}</li>)}', '{(specialistDetailFeatures[service.title]||detailFeatures[service.title]||[]).map(x=><li key={x}><CheckCircle2 size={17}/>{x}</li>)}', 1)
+
+# Keep service detail pages focused on the service itself: no Contact Us page/button inside the service detail layout.
+import re
+source = re.sub(r'<div className="service-detail-contact">.*?</div>', '', source, flags=re.S)
+source = re.sub(r'<Button[^>]*>\s*(?:Discuss This Requirement|Discuss this requirement|Contact Us)\s*</Button>', '', source, flags=re.S)
+source = source.replace(' <Button to="/contact" testid="service-contact">Discuss This Requirement</Button>', '')
+
 app.write_text(source)
-print("Service artwork rebuilt and all specialist service detail pages added.")
+print("Service catalogue aligned: every service uses the same detail layout, with service-specific detail bullets; no Contact Us CTA is included in service detail pages.")
