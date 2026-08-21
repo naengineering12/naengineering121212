@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 96" width="320" height="96" role="img" aria-label="Lahore Airport">
+  <g transform="translate(14,20)">
+    <rect width="58" height="58" rx="12" fill="#0d1128"/>
+    <path d="M14 34 L44 34 M40 34 L30 20 M40 34 L30 48 M18 34 L14 27 M18 34 L14 41" stroke="#f59e0b" stroke-width="3.4" stroke-linecap="round" fill="none"/>
+  </g>
+  <text x="86" y="46" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="800" fill="#334155" letter-spacing="1">LAHORE</text>
+  <text x="87" y="71" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="600" fill="#64748b" letter-spacing="5">AIRPORT</text>
+</svg>
