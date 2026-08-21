@@ -63,18 +63,24 @@ if "function UniversalServiceRoute()" not in source:
         raise SystemExit("Could not find App component marker")
     source = source.replace(marker, "\n" + component + marker, 1)
 
-# Replace any older service-detail route, regardless of the component name used
-# by the previous implementation.
-route_re = r'<Route\s+path=["\']/services/:slug["\']\s+element=\{\{?[^}]+\}?\}\s*/>'
-source, count = re.subn(route_re, '<Route path="/services/:slug" element={<UniversalServiceRoute/>}/>', source, count=1)
+# Remove every older /services/:slug route first. The previous implementation
+# used a nested JSX expression, so the old regex could miss it and leave the
+# old route before the universal route. React Router would then match the old
+# route first, hiding the new detailed-page content.
+source = re.sub(
+    r'<Route\s+path=["\']/services/:slug["\']\s+element=\{<[^>]+/>\}\s*/>',
+    '',
+    source,
+    flags=re.S,
+)
 
-# If the old route was absent entirely, insert the universal route before the
-# closing Routes tag. This guarantees every service card has a working detail URL.
-if count == 0 and '<Route path="/services/:slug" element={<UniversalServiceRoute/>}/>' not in source:
-    closing = "</Routes>"
-    if closing not in source:
-        raise SystemExit("Could not find Routes closing tag")
-    source = source.replace(closing, '        <Route path="/services/:slug" element={<UniversalServiceRoute/>}/>\n' + closing, 1)
+# Insert exactly one universal route immediately before the wildcard route.
+universal_route = '<Route path="/services/:slug" element={<UniversalServiceRoute/>}/>'
+if universal_route not in source:
+    wildcard = '<Route path="*" element={<Home/>}/>'
+    if wildcard not in source:
+        raise SystemExit("Could not find wildcard route")
+    source = source.replace(wildcard, universal_route + wildcard, 1)
 
 app.write_text(source)
 print("Service detail pages and universal service routing applied.")
