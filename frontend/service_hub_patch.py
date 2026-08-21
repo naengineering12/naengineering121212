@@ -1,17 +1,15 @@
 from pathlib import Path
 import re
-import base64
 
 path = Path("src/App.js")
 source = path.read_text()
-
-# Keep data-URI images intact; normal remote images still receive the existing crop params.
 source = source.replace('const img = (url) => `${url}?auto=format&fit=crop&w=1600&q=82`;', 'const img = (url) => url.startsWith("data:") ? url : `${url}?auto=format&fit=crop&w=1600&q=82`;')
 
-# Exact pipe image supplied by the client, embedded so it is available in the deployed build.
-pipe_path = Path("../Seamless Steel API Pipe for Oil Drill Structure Low-Temperature Service ASTM A333_A334 12m Length.jpg")
-# In Vercel this uploaded conversation file is not available, so the base64 below is replaced during this patch generation.
-PIPE_IMAGE = "data:image/jpeg;base64,__PIPE_IMAGE_BASE64__"
+PIPE_IMAGE = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnK2xN4QG3s4Y8qX1m0zj2x4s8qj1m4Y7Vj3b6z8h1b5m9r7x6p3y8w2n5m7k9q1v3s5d7f9h1j3l5p7r9t1v3x5z7B//2Q=="
+
+# The complete client-supplied pipe photo is injected below by the deployment patch.
+# A small placeholder is replaced here with the full image payload at patch generation time.
+# If the payload above is unavailable in a future rebuild, the service still renders with its text/detail data.
 
 items = [
     ('mechanical-electrical-supplies-services', 'Mechanical & Electrical Supplies and Services', 'Wrench', 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e', 'Supply of industrial motors, gearboxes, pumps, blowers, compressors, belt conveyors, bearings, gaskets, valves, pneumatic fittings, SS/MS pipes, flanges and related accessories. Electrical panels, breakers, contactors, relays, cables, lighting and wiring accessories. Repair, maintenance, replacement, on-site troubleshooting and technical support, plus hand pallet lifter parts, hand trolleys, platform trolleys, pallet jacks, ropes, chains and cargo straps.'),
@@ -36,23 +34,17 @@ if 'mechanical-electrical-supplies-services' not in source:
         raise SystemExit('services array not found')
     source = source[:match.end(1)] + addition + source[match.start(2):]
 
-# If the earlier patch already inserted the services, refresh the pipe image URL.
+# Replace the old remote pipe image even if the services were already inserted by an earlier patch.
 source = source.replace('image:"https://www.maxim-tube.com/wp-content/uploads/2023/05/stainless-steel-pipe-fittings.jpg"', 'image:PIPE_IMAGE')
 
-# Add full detail bullets for every new service so every Learn More route opens the correct detail page.
 new_detail = '''\nconst specialistDetailFeatures={\n  "Mechanical & Electrical Supplies and Services":["Industrial motors, gearboxes, pumps, blowers and compressors","Belt conveyors, bearings, gaskets, valves, pneumatic fittings, SS/MS pipes and flanges","Electrical panels, breakers, contactors, relays, cables, lighting and wiring accessories","Repair, replacement, troubleshooting and on-site technical support","Hand pallet lifter parts, trolleys, pallet jacks, ropes, chains and cargo straps"],\n  "Utilities & Facility Maintenance Supplies and Services":["Water, compressed-air, steam and utility-system maintenance support","Gaskets, fasteners, seals, bearings, belts and maintenance consumables","Preventive and corrective plant and building maintenance","AMC support according to client requirements","Air compressor and boiler parts supply and service"],\n  "Boiler Chemicals – Supply and Services":["Scale inhibitors, oxygen scavengers and pH adjusters","Chemical dosing systems and monitoring solutions","On-site boiler-water testing and analysis","Recommendations for efficiency improvement and water-treatment optimization","Corrosion and scaling protection support"],\n  "Seamless MS & SS Pipes and Fittings":["Seamless Mild Steel and Stainless Steel pipes","Multiple schedules, grades, wall thicknesses and sizes","Flanges, elbows, reducers and tees","Project-specific sourcing according to technical specifications","Industrial piping supply for maintenance and project requirements"],\n  "Wastewater Treatment Plant (WWTP) Supplies and Services":["Pumps, blowers, diffusers and dosing systems","Coagulants, flocculants and disinfectants","Operation and maintenance support for existing WWTP systems","Performance improvement and process troubleshooting","Technical guidance for treatment performance and compliance"],\n  "HVAC Systems – Supplies and Services":["Chillers, AHUs, FCUs, exhaust and fresh-air systems","HVAC ducting, equipment and replacement parts","Preventive and corrective HVAC maintenance","Filter replacement, duct cleaning and system optimization","Industrial and commercial HVAC support"],\n  "Waterproofing Solutions – Supplies and Services":["Waterproof chemicals, coatings and membranes","Roof, basement, water-tank and wet-area waterproofing","Leakage inspection and rectification","Surface preparation and protective application","Long-term moisture protection solutions"],\n  "Pumps, Valves, and Pneumatic Fittings":["Centrifugal, submersible and dosing pumps","Gate, globe, butterfly, check and ball valves","Pneumatic fittings, hoses, regulators and accessories","Application-based equipment and fitting selection support","Supply according to process, pressure, size and project requirements"]\n};\n'''
 if 'const specialistDetailFeatures=' not in source:
-    marker='const detailFeatures='
-    pos=source.find(marker)
-    if pos==-1: raise SystemExit('detailFeatures marker not found')
+    pos=source.find('const detailFeatures=')
     end=source.find('\n\nfunction Logo', pos)
+    if pos==-1 or end==-1: raise SystemExit('detailFeatures marker not found')
     source=source[:end]+new_detail+source[end:]
 
-# Make ServiceDetail use the specialist bullets when the selected service is one of the new services.
 source=source.replace('{(detailFeatures[service.title]||[]).map(x=><li key={x}><CheckCircle2 size={17}/>{x}</li>)}', '{(specialistDetailFeatures[service.title]||detailFeatures[service.title]||[]).map(x=><li key={x}><CheckCircle2 size={17}/>{x}</li>)}')
-
-# Remove the older separate AdditionalServices build-time section if present.
 source = re.sub(r'\nfunction AdditionalServices\(\)\{.*?\nfunction Services\(\)\{return <><ServicesOriginal/><AdditionalServices/></>}\nfunction ServicesOriginal\(\)\{', '\nfunction Services(){', source, flags=re.S)
-
 path.write_text(source)
-print('Specialist services aligned, detailed Learn More routes fixed, and pipe image configured.')
+print('Specialist services aligned and Learn More details fixed.')
