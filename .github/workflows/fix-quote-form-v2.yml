@@ -1,4 +1,4 @@
-name: Fix Request a Quote v4
+name: Fix Request a Quote v5
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
           p = Path('frontend/src/App.js')
           s = p.read_text(encoding='utf-8')
           old_api = 'const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;\nconst API = `${BACKEND_URL}/api`;'
-          new_api = 'const BACKEND_URL = (process.env.REACT_APP_BACKEND_URL || "https://naengineering121212-backend-n82pez6i6-naengineering12s-projects.vercel.app").replace(/\\/$/, "");\nconst API = `${BACKEND_URL}/api`;'
+          new_api = 'const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://naengineering121212-backend-n82pez6i6-naengineering12s-projects.vercel.app";\nconst API = `${BACKEND_URL}/api`;'
           if old_api in s:
               s = s.replace(old_api, new_api, 1)
           else:
