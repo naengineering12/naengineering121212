@@ -1,2 +1,4 @@
 Frontend production deployment trigger
-Build dependencies verified: @radix-ui/react-slider is not present in current frontend/package.json.
+Quote API fix: same-origin /api/quote
+Backend URL removed from production frontend configuration
+Deployment trigger: 2026-08-22T17:42Z
