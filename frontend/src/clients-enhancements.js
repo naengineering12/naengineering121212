@@ -61,11 +61,24 @@ function storyHtml() {
   </div>`;
 }
 
+function heroDescriptionHtml() {
+  return `<p data-na-hero-description="true" style="max-width:900px;margin-top:24px;font-size:18px;line-height:1.7;color:rgba(220,230,242,.82);">NA Engineering Solutions is a Pakistan-based multidisciplinary engineering and supply company providing reliable engineering services, industrial solutions, general order supplies and project support. We serve industrial, commercial, construction and facility requirements with Civil Engineering, HVAC, Mechanical & Electrical Works, PEB Works, Fire Fighting, Safety & Security Systems, maintenance, procurement and dependable material supply.</p>`;
+}
+
 function enhanceClientsPage() {
   if (window.location.pathname !== '/clients') return false;
   const grid = document.querySelector('.clients-grid');
   const logos = document.querySelector('.logos-row');
   if (!grid || !logos) return false;
+
+  const pageHeadings = Array.from(document.querySelectorAll('h1'));
+  const heroTitle = pageHeadings.find((heading) => heading.textContent.trim().toLowerCase() === 'our clients');
+  if (heroTitle && !document.querySelector('[data-na-hero-description="true"]')) {
+    const heroSubtitle = heroTitle.parentElement?.querySelector('p');
+    if (heroSubtitle) heroSubtitle.insertAdjacentHTML('afterend', heroDescriptionHtml());
+    else heroTitle.insertAdjacentHTML('afterend', heroDescriptionHtml());
+  }
+
   if (grid.dataset.naEnhanced === 'true') return true;
 
   const sectionHeading = logos.parentElement?.querySelector('.section-heading');
