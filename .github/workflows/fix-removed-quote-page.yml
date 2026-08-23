@@ -27,8 +27,8 @@ jobs:
         run: |
           ! grep -q 'function Contact()' frontend/src/App.js
           ! grep -q 'to="/contact"' frontend/src/App.js
-          ! grep -q 'path=\\"/contact\\"' frontend/src/App.js
-          grep -q '<Route path=\\"/admin\\"' frontend/src/App.js
+          ! grep -q 'path="/contact"' frontend/src/App.js
+          grep -q 'path="/admin"' frontend/src/App.js
       - name: Commit and remove workflow
         run: |
           git config user.name "github-actions[bot]"
