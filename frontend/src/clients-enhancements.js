@@ -2,22 +2,26 @@
 const CLIENTS = [
   { name: "Gerry's dnata", category: "Aviation & Ground Handling", initials: "GD", domain: "gerrysdnata.com", href: "https://www.gerrysdnata.com/", description: "Ground handling, cargo and airport support services across Pakistan." },
   { name: "Interloop Limited", category: "Textile Manufacturing", initials: "IL", domain: "interloop-pk.com", href: "https://interloop-pk.com/", description: "Engineering, facility and industrial support for large-scale textile manufacturing." },
-  { name: "Lahore International Airport", category: "Aviation & Infrastructure", initials: "LA", domain: "paa.gov.pk", href: "#", description: "Facility, engineering and technical support for airport operations." },
+  { name: "Lahore International Airport", category: "Aviation & Infrastructure", initials: "LA", domain: "paa.gov.pk", href: "#", logo: "https://www.app.com.pk/wp-content/uploads/2025/08/The-Pakistan-Airports-Authority-PAA.png", description: "Facility, engineering and technical support for airport operations." },
   { name: "Sialkot International Airport", category: "Aviation & Infrastructure", initials: "SA", domain: "sial.com.pk", href: "https://www.sial.com.pk/", description: "Maintenance, engineering and supply support for airport infrastructure." },
-  { name: "Multan International Airport", category: "Aviation & Infrastructure", initials: "MA", domain: "paa.gov.pk", href: "#", description: "Technical, maintenance and supply support for airport operations." },
+  { name: "Multan International Airport", category: "Aviation & Infrastructure", initials: "MA", domain: "paa.gov.pk", href: "#", logo: "https://www.app.com.pk/wp-content/uploads/2025/08/The-Pakistan-Airports-Authority-PAA.png", description: "Technical, maintenance and supply support for airport operations." },
   { name: "Joyland Group", category: "Recreation & Entertainment", initials: "JG", domain: "joyland.com.pk", href: "https://joyland.com.pk/", description: "Facility engineering, maintenance and operational support." },
-  { name: "Lake City", category: "Real Estate & Facilities", initials: "LC", domain: "lakecitylahore.com", href: "https://www.lakecitylahore.com/", description: "Engineering, facility maintenance and site support for real estate operations." },
+  { name: "Lake City", category: "Real Estate & Facilities", initials: "LC", domain: "lakecitylahore.com", href: "https://www.lakecitylahore.com/", logo: "https://www.muqaddimrealestate.com/storage/uploads/6/24080632_ake-city.jpg", description: "Engineering, facility maintenance and site support for real estate operations." },
   { name: "Fatima Fertilizer", category: "Fertilizer & Industrial", initials: "FF", domain: "fatima-group.com", href: "https://www.fatima-group.com/", description: "Industrial engineering, maintenance and supply support for fertilizer operations." },
-  { name: "ZIC Oil", category: "Lubricants & Industrial", initials: "ZIC", domain: "zicoil.pk", href: "https://zicoil.pk/", description: "Industrial lubricant and facility support requirements." },
-  { name: "Dandot Cement", category: "Cement & Construction Materials", initials: "DC", domain: "dandotcement.com", href: "https://www.dandotcement.com/", description: "Mechanical, electrical and industrial support for cement plant environments." },
+  { name: "ZIC Oil", category: "Lubricants & Industrial", initials: "ZIC", domain: "zicoil.pk", href: "https://zicoil.pk/", logo: "https://image.slidesharecdn.com/zicmotoroil-161018163831/85/Zic-motor-oil-Pakistan-1-638.jpg", logoCrop: true, description: "Industrial lubricant and facility support requirements." },
+  { name: "Dandot Cement", category: "Cement & Construction Materials", initials: "DC", domain: "dandotcement.com", href: "https://www.dandotcement.com/", logo: "https://media.licdn.com/dms/image/v2/D4D22AQEgjnklEID7Xw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1713618119312?e=2147483647&t=yWqbEzNTauZfmRnw5pkAWUGt_ml74umUaJ8adKre4&v=beta", logoCrop: true, description: "Mechanical, electrical and industrial support for cement plant environments." },
   { name: "Nimir Chemicals", category: "Chemical & Industrial", initials: "NC", domain: "nimirchemicals.com", href: "https://nimirchemicals.com/", description: "Industrial supplies, maintenance and engineering support for chemical processing." },
 ];
 
-/* Use company/domain icons where available. Never fall back to the generic globe favicon. */
+/* Use known logo artwork for clients whose domains expose an unsuitable generic favicon.
+   Other clients continue using their company/domain icon with initials as the final fallback. */
 const logoUrl = (domain) => `https://icons.duckduckgo.com/ip3/${domain}.ico`;
 
 function logoImage(client, className = '') {
-  const primary = logoUrl(client.domain);
+  if (client.logo && client.logoCrop) {
+    return `<span class="${className} client-logo-crop" style="background-image:url('${client.logo}')" role="img" aria-label="${client.name} logo"></span>`;
+  }
+  const primary = client.logo || logoUrl(client.domain);
   return `<img class="${className}" src="${primary}" alt="${client.name} logo" loading="lazy" decoding="async"
     onload="this.previousElementSibling.style.display='none'"
     onerror="this.style.display='none';this.previousElementSibling.style.display='flex'" />`;
