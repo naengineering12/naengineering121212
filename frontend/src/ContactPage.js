@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowUpRight, Instagram, Mail, MapPin, MessageCircle, Phone, Menu, X } from "lucide-react";
 import "./ContactPage.css";
+import "./ContactFooter.css";
 
 const navItems = [["Home","/"],["Services","/services"],["General Order Supplies","/supplies"],["IT Services","/it-services"],["Industries","/industries"],["Our Clients","/clients"],["Contact Us","/contact"]];
 
