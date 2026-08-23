@@ -80,9 +80,11 @@ function enhanceClientsPage() {
   if (grid.dataset.naEnhanced === 'true') return true;
 
   const sectionHeading = logos.parentElement?.querySelector('.section-heading');
+  // Remove the duplicate company paragraph from the "Who We Serve" section.
+  // The main company description is intentionally kept under the Our Clients hero above.
   if (sectionHeading) {
     const paragraph = sectionHeading.querySelector('p');
-    if (paragraph) paragraph.textContent = 'NA Engineering Solutions is a Pakistan-based engineering, construction, industrial supplies and general order supply company, providing reliable solutions for industrial, commercial, construction and facility requirements. We support clients with Civil Engineering, Mechanical & Electrical Works, HVAC, PEB Works, Fire Fighting, Safety & Security Systems, industrial maintenance and a wide range of engineering and general supplies. Our focus is on quality, dependable sourcing, timely delivery and long-term client relationships.';
+    if (paragraph) paragraph.remove();
   }
 
   if (!document.querySelector('.clients-story-panel')) logos.insertAdjacentHTML('afterend', storyHtml());
