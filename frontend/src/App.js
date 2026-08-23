@@ -135,7 +135,7 @@ function App() {
       <ScrollToTop/>
       <Header/>
         <Routes>
-          <Route path="/" element={<Home />} /><Route path="/about" element={<About/>}/><Route path="/services" element={<Services/>}/><Route path="/services/:slug" element={<ServiceRoute/>}/><Route path="/supplies" element={<Supplies/>}/><Route path="/it-services" element={<ITServices/>}/><Route path="/industries" element={<Industries/>}/><Route path="/clients" element={<Clients/>/><Route path="/admin" element={<Admin/>}/><Route path="*" element={<Home/>}/>
+          <Route path="/" element={<Home />} /><Route path="/about" element={<About/>}/><Route path="/services" element={<Services/>}/><Route path="/services/:slug" element={<ServiceRoute/>}/><Route path="/supplies" element={<Supplies/>}/><Route path="/it-services" element={<ITServices/>}/><Route path="/industries" element={<Industries/>}/><Route path="/clients" element={<Clients/>}/><Route path="/admin" element={<Admin/>}/><Route path="*" element={<Home/>}/>
         </Routes>
       <Footer/>
       <ChatWidget/>
