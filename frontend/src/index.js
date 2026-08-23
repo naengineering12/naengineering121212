@@ -23,9 +23,9 @@ function ContactNavBridge(){
       if(nav && !nav.querySelector('[data-contact-bridge]')){
         const link=document.createElement('a');
         link.href='/contact';
-        link.textContent='Contact';
+        link.textContent='Contact Us';
         link.dataset.contactBridge='true';
-        link.dataset.testid='nav-contact';
+        link.dataset.testid='nav-contact-us';
         nav.appendChild(link);
       }
       const company=[...document.querySelectorAll('.footer-grid h4')].find(x=>x.textContent.trim()==='Company');
@@ -33,7 +33,7 @@ function ContactNavBridge(){
       if(column && !column.querySelector('[data-footer-contact-bridge]')){
         const link=document.createElement('a');
         link.href='/contact';
-        link.textContent='Contact';
+        link.textContent='Contact Us';
         link.dataset.footerContactBridge='true';
         column.appendChild(link);
       }
