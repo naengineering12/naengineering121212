@@ -1,0 +1,40 @@
+name: Fix Removed Quote Page
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix App.js route cleanup
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('frontend/src/App.js')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('}/>}/><Route path="/admin"', '/><Route path="/admin"')
+          s = s.replace("function Button({to='/contact',", "function Button({to='/',")
+          s = s.replace('<Button testid="clients-get-quote">Get a Free Quote</Button>', '')
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Verify
+        run: |
+          ! grep -q 'function Contact()' frontend/src/App.js
+          ! grep -q 'to="/contact"' frontend/src/App.js
+          ! grep -q 'path=\\"/contact\\"' frontend/src/App.js
+          grep -q '<Route path=\\"/admin\\"' frontend/src/App.js
+      - name: Commit and remove workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add frontend/src/App.js .github/workflows/fix-removed-quote-page.yml
+          git commit -m "Fix removed quote page route"
+          git rm .github/workflows/fix-removed-quote-page.yml
+          git commit -m "Remove quote cleanup workflow"
+          git push
