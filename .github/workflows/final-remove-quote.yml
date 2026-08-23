@@ -20,6 +20,7 @@ jobs:
           p = Path('frontend/src/App.js')
           s = p.read_text(encoding='utf-8')
           s = s.replace('}/>}/><Route path="/admin"', '/><Route path="/admin"')
+          s = s.replace('element={<Clients/>/><Route', 'element={<Clients/>}/><Route')
           s = s.replace("function Button({to='/contact',", "function Button({to='/',")
           s = s.replace('<Button testid="clients-get-quote">Get a Free Quote</Button>', '')
           p.write_text(s, encoding='utf-8')
