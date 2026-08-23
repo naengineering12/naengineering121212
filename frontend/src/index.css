@@ -53,35 +53,3 @@ code { font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", mon
 @media(max-width:800px){
   .nav-links a.nav-active:not(.nav-cta)::after{bottom:4px;left:0;right:auto;width:42px;height:2px}
 }
-
-/* Theme-matched image treatment: deep navy border with a restrained orange accent on hover. */
-img {
-  border: 1px solid rgba(11, 18, 43, 0.22);
-  border-radius: 6px;
-  box-sizing: border-box;
-  transition: border-color .2s ease, box-shadow .2s ease;
-}
-
-img:hover {
-  border-color: rgba(244, 162, 97, 0.72);
-  box-shadow: 0 0 0 1px rgba(244, 162, 97, 0.10);
-}
-
-/* Keep client logos neat and consistent with the site's navy/orange palette. */
-.client-company-logo,
-.client-company-logo-chip {
-  border-radius: 8px;
-  padding: 4px;
-}
-
-.client-logo-crop {
-  border: 1px solid rgba(11, 18, 43, 0.22);
-  border-radius: 8px;
-  box-sizing: border-box;
-  transition: border-color .2s ease, box-shadow .2s ease;
-}
-
-.client-logo-crop:hover {
-  border-color: rgba(244, 162, 97, 0.72);
-  box-shadow: 0 0 0 1px rgba(244, 162, 97, 0.10);
-}
