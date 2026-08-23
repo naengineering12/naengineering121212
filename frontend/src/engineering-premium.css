@@ -1,0 +1,19 @@
+/* Premium engineering identity layer — additive only. */
+:root{--eng-cyan:#49c6d0;--eng-amber:#f4a261;--eng-navy:#0a1128}
+body{background:linear-gradient(180deg,#f3f5f7 0%,#eef2f4 100%)}
+.hero{isolation:isolate}
+.hero-bg{background-image:linear-gradient(90deg,rgba(10,17,40,.98) 8%,rgba(10,17,40,.82) 50%,rgba(10,17,40,.34)),url('https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1800&q=78')}
+.hero:before{content:"";position:absolute;inset:0;z-index:0;opacity:.14;background-image:linear-gradient(rgba(73,198,208,.35) 1px,transparent 1px),linear-gradient(90deg,rgba(73,198,208,.35) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(90deg,#000,transparent 82%);pointer-events:none}
+.hero:after{width:330px;height:330px;border-color:rgba(73,198,208,.28);box-shadow:0 0 0 42px rgba(73,198,208,.025),0 0 0 84px rgba(73,198,208,.018)}
+.hero-copy:after{content:"NA / ENGINEERING / SOLUTIONS";display:block;margin-top:54px;color:rgba(255,255,255,.35);font:600 9px/1 Inter;letter-spacing:.28em}
+.button{box-shadow:0 10px 28px rgba(244,162,97,.12)}
+.section-heading h2:after,.split h2:after{content:"";display:block;width:44px;height:2px;background:var(--eng-amber);margin-top:18px}
+.cap-card,.service-image,.supply-card-image,.industry-feature img,.detail-image{transition:transform .35s ease,box-shadow .35s ease}
+.cap-card:hover,.service-image:hover,.supply-card:hover{box-shadow:0 24px 55px rgba(10,17,40,.14)}
+.cap-card:before,.service-image:before,.supply-card-image:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(135deg,transparent 0 70%,rgba(73,198,208,.18) 70% 70.5%,transparent 70.5% 100%)}
+.value-card{transition:transform .25s ease,background .25s ease}.value-card:hover{transform:translateY(-5px);background:#0e1835}
+.industry-card,.supply-card{transition:transform .25s ease,box-shadow .25s ease}.industry-card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(10,17,40,.08);position:relative;z-index:1}
+.process-grid>div{transition:background .25s ease,padding .25s ease}.process-grid>div:hover{background:rgba(73,198,208,.05);padding-left:10px}
+.page-intro{position:relative;overflow:hidden}.page-intro:after{content:"ENGINEERING / PROCUREMENT / EXECUTION";position:absolute;right:4%;bottom:28px;color:rgba(255,255,255,.14);font:700 9px Inter;letter-spacing:.22em}
+@media(max-width:800px){.hero-copy:after{margin-top:35px}.hero:after{width:220px;height:220px;right:-70px;top:18%}.page-intro:after{display:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
