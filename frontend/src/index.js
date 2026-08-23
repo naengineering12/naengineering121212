@@ -16,6 +16,31 @@ const queryClient = new QueryClient({
   },
 });
 
+function ActiveNavBridge(){
+  React.useEffect(()=>{
+    const syncActive=()=>{
+      const path=window.location.pathname.replace(/\/$/,"") || "/";
+      document.querySelectorAll('.nav-links a').forEach(link=>{
+        const href=(link.getAttribute('href')||"").replace(/\/$/,"") || "/";
+        const isActive=href===path || (href!=="/" && path.startsWith(href+"/"));
+        link.classList.toggle('nav-active',isActive);
+        link.setAttribute('aria-current',isActive?'page':'false');
+      });
+    };
+    syncActive();
+    const observer=new MutationObserver(syncActive);
+    observer.observe(document.body,{childList:true,subtree:true});
+    window.addEventListener('popstate',syncActive);
+    document.addEventListener('click',syncActive,true);
+    return ()=>{
+      observer.disconnect();
+      window.removeEventListener('popstate',syncActive);
+      document.removeEventListener('click',syncActive,true);
+    };
+  },[]);
+  return null;
+}
+
 function ContactNavBridge(){
   React.useEffect(()=>{
     const addContactLinks=()=>{
@@ -48,7 +73,7 @@ function ContactNavBridge(){
 
 function RootApp(){
   if(window.location.pathname==='/contact') return <ContactPage/>;
-  return <><App/><ContactNavBridge/></>;
+  return <><App/><ActiveNavBridge/><ContactNavBridge/></>;
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
