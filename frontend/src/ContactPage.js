@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Menu, MessageCircle, Phone, X } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Menu, MessageCircle, Phone, X } from "lucide-react";
 import "./ContactPage.css";
 
 const navItems = [
