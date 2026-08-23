@@ -13,17 +13,14 @@ const CLIENTS = [
   { name: "Nimir Chemicals", category: "Chemical & Industrial", initials: "NC", domain: "nimirchemicals.com", href: "https://nimirchemicals.com/", description: "Industrial supplies, maintenance and engineering support for chemical processing." },
 ];
 
-/* Clearbit's old logo endpoint is unreliable. Use live company/domain icons first,
-   then Google favicon, and finally the branded initials if neither is available. */
+/* Use company/domain icons where available. Never fall back to the generic globe favicon. */
 const logoUrl = (domain) => `https://icons.duckduckgo.com/ip3/${domain}.ico`;
-const fallbackLogoUrl = (domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=512`;
 
 function logoImage(client, className = '') {
   const primary = logoUrl(client.domain);
-  const fallback = fallbackLogoUrl(client.domain);
-  return `<img class="${className}" src="${primary}" data-fallback="${fallback}" data-fallback-used="false" alt="${client.name} logo" loading="lazy" decoding="async"
+  return `<img class="${className}" src="${primary}" alt="${client.name} logo" loading="lazy" decoding="async"
     onload="this.previousElementSibling.style.display='none'"
-    onerror="if(this.dataset.fallbackUsed==='false' && this.dataset.fallback){this.dataset.fallbackUsed='true';this.src=this.dataset.fallback}else{this.style.display='none';this.previousElementSibling.style.display='flex'}" />`;
+    onerror="this.style.display='none';this.previousElementSibling.style.display='flex'" />`;
 }
 
 function cardHtml(client, index) {
