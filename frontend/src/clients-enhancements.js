@@ -8,8 +8,8 @@ const CLIENTS = [
   { name: "Joyland Group", category: "Recreation & Entertainment", initials: "JG", domain: "joyland.com.pk", href: "https://joyland.com.pk/", description: "Facility engineering, maintenance and operational support." },
   { name: "Lake City", category: "Real Estate & Facilities", initials: "LC", domain: "lakecitylahore.com", href: "https://www.lakecitylahore.com/", logo: "https://www.muqaddimrealestate.com/storage/uploads/6/24080632_ake-city.jpg", description: "Engineering, facility maintenance and site support for real estate operations." },
   { name: "Fatima Fertilizer", category: "Fertilizer & Industrial", initials: "FF", domain: "fatima-group.com", href: "https://www.fatima-group.com/", description: "Industrial engineering, maintenance and supply support for fertilizer operations." },
-  { name: "ZIC Oil", category: "Lubricants & Industrial", initials: "ZIC", domain: "zicoil.pk", href: "https://zicoil.pk/", logo: "https://image.slidesharecdn.com/zicmotoroil-161018163831/85/Zic-motor-oil-Pakistan-1-638.jpg", logoCrop: true, description: "Industrial lubricant and facility support requirements." },
-  { name: "Dandot Cement", category: "Cement & Construction Materials", initials: "DC", domain: "dandotcement.com", href: "https://www.dandotcement.com/", logo: "https://media.licdn.com/dms/image/v2/D4D22AQEgjnklEID7Xw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1713618119312?e=2147483647&t=yWqbEzNTauZfmRnw5pkAWUGt_ml74umUaJ8adKre4&v=beta", logoCrop: true, description: "Mechanical, electrical and industrial support for cement plant environments." },
+  { name: "ZIC Oil", category: "Lubricants & Industrial", initials: "ZIC", domain: "zicoil.pk", href: "https://zicoil.pk/", logo: "https://image.slidesharecdn.com/zicmotoroil-161018163831/85/Zic-motor-oil-Pakistan-1-638.jpg", logoCrop: "zic", description: "Industrial lubricant and facility support requirements." },
+  { name: "Dandot Cement", category: "Cement & Construction Materials", initials: "DC", domain: "dandotcement.com", href: "https://www.dandotcement.com/", logo: "https://media.licdn.com/dms/image/v2/D4E22AQEgjnklEID7Xw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1713618119312?e=2147483647&t=yWqbEzNTauZfmRnw5pkAWUGt-ml74umUaJ8adKre4&v=beta", logoCrop: "dandot", description: "Mechanical, electrical and industrial support for cement plant environments." },
   { name: "Nimir Chemicals", category: "Chemical & Industrial", initials: "NC", domain: "nimirchemicals.com", href: "https://nimirchemicals.com/", description: "Industrial supplies, maintenance and engineering support for chemical processing." },
 ];
 
@@ -19,7 +19,10 @@ const logoUrl = (domain) => `https://icons.duckduckgo.com/ip3/${domain}.ico`;
 
 function logoImage(client, className = '') {
   if (client.logo && client.logoCrop) {
-    return `<span class="${className} client-logo-crop" style="background-image:url('${client.logo}')" role="img" aria-label="${client.name} logo"></span>`;
+    const cropStyle = client.logoCrop === 'dandot'
+      ? "background-size:500% auto;background-position:8% 8%;"
+      : "background-size:220% auto;background-position:center;";
+    return `<span class="${className} client-logo-crop" style="display:block;width:64px;height:64px;background-repeat:no-repeat;background-color:transparent;${cropStyle}background-image:url('${client.logo}')" role="img" aria-label="${client.name} logo"></span>`;
   }
   const primary = client.logo || logoUrl(client.domain);
   return `<img class="${className}" src="${primary}" alt="${client.name} logo" loading="lazy" decoding="async"
