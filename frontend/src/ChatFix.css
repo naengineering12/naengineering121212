@@ -1,0 +1,6 @@
+/* Keep the floating WhatsApp + AI chat controls above every page layer. */
+.chat-widget{z-index:99999!important;pointer-events:none!important;isolation:isolate}
+.chat-widget .chat-toggle,.chat-widget .chat-panel{pointer-events:auto!important}
+.chat-widget .chat-toggle{position:relative;z-index:100000!important;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.chat-widget .chat-panel{position:relative;z-index:100001!important}
+@media(max-width:480px){.chat-widget{right:14px!important;bottom:14px!important}.chat-panel{width:calc(100vw - 28px)!important}}
