@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import "./clients-responsive.css";
 import "./clients-enhancements";
+import "./ChatFix.css";
 import App from "./App";
 import ContactPage from "./ContactPage";
 
