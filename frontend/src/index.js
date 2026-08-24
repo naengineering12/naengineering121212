@@ -8,6 +8,26 @@ import "./ChatFix.css";
 import App from "./App";
 import ContactPage from "./ContactPage";
 
+// The frontend and AI backend are separate Vercel projects. Keep the public
+// chat request pointed at the live backend even if an old build, cached env
+// value, or same-origin /api rewrite is still present in the browser bundle.
+const LIVE_BACKEND = "https://naengineering121212-cx6xwffo2-naengineering12s-projects.vercel.app";
+const nativeFetch = window.fetch.bind(window);
+window.fetch = (input, init) => {
+  const rawUrl = typeof input === "string" ? input : input?.url || "";
+  const isChatRequest = rawUrl.includes("/api/chat") || rawUrl.includes("undefined/api/chat");
+  if (isChatRequest) {
+    try {
+      const target = new URL(rawUrl, window.location.origin);
+      const targetUrl = `${LIVE_BACKEND}${target.pathname}${target.search}`;
+      return nativeFetch(targetUrl, init);
+    } catch (_) {
+      return nativeFetch(`${LIVE_BACKEND}/api/chat`, init);
+    }
+  }
+  return nativeFetch(input, init);
+};
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
