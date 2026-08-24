@@ -1,7 +1,8 @@
 """Vercel entrypoint for the FastAPI backend.
 
-The chat endpoint is intentionally resilient: OpenAI is used when configured,
-but an authentication/provider failure never turns into a 500 or a long wait.
+The chat endpoint is intentionally resilient and optimized for low latency:
+OpenAI streams directly when needed, while simple website FAQs are answered
+locally without an external model round-trip.
 """
 import asyncio
 import json
@@ -23,8 +24,8 @@ for route in list(app.routes):
 
 
 def _local_fallback(message: str) -> str:
-    """Fast, deterministic fallback when an AI provider is unavailable."""
-    text = message.lower()
+    """Fast deterministic answers for common website questions."""
+    text = message.lower().strip()
     if any(word in text for word in ("service", "services", "what do you do", "provide")):
         return (
             "NA Engineering Solutions provides Civil Engineering, HVAC, Mechanical Engineering, "
@@ -50,6 +51,21 @@ def _local_fallback(message: str) -> str:
     )
 
 
+def _instant_reply(message: str):
+    """Return an instant response only for simple, predictable FAQ messages."""
+    text = message.lower().strip()
+    compact = " ".join(text.split())
+    greetings = {
+        "hi", "hello", "hey", "hy", "aoa", "salam", "assalamualaikum",
+        "assalam o alaikum", "good morning", "good afternoon", "good evening",
+    }
+    if compact in greetings:
+        return "Wa Alaikum Assalam! 👋 How can I help you with NA Engineering Solutions today?"
+    if compact in {"thanks", "thank you", "thx", "ok thanks"}:
+        return "You're welcome! Please let me know what you need."
+    return None
+
+
 def _openai_stream_worker(messages, model, loop, queue):
     """Run the OpenAI streaming request off the event loop."""
     api_key = (os.environ.get("OPENAI_API_KEY") or "").strip()
@@ -63,27 +79,26 @@ def _openai_stream_worker(messages, model, loop, queue):
             headers={
                 "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json",
+                "Accept": "text/event-stream",
             },
             json={
                 "model": model,
                 "messages": messages,
                 "stream": True,
+                "max_completion_tokens": 160,
             },
-            timeout=(5, 35),
+            timeout=(2, 20),
         )
 
         if response.status_code == 401:
-            loop.call_soon_threadsafe(
-                queue.put_nowait,
-                ("provider_error", "OpenAI authentication failed (401)"),
-            )
+            loop.call_soon_threadsafe(queue.put_nowait, ("provider_error", "OpenAI authentication failed (401)"))
             return
         if response.status_code >= 400:
             detail = response.text[:300].replace("\n", " ")
             loop.call_soon_threadsafe(queue.put_nowait, ("provider_error", f"OpenAI HTTP {response.status_code}: {detail}"))
             return
 
-        for raw_line in response.iter_lines(decode_unicode=True):
+        for raw_line in response.iter_lines(decode_unicode=True, chunk_size=1):
             if not raw_line:
                 continue
             line = raw_line.strip()
@@ -117,10 +132,9 @@ async def _save_chat(session_id: str, role: str, text: str):
                 "text": text,
                 "created_at": datetime.now(timezone.utc).isoformat(),
             }),
-            timeout=1.5,
+            timeout=1.0,
         )
     except Exception:
-        # Database problems must never break the visitor's chat response.
         pass
 
 
@@ -130,22 +144,37 @@ async def resilient_chat(input: ChatInput):
     if not message:
         raise HTTPException(status_code=400, detail="Message is required")
 
+    # Common greetings should never wait for MongoDB or an AI provider.
+    instant = _instant_reply(message)
+    if instant:
+        async def instant_generator():
+            asyncio.create_task(_save_chat(input.session_id, "visitor", message))
+            asyncio.create_task(_save_chat(input.session_id, "assistant", instant))
+            yield f"data: {json.dumps({'delta': instant})}\n\n"
+            yield "data: [DONE]\n\n"
+        return StreamingResponse(
+            instant_generator(),
+            media_type="text/event-stream",
+            headers={"Cache-Control": "no-cache, no-transform", "X-Accel-Buffering": "no", "Connection": "keep-alive"},
+        )
+
+    # Keep history short and fail fast. It must never hold up the AI request.
     history = []
     if db is not None:
         try:
             history = await asyncio.wait_for(
-                db.chat_messages.find(
-                    {"session_id": input.session_id}, {"_id": 0}
-                ).sort("created_at", 1).to_list(8),
-                timeout=1.0,
+                db.chat_messages.find({"session_id": input.session_id}, {"_id": 0})
+                .sort("created_at", -1).limit(4).to_list(4),
+                timeout=0.35,
             )
+            history.reverse()
         except Exception:
             history = []
 
     context = ""
     if history:
         context = "Conversation so far:\n" + "\n".join(
-            f"{m.get('role', 'visitor')}: {m.get('text', '')}" for m in history[-6:]
+            f"{m.get('role', 'visitor')}: {m.get('text', '')}" for m in history
         ) + "\n\nVisitor: "
 
     prompt = context + message
@@ -154,14 +183,14 @@ async def resilient_chat(input: ChatInput):
         {"role": "user", "content": prompt},
     ]
 
-    # Fire-and-forget: MongoDB latency cannot delay the first AI token.
     asyncio.create_task(_save_chat(input.session_id, "visitor", message))
 
     async def event_generator():
         parts = []
         queue = asyncio.Queue()
         loop = asyncio.get_running_loop()
-        model = os.environ.get("OPENAI_FAST_MODEL", "gpt-5-mini").strip() or "gpt-5-mini"
+        # Smaller model + short output keeps first-token latency and total response time low.
+        model = os.environ.get("OPENAI_FAST_MODEL", "gpt-5.4-mini").strip() or "gpt-5.4-mini"
         asyncio.create_task(asyncio.to_thread(_openai_stream_worker, messages, model, loop, queue))
 
         provider_failed = False
@@ -176,8 +205,6 @@ async def resilient_chat(input: ChatInput):
                 provider_failed = True
                 break
 
-        # Never retry a broken provider through a second slow integration.
-        # Use an instant local response so the website remains functional.
         if provider_failed:
             answer = _local_fallback(message)
             parts = [answer]
