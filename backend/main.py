@@ -1,9 +1,5 @@
-"""Vercel entrypoint for the FastAPI backend.
-
-The chat endpoint is intentionally resilient: it does not depend on MongoDB or
-object storage, and it prefers a direct OpenAI API call when OPENAI_API_KEY is
-configured. Emergent remains a fallback for environments that still use it.
-"""
+"""Fast, resilient Vercel entrypoint for the FastAPI backend."""
+import asyncio
 import json
 import os
 from datetime import datetime, timezone
@@ -15,65 +11,78 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage, TextDelta, Strea
 
 from server import app, handler, db, CHAT_SYSTEM, ChatInput
 
-# Object storage is optional. Do not initialize it on every cold start.
+# Object storage is optional. Never initialize it on every cold start.
 for startup_handler in list(app.router.on_startup):
     if getattr(startup_handler, "__name__", "") == "startup_storage":
         app.router.on_startup.remove(startup_handler)
 
-# Remove the original /api/chat route from server.py.
+# Replace server.py's old chat route with this resilient implementation.
 for route in list(app.routes):
     if getattr(route, "path", None) == "/api/chat" and "POST" in (getattr(route, "methods", set()) or set()):
         app.routes.remove(route)
 
 
-def _openai_answer(messages):
-    """Call OpenAI directly and return plain text.
+def _openai_stream_worker(messages, model, loop, queue):
+    """Run the blocking OpenAI HTTP stream in a worker thread."""
+    try:
+        api_key = os.environ.get("OPENAI_API_KEY")
+        if not api_key:
+            loop.call_soon_threadsafe(queue.put_nowait, ("missing", None))
+            return
 
-    Using the HTTP API here avoids provider-wrapper initialization failures that
-    were producing HTTP 500 responses in the Vercel function.
-    """
-    api_key = os.environ.get("OPENAI_API_KEY")
-    if not api_key:
-        return None
+        response = requests.post(
+            "https://api.openai.com/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": model,
+                "messages": messages,
+                "stream": True,
+            },
+            timeout=(10, 45),
+        )
+        response.raise_for_status()
 
-    response = requests.post(
-        "https://api.openai.com/v1/chat/completions",
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-        },
-        json={
-            "model": os.environ.get("OPENAI_MODEL", "gpt-5.4"),
-            "messages": messages,
-            "temperature": 0.2,
-        },
-        timeout=45,
-    )
-    response.raise_for_status()
-    data = response.json()
-    return ((data.get("choices") or [{}])[0].get("message") or {}).get("content") or None
+        for raw_line in response.iter_lines(decode_unicode=True):
+            if not raw_line:
+                continue
+            line = raw_line.strip()
+            if line == "data: [DONE]":
+                break
+            if not line.startswith("data: "):
+                continue
+            try:
+                data = json.loads(line[6:])
+                delta = ((data.get("choices") or [{}])[0].get("delta") or {}).get("content")
+                if delta:
+                    loop.call_soon_threadsafe(queue.put_nowait, ("delta", delta))
+            except (ValueError, TypeError):
+                continue
+        loop.call_soon_threadsafe(queue.put_nowait, ("done", None))
+    except Exception as exc:
+        loop.call_soon_threadsafe(queue.put_nowait, ("error", str(exc)))
 
 
-async def _emergent_answer(session_id, text):
-    """Best-effort Emergent fallback. Never lets a provider error become 500."""
+async def _emergent_stream(session_id, text):
+    """Fallback provider stream."""
     api_key = os.environ.get("EMERGENT_LLM_KEY")
     if not api_key:
-        return None
+        return
     try:
         chat = LlmChat(
             api_key=api_key,
             session_id=session_id,
             system_message=CHAT_SYSTEM,
         ).with_model("openai", "gpt-5.4")
-        parts = []
         async for event in chat.stream_message(UserMessage(text=text)):
             if isinstance(event, TextDelta):
-                parts.append(event.content)
+                yield event.content
             elif isinstance(event, StreamDone):
                 break
-        return "".join(parts) or None
     except Exception:
-        return None
+        return
 
 
 @app.post("/api/chat")
@@ -82,31 +91,24 @@ async def resilient_chat(input: ChatInput):
     if not message:
         raise HTTPException(status_code=400, detail="Message is required")
 
+    # Conversation history is optional; a failed/slow database must never block AI.
     history = []
     if db is not None:
         try:
-            history = await db.chat_messages.find(
-                {"session_id": input.session_id}, {"_id": 0}
-            ).sort("created_at", 1).to_list(20)
+            history = await asyncio.wait_for(
+                db.chat_messages.find(
+                    {"session_id": input.session_id}, {"_id": 0}
+                ).sort("created_at", 1).to_list(8),
+                timeout=1.5,
+            )
         except Exception:
             history = []
 
     context = ""
     if history:
         context = "Conversation so far:\n" + "\n".join(
-            f"{m.get('role', 'visitor')}: {m.get('text', '')}" for m in history[-12:]
+            f"{m.get('role', 'visitor')}: {m.get('text', '')}" for m in history[-6:]
         ) + "\n\nVisitor: "
-
-    if db is not None:
-        try:
-            await db.chat_messages.insert_one({
-                "session_id": input.session_id,
-                "role": "visitor",
-                "text": message,
-                "created_at": datetime.now(timezone.utc).isoformat(),
-            })
-        except Exception:
-            pass
 
     prompt = context + message
     messages = [
@@ -114,43 +116,70 @@ async def resilient_chat(input: ChatInput):
         {"role": "user", "content": prompt},
     ]
 
-    # Try direct OpenAI first. This is independent of Emergent object storage.
-    answer = None
-    try:
-        answer = await __import__("asyncio").to_thread(_openai_answer, messages)
-    except Exception:
-        answer = None
-
-    # Keep compatibility with the existing Emergent integration if OpenAI is not configured.
-    if not answer:
-        answer = await _emergent_answer(input.session_id, prompt)
-
-    if not answer:
-        answer = (
-            "I’m temporarily unable to reach the AI service. "
-            "Please try again in a moment or use the Request a Quote form."
-        )
-
+    # Save the visitor message without making the visitor wait for MongoDB.
     if db is not None:
-        try:
-            await db.chat_messages.insert_one({
-                "session_id": input.session_id,
-                "role": "assistant",
-                "text": answer,
-                "created_at": datetime.now(timezone.utc).isoformat(),
-            })
-        except Exception:
-            pass
+        asyncio.create_task(db.chat_messages.insert_one({
+            "session_id": input.session_id,
+            "role": "visitor",
+            "text": message,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        }))
 
     async def event_generator():
-        # Preserve the frontend's existing SSE contract.
-        yield f"data: {json.dumps({'delta': answer})}\n\n"
+        parts = []
+        queue = asyncio.Queue()
+        loop = asyncio.get_running_loop()
+        model = os.environ.get("OPENAI_FAST_MODEL", "gpt-5-mini")
+        worker = asyncio.create_task(asyncio.to_thread(_openai_stream_worker, messages, model, loop, queue))
+
+        openai_failed = False
+        while True:
+            kind, value = await queue.get()
+            if kind == "delta":
+                parts.append(value)
+                yield f"data: {json.dumps({'delta': value})}\n\n"
+            elif kind == "done":
+                break
+            elif kind in ("missing", "error"):
+                openai_failed = True
+                break
+
+        if openai_failed:
+            # Fall back to the existing Emergent streaming integration.
+            parts = []
+            async for chunk in _emergent_stream(input.session_id, prompt):
+                parts.append(chunk)
+                yield f"data: {json.dumps({'delta': chunk})}\n\n"
+
+        answer = "".join(parts).strip()
+        if not answer:
+            answer = "I’m temporarily unable to reach the AI service. Please try again in a moment or use the Request a Quote form."
+            yield f"data: {json.dumps({'delta': answer})}\n\n"
+
+        if db is not None and answer:
+            try:
+                await asyncio.wait_for(
+                    db.chat_messages.insert_one({
+                        "session_id": input.session_id,
+                        "role": "assistant",
+                        "text": answer,
+                        "created_at": datetime.now(timezone.utc).isoformat(),
+                    }),
+                    timeout=1.5,
+                )
+            except Exception:
+                pass
+
         yield "data: [DONE]\n\n"
 
     return StreamingResponse(
         event_generator(),
         media_type="text/event-stream",
-        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+        headers={
+            "Cache-Control": "no-cache, no-transform",
+            "X-Accel-Buffering": "no",
+            "Connection": "keep-alive",
+        },
     )
 
 
