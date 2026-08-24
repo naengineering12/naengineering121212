@@ -3,18 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0A1128" />
+  <meta name="theme-color" content="#f3f5f7" />
   <link rel="icon" type="image/png" href="%PUBLIC_URL%/logo.png" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
   <meta name="description" content="NA Engineering Solutions — engineering services, industrial solutions, project support and general order supplies in Lahore, Pakistan." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" />
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1200&q=58" fetchpriority="high" />
-  <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="%PUBLIC_URL%/brand-fix.css" />
-  <script src="%PUBLIC_URL%/performance.js"></script>
+  <script src="%PUBLIC_URL%/performance.js" defer></script>
   <style>
+    html, body { margin: 0; min-height: 100%; background: #f3f5f7; color: #111827; }
+    #root { min-height: 100vh; background: #f3f5f7; }
     .footer .logo-text { display: block !important; flex: none !important; }
     .footer .logo-text b, .footer .logo-text small { display: block !important; }
   </style>
