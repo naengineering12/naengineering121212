@@ -1,73 +1,11 @@
-/* Brand consistency: make the footer lockup match the header lockup. */
-.footer .logo {
-  align-items: flex-start !important;
-}
-
-.footer .logo-text {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  justify-content: center !important;
-  gap: 3px !important;
-  flex: none !important;
-  line-height: 1 !important;
-}
-
-.footer .logo-text b {
-  display: block !important;
-  white-space: nowrap !important;
-  line-height: 1.05 !important;
-}
-
-.footer .logo-text small {
-  display: block !important;
-  white-space: nowrap !important;
-  line-height: 1.05 !important;
-}
-
-@media (max-width: 640px) {
-  .footer .logo-text b { font-size: 15px !important; }
-  .footer .logo-text small { font-size: 9px !important; letter-spacing: 3px !important; }
-}
-
-/* Reliable service-specific fallbacks for images that were failing to load. */
-img[alt="Electrical Works service"] {
-  content: url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=58") !important;
-  object-fit: cover !important;
-}
-
-img[alt="Safety & Security service"] {
-  content: url("https://www.buchen-group.be/fileadmin/_processed_/6/1/csm_BUCHEN-_DSC4125-2-FINAL_teaser_033546d692.webp") !important;
-  object-fit: cover !important;
-}
-
-/* Faster first paint: use a smaller hero image while keeping the same design. */
-.hero-bg {
-  background-image: linear-gradient(90deg,rgba(10,17,40,.97) 10%,rgba(10,17,40,.8) 46%,rgba(10,17,40,.28)), url('https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1200&q=58') !important;
-}
-
-/* CEO identity: clean, compact and aligned directly with the location. */
-.footer [data-testid="footer-address"] {
-  margin-bottom: 0 !important;
-}
-
-.footer [data-testid="footer-address"]::after {
-  content: "CEO  |  Muhammad Boota";
-  display: block;
-  width: fit-content;
-  margin-top: 9px;
-  padding: 6px 12px 6px 10px;
-  border-left: 3px solid var(--amber);
-  background: rgba(244, 162, 97, 0.07);
-  border-radius: 0 5px 5px 0;
-  color: #ffffff;
-  font: 800 12px/1.2 Chivo, sans-serif;
-  letter-spacing: 0.04em;
-}
-
-@media (max-width: 640px) {
-  .footer [data-testid="footer-address"]::after {
-    font-size: 11px;
-    padding: 6px 10px 6px 9px;
-  }
-}
+/* Brand consistency + performance overrides */
+.footer .logo{align-items:flex-start!important}.footer .logo-text{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:3px!important;flex:none!important;line-height:1!important}.footer .logo-text b,.footer .logo-text small{display:block!important;white-space:nowrap!important;line-height:1.05!important}
+@media(max-width:640px){.footer .logo-text b{font-size:15px!important}.footer .logo-text small{font-size:9px!important;letter-spacing:3px!important}}
+img[alt="Electrical Works service"]{content:url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=700&q=50")!important;object-fit:cover!important}
+img[alt="Safety & Security service"]{content:url("https://www.buchen-group.be/fileadmin/_processed_/6/1/csm_BUCHEN-_DSC4125-2-FINAL_teaser_033546d692.webp")!important;object-fit:cover!important}
+/* Smaller hero asset; the original 1600px image was unnecessarily heavy on mobile. */
+.hero-bg{background-image:linear-gradient(90deg,rgba(10,17,40,.97) 10%,rgba(10,17,40,.8) 46%,rgba(10,17,40,.28)),url('https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=900&q=50')!important}
+@media(max-width:640px){.hero-bg{background-image:linear-gradient(90deg,rgba(10,17,40,.97) 10%,rgba(10,17,40,.82) 46%,rgba(10,17,40,.35)),url('https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=600&q=45')!important}}
+/* Prevent animation/scroll libraries from delaying the first visible frame. */
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+.footer [data-testid="footer-address"]{margin-bottom:0!important}.footer [data-testid="footer-address"]::after{content:"CEO  |  Muhammad Boota";display:block;width:fit-content;margin-top:9px;padding:6px 12px 6px 10px;border-left:3px solid var(--amber);background:rgba(244,162,97,.07);border-radius:0 5px 5px 0;color:#fff;font:800 12px/1.2 Chivo,sans-serif;letter-spacing:.04em}@media(max-width:640px){.footer [data-testid="footer-address"]::after{font-size:11px;padding:6px 10px 6px 9px}}
