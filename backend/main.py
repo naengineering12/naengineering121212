@@ -1,4 +1,8 @@
-"""Fast, resilient Vercel entrypoint for the FastAPI backend."""
+"""Vercel entrypoint for the FastAPI backend.
+
+The chat endpoint is intentionally resilient: OpenAI is used when configured,
+but an authentication/provider failure never turns into a 500 or a long wait.
+"""
 import asyncio
 import json
 import os
@@ -7,29 +11,53 @@ from datetime import datetime, timezone
 import requests
 from fastapi import HTTPException
 from fastapi.responses import StreamingResponse
-from emergentintegrations.llm.chat import LlmChat, UserMessage, TextDelta, StreamDone
 
 from server import app, handler, db, CHAT_SYSTEM, ChatInput
 
-# Object storage is optional. Never initialize it on every cold start.
-for startup_handler in list(app.router.on_startup):
-    if getattr(startup_handler, "__name__", "") == "startup_storage":
-        app.router.on_startup.remove(startup_handler)
 
-# Replace server.py's old chat route with this resilient implementation.
+# Remove the original /api/chat route from server.py so there is exactly one
+# production chat implementation.
 for route in list(app.routes):
     if getattr(route, "path", None) == "/api/chat" and "POST" in (getattr(route, "methods", set()) or set()):
         app.routes.remove(route)
 
 
-def _openai_stream_worker(messages, model, loop, queue):
-    """Run the blocking OpenAI HTTP stream in a worker thread."""
-    try:
-        api_key = os.environ.get("OPENAI_API_KEY")
-        if not api_key:
-            loop.call_soon_threadsafe(queue.put_nowait, ("missing", None))
-            return
+def _local_fallback(message: str) -> str:
+    """Fast, deterministic fallback when an AI provider is unavailable."""
+    text = message.lower()
+    if any(word in text for word in ("service", "services", "what do you do", "provide")):
+        return (
+            "NA Engineering Solutions provides Civil Engineering, HVAC, Mechanical Engineering, "
+            "PEB, Electrical, Fire Fighting, Safety & Security Systems, IT supplies and General Order Supplies & Services. "
+            "For a detailed requirement or quotation, please use the Request a Quote form."
+        )
+    if any(word in text for word in ("quote", "quotation", "price", "cost", "rate")):
+        return (
+            "We can prepare a quotation according to your required specification and quantity. "
+            "Please submit the Request a Quote form with the item/service details, or contact "
+            "na.engineeringsolutions2023@gmail.com."
+        )
+    if any(word in text for word in ("contact", "email", "phone", "number")):
+        return (
+            "You can contact NA Engineering Solutions at na.engineeringsolutions2023@gmail.com, "
+            "+92 300 8596393 or +92 302 6880398."
+        )
+    if any(word in text for word in ("location", "address", "lahore")):
+        return "Our office is at 593-A Block LDA Avenue-1, Raiwind Road, Lahore, Pakistan."
+    return (
+        "Thanks for contacting NA Engineering Solutions. I can help with our engineering services, "
+        "IT equipment, General Order Supplies & Services, or quotation requirements. Please tell me what you need."
+    )
 
+
+def _openai_stream_worker(messages, model, loop, queue):
+    """Run the OpenAI streaming request off the event loop."""
+    api_key = (os.environ.get("OPENAI_API_KEY") or "").strip()
+    if not api_key:
+        loop.call_soon_threadsafe(queue.put_nowait, ("provider_error", "OPENAI_API_KEY is not configured"))
+        return
+
+    try:
         response = requests.post(
             "https://api.openai.com/v1/chat/completions",
             headers={
@@ -41,9 +69,19 @@ def _openai_stream_worker(messages, model, loop, queue):
                 "messages": messages,
                 "stream": True,
             },
-            timeout=(10, 45),
+            timeout=(5, 35),
         )
-        response.raise_for_status()
+
+        if response.status_code == 401:
+            loop.call_soon_threadsafe(
+                queue.put_nowait,
+                ("provider_error", "OpenAI authentication failed (401)"),
+            )
+            return
+        if response.status_code >= 400:
+            detail = response.text[:300].replace("\n", " ")
+            loop.call_soon_threadsafe(queue.put_nowait, ("provider_error", f"OpenAI HTTP {response.status_code}: {detail}"))
+            return
 
         for raw_line in response.iter_lines(decode_unicode=True):
             if not raw_line:
@@ -58,31 +96,32 @@ def _openai_stream_worker(messages, model, loop, queue):
                 delta = ((data.get("choices") or [{}])[0].get("delta") or {}).get("content")
                 if delta:
                     loop.call_soon_threadsafe(queue.put_nowait, ("delta", delta))
-            except (ValueError, TypeError):
+            except (ValueError, TypeError, IndexError):
                 continue
+
         loop.call_soon_threadsafe(queue.put_nowait, ("done", None))
+    except requests.RequestException as exc:
+        loop.call_soon_threadsafe(queue.put_nowait, ("provider_error", str(exc)[:300]))
     except Exception as exc:
-        loop.call_soon_threadsafe(queue.put_nowait, ("error", str(exc)))
+        loop.call_soon_threadsafe(queue.put_nowait, ("provider_error", str(exc)[:300]))
 
 
-async def _emergent_stream(session_id, text):
-    """Fallback provider stream."""
-    api_key = os.environ.get("EMERGENT_LLM_KEY")
-    if not api_key:
+async def _save_chat(session_id: str, role: str, text: str):
+    if db is None or not text:
         return
     try:
-        chat = LlmChat(
-            api_key=api_key,
-            session_id=session_id,
-            system_message=CHAT_SYSTEM,
-        ).with_model("openai", "gpt-5.4")
-        async for event in chat.stream_message(UserMessage(text=text)):
-            if isinstance(event, TextDelta):
-                yield event.content
-            elif isinstance(event, StreamDone):
-                break
+        await asyncio.wait_for(
+            db.chat_messages.insert_one({
+                "session_id": session_id,
+                "role": role,
+                "text": text,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+            }),
+            timeout=1.5,
+        )
     except Exception:
-        return
+        # Database problems must never break the visitor's chat response.
+        pass
 
 
 @app.post("/api/chat")
@@ -91,7 +130,6 @@ async def resilient_chat(input: ChatInput):
     if not message:
         raise HTTPException(status_code=400, detail="Message is required")
 
-    # Conversation history is optional; a failed/slow database must never block AI.
     history = []
     if db is not None:
         try:
@@ -99,7 +137,7 @@ async def resilient_chat(input: ChatInput):
                 db.chat_messages.find(
                     {"session_id": input.session_id}, {"_id": 0}
                 ).sort("created_at", 1).to_list(8),
-                timeout=1.5,
+                timeout=1.0,
             )
         except Exception:
             history = []
@@ -116,23 +154,17 @@ async def resilient_chat(input: ChatInput):
         {"role": "user", "content": prompt},
     ]
 
-    # Save the visitor message without making the visitor wait for MongoDB.
-    if db is not None:
-        asyncio.create_task(db.chat_messages.insert_one({
-            "session_id": input.session_id,
-            "role": "visitor",
-            "text": message,
-            "created_at": datetime.now(timezone.utc).isoformat(),
-        }))
+    # Fire-and-forget: MongoDB latency cannot delay the first AI token.
+    asyncio.create_task(_save_chat(input.session_id, "visitor", message))
 
     async def event_generator():
         parts = []
         queue = asyncio.Queue()
         loop = asyncio.get_running_loop()
-        model = os.environ.get("OPENAI_FAST_MODEL", "gpt-5-mini")
-        worker = asyncio.create_task(asyncio.to_thread(_openai_stream_worker, messages, model, loop, queue))
+        model = os.environ.get("OPENAI_FAST_MODEL", "gpt-5-mini").strip() or "gpt-5-mini"
+        asyncio.create_task(asyncio.to_thread(_openai_stream_worker, messages, model, loop, queue))
 
-        openai_failed = False
+        provider_failed = False
         while True:
             kind, value = await queue.get()
             if kind == "delta":
@@ -140,36 +172,23 @@ async def resilient_chat(input: ChatInput):
                 yield f"data: {json.dumps({'delta': value})}\n\n"
             elif kind == "done":
                 break
-            elif kind in ("missing", "error"):
-                openai_failed = True
+            elif kind == "provider_error":
+                provider_failed = True
                 break
 
-        if openai_failed:
-            # Fall back to the existing Emergent streaming integration.
-            parts = []
-            async for chunk in _emergent_stream(input.session_id, prompt):
-                parts.append(chunk)
-                yield f"data: {json.dumps({'delta': chunk})}\n\n"
+        # Never retry a broken provider through a second slow integration.
+        # Use an instant local response so the website remains functional.
+        if provider_failed:
+            answer = _local_fallback(message)
+            parts = [answer]
+            yield f"data: {json.dumps({'delta': answer})}\n\n"
 
         answer = "".join(parts).strip()
         if not answer:
-            answer = "I’m temporarily unable to reach the AI service. Please try again in a moment or use the Request a Quote form."
+            answer = _local_fallback(message)
             yield f"data: {json.dumps({'delta': answer})}\n\n"
 
-        if db is not None and answer:
-            try:
-                await asyncio.wait_for(
-                    db.chat_messages.insert_one({
-                        "session_id": input.session_id,
-                        "role": "assistant",
-                        "text": answer,
-                        "created_at": datetime.now(timezone.utc).isoformat(),
-                    }),
-                    timeout=1.5,
-                )
-            except Exception:
-                pass
-
+        await _save_chat(input.session_id, "assistant", answer)
         yield "data: [DONE]\n\n"
 
     return StreamingResponse(
