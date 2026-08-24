@@ -25,7 +25,6 @@
   line-height: 1.05 !important;
 }
 
-/* Keep the footer logo readable on smaller screens too. */
 @media (max-width: 640px) {
   .footer .logo-text b {
     font-size: 15px !important;
@@ -48,27 +47,28 @@ img[alt="Safety & Security service"] {
   object-fit: cover !important;
 }
 
-/* CEO identity block under the footer location. */
+/* CEO identity line under the footer location. */
 .footer [data-testid="footer-address"] {
-  margin-bottom: 2px;
+  margin-bottom: 0 !important;
 }
 
 .footer [data-testid="footer-address"]::after {
   content: "CEO  •  Muhammad Boota";
   display: block;
-  margin-top: 7px;
-  padding: 7px 11px;
-  width: fit-content;
-  border-left: 3px solid var(--amber);
-  background: rgba(244, 162, 97, 0.08);
+  width: 100%;
+  margin-top: 8px;
+  padding: 9px 0;
+  border-top: 1px solid rgba(244, 162, 97, 0.45);
+  border-bottom: 1px solid rgba(244, 162, 97, 0.18);
   color: #ffffff;
-  font: 800 12px/1.2 Chivo, sans-serif;
-  letter-spacing: 0.03em;
+  font: 800 13px/1.2 Chivo, sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 @media (max-width: 640px) {
   .footer [data-testid="footer-address"]::after {
     font-size: 11px;
-    padding: 6px 10px;
+    padding: 8px 0;
   }
 }
