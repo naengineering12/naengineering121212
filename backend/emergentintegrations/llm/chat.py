@@ -1,5 +1,6 @@
+import os
 from dataclasses import dataclass
-from typing import AsyncIterator, Optional
+from typing import AsyncIterator
 
 from openai import AsyncOpenAI
 
@@ -35,18 +36,36 @@ class LlmChat:
         if self.provider != "openai":
             raise ValueError(f"Unsupported provider: {self.provider}")
 
-        client = AsyncOpenAI(api_key=self.api_key)
+        # Prefer a real OpenAI API key when one is configured in Vercel.
+        # The old implementation always used EMERGENT_LLM_KEY first, which
+        # can cause authentication failures when that variable is stale.
+        api_key = os.environ.get("OPENAI_API_KEY") or self.api_key
+        if not api_key:
+            raise RuntimeError("No OpenAI API key configured")
+
+        # Allow an OpenAI-compatible proxy/base URL when the deployment uses one.
+        base_url = (
+            os.environ.get("OPENAI_BASE_URL")
+            or os.environ.get("OPENAI_API_BASE")
+            or None
+        )
+
+        client_kwargs = {"api_key": api_key}
+        if base_url:
+            client_kwargs["base_url"] = base_url.rstrip("/")
+
+        client = AsyncOpenAI(**client_kwargs)
         messages = []
         if self.system_message:
             messages.append({"role": "system", "content": self.system_message})
         messages.append({"role": "user", "content": message.text})
 
-        stream = await client.chat.completions.create(
-            model=self.model,
-            messages=messages,
-            stream=True,
-        )
         try:
+            stream = await client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                stream=True,
+            )
             async for chunk in stream:
                 if not chunk.choices:
                     continue
