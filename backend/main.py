@@ -14,6 +14,14 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage, TextDelta, Strea
 
 from server import app, handler, db, CHAT_SYSTEM, ChatInput
 
+# Object storage is optional. The old startup hook attempted to initialize
+# Emergent object storage on every cold start and produced a noisy 400 error
+# when no valid storage integration key was configured. Storage is only needed
+# for optional quote attachments, so do not initialize it during startup.
+for startup_handler in list(app.router.on_startup):
+    if getattr(startup_handler, "__name__", "") == "startup_storage":
+        app.router.on_startup.remove(startup_handler)
+
 # Remove the old /api/chat route. The old implementation returned 503 whenever
 # MongoDB was not configured, which made the public chat widget fail even when
 # the AI provider itself was available.
@@ -77,8 +85,6 @@ async def resilient_chat(input: ChatInput):
                 elif isinstance(event, StreamDone):
                     break
         except Exception as exc:
-            # Return a useful chat message instead of leaving the frontend with
-            # an empty stream/failure state.
             fallback = "I’m temporarily unable to reach the AI service. Please try again in a moment or use the Request a Quote form."
             yield f"data: {json.dumps({'delta': fallback})}\n\n"
 
