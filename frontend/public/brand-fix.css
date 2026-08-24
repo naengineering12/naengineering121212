@@ -26,25 +26,24 @@
 }
 
 @media (max-width: 640px) {
-  .footer .logo-text b {
-    font-size: 15px !important;
-  }
-
-  .footer .logo-text small {
-    font-size: 9px !important;
-    letter-spacing: 3px !important;
-  }
+  .footer .logo-text b { font-size: 15px !important; }
+  .footer .logo-text small { font-size: 9px !important; letter-spacing: 3px !important; }
 }
 
 /* Reliable service-specific fallbacks for images that were failing to load. */
 img[alt="Electrical Works service"] {
-  content: url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1100&q=70") !important;
+  content: url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=58") !important;
   object-fit: cover !important;
 }
 
 img[alt="Safety & Security service"] {
   content: url("https://www.buchen-group.be/fileadmin/_processed_/6/1/csm_BUCHEN-_DSC4125-2-FINAL_teaser_033546d692.webp") !important;
   object-fit: cover !important;
+}
+
+/* Faster first paint: use a smaller hero image while keeping the same design. */
+.hero-bg {
+  background-image: linear-gradient(90deg,rgba(10,17,40,.97) 10%,rgba(10,17,40,.8) 46%,rgba(10,17,40,.28)), url('https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1200&q=58') !important;
 }
 
 /* CEO identity: clean, compact and aligned directly with the location. */
@@ -64,10 +63,6 @@ img[alt="Safety & Security service"] {
   color: #ffffff;
   font: 800 12px/1.2 Chivo, sans-serif;
   letter-spacing: 0.04em;
-}
-
-.footer [data-testid="footer-address"]::after::first-letter {
-  color: var(--amber);
 }
 
 @media (max-width: 640px) {
