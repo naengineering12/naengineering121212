@@ -47,3 +47,28 @@ img[alt="Safety & Security service"] {
   content: url("https://www.buchen-group.be/fileadmin/_processed_/6/1/csm_BUCHEN-_DSC4125-2-FINAL_teaser_033546d692.webp") !important;
   object-fit: cover !important;
 }
+
+/* CEO identity block under the footer location. */
+.footer [data-testid="footer-address"] {
+  margin-bottom: 2px;
+}
+
+.footer [data-testid="footer-address"]::after {
+  content: "CEO  •  Muhammad Boota";
+  display: block;
+  margin-top: 7px;
+  padding: 7px 11px;
+  width: fit-content;
+  border-left: 3px solid var(--amber);
+  background: rgba(244, 162, 97, 0.08);
+  color: #ffffff;
+  font: 800 12px/1.2 Chivo, sans-serif;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 640px) {
+  .footer [data-testid="footer-address"]::after {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+}
