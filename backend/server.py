@@ -93,7 +93,6 @@ async def submit_quote(
 
     record = QuoteRequest(full_name=full_name, company_name=company_name, email=email, phone=phone, service_required=service_required, message=message, attachment_name=attachment_name, attachment_path=attachment_path, attachment_content_type=attachment_content_type)
 
-    # Persist to MongoDB (primary storage). Email is a best-effort notification.
     db_saved = False
     if db is not None:
         try:
@@ -298,13 +297,8 @@ def get_object(path: str):
     resp.raise_for_status()
     return resp.content, resp.headers.get("Content-Type", "application/octet-stream")
 
-@app.on_event("startup")
-async def startup_storage():
-    try:
-        await asyncio.to_thread(init_storage)
-        logger.info("Object storage initialized")
-    except Exception as e:
-        logger.error(f"Storage init failed: {e}")
+# Object storage is optional. Do not initialize it on every Vercel cold start.
+# It is initialized lazily only when an attachment actually needs storage.
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
