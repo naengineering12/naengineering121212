@@ -5,7 +5,7 @@ import "./ContactFooter.css";
 
 const navItems = [["Home","/"],["Services","/services"],["General Order Supplies","/supplies"],["IT Services","/it-services"],["Industries","/industries"],["Our Clients","/clients"],["Contact Us","/contact"]];
 const officeAddress="593 Block-A LDA Avenue, 1 Raiwind Rd, Lahore, 54000";
-const mapsUrl="https://www.google.com/maps/dir/?api=1&destination=593+Block-A+LDA+Avenue,+1+Raiwind+Rd,+Lahore,+54000";
+const mapsUrl="https://www.google.com/maps/place/31%C2%B025'38.7%22N+74%C2%B013'17.5%22E/@31.4274139,74.2189598,17z/data=!3m1!4b1!4m4!3m3!8m2!3d31.4274139!4d74.2215347?hl=en&entry=ttu&g_ep=EgoyMDI2MDgyNS4wIKXMDSoASAFQAw%3D%3D";
 const emailAddress="na.engineeringsolutions2023@gmail.com";
 const emailUrl=`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(emailAddress)}`;
 
