@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import "./clients-responsive.css";
+import "./clients-fix.css";
 import "./clients-enhancements";
 import "./ChatFix.css";
 import App from "./App";
