@@ -40,3 +40,63 @@
   .logos-row{grid-auto-rows:68px!important}
   .logo-chip-enhanced{height:68px!important;min-height:68px!important}
 }
+
+/* Global responsive/mobile stability fixes */
+html,body,#root{max-width:100%;overflow-x:hidden}
+img,video,svg{max-width:100%}
+
+.contact-site{min-height:100vh!important;display:flex!important;flex-direction:column!important}
+.contact-site main{flex:1 0 auto}
+.contact-site .contact-footer{margin-top:0!important}
+
+@media(max-width:800px){
+  .container,.contact-container{width:calc(100% - 32px)!important;max-width:none!important}
+  .hero,.hero-content{min-height:0!important}
+  .hero-content{padding:72px 0 85px!important}
+  .section{padding:60px 0!important}
+  .split,.service-row,.detail-grid,.industry-feature,.contact-grid,.mission-grid{grid-template-columns:1fr!important;gap:32px!important}
+  .value-grid,.stats-grid,.why-grid{grid-template-columns:1fr 1fr!important}
+  .cap-grid,.supply-grid,.industry-grid,.projects-grid,.testi-grid,.gallery-grid{grid-template-columns:1fr 1fr!important}
+  .service-image{height:280px!important}
+  .detail-image{height:320px!important}
+  .process-grid{grid-template-columns:repeat(2,1fr)!important}
+  .footer-grid{grid-template-columns:1fr 1fr!important;gap:30px!important}
+  .footer-grid>div:first-child{grid-column:1/-1!important}
+  .footer-bottom{margin-top:40px!important;display:flex!important;flex-direction:column!important;gap:5px!important}
+  .chat-widget{right:14px!important;bottom:calc(14px + env(safe-area-inset-bottom))!important;gap:10px!important}
+  .chat-panel{width:min(360px,calc(100vw - 28px))!important;max-height:72vh!important}
+  .contact-header{height:70px!important}
+  .contact-nav{top:70px!important}
+  .contact-intro{padding:64px 0 58px!important}
+  .contact-section{padding:60px 0!important}
+  .contact-main-grid,.contact-details-grid{grid-template-columns:1fr!important;gap:32px!important}
+  .contact-service-grid{grid-template-columns:1fr 1fr!important}
+  .contact-map-inner{grid-template-columns:1fr!important;gap:24px!important}
+}
+
+@media(max-width:560px){
+  .container,.contact-container{width:calc(100% - 24px)!important}
+  .hero h1,.page-intro h1{font-size:clamp(36px,11vw,48px)!important}
+  .hero p,.page-intro p{font-size:15px!important}
+  .value-grid,.stats-grid,.why-grid,.cap-grid,.supply-grid,.industry-grid,.projects-grid,.testi-grid,.gallery-grid,.footer-grid{grid-template-columns:1fr!important}
+  .process-grid{grid-template-columns:1fr!important}
+  .footer-grid>div:first-child{grid-column:auto!important}
+  .footer{padding-top:50px!important}
+  .footer-bottom{font-size:9px!important}
+  .chat-widget{right:10px!important}
+  .chat-toggle{width:52px!important;height:52px!important}
+  .contact-service-grid{grid-template-columns:1fr!important}
+  .contact-intro h1{font-size:40px!important}
+  .contact-main-copy h2,.contact-dark h2,.contact-heading h2{font-size:32px!important}
+  .contact-map-inner h2{font-size:30px!important}
+  .contact-footer-bottom .contact-container{width:calc(100% - 24px)!important}
+}
+
+@media(max-width:380px){
+  .container,.contact-container{width:calc(100% - 20px)!important}
+  .logo-text{display:none}
+  .contact-logo span{display:none}
+  .contact-logo img{height:40px!important}
+  .hero h1,.page-intro h1{font-size:34px!important}
+  .contact-intro h1{font-size:35px!important}
+}
