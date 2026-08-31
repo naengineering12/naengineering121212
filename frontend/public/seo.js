@@ -7,26 +7,11 @@
 
   const pages = {
     '/': DEFAULT,
-    '/services': {
-      title: 'Engineering Services in Lahore | NA Engineering Solutions',
-      description: 'Engineering services in Lahore including civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing, industrial maintenance and utility solutions.'
-    },
-    '/supplies': {
-      title: 'General Order Supplies in Lahore | NA Engineering Solutions',
-      description: 'General order supplier in Lahore for industrial, electrical, mechanical, safety, PPE, hardware, janitorial, office, IT and maintenance supplies.'
-    },
-    '/it-services': {
-      title: 'IT Services & Equipment Supplier Lahore | NA Engineering Solutions',
-      description: 'IT services and equipment supply in Lahore including laptops, computers, printers, networking accessories, cables, peripherals and office technology.'
-    },
-    '/industries': {
-      title: 'Industries We Serve | Engineering Solutions Lahore',
-      description: 'Engineering, maintenance and general order supply solutions for manufacturing, pharmaceutical, food, construction, utilities, warehouses, offices and commercial facilities.'
-    },
-    '/clients': {
-      title: 'Our Clients | NA Engineering Solutions Lahore',
-      description: 'Explore client and project experience of NA Engineering Solutions across industrial, commercial, engineering and general order supply requirements.'
-    }
+    '/services': { title: 'Engineering Services in Lahore | NA Engineering Solutions', description: 'Engineering services in Lahore including civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing, industrial maintenance and utility solutions.' },
+    '/supplies': { title: 'General Order Supplies in Lahore | NA Engineering Solutions', description: 'General order supplier in Lahore for industrial, electrical, mechanical, safety, PPE, hardware, janitorial, office, IT and maintenance supplies.' },
+    '/it-services': { title: 'IT Services & Equipment Supplier Lahore | NA Engineering Solutions', description: 'IT services and equipment supply in Lahore including laptops, computers, printers, networking accessories, cables, peripherals and office technology.' },
+    '/industries': { title: 'Industries We Serve | Engineering Solutions Lahore', description: 'Engineering, maintenance and general order supply solutions for manufacturing, pharmaceutical, food, construction, utilities, warehouses, offices and commercial facilities.' },
+    '/clients': { title: 'Our Clients | NA Engineering Solutions Lahore', description: 'Explore client and project experience of NA Engineering Solutions across industrial, commercial, engineering and general order supply requirements.' }
   };
 
   const servicePages = {
@@ -60,14 +45,20 @@
     if (!el) { el = document.createElement('link'); el.rel = 'canonical'; document.head.appendChild(el); }
     el.href = url;
   }
+  function improveImageAlt() {
+    document.querySelectorAll('img').forEach(function (image) {
+      if (image.getAttribute('alt') && image.getAttribute('alt').trim()) return;
+      const heading = image.closest('article,section,figure,div')?.querySelector('h2,h3,h4');
+      const label = heading?.textContent?.trim() || document.title.split('|')[0].trim();
+      image.setAttribute('alt', label + ' - NA Engineering Solutions');
+    });
+  }
 
   function apply() {
     const path = window.location.pathname.replace(/\/+$/, '') || '/';
     let data = pages[path] || DEFAULT;
     const serviceMatch = path.match(/^\/services\/([^/]+)$/);
-    if (serviceMatch && servicePages[serviceMatch[1]]) {
-      data = { title: servicePages[serviceMatch[1]][0], description: servicePages[serviceMatch[1]][1] };
-    }
+    if (serviceMatch && servicePages[serviceMatch[1]]) data = { title: servicePages[serviceMatch[1]][0], description: servicePages[serviceMatch[1]][1] };
     document.title = data.title;
     upsert('description', data.description);
     upsert('robots', 'index, follow, max-image-preview:large');
@@ -82,6 +73,7 @@
     upsert('twitter:description', data.description);
     upsert('twitter:image', SITE + '/logo.png');
     canonical(SITE + path);
+    improveImageAlt();
 
     let schema = document.getElementById('dynamic-seo-schema');
     if (!schema) { schema = document.createElement('script'); schema.id = 'dynamic-seo-schema'; schema.type = 'application/ld+json'; document.head.appendChild(schema); }
@@ -102,5 +94,6 @@
   let lastPath = window.location.pathname;
   setInterval(function () {
     if (window.location.pathname !== lastPath) { lastPath = window.location.pathname; apply(); }
-  }, 500);
+    else improveImageAlt();
+  }, 1000);
 })();
