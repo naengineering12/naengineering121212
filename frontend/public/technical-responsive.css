@@ -1,4 +1,5 @@
 /* Global technical + responsive hardening */
+/* Social links: Instagram https://www.instagram.com/na_engineering.co/ */
 html,body,#root{width:100%;max-width:100%;min-height:100%;overflow-x:hidden}html{-webkit-text-size-adjust:100%}body{margin:0}*,*::before,*::after{box-sizing:border-box}img,svg,video,canvas{max-width:100%}img{height:auto}button,input,textarea,select{font:inherit}button,a{-webkit-tap-highlight-color:transparent}:focus-visible{outline:2px solid #f4a261;outline-offset:3px}
 .site-header{width:100%}.container{max-width:1180px;width:min(1180px,calc(100% - 48px))}.hero,.page-intro,.section,.dark-section,.cta,.footer{max-width:100%;overflow:hidden}
 @media(max-width:1000px){.container{width:min(100% - 40px,900px)}.nav-links{gap:16px;font-size:11px}.split,.detail-grid,.industry-feature,.contact-grid{grid-template-columns:1fr;gap:45px}.cap-grid,.supply-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.industry-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.process-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.service-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px}.detail-image{height:460px}}
