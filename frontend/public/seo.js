@@ -30,6 +30,32 @@
     'pumps-valves-pneumatic': ['Pumps, Valves & Pneumatic Fittings Lahore | NA Engineering Solutions', 'Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support.']
   };
 
+  const headingMap = {
+    '/': { h1: 'NA Engineering Solutions — Engineering Services & General Order Supplies in Lahore', h2: 'NA Engineering Solutions: Your Engineering & Industrial Solutions Partner' },
+    '/services': { h1: 'Engineering Services in Lahore | NA Engineering Solutions' },
+    '/supplies': { h1: 'General Order Supplies in Lahore | NA Engineering Solutions' },
+    '/it-services': { h1: 'IT Services & Equipment Supplier in Lahore | NA Engineering Solutions' },
+    '/industries': { h1: 'Industries We Serve in Lahore & Pakistan | NA Engineering Solutions' },
+    '/clients': { h1: 'Our Clients | NA Engineering Solutions Lahore' },
+    '/about': { h1: 'About NA Engineering Solutions | Lahore, Pakistan' }
+  };
+
+  const serviceH1 = {
+    'civil-engineering': 'Civil Engineering Services in Lahore | NA Engineering Solutions',
+    'mechanical-engineering': 'Mechanical Engineering Services in Lahore | NA Engineering Solutions',
+    'peb-works': 'PEB Works in Lahore | NA Engineering Solutions',
+    'electrical-works': 'Electrical Works in Lahore | NA Engineering Solutions',
+    'mechanical-electrical-supplies': 'Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions',
+    'utilities-facility-maintenance': 'Facility & Utility Maintenance in Lahore | NA Engineering Solutions',
+    'boiler-chemicals': 'Boiler Chemicals & Water Treatment in Lahore | NA Engineering Solutions',
+    'seamless-pipes-fittings': 'Seamless MS & SS Pipes & Fittings in Lahore | NA Engineering Solutions',
+    'wastewater-treatment-plant': 'WWTP Supplies & Services in Lahore | NA Engineering Solutions',
+    'hvac-supplies-services': 'HVAC Services & Supplies in Lahore | NA Engineering Solutions',
+    'fire-fighting-equipment': 'Fire Fighting Equipment & Services in Lahore | NA Engineering Solutions',
+    'waterproofing-solutions': 'Waterproofing Services in Lahore | NA Engineering Solutions',
+    'pumps-valves-pneumatic': 'Pumps, Valves & Pneumatic Fittings in Lahore | NA Engineering Solutions'
+  };
+
   function upsert(name, content) {
     let el = document.head.querySelector('meta[name="' + name + '"]');
     if (!el) { el = document.createElement('meta'); el.name = name; document.head.appendChild(el); }
@@ -53,6 +79,22 @@
       image.setAttribute('alt', label + ' - NA Engineering Solutions');
     });
   }
+  function optimizeHeadings(path) {
+    const serviceMatch = path.match(/^\/services\/([^/]+)$/);
+    if (serviceMatch && serviceH1[serviceMatch[1]]) {
+      const h1 = document.querySelector('main h1, .page-intro h1, h1');
+      if (h1) h1.textContent = serviceH1[serviceMatch[1]];
+      return;
+    }
+    const map = headingMap[path];
+    if (!map) return;
+    const h1 = document.querySelector('main h1, .page-intro h1, h1');
+    if (h1 && map.h1) h1.textContent = map.h1;
+    if (map.h2) {
+      const h2 = document.querySelector('main h2, section h2, h2');
+      if (h2) h2.textContent = map.h2;
+    }
+  }
 
   function apply() {
     const path = window.location.pathname.replace(/\/+$/, '') || '/';
@@ -73,6 +115,7 @@
     upsert('twitter:description', data.description);
     upsert('twitter:image', SITE + '/logo.png');
     canonical(SITE + path);
+    optimizeHeadings(path);
     improveImageAlt();
 
     let schema = document.getElementById('dynamic-seo-schema');
@@ -111,6 +154,6 @@
   let lastPath = window.location.pathname;
   setInterval(function () {
     if (window.location.pathname !== lastPath) { lastPath = window.location.pathname; apply(); }
-    else improveImageAlt();
+    else { optimizeHeadings(lastPath); improveImageAlt(); }
   }, 1000);
 })();
