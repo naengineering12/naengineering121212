@@ -1,4 +1,7 @@
 """Final production security layer for the FastAPI/Vercel backend."""
+import os
+
+import jwt
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
@@ -48,8 +51,27 @@ def _security_headers(response, path):
         response.headers["Cache-Control"] = "no-store"
 
 
+def _validate_admin_token(authorization: str) -> bool:
+    if not authorization.startswith("Bearer "):
+        return False
+    token = authorization[7:].strip()
+    secret = (os.environ.get("JWT_SECRET") or "").strip()
+    if not secret or not token or len(token) > 4096:
+        return False
+    try:
+        payload = jwt.decode(token, secret, algorithms=["HS256"])
+    except jwt.PyJWTError:
+        return False
+    return (
+        payload.get("type") == "admin"
+        and payload.get("sub") == "admin"
+        and isinstance(payload.get("email"), str)
+        and bool(payload.get("email"))
+    )
+
+
 def apply_security_hardening(app):
-    """Apply strict CORS, API headers, body limits and remove unused public status APIs."""
+    """Apply strict CORS, API headers, body limits and defense-in-depth auth."""
     # The template status endpoints are not used by the current frontend.
     # Removing them reduces public write/read surface area.
     for route in list(app.routes):
@@ -74,6 +96,11 @@ def apply_security_hardening(app):
         if len(authorization) > 8192:
             return JSONResponse(status_code=400, content={"detail": "Authorization header is too large"})
 
+        path = request.url.path
+        if path.startswith("/api/admin/") and path != "/api/admin/login":
+            if not _validate_admin_token(authorization):
+                return JSONResponse(status_code=401, content={"detail": "Not authenticated"})
+
         if request.method == "OPTIONS" and origin:
             requested_method = request.headers.get("access-control-request-method", "GET").upper()
             requested_headers = {
@@ -90,12 +117,12 @@ def apply_security_hardening(app):
             response.headers["Access-Control-Allow-Methods"] = ", ".join(sorted(ALLOWED_METHODS))
             response.headers["Access-Control-Allow-Headers"] = ", ".join(sorted(ALLOWED_HEADERS))
             response.headers["Access-Control-Max-Age"] = "600"
-            _security_headers(response, request.url.path)
+            _security_headers(response, path)
             return response
 
         response = await call_next(request)
         _apply_cors(response, origin)
-        _security_headers(response, request.url.path)
+        _security_headers(response, path)
         return response
 
     return app
