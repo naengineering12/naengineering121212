@@ -9,7 +9,7 @@
     },
     "backend": {
       "root": "backend",
-      "entrypoint": "main:app"
+      "entrypoint": "secure_main:app"
     }
   },
   "headers": [
