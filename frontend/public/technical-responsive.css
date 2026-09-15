@@ -40,3 +40,16 @@ html,body,#root{max-width:100%;overflow-x:clip}body{overscroll-behavior-x:none;-
   .about-feature-image{height:300px!important}
   .chat-widget{right:10px!important;bottom:10px!important}
 }
+
+/* Final mobile paint/layout optimization */
+@media (max-width:800px){
+  .section,.dark-section,.page-intro,.cta,.footer{contain:layout paint;}
+  .service-row,.supply-card,.client-card,.project-card,.value-card,.testi-card,.gallery-item,.cap-card{contain:layout paint;}
+  .service-image,.detail-image,.industry-feature img,.supply-card-image,.about-feature-image{content-visibility:auto;contain-intrinsic-size:300px 270px;}
+  .hero-bg{background-attachment:scroll!important;}
+  *{scroll-margin-top:76px;}
+}
+@media (max-width:480px){
+  .section,.dark-section,.page-intro,.cta{contain:layout paint style;}
+  .chat-panel{max-height:calc(100dvh - 90px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
+}
