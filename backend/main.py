@@ -7,13 +7,84 @@ locally without an external model round-trip.
 import asyncio
 import json
 import os
+import time
+from collections import defaultdict, deque
 from datetime import datetime, timezone
 
 import requests
-from fastapi import HTTPException
-from fastapi.responses import StreamingResponse
+from fastapi import HTTPException, Request
+from fastapi.responses import JSONResponse, StreamingResponse
 
 from server import app, handler, db, CHAT_SYSTEM, ChatInput
+
+
+# ---------------------------------------------------------------------------
+# Production API protection
+# ---------------------------------------------------------------------------
+# Keep the limiter dependency-free so it works on Vercel without adding a
+# package. Each warm server instance gets its own short-lived limiter state.
+# The limits are intentionally endpoint-specific so normal website usage is
+# not affected while automated abuse is slowed down.
+_RATE_LIMITS = {
+    "/api/admin/login": (10, 300),   # 10 attempts / 5 minutes / IP
+    "/api/quote": (20, 600),         # 20 submissions / 10 minutes / IP
+    "/api/chat": (30, 300),          # 30 messages / 5 minutes / IP
+    "/api/status": (20, 600),        # legacy/template endpoint protection
+}
+_rate_buckets = defaultdict(deque)
+
+
+def _allowed_origins():
+    configured = [x.strip().rstrip("/") for x in os.environ.get("CORS_ORIGINS", "").split(",") if x.strip()]
+    if configured and "*" not in configured:
+        return set(configured)
+    return {
+        "https://www.naengineeringsolutions.com",
+        "https://naengineeringsolutions.com",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    }
+
+
+@app.middleware("http")
+async def security_middleware(request: Request, call_next):
+    """Reject untrusted browser origins and apply lightweight API rate limits."""
+    origin = request.headers.get("origin", "").rstrip("/")
+    allowed_origins = _allowed_origins()
+
+    # Same-origin requests normally have no Origin header. Cross-origin
+    # browser requests must explicitly come from an allowed frontend.
+    if origin and origin not in allowed_origins:
+        return JSONResponse(status_code=403, content={"detail": "Origin not allowed"})
+
+    path = request.url.path
+    limit_config = _RATE_LIMITS.get(path) if request.method != "OPTIONS" else None
+    if limit_config:
+        limit, window = limit_config
+        client_ip = request.client.host if request.client else "unknown"
+        bucket_key = f"{path}:{client_ip}"
+        now = time.monotonic()
+        bucket = _rate_buckets[bucket_key]
+        cutoff = now - window
+        while bucket and bucket[0] <= cutoff:
+            bucket.popleft()
+        if len(bucket) >= limit:
+            retry_after = max(1, int(window - (now - bucket[0])))
+            return JSONResponse(
+                status_code=429,
+                content={"detail": "Too many requests. Please try again later."},
+                headers={"Retry-After": str(retry_after)},
+            )
+        bucket.append(now)
+
+    # Prevent unbounded growth from many distinct paths/IPs on a warm worker.
+    if len(_rate_buckets) > 2000:
+        stale_before = time.monotonic() - 900
+        stale_keys = [key for key, bucket in _rate_buckets.items() if not bucket or bucket[-1] < stale_before]
+        for key in stale_keys[:1000]:
+            _rate_buckets.pop(key, None)
+
+    return await call_next(request)
 
 
 # Remove the original /api/chat route from server.py so there is exactly one
