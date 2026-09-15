@@ -53,3 +53,12 @@ html,body,#root{max-width:100%;overflow-x:clip}body{overscroll-behavior-x:none;-
   .section,.dark-section,.page-intro,.cta{contain:layout paint style;}
   .chat-panel{max-height:calc(100dvh - 90px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
 }
+
+/* Mobile footer bottom-gap fix */
+@media (max-width:800px){
+  html,body,#root{min-height:0!important;height:auto!important;}
+  body{height:auto!important;margin:0!important;}
+  #root,.App{min-height:0!important;height:auto!important;}
+  .footer{contain:layout paint!important;min-height:0!important;height:auto!important;margin-bottom:0!important;}
+  .footer-bottom{margin-bottom:0!important;}
+}
