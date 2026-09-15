@@ -115,8 +115,7 @@
     upsert('twitter:description', data.description);
     upsert('twitter:image', SITE + '/logo.png');
     canonical(SITE + path);
-    optimizeHeadings(path);
-    improveImageAlt();
+    setTimeout(function () { optimizeHeadings(path); improveImageAlt(); }, 350);
 
     let schema = document.getElementById('dynamic-seo-schema');
     if (!schema) { schema = document.createElement('script'); schema.id = 'dynamic-seo-schema'; schema.type = 'application/ld+json'; document.head.appendChild(schema); }
@@ -150,10 +149,22 @@
     });
   }
 
+  function stabilizeMobile() {
+    const touchDevice = window.matchMedia('(max-width: 800px), (pointer: coarse)').matches;
+    if (touchDevice && window.__lenis) {
+      try { window.__lenis.destroy(); } catch (e) {}
+      window.__lenis = null;
+    }
+  }
+
   apply();
+  stabilizeMobile();
   let lastPath = window.location.pathname;
   setInterval(function () {
-    if (window.location.pathname !== lastPath) { lastPath = window.location.pathname; apply(); }
-    else { optimizeHeadings(lastPath); improveImageAlt(); }
-  }, 1000);
+    stabilizeMobile();
+    if (window.location.pathname !== lastPath) {
+      lastPath = window.location.pathname;
+      apply();
+    }
+  }, 2000);
 })();
