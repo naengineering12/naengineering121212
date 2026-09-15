@@ -45,10 +45,10 @@ def _security_headers(response, path):
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "no-referrer"
     response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
-    response.headers["X-Robots-Tag"] = "noindex, nofollow"
     response.headers["X-Permitted-Cross-Domain-Policies"] = "none"
     if path.startswith("/api/"):
         response.headers["Cache-Control"] = "no-store"
+        response.headers["X-Robots-Tag"] = "noindex, nofollow"
 
 
 def _validate_admin_token(authorization: str) -> bool:
