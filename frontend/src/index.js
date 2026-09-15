@@ -39,24 +39,33 @@ const queryClient = new QueryClient({
 
 function ActiveNavBridge(){
   React.useEffect(()=>{
+    let frame=0;
     const syncActive=()=>{
+      frame=0;
       const path=window.location.pathname.replace(/\/$/,"") || "/";
       document.querySelectorAll('.nav-links a').forEach(link=>{
         const href=(link.getAttribute('href')||"").replace(/\/$/,"") || "/";
         const isActive=href===path || (href!=="/" && path.startsWith(href+"/"));
-        link.classList.toggle('nav-active',isActive);
-        link.setAttribute('aria-current',isActive?'page':'false');
+        if(link.classList.contains('nav-active')!==isActive){
+          link.classList.toggle('nav-active',isActive);
+          link.setAttribute('aria-current',isActive?'page':'false');
+        }
       });
     };
-    syncActive();
-    const observer=new MutationObserver(syncActive);
+    const scheduleSync=()=>{
+      if(frame) return;
+      frame=requestAnimationFrame(syncActive);
+    };
+    scheduleSync();
+    const observer=new MutationObserver(scheduleSync);
     observer.observe(document.body,{childList:true,subtree:true});
-    window.addEventListener('popstate',syncActive);
-    document.addEventListener('click',syncActive,true);
+    window.addEventListener('popstate',scheduleSync,{passive:true});
+    document.addEventListener('click',scheduleSync,true);
     return ()=>{
+      if(frame) cancelAnimationFrame(frame);
       observer.disconnect();
-      window.removeEventListener('popstate',syncActive);
-      document.removeEventListener('click',syncActive,true);
+      window.removeEventListener('popstate',scheduleSync);
+      document.removeEventListener('click',scheduleSync,true);
     };
   },[]);
   return null;
@@ -64,7 +73,9 @@ function ActiveNavBridge(){
 
 function ContactNavBridge(){
   React.useEffect(()=>{
+    let frame=0;
     const addContactLinks=()=>{
+      frame=0;
       const nav=document.querySelector('.nav-links');
       if(nav && !nav.querySelector('[data-contact-bridge]')){
         const link=document.createElement('a');
@@ -84,10 +95,17 @@ function ContactNavBridge(){
         column.appendChild(link);
       }
     };
-    addContactLinks();
-    const observer=new MutationObserver(addContactLinks);
+    const scheduleAdd=()=>{
+      if(frame) return;
+      frame=requestAnimationFrame(addContactLinks);
+    };
+    scheduleAdd();
+    const observer=new MutationObserver(scheduleAdd);
     observer.observe(document.body,{childList:true,subtree:true});
-    return ()=>observer.disconnect();
+    return ()=>{
+      if(frame) cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
   },[]);
   return null;
 }
