@@ -109,3 +109,5 @@
     }
   }, 2000);
 })();
+
+/* deployment trigger: keep homepage visual layout unchanged */
