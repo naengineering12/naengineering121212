@@ -110,9 +110,31 @@ function ContactNavBridge(){
   return null;
 }
 
+function AppReveal(){
+  React.useLayoutEffect(()=>{
+    let cancelled=false;
+    const reveal=()=>{
+      if(cancelled)return;
+      requestAnimationFrame(()=>{
+        if(!cancelled) document.documentElement.classList.add("app-ready");
+      });
+    };
+    if(document.fonts?.ready){
+      Promise.race([
+        document.fonts.ready,
+        new Promise(resolve=>setTimeout(resolve,700))
+      ]).then(reveal);
+    }else{
+      reveal();
+    }
+    return ()=>{cancelled=true};
+  },[]);
+  return null;
+}
+
 function RootApp(){
   if(window.location.pathname==='/contact') return <ContactPage/>;
-  return <><App/><ActiveNavBridge/><ContactNavBridge/></>;
+  return <><AppReveal/><App/><ActiveNavBridge/><ContactNavBridge/></>;
 }
 
 document.documentElement.classList.add("app-ready");
