@@ -21,13 +21,10 @@ window.fetch = (input, init) => {
 };
 
 const App = React.lazy(()=>import("./App"));
-const ContactPage = React.lazy(()=>import("./ContactPage"));
-
 function RootApp(){
-  const isContact=window.location.pathname==='/contact';
   return (
     <React.Suspense fallback={null}>
-      {isContact ? <ContactPage/> : <App/>}
+      <App/>
     </React.Suspense>
   );
 }
