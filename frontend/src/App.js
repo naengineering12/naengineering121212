@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
+import "./index.css";
+import "./clients-responsive.css";
+import "./clients-fix.css";
+import "./clients-enhancements";
+import "./ChatFix.css";
 import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ArrowRight, ArrowUpRight, Building2, CheckCircle2, ChefHat, ChevronDown, ChevronRight, CircleDot, Clock, Factory, FlaskConical, Flame, Droplets, Gauge, Waves, HardHat, Headphones, Instagram, Laptop, Boxes, PenTool, Cpu, Server, Wifi, Printer, Camera, Mail, MapPin, Menu, MessageCircle, PackageCheck, Phone, Plane, Quote, Send, ShieldCheck, Shirt, Snowflake, Sparkles, Truck, Users, Wrench, X, Zap } from "lucide-react";
