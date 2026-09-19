@@ -1,11 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import "./index.css";
-import "./clients-responsive.css";
-import "./clients-fix.css";
-import "./clients-enhancements";
-import "./ChatFix.css";
 
 // The frontend and AI backend are separate Vercel projects. Use the stable
 // backend project URL instead of a deployment-specific URL that can become stale.
@@ -111,46 +105,18 @@ function ContactNavBridge(){
 const App = React.lazy(()=>import("./App"));
 const ContactPage = React.lazy(()=>import("./ContactPage"));
 
-function AppReveal(){
-  React.useLayoutEffect(()=>{
-    let cancelled=false;
-    const reveal=()=>{
-      if(cancelled)return;
-      requestAnimationFrame(()=>{
-        if(!cancelled) document.documentElement.classList.add("app-ready");
-      });
-    };
-    if(window.location.pathname==='/contact'){
-      reveal();
-    }else if(document.fonts?.ready){
-      Promise.race([
-        document.fonts.ready,
-        new Promise(resolve=>setTimeout(resolve,700))
-      ]).then(reveal);
-    }else{
-      reveal();
-    }
-    return ()=>{cancelled=true};
-  },[]);
-  return null;
-}
-
 function RootApp(){
   const isContact=window.location.pathname==='/contact';
-  return <>
-    <AppReveal/>
+  return (
     <React.Suspense fallback={null}>
       {isContact ? <ContactPage/> : <><App/><ActiveNavBridge/><ContactNavBridge/></>}
     </React.Suspense>
-  </>;
+  );
 }
-
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RootApp />
-    </QueryClientProvider>
+    <RootApp />
   </React.StrictMode>,
 );
