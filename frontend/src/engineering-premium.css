@@ -10,7 +10,7 @@ body{background:linear-gradient(180deg,#f3f5f7 0%,#eef2f4 100%)}
 .section-heading h2:after,.split h2:after{content:"";display:block;width:44px;height:2px;background:var(--eng-amber);margin-top:18px}
 .cap-card,.service-image,.supply-card-image,.industry-feature img,.detail-image{transition:transform .35s ease,box-shadow .35s ease}
 .cap-card:hover,.service-image:hover,.supply-card:hover{box-shadow:0 24px 55px rgba(10,17,40,.14)}
-.cap-card:before,.service-image:before,.supply-card-image:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(135deg,transparent 0 70%,rgba(73,198,208,.18) 70% 70.5%,transparent 70.5% 100%)}
+.cap-card:before,.service-image:before,.supply-card-image:before{content:none!important}
 .value-card{transition:transform .25s ease,background .25s ease}.value-card:hover{transform:translateY(-5px);background:#0e1835}
 .industry-card,.supply-card{transition:transform .25s ease,box-shadow .25s ease}.industry-card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(10,17,40,.08);position:relative;z-index:1}
 .process-grid>div{transition:background .25s ease,padding .25s ease}.process-grid>div:hover{background:rgba(73,198,208,.05);padding-left:10px}
