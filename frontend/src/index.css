@@ -40,3 +40,5 @@ img{transition:transform .45s ease}.service-image:hover img,.industry-feature:ho
 @media(max-width:800px){.nav-links a.nav-active:not(.nav-cta)::after{bottom:4px;left:0;right:auto;width:42px}}
 
 /* Vercel deployment retry: 2026-09-19 */
+
+/* Deployment retry */
