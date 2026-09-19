@@ -5,6 +5,7 @@ import "./clients-responsive.css";
 import "./clients-fix.css";
 import "./clients-enhancements";
 import "./ChatFix.css";
+import ContactPage from "./ContactPage";
 import { BrowserRouter, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ArrowRight, ArrowUpRight, Building2, CheckCircle2, ChefHat, ChevronDown, ChevronRight, CircleDot, Clock, Factory, FlaskConical, Flame, Droplets, Gauge, Waves, HardHat, Headphones, Instagram, Laptop, Boxes, PenTool, Cpu, Server, Wifi, Printer, Camera, Mail, MapPin, Menu, MessageCircle, PackageCheck, Phone, Plane, Quote, Send, ShieldCheck, Shirt, Snowflake, Sparkles, Truck, Users, Wrench, X, Zap } from "lucide-react";
@@ -142,7 +143,7 @@ function App() {
       <ScrollToTop/>
       <Header/>
         <Routes>
-          <Route path="/" element={<Home />} /><Route path="/about" element={<About/>}/><Route path="/services" element={<Services/>}/><Route path="/services/:slug" element={<ServiceRoute/>}/><Route path="/supplies" element={<Supplies/>}/><Route path="/it-services" element={<ITServices/>}/><Route path="/industries" element={<Industries/>}/><Route path="/clients" element={<Clients/>}/><Route path="/admin" element={<Admin/>}/><Route path="*" element={<Home/>}/>
+          <Route path="/" element={<Home />} /><Route path="/about" element={<About/>}/><Route path="/services" element={<Services/>}/><Route path="/services/:slug" element={<ServiceRoute/>}/><Route path="/supplies" element={<Supplies/>}/><Route path="/it-services" element={<ITServices/>}/><Route path="/industries" element={<Industries/>}/><Route path="/clients" element={<Clients/>}/><Route path="/contact" element={<ContactPage/>}/><Route path="/admin" element={<Admin/>}/><Route path="*" element={<Home/>}/>
         </Routes>
       <Footer/>
       <ChatWidget/>
