@@ -6,8 +6,6 @@ import "./clients-responsive.css";
 import "./clients-fix.css";
 import "./clients-enhancements";
 import "./ChatFix.css";
-import App from "./App";
-import ContactPage from "./ContactPage";
 
 // The frontend and AI backend are separate Vercel projects. Use the stable
 // backend project URL instead of a deployment-specific URL that can become stale.
@@ -110,6 +108,9 @@ function ContactNavBridge(){
   return null;
 }
 
+const App = React.lazy(()=>import("./App"));
+const ContactPage = React.lazy(()=>import("./ContactPage"));
+
 function AppReveal(){
   React.useLayoutEffect(()=>{
     let cancelled=false;
@@ -119,7 +120,9 @@ function AppReveal(){
         if(!cancelled) document.documentElement.classList.add("app-ready");
       });
     };
-    if(document.fonts?.ready){
+    if(window.location.pathname==='/contact'){
+      reveal();
+    }else if(document.fonts?.ready){
       Promise.race([
         document.fonts.ready,
         new Promise(resolve=>setTimeout(resolve,700))
@@ -136,7 +139,9 @@ function RootApp(){
   const isContact=window.location.pathname==='/contact';
   return <>
     <AppReveal/>
-    {isContact ? <ContactPage/> : <><App/><ActiveNavBridge/><ContactNavBridge/></>}
+    <React.Suspense fallback={null}>
+      {isContact ? <ContactPage/> : <><App/><ActiveNavBridge/><ContactNavBridge/></>}
+    </React.Suspense>
   </>;
 }
 
