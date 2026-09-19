@@ -133,8 +133,11 @@ function AppReveal(){
 }
 
 function RootApp(){
-  if(window.location.pathname==='/contact') return <ContactPage/>;
-  return <><AppReveal/><App/><ActiveNavBridge/><ContactNavBridge/></>;
+  const isContact=window.location.pathname==='/contact';
+  return <>
+    <AppReveal/>
+    {isContact ? <ContactPage/> : <><App/><ActiveNavBridge/><ContactNavBridge/></>}
+  </>;
 }
 
 
