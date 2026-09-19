@@ -20,15 +20,6 @@ window.fetch = (input, init) => {
   return nativeFetch(input, init);
 };
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 60_000,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
-
 function ActiveNavBridge(){
   React.useEffect(()=>{
     let frame=0;
