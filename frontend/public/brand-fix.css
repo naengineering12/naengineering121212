@@ -36,3 +36,15 @@ img[alt="Safety & Security service"]{content:url("https://www.buchen-group.be/fi
   .hero h1{font-size:34px!important}
   .hero p{font-size:13.5px!important}
 }
+
+/* HOMEPAGE HERO WIDTH + CTA POSITION */
+.hero-copy{max-width:880px}
+.hero h1{max-width:860px}
+.hero p{max-width:820px}
+.hero-actions{margin-top:30px;transform:translateY(48px)}
+@media(max-width:800px){
+  .hero-copy{max-width:100%}
+  .hero h1{max-width:100%}
+  .hero p{max-width:100%}
+  .hero-actions{transform:translateY(24px)}
+}
