@@ -3,10 +3,11 @@
 
   var mobile = window.matchMedia('(max-width: 800px), (pointer: coarse)').matches;
   var width = mobile ? 560 : 900;
+  var scheduled = false;
 
   function optimize(image) {
     if (!image || image.tagName !== 'IMG') return;
-    var raw = image.currentSrc || image.getAttribute('src');
+    var raw = image.getAttribute('src') || '';
     if (!raw || raw.indexOf('data:') === 0 || raw.indexOf('/logo.png') !== -1) return;
 
     try {
@@ -25,13 +26,14 @@
         url.searchParams.set('w', String(width));
         url.searchParams.set('fm', 'webp');
         url.searchParams.set('q', mobile ? '52' : '62');
+      } else {
+        image.loading = image.closest('.hero, .hero-bg') ? 'eager' : 'lazy';
+        image.decoding = 'async';
+        return;
       }
 
       var optimized = url.toString();
-      if (optimized !== raw && image.getAttribute('src') !== optimized) {
-        image.setAttribute('src', optimized);
-      }
-
+      if (optimized !== raw) image.setAttribute('src', optimized);
       image.loading = image.closest('.hero, .hero-bg') ? 'eager' : 'lazy';
       image.decoding = 'async';
       if (!image.closest('.hero, .hero-bg')) image.setAttribute('fetchpriority', 'low');
@@ -44,28 +46,46 @@
     if (root.querySelectorAll) root.querySelectorAll('img').forEach(optimize);
   }
 
-  scan(document);
+  function idleScan() {
+    scheduled = false;
+    scan(document);
+  }
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(idleScan, {timeout: 900});
+  } else {
+    setTimeout(idleScan, 80);
+  }
 
   var observer = new MutationObserver(function (mutations) {
+    var hasNewNodes = false;
     mutations.forEach(function (mutation) {
-      mutation.addedNodes.forEach(scan);
-      if (mutation.type === 'attributes' && mutation.target.tagName === 'IMG') optimize(mutation.target);
+      mutation.addedNodes.forEach(function (node) {
+        if (node.nodeType === 1) {
+          hasNewNodes = true;
+          scan(node);
+        }
+      });
     });
+    if (hasNewNodes && !scheduled) {
+      scheduled = true;
+      if ('requestIdleCallback' in window) requestIdleCallback(idleScan, {timeout: 700});
+      else setTimeout(idleScan, 50);
+    }
   });
 
-  observer.observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['src', 'srcset']
-  });
+  observer.observe(document.documentElement, {childList: true, subtree: true});
 
   window.addEventListener('resize', function () {
     var nextMobile = window.matchMedia('(max-width: 800px), (pointer: coarse)').matches;
     if (nextMobile !== mobile) {
       mobile = nextMobile;
       width = mobile ? 560 : 900;
-      scan(document);
+      if (!scheduled) {
+        scheduled = true;
+        if ('requestIdleCallback' in window) requestIdleCallback(idleScan, {timeout: 500});
+        else setTimeout(idleScan, 50);
+      }
     }
-  }, { passive: true });
+  }, {passive: true});
 })();
