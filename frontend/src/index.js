@@ -137,7 +137,6 @@ function RootApp(){
   return <><AppReveal/><App/><ActiveNavBridge/><ContactNavBridge/></>;
 }
 
-document.documentElement.classList.add("app-ready");
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
