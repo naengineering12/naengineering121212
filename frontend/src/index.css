@@ -38,3 +38,5 @@ img{transition:transform .45s ease}.service-image:hover img,.industry-feature:ho
 }
 .nav-links a.nav-active:not(.nav-cta){color:var(--premium-amber)!important;position:relative}.nav-links a.nav-active:not(.nav-cta)::after{content:"";position:absolute;left:0;right:0;bottom:-9px;height:2px;background:var(--premium-amber);animation:navActiveIn .2s ease both}@keyframes navActiveIn{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}} 
 @media(max-width:800px){.nav-links a.nav-active:not(.nav-cta)::after{bottom:4px;left:0;right:auto;width:42px}}
+
+/* Vercel deployment retry: 2026-09-19 */
