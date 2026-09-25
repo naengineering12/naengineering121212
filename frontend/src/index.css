@@ -251,3 +251,65 @@ img{transition:transform .45s ease}.service-image:hover img,.industry-feature:ho
   transform:none!important;
   color:var(--navy)!important;
 }
+
+
+/* ===== NAVBAR: SINGLE ACTIVE UNDERLINE ONLY ===== */
+.nav-links a,
+.nav-links a:hover,
+.nav-links a:focus-visible{
+  text-decoration:none!important;
+  border-bottom:0!important;
+}
+.nav-links a::before,
+.nav-links a::after{
+  content:none!important;
+  display:none!important;
+}
+.nav-links a.nav-current{
+  color:var(--premium-amber)!important;
+  position:relative!important;
+}
+.nav-links a.nav-current::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  left:0!important;
+  right:0!important;
+  bottom:-8px!important;
+  width:auto!important;
+  height:2px!important;
+  background:var(--premium-amber)!important;
+  transform:none!important;
+  opacity:1!important;
+}
+@media(max-width:800px){
+  .nav-links a.nav-current::after{
+    left:12px!important;
+    right:auto!important;
+    bottom:5px!important;
+    width:44px!important;
+    height:2px!important;
+  }
+}
+
+/* ===== GENERAL ORDER SUPPLIES: REMOVE GREY COMMITMENT BOXES ===== */
+.why-section .value-grid{
+  display:grid!important;
+  background:transparent!important;
+  border:0!important;
+  gap:0!important;
+}
+.why-section .value-card{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:var(--navy)!important;
+  transform:none!important;
+  transition:none!important;
+}
+.why-section .value-card:hover{
+  background:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+  color:var(--navy)!important;
+}
