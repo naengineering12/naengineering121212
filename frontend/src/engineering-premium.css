@@ -17,3 +17,11 @@ body{background:linear-gradient(180deg,#f3f5f7 0%,#eef2f4 100%)}
 .page-intro{position:relative;overflow:hidden}.page-intro:after{content:"ENGINEERING / PROCUREMENT / EXECUTION";position:absolute;right:4%;bottom:28px;color:rgba(255,255,255,.14);font:700 9px Inter;letter-spacing:.22em}
 @media(max-width:800px){.hero-copy:after{margin-top:35px}.hero:after{width:220px;height:220px;right:-70px;top:18%}.page-intro:after{display:none}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+
+/* Disable the dark hover state on supply/commitment value cards. */
+.value-card:hover{
+  transform:none!important;
+  background:inherit!important;
+  box-shadow:none!important;
+}
