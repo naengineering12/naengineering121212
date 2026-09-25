@@ -261,3 +261,50 @@ html,body,#root{max-width:100%;overflow-x:clip}body{overscroll-behavior-x:none;-
 .service-copy,.detail-grid>div,.industry-feature>div,.split>div{
   min-width:0;
 }
+
+
+/* ===== SCROLL + PAINT STABILITY ===== */
+/* Keep the document itself scrollable on desktop, tablet and phone. */
+html{
+  height:auto!important;
+  min-height:100%!important;
+  overflow-x:clip!important;
+  overflow-y:auto!important;
+  scroll-behavior:auto!important;
+}
+body{
+  height:auto!important;
+  min-height:100%!important;
+  overflow-x:clip!important;
+  overflow-y:visible!important;
+  overscroll-behavior-y:auto!important;
+}
+#root,.App{
+  height:auto!important;
+  min-height:100vh!important;
+  overflow:visible!important;
+}
+
+/* Remove delayed reveal states so pages render immediately and do not depend on scroll observers. */
+.reveal-static,
+.hero-copy,
+.section-heading,
+.cap-grid,
+.supply-grid,
+.industry-grid,
+.service-list,
+.contact-grid,
+.about-feature,
+.mission-grid{
+  opacity:1!important;
+  transform:none!important;
+  animation:none!important;
+}
+
+/* Keep route content above the shared fixed-position utilities without creating a scroll trap. */
+main,section,article{
+  overflow:visible;
+}
+.chat-widget{
+  position:fixed!important;
+}
