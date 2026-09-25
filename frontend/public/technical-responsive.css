@@ -308,3 +308,87 @@ main,section,article{
 .chat-widget{
   position:fixed!important;
 }
+
+
+/* ===== FINAL SCROLL + PERFORMANCE PASS ===== */
+html,
+body,
+#root,
+.App{
+  width:100%;
+  max-width:100%;
+  height:auto!important;
+  min-height:100%!important;
+}
+html{
+  overflow-x:clip!important;
+  overflow-y:auto!important;
+  scroll-behavior:auto!important;
+}
+body{
+  position:static!important;
+  overflow-x:clip!important;
+  overflow-y:visible!important;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:auto!important;
+}
+#root,
+.App{
+  position:static!important;
+  overflow:visible!important;
+}
+main,
+section,
+article{
+  overflow:visible;
+}
+
+/* Remove high-cost effects from the scroll path. */
+.site-header{
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+.hero-bg{
+  filter:none!important;
+  transform:none!important;
+  transition:none!important;
+}
+.hero:hover .hero-bg{
+  transform:none!important;
+}
+img{
+  backface-visibility:hidden;
+}
+
+/* On touch devices, keep scrolling focused on layout/paint instead of hover effects. */
+@media (hover:none), (pointer:coarse){
+  *{
+    transition:none!important;
+    animation:none!important;
+  }
+  .marquee-track{
+    animation:none!important;
+    transform:none!important;
+    width:auto!important;
+  }
+  .cap-card:hover,
+  .service-row:hover,
+  .supply-card:hover,
+  .industry-card:hover,
+  .value-card:hover,
+  .project-card:hover,
+  .client-card:hover,
+  .testi-card:hover,
+  .gallery-item:hover{
+    transform:none!important;
+    box-shadow:none!important;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+}
