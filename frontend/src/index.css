@@ -43,3 +43,34 @@ img{transition:transform .45s ease}.service-image:hover img,.industry-feature:ho
 
 /* Deployment retry */
 /* Vercel deployment retry: 2026-09-20 */
+
+/* ACTIVE NAV ITEM — always show the current page underline */
+.nav-links a.nav-active:not(.nav-cta){
+  color:var(--premium-amber)!important;
+  position:relative;
+}
+.nav-links a.nav-active:not(.nav-cta)::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-8px;
+  width:auto;
+  height:2px;
+  background:var(--premium-amber);
+  transform:scaleX(1)!important;
+  opacity:1!important;
+  animation:none!important;
+}
+@media(max-width:800px){
+  .nav-links a.nav-active:not(.nav-cta){
+    color:var(--premium-amber)!important;
+  }
+  .nav-links a.nav-active:not(.nav-cta)::after{
+    left:12px;
+    right:auto;
+    bottom:5px;
+    width:44px;
+    height:2px;
+  }
+}
