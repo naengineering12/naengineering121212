@@ -95,14 +95,31 @@ function enhanceClientsPage() {
   return true;
 }
 
+let running = false;
 let attempts = 0;
-const boot = () => {
-  if (enhanceClientsPage()) return;
-  if (attempts++ < 120) window.setTimeout(boot, 100);
+let observer = null;
+
+const startClientsEnhancement = () => {
+  if (window.location.pathname !== '/clients') return;
+  if (enhanceClientsPage()) {
+    if (!running) {
+      running = true;
+      observer = new MutationObserver(() => enhanceClientsPage());
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+    return;
+  }
+  if (attempts++ < 30) window.setTimeout(startClientsEnhancement, 120);
 };
-boot();
-const observer = new MutationObserver(() => {
-  if (window.location.pathname === '/clients') enhanceClientsPage();
+
+startClientsEnhancement();
+window.setInterval(() => {
+  if (window.location.pathname === '/clients' && !running) {
+    attempts = 0;
+    startClientsEnhancement();
+  }
+}, 1000);
+window.addEventListener('popstate', () => {
+  attempts = 0;
+  if (window.location.pathname === '/clients') startClientsEnhancement();
 });
-observer.observe(document.body, { childList: true, subtree: true });
-window.addEventListener('popstate', boot);
