@@ -328,9 +328,11 @@ html{
 body{
   position:static!important;
   overflow-x:clip!important;
-  overflow-y:visible!important;
-  overscroll-behavior:contain;
-  -webkit-overflow-scrolling:auto!important;
+  overflow-y:auto!important;
+  overscroll-behavior-y:auto!important;
+  overscroll-behavior-x:none!important;
+  touch-action:pan-y;
+  -webkit-overflow-scrolling:touch!important;
 }
 #root,
 .App{
