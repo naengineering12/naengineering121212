@@ -74,3 +74,16 @@ img{transition:transform .45s ease}.service-image:hover img,.industry-feature:ho
     height:2px;
   }
 }
+
+
+/* Value cards: no color-changing hover. Keep the cards visually stable. */
+.value-card,
+.value-card:hover,
+.why-section .value-card:hover{
+  transform:none!important;
+  background:inherit!important;
+  box-shadow:none!important;
+}
+.value-card{
+  transition:none!important;
+}
