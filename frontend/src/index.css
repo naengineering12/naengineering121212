@@ -158,3 +158,50 @@ img{transition:transform .45s ease}.service-image:hover img,.industry-feature:ho
   .site-header{height:64px!important}
   .nav-links{top:64px!important}
 }
+
+
+/* ===== DEFINITIVE FIXED NAVBAR ON SCROLL ===== */
+.site-header{
+  position:fixed!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  z-index:9998!important;
+  width:100%!important;
+}
+.App{
+  padding-top:78px!important;
+}
+@media(max-width:800px){
+  .site-header{
+    height:70px!important;
+  }
+  .App{
+    padding-top:70px!important;
+  }
+  .nav-links{
+    top:70px!important;
+  }
+}
+@media(max-width:600px){
+  .site-header{
+    height:66px!important;
+  }
+  .App{
+    padding-top:66px!important;
+  }
+  .nav-links{
+    top:66px!important;
+  }
+}
+@media(max-width:420px){
+  .site-header{
+    height:64px!important;
+  }
+  .App{
+    padding-top:64px!important;
+  }
+  .nav-links{
+    top:64px!important;
+  }
+}
