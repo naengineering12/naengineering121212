@@ -821,3 +821,27 @@ img,svg,video,canvas{
 .why-section .value-card:hover svg{
   color:#b86627!important;
 }
+
+
+/* ===== COMMITMENT CARDS: RESTORE CLEAR HOVER INTERACTION ===== */
+@media (hover:hover) and (pointer:fine){
+  .why-section .value-card{
+    transition:transform .24s ease,background-color .24s ease,box-shadow .24s ease,border-color .24s ease!important;
+    cursor:pointer!important;
+  }
+  .why-section .value-card:hover{
+    transform:translateY(-6px)!important;
+    background:rgba(255,255,255,.78)!important;
+    border-color:rgba(184,102,39,.55)!important;
+    box-shadow:0 14px 28px rgba(42,32,20,.12)!important;
+  }
+  .why-section .value-card:hover span,
+  .why-section .value-card:hover svg{
+    color:#a9561e!important;
+  }
+}
+@media (hover:none), (pointer:coarse){
+  .why-section .value-card{
+    cursor:default!important;
+  }
+}
