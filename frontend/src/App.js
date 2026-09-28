@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
+import "./signature-theme.css";
 import "./index.css";
 import "./clients-responsive.css";
 import "./clients-fix.css";
