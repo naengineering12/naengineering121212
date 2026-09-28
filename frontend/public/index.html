@@ -22,7 +22,30 @@
   <link rel="icon" type="image/png" href="%PUBLIC_URL%/logo.png" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1800&q=70" fetchpriority="high" crossorigin="anonymous" />
+  <script>
+    (function(){
+      var firstImages={
+        "/":"https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1400&q=65",
+        "/about":"https://images.unsplash.com/photo-1776202128321-2576846d556c?auto=format&fit=crop&w=900&q=60",
+        "/services":"https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=800&q=55",
+        "/supplies":"https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=800&q=55",
+        "/it-services":"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=55",
+        "/industries":"https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=800&q=55",
+        "/clients":"https://images.unsplash.com/photo-1615309662243-70f6df917b59?auto=format&fit=crop&w=800&q=55"
+      };
+      var path=window.location.pathname.replace(/\/+$/,"")||"/";
+      var href=firstImages[path];
+      if(href){
+        var link=document.createElement("link");
+        link.rel="preload";
+        link.as="image";
+        link.href=href;
+        link.fetchPriority="high";
+        link.crossOrigin="anonymous";
+        document.head.appendChild(link);
+      }
+    }());
+  </script>
   <link rel="preconnect" href="https://images.pexels.com" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
