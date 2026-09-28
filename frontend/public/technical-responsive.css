@@ -394,3 +394,22 @@ img{
     scroll-behavior:auto!important;
   }
 }
+
+
+/* ===== IMAGE LOAD RESPONSIVENESS PASS ===== */
+/* Native lazy loading stays enabled, but section/image paint is never intentionally deferred. */
+img,
+.service-image,
+.detail-image,
+.supply-card-image,
+.about-feature-image,
+.people-image,
+.industry-feature img,
+.process-card-image,
+.project-card-img,
+.gallery-item{
+  content-visibility:visible!important;
+}
+@media(max-width:800px){
+  .section,.page-intro,.cta{content-visibility:visible!important;}
+}
