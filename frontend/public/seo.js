@@ -122,9 +122,22 @@
       : path === '/it-services'
         ? {name: 'IT Services & Equipment', description: pages['/it-services'].description}
         : null;
-    if (serviceKey || standaloneService) {
-      const serviceName = serviceKey ? data.title.split(' | ')[0] : standaloneService.name;
-      const serviceDescription = serviceKey ? data.description : standaloneService.description;
+    const serviceName = serviceKey
+      ? data.title.split(' | ')[0]
+      : (standaloneService ? standaloneService.name : null);
+    const serviceDescription = serviceKey
+      ? data.description
+      : (standaloneService ? standaloneService.description : null);
+    graph.push({
+      '@type': 'WebPage',
+      '@id': SITE + path + '#webpage',
+      name: data.title.split(' | ')[0],
+      url: SITE + path,
+      description: data.description,
+      isPartOf: {'@id': SITE + '/#website'},
+      about: {'@id': SITE + '/#business'}
+    });
+    if (serviceName) {
       graph.push({
         '@type': 'Service',
         '@id': SITE + path + '#service',
