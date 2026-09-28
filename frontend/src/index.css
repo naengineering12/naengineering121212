@@ -1681,3 +1681,236 @@ textarea{
     box-shadow:none!important;
   }
 }
+
+
+/* =========================================================
+   FINAL HUMAN-CURATED CORPORATE POLISH
+   Reduce template/AI visual cues; keep a practical engineering identity.
+   ========================================================= */
+
+/* Keep the visual language restrained and consistent. */
+:root{
+  --corporate-navy:#0b1429;
+  --corporate-cream:#f4efe7;
+  --corporate-line:#d8d7d2;
+  --corporate-text:#263242;
+}
+
+/* Remove ornamental "AI/template" decoration from major sections. */
+.hero::after,
+.hero-bg::after,
+.cta::before,
+.cta::after,
+.cta-inner::after{
+  content:none!important;
+  display:none!important;
+}
+.hero-bg{
+  background:
+    linear-gradient(90deg,rgba(11,20,41,.94) 0%,rgba(11,20,41,.78) 48%,rgba(11,20,41,.34) 100%),
+    url("https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1600&q=55") center/cover!important;
+}
+
+/* More editorial spacing; less "generated card wall". */
+.cap-grid,
+.supply-grid,
+.industry-grid,
+.clients-grid,
+.projects-grid,
+.gallery-grid,
+.testi-grid{
+  gap:0!important;
+  border-top:1px solid var(--corporate-line)!important;
+  border-left:1px solid var(--corporate-line)!important;
+}
+.cap-card,
+.supply-card,
+.industry-card,
+.client-card,
+.project-card,
+.testi-card,
+.gallery-item{
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.cap-card,
+.supply-card,
+.industry-card,
+.client-card,
+.project-card,
+.testi-card{
+  border-right:1px solid var(--corporate-line)!important;
+  border-bottom:1px solid var(--corporate-line)!important;
+}
+
+/* Keep image interaction subtle and believable. */
+.cap-card:hover,
+.supply-card:hover,
+.industry-card:hover,
+.client-card:hover,
+.project-card:hover,
+.testi-card:hover,
+.process-card:hover,
+.logo-chip:hover{
+  transform:none!important;
+  box-shadow:none!important;
+}
+.cap-card img,
+.supply-card-image img,
+.industry-card-image img,
+.project-card-img img,
+.gallery-item img,
+.process-card-image img,
+.people-image img,
+.about-feature-image img{
+  transition:opacity .2s ease!important;
+  transform:none!important;
+}
+.cap-card:hover img,
+.supply-card:hover .supply-card-image img,
+.industry-card:hover .industry-card-image img,
+.project-card:hover .project-card-img img,
+.gallery-item:hover img,
+.process-card:hover .process-card-image img,
+.people-image:hover img,
+.about-feature-image:hover img{
+  transform:none!important;
+}
+
+/* Service pages: clean separators and no artificial hover choreography. */
+.service-row{
+  border-bottom:1px solid var(--corporate-line)!important;
+}
+.service-row:last-child{
+  border-bottom:0!important;
+}
+.service-row:hover{
+  transform:none!important;
+}
+.service-copy h2{
+  transform:none!important;
+  color:var(--navy)!important;
+}
+.service-copy h2::after{
+  content:none!important;
+}
+.service-features span{
+  transform:none!important;
+}
+.service-row:hover .service-features span{
+  transform:none!important;
+}
+.service-row:hover .service-copy .button{
+  transform:none!important;
+  box-shadow:none!important;
+}
+.service-image span{
+  border-radius:0!important;
+}
+
+/* Quiet page headers. */
+.page-intro{
+  padding:64px 0 58px!important;
+  background:var(--corporate-navy)!important;
+}
+.page-intro h1{
+  max-width:820px!important;
+}
+.page-intro p{
+  max-width:700px!important;
+  color:#c8d1dc!important;
+}
+
+/* Replace glossy CTA styling with a straightforward corporate close. */
+.cta{
+  background:var(--corporate-navy)!important;
+  padding:78px 0 82px!important;
+  border-top:1px solid rgba(255,255,255,.12)!important;
+}
+.cta h2{
+  font-size:clamp(32px,4vw,50px)!important;
+  max-width:720px!important;
+}
+.cta p{
+  max-width:650px!important;
+}
+
+/* Footer should feel like a real company contact block, not a template. */
+.footer{
+  background:#070d1b!important;
+  border-top:1px solid rgba(255,255,255,.08)!important;
+}
+.footer-contact-pill{
+  background:transparent!important;
+  border:1px solid rgba(255,255,255,.18)!important;
+  box-shadow:none!important;
+}
+.footer-contact-pill:hover{
+  background:rgba(255,255,255,.04)!important;
+  border-color:rgba(244,162,97,.45)!important;
+  transform:none!important;
+}
+
+/* Navbar: understated, no animated decoration. */
+.nav-links a{
+  transition:color .15s ease!important;
+}
+.nav-links a.nav-current{
+  border-bottom:2px solid var(--premium-amber)!important;
+  padding-bottom:7px!important;
+}
+
+/* Marquee becomes a calm service strip rather than an animated gimmick. */
+.marquee{
+  overflow:hidden!important;
+  background:#0b1429!important;
+  border-top:1px solid rgba(255,255,255,.08)!important;
+  border-bottom:1px solid rgba(255,255,255,.08)!important;
+}
+.marquee-track{
+  animation:none!important;
+  transform:none!important;
+  width:max-content!important;
+}
+.marquee-track span{
+  font-size:17px!important;
+  font-weight:600!important;
+  letter-spacing:.08em!important;
+  text-transform:uppercase!important;
+  color:#cdd4de!important;
+}
+.marquee-track .marquee-outline{
+  -webkit-text-stroke:0!important;
+  color:#7f8b9c!important;
+}
+
+/* Natural section colors. */
+.industry-section{
+  background:#ecece8!important;
+}
+.section-light{
+  background:#f6f5f2!important;
+}
+
+/* Responsive refinements. */
+@media(max-width:800px){
+  .cap-grid,
+  .supply-grid,
+  .industry-grid,
+  .clients-grid,
+  .projects-grid,
+  .gallery-grid,
+  .testi-grid,
+  .why-grid,
+  .value-grid{
+    border-left:0!important;
+  }
+  .cap-card,
+  .supply-card,
+  .industry-card,
+  .client-card,
+  .project-card,
+  .testi-card{
+    border-left:0!important;
+  }
+}
