@@ -25,21 +25,24 @@
   <script>
     (function(){
       var firstImages={
-        "/":"https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1400&q=65",
-        "/about":"https://images.unsplash.com/photo-1776202128321-2576846d556c?auto=format&fit=crop&w=900&q=60",
-        "/services":"https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=800&q=55",
-        "/supplies":"https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=800&q=55",
-        "/it-services":"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=55",
-        "/industries":"https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=800&q=55",
-        "/clients":"https://images.unsplash.com/photo-1615309662243-70f6df917b59?auto=format&fit=crop&w=800&q=55"
+        "/":"https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea",
+        "/about":"https://images.unsplash.com/photo-1776202128321-2576846d556c",
+        "/services":"https://images.unsplash.com/photo-1565008447742-97f6f38c985c",
+        "/supplies":"https://images.unsplash.com/photo-1530124566582-a618bc2615dc",
+        "/it-services":"https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
+        "/industries":"https://images.unsplash.com/photo-1567789884554-0b844b597180",
+        "/clients":"https://images.unsplash.com/photo-1615309662243-70f6df917b59"
       };
       var path=window.location.pathname.replace(/\/+$/,"")||"/";
-      var href=firstImages[path];
-      if(href){
+      var base=firstImages[path];
+      if(base){
+        var url=function(w){return base+"?auto=format&fit=crop&w="+w+"&q=45"};
         var link=document.createElement("link");
         link.rel="preload";
         link.as="image";
-        link.href=href;
+        link.imageSrcSet=[360,480,640,800].map(function(w){return url(w)+" "+w+"w"}).join(", ");
+        link.setAttribute("imagesrcset",link.imageSrcSet);
+        link.setAttribute("imagesizes","(max-width: 800px) 100vw, 50vw");
         link.fetchPriority="high";
         link.crossOrigin="anonymous";
         document.head.appendChild(link);
