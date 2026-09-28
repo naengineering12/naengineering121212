@@ -5,27 +5,53 @@
     description: 'NA Engineering Solutions provides engineering services, industrial maintenance and General Order Supplies & Services in Lahore, including civil, mechanical, electrical, HVAC, PEB, fire fighting and industrial supplies.'
   };
   const pages = {
-    '/': DEFAULT,
-    '/services': { title: 'Engineering Services Lahore | NA Engineering Solutions', description: 'Engineering services in Lahore including civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing, facility maintenance and industrial maintenance solutions.' },
-    '/supplies': { title: 'General Order Supplier Lahore | NA Engineering Solutions', description: 'General order supplier in Lahore for industrial supplies, electrical and mechanical items, safety PPE, hardware, janitorial, office, IT and maintenance products.' },
-    '/it-services': { title: 'IT Services & Equipment Lahore | NA Engineering Solutions', description: 'IT services and equipment supply in Lahore including computers, laptops, printers, networking, CCTV, cables, peripherals and office technology support.' },
-    '/industries': { title: 'Industrial Solutions Lahore | Industries We Serve', description: 'Engineering, industrial maintenance and general order supply support for manufacturing, pharmaceutical, food, construction, power, utilities, warehouses, offices and commercial facilities.' },
-    '/clients': { title: 'Our Clients | NA Engineering Solutions Lahore', description: 'Explore client and project experience across industrial, commercial, engineering, maintenance and general order supply requirements in Pakistan.' }
+    '/': {
+      title: 'NA Engineering Solutions | Engineering & Industrial Supply Lahore',
+      description: 'NA Engineering Solutions in Lahore provides engineering services, industrial maintenance and General Order Supplies & Services for factories, facilities and projects.'
+    },
+    '/about': {
+      title: 'About NA Engineering Solutions | Lahore',
+      description: 'Learn about NA Engineering Solutions, a Lahore-based engineering, maintenance and general order supply company supporting industrial and commercial sites.'
+    },
+    '/services': {
+      title: 'Engineering Services in Lahore | NA Engineering Solutions',
+      description: 'Civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing and industrial maintenance services for facilities and projects in Lahore.'
+    },
+    '/supplies': {
+      title: 'General Order Supplier in Lahore | NA Engineering Solutions',
+      description: 'General Order Supplies in Lahore covering hardware, tools, PPE, electrical items, janitorial products, maintenance consumables, stationery, IT and more.'
+    },
+    '/it-services': {
+      title: 'IT Services & Equipment in Lahore | NA Engineering Solutions',
+      description: 'IT equipment and support in Lahore: computers, laptops, printers, networking, servers, CCTV, power backup, accessories and maintenance.'
+    },
+    '/industries': {
+      title: 'Industrial Engineering Solutions | Lahore & Pakistan',
+      description: 'Engineering, maintenance and supply support for manufacturing, pharmaceutical, food, construction, power, warehouses, offices and commercial facilities.'
+    },
+    '/clients': {
+      title: 'Clients & Project Experience | NA Engineering Solutions',
+      description: 'See the industries and project environments supported by NA Engineering Solutions across aviation, manufacturing, chemicals, food production and facilities.'
+    },
+    '/contact': {
+      title: 'Contact NA Engineering Solutions | Lahore',
+      description: 'Contact NA Engineering Solutions in Lahore for engineering services, industrial supplies, maintenance, IT equipment and General Order Supplies & Services.'
+    }
   };
   const servicePages = {
-    'civil-engineering': ['Civil Engineering Services Lahore | NA Engineering Solutions', 'Civil engineering, construction, concrete, flooring, waterproofing, site development and project execution services by NA Engineering Solutions in Lahore.'],
-    'mechanical-engineering': ['Mechanical Engineering Services Lahore | NA Engineering Solutions', 'Mechanical engineering, pumps, motors, conveyors, fabrication, welding, industrial repair and spare parts supply by NA Engineering Solutions in Lahore.'],
-    'peb-works': ['PEB Works Lahore | Pre-Engineered Buildings | NA Engineering Solutions', 'PEB works in Lahore including pre-engineered buildings, structural steel, industrial sheds, platforms, walkways, canopies and modifications.'],
-    'electrical-works': ['Electrical Works Lahore | Industrial Electrical Services | NA Engineering Solutions', 'Industrial electrical installation, lighting, cables, accessories, maintenance, troubleshooting and electrical material supply in Lahore.'],
-    'mechanical-electrical-supplies': ['Mechanical & Electrical Supplies Lahore | NA Engineering Solutions', 'Mechanical and electrical industrial supplies in Lahore including motors, pumps, gearboxes, valves, cables, panels, breakers and spare parts.'],
-    'utilities-facility-maintenance': ['Facility & Utility Maintenance Lahore | NA Engineering Solutions', 'Facility and utility maintenance in Lahore for water, compressed air, steam, compressors, boilers, preventive maintenance and AMC support.'],
-    'boiler-chemicals': ['Boiler Chemicals & Water Treatment Lahore | NA Engineering Solutions', 'Boiler water treatment chemicals, dosing systems, testing and technical support for corrosion, scaling and boiler efficiency in Lahore.'],
-    'seamless-pipes-fittings': ['Seamless MS & SS Pipes and Fittings Lahore | NA Engineering Solutions', 'Seamless mild steel and stainless steel pipes, flanges, elbows, reducers, tees and project-specific fittings supplied in Lahore.'],
-    'wastewater-treatment-plant': ['WWTP Supplies & Services Lahore | NA Engineering Solutions', 'Wastewater treatment plant equipment, pumps, blowers, diffusers, dosing systems, chemicals and O&M support in Lahore.'],
-    'hvac-supplies-services': ['HVAC Services & Supplies Lahore | NA Engineering Solutions', 'HVAC supply and installation in Lahore including chillers, AHUs, FCUs, exhaust, fresh air systems, ducting, filters and maintenance.'],
-    'fire-fighting-equipment': ['Fire Fighting Equipment & Services Lahore | NA Engineering Solutions', 'Fire fighting equipment supplier in Lahore for extinguishers, hoses, hydrants, sprinklers, accessories, refilling and maintenance support.'],
-    'waterproofing-solutions': ['Waterproofing Services Lahore | NA Engineering Solutions', 'Waterproofing solutions in Lahore for roofs, basements, water tanks and wet areas, including waterproof chemicals, membranes and leakage rectification.'],
-    'pumps-valves-pneumatic': ['Pumps, Valves & Pneumatic Fittings Lahore | NA Engineering Solutions', 'Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support.']
+    'civil-engineering': ['Civil Engineering Services in Lahore | NA Engineering Solutions', 'Civil construction, concrete, flooring, waterproofing, site development, repair and project execution support in Lahore.'],
+    'mechanical-engineering': ['Mechanical Engineering Services in Lahore | NA Engineering Solutions', 'Mechanical services in Lahore covering pumps, motors, gearboxes, conveyors, fabrication, welding, industrial repair and spare parts.'],
+    'peb-works': ['PEB Works in Lahore | NA Engineering Solutions', 'PEB sheds, structural steel, industrial structures, platforms, walkways, canopies, installation and modification support in Lahore.'],
+    'electrical-works': ['Electrical Works in Lahore | NA Engineering Solutions', 'Industrial electrical installation, lighting, cables, accessories, maintenance, troubleshooting and material supply in Lahore.'],
+    'mechanical-electrical-supplies': ['Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions', 'Industrial motors, pumps, gearboxes, valves, conveyors, cables, panels, breakers and spare parts supplied in Lahore.'],
+    'utilities-facility-maintenance': ['Utility & Facility Maintenance in Lahore | NA Engineering Solutions', 'Maintenance support for water, compressed air and steam systems, compressors, boilers, preventive maintenance and AMC requirements in Lahore.'],
+    'boiler-chemicals': ['Boiler Chemicals & Water Treatment | Lahore | NA Engineering Solutions', 'Boiler water treatment chemicals, dosing systems, testing and technical support for corrosion, scaling and efficiency requirements in Lahore.'],
+    'seamless-pipes-fittings': ['Seamless MS & SS Pipes & Fittings | Lahore', 'Seamless Mild Steel and Stainless Steel pipes, flanges, elbows, reducers, tees and project-specific fittings supplied in Lahore.'],
+    'wastewater-treatment-plant': ['WWTP Supplies & Services in Lahore | NA Engineering Solutions', 'Wastewater treatment equipment, pumps, blowers, diffusers, dosing systems, chemicals and O&M support in Lahore.'],
+    'hvac-supplies-services': ['HVAC Services & Supplies in Lahore | NA Engineering Solutions', 'HVAC equipment, installation, ducting, chillers, AHUs, FCUs, exhaust and fresh-air systems, maintenance and filters in Lahore.'],
+    'fire-fighting-equipment': ['Fire Fighting Equipment in Lahore | NA Engineering Solutions', 'Fire extinguishers, hoses, hydrants, sprinklers and related accessories with refilling and service support in Lahore.'],
+    'waterproofing-solutions': ['Waterproofing Services in Lahore | NA Engineering Solutions', 'Roof, basement, water tank and wet-area waterproofing with chemicals, membranes and leakage rectification in Lahore.'],
+    'pumps-valves-pneumatic': ['Pumps, Valves & Pneumatic Fittings | Lahore', 'Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support.']
   };
   function upsert(name, content) {
     let el = document.head.querySelector('meta[name="' + name + '"]');
@@ -90,13 +116,21 @@
       sameAs: ['https://www.tiktok.com/@na_engineering.co', 'https://www.instagram.com/na_engineering.co/', 'https://x.com/NA_engsolutions']
     };
     const graph = [business];
-    if (serviceMatch && servicePages[serviceMatch[1]]) {
+    const serviceKey = serviceMatch && servicePages[serviceMatch[1]] ? serviceMatch[1] : null;
+    const standaloneService = path === '/supplies'
+      ? {name: 'General Order Supplies', description: pages['/supplies'].description}
+      : path === '/it-services'
+        ? {name: 'IT Services & Equipment', description: pages['/it-services'].description}
+        : null;
+    if (serviceKey || standaloneService) {
+      const serviceName = serviceKey ? data.title.split(' | ')[0] : standaloneService.name;
+      const serviceDescription = serviceKey ? data.description : standaloneService.description;
       graph.push({
         '@type': 'Service',
         '@id': SITE + path + '#service',
-        name: data.title.split(' | ')[0],
-        serviceType: data.title.split(' | ')[0],
-        description: data.description,
+        name: serviceName,
+        serviceType: serviceName,
+        description: serviceDescription,
         url: SITE + path,
         provider: { '@id': SITE + '/#business' },
         areaServed: { '@type': 'City', name: 'Lahore' },
@@ -108,17 +142,17 @@
       '@id': SITE + path + '#breadcrumb',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
-        ...(serviceMatch && servicePages[serviceMatch[1]]
+        ...(serviceKey
           ? [
               { '@type': 'ListItem', position: 2, name: 'Services', item: SITE + '/services' },
-              { '@type': 'ListItem', position: 3, name: data.title.split(' | ')[0], item: SITE + path }
+              { '@type': 'ListItem', position: 3, name: serviceName, item: SITE + path }
             ]
           : [{ '@type': 'ListItem', position: 2, name: data.title.split(' | ')[0], item: SITE + path }])
       ]
     });
     schema.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
     setTimeout(function(){
-      if (!serviceMatch || !servicePages[serviceMatch[1]]) return;
+      if (!serviceKey && !standaloneService) return;
       const items = Array.from(document.querySelectorAll('.service-faq-item')).map(function(item){
         const question = item.querySelector('h3')?.textContent?.trim();
         const answer = item.querySelector('p')?.textContent?.trim();
