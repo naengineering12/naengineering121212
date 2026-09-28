@@ -21,34 +21,12 @@ const img = (url,w=640) => imageUrl(url,w,45);
 const imgSet = (url) => `${imageUrl(url,360)} 360w, ${imageUrl(url,480)} 480w, ${imageUrl(url,640)} 640w, ${imageUrl(url,800)} 800w`;
 
 function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",className="",...rest}){
-  const ref = useRef(null);
-  const [ready,setReady] = useState(loading === "eager");
-
-  useEffect(()=>{
-    if(ready) return;
-    const node = ref.current;
-    if(!node) return;
-    if(!("IntersectionObserver" in window)){
-      setReady(true);
-      return;
-    }
-    const observer = new IntersectionObserver((entries)=>{
-      if(entries[0]?.isIntersecting){
-        setReady(true);
-        observer.disconnect();
-      }
-    },{rootMargin:"300px 0px"});
-    observer.observe(node);
-    return ()=>observer.disconnect();
-  },[ready,src]);
-
   return <img
-    ref={ref}
-    src={ready ? src : undefined}
-    srcSet={ready ? srcSet : undefined}
-    sizes={ready ? sizes : undefined}
+    src={src}
+    srcSet={srcSet}
+    sizes={sizes}
     loading={loading}
-    fetchPriority={ready ? fetchPriority : "low"}
+    fetchPriority={fetchPriority}
     decoding="async"
     alt={alt}
     className={className}
