@@ -1,18 +1,18 @@
-/* NA Engineering Solutions — Signature Theme
-   Editorial engineering / workshop aesthetic.
+/* NA Engineering Solutions — Signature Theme — Deep Navy / Cyan / Off-White
+   Modern industrial engineering aesthetic with deep navy, cyan and off-white.
    Kept as a final visual layer so content, routing and SEO remain untouched.
 */
 :root{
-  --sig-ink:#111827;
-  --sig-navy:#0a1224;
-  --sig-navy-2:#111d34;
-  --sig-paper:#f4f0e8;
-  --sig-white:#fbfaf7;
-  --sig-line:#d7d1c7;
-  --sig-muted:#66707d;
-  --sig-copper:#c97845;
-  --sig-copper-soft:#e3a37c;
-  --sig-blue:#1d6678;
+  --sig-ink:#10202f;
+  --sig-navy:#071a2b;
+  --sig-navy-2:#10253a;
+  --sig-paper:#f8faf9;
+  --sig-white:#ffffff;
+  --sig-line:#d7e1e5;
+  --sig-muted:#64748b;
+  --sig-copper:#16b8c4;
+  --sig-copper-soft:#63d5dc;
+  --sig-blue:#167a8a;
 }
 
 html{background:var(--sig-paper)}
@@ -97,7 +97,7 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
   padding:7px 10px;
   margin-bottom:10px;
   border:1px solid rgba(255,255,255,.18);
-  color:#b8c0cb;
+  color:#b8c8d2;
   font:700 8px/1 Inter;
   letter-spacing:.22em;
 }
@@ -109,7 +109,7 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
 .hero h1 .mask-line:first-child span{color:var(--sig-copper-soft)!important}
 .hero p{
   max-width:650px!important;
-  color:#d1d8e1!important;
+  color:#d7e4ea!important;
   font-size:16px!important;
 }
 .hero-actions .button{
@@ -135,7 +135,7 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
 
 /* Marquee as a project strip */
 .marquee{
-  background:#111b2d!important;
+  background:#0b2236!important;
   padding:15px 0!important;
   border-top:1px solid rgba(255,255,255,.08)!important;
   border-bottom:1px solid rgba(255,255,255,.08)!important;
@@ -216,14 +216,14 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
   background:rgba(255,255,255,.14)!important;
 }
 .value-card{
-  background:#0f1b31!important;
+  background:#0c2135!important;
   min-height:170px!important;
   border-right:1px solid rgba(255,255,255,.12)!important;
   border-bottom:1px solid rgba(255,255,255,.12)!important;
   transition:background .2s ease,border-color .2s ease!important;
 }
 .value-card:hover{
-  background:#13223c!important;
+  background:#102a41!important;
   transform:none!important;
 }
 .value-card>span,.value-card svg{color:var(--sig-copper-soft)!important}
@@ -252,14 +252,14 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
 }
 .service-image{
   height:420px!important;
-  border:1px solid #cec7bc!important;
-  box-shadow:16px 16px 0 #ddd5ca!important;
+  border:1px solid #d4dfe3!important;
+  box-shadow:16px 16px 0 #dfe7ea!important;
   background:#ded8ce!important;
   transition:transform .3s ease,box-shadow .3s ease!important;
 }
 .service-row:hover .service-image{
   transform:translate(-4px,-4px)!important;
-  box-shadow:20px 20px 0 #d4cabd!important;
+  box-shadow:20px 20px 0 #d6e0e4!important;
 }
 .service-image img{filter:saturate(.9) contrast(1.03)!important}
 .service-image span{
@@ -284,7 +284,7 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
 /* Supplies / industry cards */
 .supply-card{
   background:var(--sig-white)!important;
-  border:1px solid #d9d2c8!important;
+  border:1px solid #d7e1e5!important;
 }
 .supply-card:hover{
   transform:translateY(-2px)!important;
@@ -296,14 +296,14 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
 .supply-card h3{letter-spacing:-.02em!important}
 .supply-card a{color:var(--sig-blue)!important}
 
-.industry-section{background:#e8e2d8!important}
-.industry-list{border-top-color:#c9c1b5!important}
-.industry-list span{border-bottom-color:#c9c1b5!important}
+.industry-section{background:#edf3f4!important}
+.industry-list{border-top-color:#cad6db!important}
+.industry-list span{border-bottom-color:#cad6db!important}
 .industry-list b,.industry-list svg{color:var(--sig-blue)!important}
 
 /* About / process */
 .about-feature-image{
-  box-shadow:14px 14px 0 #d8d0c5!important;
+  box-shadow:14px 14px 0 #d9e4e7!important;
 }
 .about-feature-image:after{
   border-color:rgba(201,120,69,.7)!important;
@@ -314,8 +314,8 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
 }
 .about-image-tag span{color:var(--sig-copper-soft)!important}
 .about-signature>span{border-color:var(--sig-copper)!important}
-.process-grid{border-top-color:#cfc8bd!important}
-.process-grid>div{border-right-color:#cfc8bd!important}
+.process-grid{border-top-color:#ccd8dc!important}
+.process-grid>div{border-right-color:#ccd8dc!important}
 .process-grid>div:hover{background:rgba(201,120,69,.05)!important}
 .process-grid b{color:var(--sig-blue)!important}
 
@@ -324,7 +324,7 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
 .mission-card{border-left-color:var(--sig-copper)!important}
 .cta{
   background:
-    linear-gradient(110deg,#173149,#0a1224)!important;
+    linear-gradient(110deg,#123047,#071a2b)!important;
 }
 .cta:after{
   width:460px!important;
@@ -358,10 +358,10 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
 .contact-light{background:var(--sig-paper)!important}
 .contact-card{
   background:var(--sig-white)!important;
-  border:1px solid #d8d1c7!important;
+  border:1px solid #d7e1e5!important;
   border-radius:0!important;
 }
-.contact-card:hover{border-color:#c6bcb0!important}
+.contact-card:hover{border-color:#bccbd0!important}
 .contact-card-icon{color:var(--sig-copper)!important}
 .contact-dark{background:var(--sig-navy)!important}
 .contact-map{
@@ -390,7 +390,7 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
   .site-header:after{bottom:-1px}
   .site-header .nav-links{
     top:72px!important;
-    background:#0a1224!important;
+    background:#071a2b!important;
   }
   .hero,.hero-content{min-height:660px!important}
   .hero-copy:before{font-size:7px}
@@ -404,14 +404,14 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
   .service-row{gap:46px!important}
   .service-image{
     height:300px!important;
-    box-shadow:9px 9px 0 #ddd5ca!important;
+    box-shadow:9px 9px 0 #dfe7ea!important;
   }
   .service-row:hover .service-image{
     transform:none!important;
-    box-shadow:9px 9px 0 #ddd5ca!important;
+    box-shadow:9px 9px 0 #dfe7ea!important;
   }
   .cap-card{min-height:250px!important}
-  .about-feature-image{box-shadow:9px 9px 0 #d8d0c5!important}
+  .about-feature-image{box-shadow:9px 9px 0 #d9e4e7!important}
 }
 
 @media(max-width:480px){
