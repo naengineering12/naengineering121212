@@ -29,9 +29,9 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
 /* Header */
 .site-header{
   height:82px!important;
-  background:rgba(10,18,36,.98)!important;
+  background:rgba(7,26,43,.98)!important;
   border-bottom:1px solid rgba(255,255,255,.13)!important;
-  box-shadow:0 5px 24px rgba(8,18,36,.14)!important;
+  box-shadow:0 5px 24px rgba(7,26,43,.14)!important;
 }
 .site-header:after{
   content:"";
@@ -126,7 +126,7 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
   bottom:112px!important;
   padding:18px 20px!important;
   min-width:210px!important;
-  background:rgba(10,18,36,.72)!important;
+  background:rgba(7,26,43,.78)!important;
   border:1px solid rgba(255,255,255,.15)!important;
   border-left:2px solid var(--sig-copper)!important;
   backdrop-filter:blur(6px)!important;
@@ -156,7 +156,7 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
 /* Page intro */
 .page-intro{
   background:
-    linear-gradient(90deg,rgba(10,18,36,.98),rgba(10,18,36,.94)),
+    linear-gradient(90deg,rgba(7,26,43,.98),rgba(7,26,43,.94)),
     linear-gradient(rgba(227,163,124,.08) 1px,transparent 1px),
     linear-gradient(90deg,rgba(227,163,124,.08) 1px,transparent 1px)!important;
   background-size:auto,34px 34px,34px 34px!important;
@@ -309,7 +309,7 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
   border-color:rgba(201,120,69,.7)!important;
 }
 .about-image-tag{
-  background:rgba(10,18,36,.94)!important;
+  background:rgba(7,26,43,.94)!important;
   border-left:2px solid var(--sig-copper)!important;
 }
 .about-image-tag span{color:var(--sig-copper-soft)!important}
@@ -349,7 +349,7 @@ h1,h2,h3,h4,h5,h6,.hero h1,.page-intro h1{
 }
 .contact-intro{
   background:
-    linear-gradient(90deg,rgba(10,18,36,.98),rgba(10,18,36,.9)),
+    linear-gradient(90deg,rgba(7,26,43,.98),rgba(7,26,43,.92)),
     linear-gradient(rgba(227,163,124,.08) 1px,transparent 1px),
     linear-gradient(90deg,rgba(227,163,124,.08) 1px,transparent 1px)!important;
   background-size:auto,34px 34px,34px 34px!important;
