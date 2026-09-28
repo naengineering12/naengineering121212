@@ -72,8 +72,7 @@
     setTimeout(improveImageAlt, 350);
     let schema = document.getElementById('dynamic-seo-schema');
     if (!schema) { schema = document.createElement('script'); schema.id = 'dynamic-seo-schema'; schema.type = 'application/ld+json'; document.head.appendChild(schema); }
-    schema.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
+    const business = {
       '@type': 'ProfessionalService',
       '@id': SITE + '/#business',
       name: 'NA Engineering Solutions',
@@ -89,7 +88,59 @@
       areaServed: [{ '@type': 'City', name: 'Lahore' }, { '@type': 'Country', name: 'Pakistan' }],
       serviceType: ['Engineering Services', 'General Order Supplies', 'Industrial Maintenance', 'HVAC Services', 'Mechanical Engineering', 'Electrical Works', 'Civil Engineering', 'PEB Works', 'Fire Fighting', 'Industrial Supplies'],
       sameAs: ['https://www.tiktok.com/@na_engineering.co', 'https://www.instagram.com/na_engineering.co/', 'https://x.com/NA_engsolutions']
+    };
+    const graph = [business];
+    if (serviceMatch && servicePages[serviceMatch[1]]) {
+      graph.push({
+        '@type': 'Service',
+        '@id': SITE + path + '#service',
+        name: data.title.split(' | ')[0],
+        serviceType: data.title.split(' | ')[0],
+        description: data.description,
+        url: SITE + path,
+        provider: { '@id': SITE + '/#business' },
+        areaServed: { '@type': 'City', name: 'Lahore' },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': SITE + path }
+      });
+    }
+    graph.push({
+      '@type': 'BreadcrumbList',
+      '@id': SITE + path + '#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
+        ...(serviceMatch && servicePages[serviceMatch[1]]
+          ? [
+              { '@type': 'ListItem', position: 2, name: 'Services', item: SITE + '/services' },
+              { '@type': 'ListItem', position: 3, name: data.title.split(' | ')[0], item: SITE + path }
+            ]
+          : [{ '@type': 'ListItem', position: 2, name: data.title.split(' | ')[0], item: SITE + path }])
+      ]
     });
+    schema.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+    setTimeout(function(){
+      if (!serviceMatch || !servicePages[serviceMatch[1]]) return;
+      const items = Array.from(document.querySelectorAll('.service-faq-item')).map(function(item){
+        const question = item.querySelector('h3')?.textContent?.trim();
+        const answer = item.querySelector('p')?.textContent?.trim();
+        return question && answer ? {
+          '@type':'Question',
+          name:question,
+          acceptedAnswer:{'@type':'Answer',text:answer}
+        } : null;
+      }).filter(Boolean);
+      if (!items.length) return;
+      const faq = document.createElement('script');
+      faq.type='application/ld+json';
+      faq.id='dynamic-service-faq-schema';
+      faq.textContent=JSON.stringify({
+        '@context':'https://schema.org',
+        '@type':'FAQPage',
+        mainEntity:items
+      });
+      const previous=document.getElementById('dynamic-service-faq-schema');
+      if(previous) previous.remove();
+      document.head.appendChild(faq);
+    }, 250);
   }
   function stabilizeMobile() {
     const touchDevice = window.matchMedia('(max-width: 800px), (pointer: coarse)').matches;
