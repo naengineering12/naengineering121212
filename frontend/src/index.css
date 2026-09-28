@@ -804,3 +804,20 @@ img,svg,video,canvas{
     box-shadow:none!important;
   }
 }
+
+
+/* ===== RESTORE SUBTLE COMMITMENT CARD HOVER ===== */
+.why-section .value-card{
+  transition:transform .22s ease,background-color .22s ease,border-color .22s ease,box-shadow .22s ease!important;
+  cursor:default;
+}
+.why-section .value-card:hover{
+  transform:translateY(-4px)!important;
+  background:rgba(255,255,255,.62)!important;
+  border-color:rgba(194,106,31,.38)!important;
+  box-shadow:0 8px 18px rgba(10,17,40,.08)!important;
+}
+.why-section .value-card:hover span,
+.why-section .value-card:hover svg{
+  color:#b86627!important;
+}
