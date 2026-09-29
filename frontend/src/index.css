@@ -9,7 +9,7 @@ body { margin:0; font-family:"Inter",sans-serif; -webkit-font-smoothing:antialia
 code{font-family:source-code-pro,Menlo,Monaco,Consolas,"Courier New",monospace}
 
 /* Premium corporate engineering system */
-:root{--premium-navy:#0B1F3A;--premium-navy-2:#123257;--premium-amber:#F4A261;--premium-cyan:#F4A261;--premium-ink:#142033;--premium-muted:#647084}
+:root{--premium-navy:#0B1F3A;--premium-navy-2:#123257;--premium-amber:#F4A261;--premium-cyan:#F4A261;--premium-ink:#162337;--premium-muted:#64748B}
 body{background:#FFFFFF;color:var(--premium-ink)}
 .hero{min-height:680px;overflow:hidden;background:var(--premium-navy);isolation:isolate}
 .hero-bg{filter:saturate(.82) contrast(1.06);transform:scale(1.015);transition:transform 1.2s ease}
