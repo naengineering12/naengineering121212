@@ -303,3 +303,8 @@ h2{font-weight:800}.logo-img{width:54px;height:54px;object-fit:contain}.footer .
     font-size:12px!important;
   }
 }
+
+/* Homepage internal-link strip */
+.home-extra-links{display:flex;align-items:center;gap:10px 22px;flex-wrap:wrap;margin-top:30px;padding-top:20px;border-top:1px solid var(--line,#d9e0e5)}
+.home-extra-links a{display:inline-flex;align-items:center;gap:8px;color:var(--blue,#005f73);font-size:12px;font-weight:800;text-decoration:none;padding:5px 0}
+.home-extra-links a:hover{color:var(--amber,#f4a261)}
