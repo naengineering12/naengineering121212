@@ -14,7 +14,7 @@ export default function ContactPage(){
     const formElement=event.currentTarget;
     setInquiryStatus({kind:"sending",message:"Sending your request..."});
     try{
-      const apiBase=(process.env.REACT_APP_BACKEND_URL||"").replace(/\\/+$/,"");
+      const apiBase=(process.env.REACT_APP_BACKEND_URL||"").replace(/\/+$/, "");
       const response=await fetch(`${apiBase}/api/quote`,{method:"POST",body:new FormData(formElement)});
       const payload=await response.json().catch(()=>({}));
       if(!response.ok){
