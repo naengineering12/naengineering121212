@@ -128,7 +128,7 @@
       address: { '@type': 'PostalAddress', streetAddress: '593 Block-A LDA Avenue, 1 Raiwind Rd', addressLocality: 'Lahore', postalCode: '54000', addressCountry: 'PK' },
       geo: { '@type': 'GeoCoordinates', latitude: 31.4274139, longitude: 74.2215347 },
       areaServed: [{ '@type': 'City', name: 'Lahore' }, { '@type': 'Country', name: 'Pakistan' }],
-      serviceType: ['Engineering Services', 'General Order Supplies', 'Industrial Maintenance', 'HVAC Services', 'Mechanical Engineering', 'Electrical Works', 'Civil Engineering', 'PEB Works', 'Fire Fighting', 'Industrial Supplies'],
+      serviceType: ['Engineering Consultancy', 'Engineering Services', 'General Order Supplies & Services', 'Industrial Maintenance', 'Utilities & Facility Maintenance', 'HVAC Services', 'Mechanical Engineering', 'Electrical Works', 'Civil Engineering', 'PEB Works', 'Fire Fighting Equipment', 'Safety & Security Systems', 'IT Services & Equipment', 'Wastewater Treatment Plant Supplies', 'Boiler Water Treatment Chemicals', 'Seamless MS & SS Pipes & Fittings', 'Waterproofing Solutions', 'Pumps, Valves & Pneumatic Fittings', 'Industrial Supplies'],
       sameAs: ['https://www.tiktok.com/@na_engineering.co', 'https://www.instagram.com/na_engineering.co/', 'https://x.com/NA_engsolutions']
     };
     const graph = [business];
