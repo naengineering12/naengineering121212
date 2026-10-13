@@ -36,6 +36,10 @@
     '/contact': {
       title: 'Contact NA Engineering Solutions | Lahore',
       description: 'Contact NA Engineering Solutions in Lahore for engineering services, industrial supplies, maintenance, IT equipment and General Order Supplies & Services.'
+    },
+    '/insights': {
+      title: 'Engineering & Industrial Supply Guides | NA Engineering Solutions',
+      description: 'Practical guides for industrial maintenance, HVAC, general order procurement, PEB planning and fire safety from NA Engineering Solutions in Lahore.'
     }
   };
   const servicePages = {
@@ -51,7 +55,15 @@
     'hvac-supplies-services': ['HVAC Services & Supplies in Lahore | NA Engineering Solutions', 'HVAC equipment, installation, ducting, chillers, AHUs, FCUs, exhaust and fresh-air systems, maintenance and filters in Lahore.'],
     'fire-fighting-equipment': ['Fire Fighting Equipment in Lahore | NA Engineering Solutions', 'Fire extinguishers, hoses, hydrants, sprinklers and related accessories with refilling and service support in Lahore.'],
     'waterproofing-solutions': ['Waterproofing Services in Lahore | NA Engineering Solutions', 'Roof, basement, water tank and wet-area waterproofing with chemicals, membranes and leakage rectification in Lahore.'],
-    'pumps-valves-pneumatic': ['Pumps, Valves & Pneumatic Fittings | Lahore', 'Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support.']
+    'pumps-valves-pneumatic': ['Pumps, Valves & Pneumatic Fittings | Lahore', 'Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support.'],
+    'engineering-consultancy': ['Engineering Consultancy in Lahore | NA Engineering Solutions', 'Engineering consultancy for project scope, technical reviews, specifications, planning and execution coordination for industrial and commercial projects in Lahore.']
+  };
+  const articlePages = {
+    'prepare-a-general-order-supply-request': ['How to Prepare a General Order Supply Request | NA Engineering Solutions', 'A checklist for clear item descriptions, specifications, quantities, delivery details and documents when requesting general order supplies.'],
+    'industrial-maintenance-supplier-checklist': ['Choosing an Industrial Maintenance Supplier | NA Engineering Solutions', 'Questions to ask about technical fit, site safety, scope, lead times and after-delivery support when choosing an industrial maintenance supplier.'],
+    'hvac-preventive-maintenance-checklist': ['HVAC Preventive Maintenance Checklist | NA Engineering Solutions', 'A practical facility checklist covering HVAC filters, airflow, drainage, operating condition, accessibility and maintenance records.'],
+    'peb-project-planning-checklist': ['PEB Project Planning Checklist | NA Engineering Solutions', 'What to confirm before a PEB project, including dimensions, design loads, foundations, drainage, building services and installation coordination.'],
+    'fire-safety-equipment-site-planning': ['Fire Safety Equipment Planning Guide | NA Engineering Solutions', 'Key considerations for fire safety equipment selection, placement, inspection and records at commercial and industrial sites.']
   };
   function upsert(name, content) {
     let el = document.head.querySelector('meta[name="' + name + '"]');
@@ -80,7 +92,10 @@
     const path = window.location.pathname.replace(/\/+$/, '') || '/';
     let data = pages[path] || DEFAULT;
     const serviceMatch = path.match(/^\/services\/([^/]+)$/);
+    const articleMatch = path.match(/^\/insights\/([^/]+)$/);
+    const articleData = articleMatch ? articlePages[articleMatch[1]] : null;
     if (serviceMatch && servicePages[serviceMatch[1]]) data = { title: servicePages[serviceMatch[1]][0], description: servicePages[serviceMatch[1]][1] };
+    if (articleData) data = { title: articleData[0], description: articleData[1] };
     document.title = data.title;
     upsert('description', data.description);
     upsert('robots', 'index, follow, max-image-preview:large');
@@ -150,17 +165,38 @@
         mainEntityOfPage: { '@type': 'WebPage', '@id': SITE + path }
       });
     }
+    if (articleData) {
+      graph.push({
+        '@type': 'BlogPosting',
+        '@id': SITE + path + '#article',
+        headline: data.title.split(' | ')[0],
+        description: data.description,
+        url: SITE + path,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': SITE + path },
+        author: { '@type': 'Organization', '@id': SITE + '/#business', name: 'NA Engineering Solutions' },
+        publisher: { '@id': SITE + '/#business' },
+        inLanguage: 'en-PK',
+        articleSection: 'Engineering, maintenance and procurement'
+      });
+    }
     graph.push({
       '@type': 'BreadcrumbList',
       '@id': SITE + path + '#breadcrumb',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
-        ...(serviceKey
+        ...(articleData
           ? [
-              { '@type': 'ListItem', position: 2, name: 'Services', item: SITE + '/services' },
-              { '@type': 'ListItem', position: 3, name: serviceName, item: SITE + path }
+              { '@type': 'ListItem', position: 2, name: 'Insights', item: SITE + '/insights' },
+              { '@type': 'ListItem', position: 3, name: data.title.split(' | ')[0], item: SITE + path }
             ]
-          : [{ '@type': 'ListItem', position: 2, name: data.title.split(' | ')[0], item: SITE + path }])
+          : serviceKey
+            ? [
+                { '@type': 'ListItem', position: 2, name: 'Services', item: SITE + '/services' },
+                { '@type': 'ListItem', position: 3, name: serviceName, item: SITE + path }
+              ]
+            : path === '/insights'
+              ? [{ '@type': 'ListItem', position: 2, name: 'Insights', item: SITE + path }]
+              : [{ '@type': 'ListItem', position: 2, name: data.title.split(' | ')[0], item: SITE + path }])
       ]
     });
     schema.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
