@@ -139,7 +139,15 @@ function ChatWidget(){
 }
 
 function Counter({to,suffix=""}){return <b>{to}{suffix}</b>}
-const clients=[{n:"Lahore Airport",ind:"Aviation",icon:Plane,lg:"/clients/lahore-airport.svg",mono:"LA",d:"Facility support and technical services for airport operations environments."},{n:"Sialkot Airport",ind:"Aviation",icon:Plane,lg:"/clients/sialkot-airport.svg",mono:"SA",d:"Maintenance and supply support for airport infrastructure."},{n:"Nimir Chemicals",ind:"Chemical & Industrial",icon:FlaskConical,lg:"/clients/nimir-chemicals.png",mono:"NC",d:"Industrial supplies and maintenance support for chemical processing operations."},{n:"Dandot Cement",ind:"Cement & Construction Materials",icon:Factory,lg:"/clients/dandot-cement.svg",mono:"DC",d:"Mechanical and electrical support for cement plant environments."},{n:"Interloop",ind:"Textile Manufacturing",icon:Shirt,lg:"/clients/interloop.svg",mono:"IL",d:"Facility and engineering support for large-scale textile production."},{n:"Gourmet Foods",ind:"Food & Beverage",icon:ChefHat,lg:"/clients/gourmet-foods.webp",mono:"GF",d:"Maintenance, safety and supply services for food production facilities."}];
+const clients=[
+  {n:"Gerry's Dnata",ind:"Aviation & Cargo",icon:Plane,mono:"GD",d:"Aviation and cargo-site requirements, where timing, coordination and safety are essential."},
+  {n:"Interloop",ind:"Textile Manufacturing",icon:Shirt,mono:"IL",d:"Industrial and facility requirements in a large-scale manufacturing environment."},
+  {n:"Sialkot Airport",ind:"Aviation",icon:Plane,mono:"SA",d:"Airport-related facility and supply requirements."},
+  {n:"Joyland Group",ind:"Leisure & Facilities",icon:Building2,mono:"JG",d:"Facility and operational supply requirements."},
+  {n:"Lake City Power House & Management",ind:"Power & Property Management",icon:Zap,mono:"LC",d:"Utility, property and facility-support requirements."},
+  {n:"Fatima Fertilizer",ind:"Fertilizer & Industrial",icon:FlaskConical,mono:"FF",d:"Industrial requirements where technical specifications and site coordination matter."},
+  {n:"ZIC Oil",ind:"Lubricants & Industry",icon:Factory,mono:"ZIC",d:"Industrial and lubricant-related supply environments."}
+]
 function Clients(){
   const projects=[
     {t:"HVAC duct work",loc:"BF Biosciences — Packaging Hall",s:"Ductwork scope and coordination for a packaging-area HVAC requirement",im:"1615309662243-70f6df917b59"},
