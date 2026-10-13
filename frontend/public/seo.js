@@ -202,7 +202,11 @@
     });
     schema.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
     setTimeout(function(){
-      if (!serviceKey && !standaloneService) return;
+      if (!serviceKey && !standaloneService) {
+        const staleFaq = document.getElementById('dynamic-service-faq-schema');
+        if (staleFaq) staleFaq.remove();
+        return;
+      }
       const items = Array.from(document.querySelectorAll('.service-faq-item')).map(function(item){
         const question = item.querySelector('h3')?.textContent?.trim();
         const answer = item.querySelector('p')?.textContent?.trim();
