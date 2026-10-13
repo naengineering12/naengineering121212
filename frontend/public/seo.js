@@ -9,10 +9,6 @@
       title: 'NA Engineering Solutions | Engineering & Industrial Supply Lahore',
       description: 'NA Engineering Solutions in Lahore provides engineering services, industrial maintenance and General Order Supplies & Services for factories, facilities and projects.'
     },
-    '/about': {
-      title: 'About NA Engineering Solutions | Lahore',
-      description: 'Learn about NA Engineering Solutions, a Lahore-based engineering, maintenance and general order supply company supporting industrial and commercial sites.'
-    },
     '/services': {
       title: 'Engineering Services in Lahore | NA Engineering Solutions',
       description: 'Civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing and industrial maintenance services for facilities and projects in Lahore.'
