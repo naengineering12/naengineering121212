@@ -83,33 +83,68 @@
   .contact-btn{padding:13px 14px;font-size:11px}
 }
 
-/* Accessible quotation enquiry form */
-.contact-inquiry-section{border-top:1px solid var(--line,#d9e0e5);border-bottom:1px solid var(--line,#d9e0e5)}
-.contact-inquiry-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,6vw,78px);align-items:start}
-.contact-inquiry-copy h2{font:700 clamp(32px,4vw,48px)/1.08 Chivo,sans-serif;letter-spacing:-.045em;margin:18px 0}
-.contact-inquiry-copy>p{font-size:15px;line-height:1.85;color:var(--contact-muted);max-width:440px}
-.contact-inquiry-points{display:grid;gap:12px;margin-top:30px}
-.contact-inquiry-points p{display:flex;gap:12px;align-items:flex-start;margin:0;padding-top:12px;border-top:1px solid var(--line);font-size:13px;line-height:1.6;color:var(--contact-ink)}
-.contact-inquiry-points b{font:700 11px Chivo;color:var(--contact-amber);letter-spacing:.1em}
-.contact-inquiry-form{padding:clamp(22px,3vw,36px);background:#fff;border:1px solid var(--line);border-top:3px solid var(--contact-amber);box-shadow:0 16px 42px rgba(10,17,40,.06)}
-.contact-inquiry-form-head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--line)}
-.contact-inquiry-form-head span{font:800 12px Inter,sans-serif;letter-spacing:.14em;color:var(--contact-navy)}
-.contact-inquiry-form-head small{font-size:10px;color:var(--contact-muted)}
-.contact-inquiry-fields{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
-.contact-inquiry-fields label{display:grid;gap:8px;margin:0 0 17px;color:var(--contact-ink);font-size:11px;font-weight:700;letter-spacing:.02em}
-.contact-inquiry-fields input,.contact-inquiry-fields select,.contact-inquiry-fields textarea{width:100%;min-width:0;border:1px solid var(--line);border-radius:0;background:#fbfcfd;padding:13px 14px;font:400 13px Inter,sans-serif;color:var(--contact-ink);outline:none}
-.contact-inquiry-fields input:focus,.contact-inquiry-fields select:focus,.contact-inquiry-fields textarea:focus{border-color:var(--contact-blue);box-shadow:0 0 0 3px rgba(22,122,138,.1)}
-.contact-inquiry-fields textarea{min-height:135px;resize:vertical;line-height:1.6}
-.contact-inquiry-full{grid-column:1/-1}
-.contact-inquiry-file input{padding:10px;background:#f7f8f8}
-.contact-inquiry-file small{font-size:10px;font-weight:400;color:var(--contact-muted);letter-spacing:0}
-.contact-inquiry-submit{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;width:100%;border:0;border-radius:0;background:var(--contact-navy);color:#fff;padding:14px 18px;font:800 12px Inter,sans-serif;cursor:pointer;transition:background .18s ease,opacity .18s ease}
-.contact-inquiry-submit:hover{background:var(--contact-blue)}
-.contact-inquiry-submit:disabled{opacity:.65;cursor:wait}
-.contact-inquiry-status{padding:12px 14px;margin:0 0 14px;font-size:12px;line-height:1.65;border:1px solid var(--line)}
-.contact-inquiry-status.success{background:#eef8f2;border-color:#badfc7;color:#17603b}
-.contact-inquiry-status.error{background:#fff2ef;border-color:#edc6bd;color:#8c2e1b}
-.contact-inquiry-status.sending{background:#eff6f8;color:var(--contact-blue)}
-.contact-inquiry-privacy{font-size:10px;line-height:1.6;color:var(--contact-muted);margin:14px 0 0}
-@media(max-width:800px){.contact-inquiry-grid{grid-template-columns:1fr}.contact-inquiry-copy>p{max-width:680px}}
-@media(max-width:540px){.contact-inquiry-fields{grid-template-columns:1fr}.contact-inquiry-full{grid-column:auto}.contact-inquiry-form-head{align-items:flex-start;flex-direction:column}}
+/* Contact page refinement — quotation form removed, original brand palette retained */
+.contact-intro{
+  padding:88px 0 76px;
+  background:#0a1128;
+  border-bottom:3px solid #f4a261;
+}
+.contact-intro h1{
+  max-width:780px;
+  font-size:clamp(42px,5.5vw,68px);
+  line-height:1.02;
+  letter-spacing:-.055em;
+}
+.contact-intro p{
+  max-width:690px;
+  font-size:16px;
+  line-height:1.8;
+  color:#cbd5e1;
+}
+.contact-main-grid{
+  grid-template-columns:minmax(0,.9fr) minmax(360px,1.1fr);
+  gap:clamp(36px,5vw,72px);
+  align-items:center;
+}
+.contact-main-copy h2{
+  max-width:560px;
+  font-size:clamp(32px,3.8vw,48px);
+  line-height:1.08;
+  letter-spacing:-.045em;
+}
+.contact-main-copy p{font-size:15px;line-height:1.8}
+.contact-buttons{gap:10px;margin-top:28px}
+.contact-btn{min-height:46px}
+.contact-btn:hover{transform:translateY(-1px)}
+.contact-card-grid{
+  gap:0;
+  border:1px solid #d9e0e5;
+  background:#d9e0e5;
+  box-shadow:0 14px 36px rgba(10,17,40,.06);
+}
+.contact-card{
+  min-height:100px;
+  padding:20px 22px;
+  background:#fff;
+}
+.contact-card:hover{background:#f8fafc}
+.contact-card strong{font-size:14px;line-height:1.55}
+.contact-details-grid{gap:clamp(35px,5vw,75px)}
+.contact-detail-list>div{padding:19px 0}
+.contact-service-grid>div{min-height:66px;transition:background .18s ease}
+.contact-service-grid>div:hover{background:rgba(0,95,115,.045)}
+.contact-map-inner{min-height:260px}
+@media(max-width:800px){
+  .contact-intro{padding:66px 0 58px}
+  .contact-main-grid{grid-template-columns:1fr;gap:34px}
+  .contact-card-grid{grid-template-columns:1fr 1fr}
+  .contact-card{padding:17px}
+  .contact-section{padding:72px 0}
+}
+@media(max-width:560px){
+  .contact-card-grid{grid-template-columns:1fr}
+  .contact-card{min-height:0;padding:18px}
+  .contact-intro h1{font-size:42px}
+  .contact-buttons{flex-direction:column;align-items:stretch}
+  .contact-btn{justify-content:center}
+}
