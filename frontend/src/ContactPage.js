@@ -22,6 +22,7 @@ export default function ContactPage(){
 
   const submitQuote = async (event) => {
     event.preventDefault();
+    const formElement = event.currentTarget;
     if (quoteBusy) return;
     if (!API || API === "/api") {
       setQuoteStatus({ type: "error", message: "The quote service is not configured right now. Please email na.engineeringsolutions2023@gmail.com." });
@@ -47,7 +48,7 @@ export default function ContactPage(){
       setQuoteStatus({ type: "success", message: "Thank you. Your quote request has been submitted successfully. Our team will review the details." });
       setQuote({ full_name: "", company_name: "", email: "", phone: "", service_required: "", message: "" });
       setAttachment(null);
-      const fileInput = event.currentTarget.querySelector('input[name="attachment"]');
+      const fileInput = formElement.querySelector('input[name="attachment"]');
       if (fileInput) fileInput.value = "";
     } catch (error) {
       setQuoteStatus({ type: "error", message: error.message || "We could not submit your request. Please email na.engineeringsolutions2023@gmail.com." });
