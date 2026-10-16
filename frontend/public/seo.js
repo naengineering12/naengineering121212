@@ -108,7 +108,7 @@
     document.title = data.title;
     upsert('description', data.description);
     upsert('robots', (isAdmin || isNotFound) ? 'noindex, follow' : 'index, follow, max-image-preview:large');
-    upsertProperty('og:type', 'website');
+    upsertProperty('og:type', articleData ? 'article' : 'website');
     upsertProperty('og:site_name', 'NA Engineering Solutions');
     upsertProperty('og:locale', 'en_PK');
     upsertProperty('og:title', data.title);
