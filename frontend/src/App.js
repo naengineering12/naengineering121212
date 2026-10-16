@@ -5,13 +5,13 @@ import "./clients-responsive.css";
 import "./clients-fix.css";
 import "./clients-enhancements";
 import "./ChatFix.css";
-import "./site-quality.css";
 import ContactPage from "./ContactPage";
 import InsightsPage, { InsightsPreview } from "./InsightsPage";
 import { BrowserRouter, Routes, Route, Link, NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 import { ArrowRight, ArrowUpRight, Building2, CheckCircle2, ChefHat, ChevronDown, ChevronRight, CircleDot, Clock, Factory, FlaskConical, Flame, Droplets, Gauge, Waves, HardHat, Headphones, Instagram, Laptop, Boxes, PenTool, Cpu, Server, Wifi, Printer, Camera, Mail, MapPin, Menu, MessageCircle, PackageCheck, Phone, Plane, Quote, Send, ShieldCheck, Shirt, Snowflake, Sparkles, Truck, Users, Wrench, X, Zap } from "lucide-react";
 import { toast, Toaster } from "sonner";
+import "./site-quality.css";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
