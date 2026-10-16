@@ -244,3 +244,59 @@ button,a,input,textarea,select{ -webkit-tap-highlight-color:transparent }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* Insights, client showcase, forms and internal tables use the same palette too. */
+.insights-preview,.insights-index-page,.insight-article-page{background:#FFFFFF!important}
+.insight-article-hero,.insights-index-hero{
+  background:linear-gradient(115deg,#0B1F3A 0%,#123257 100%)!important;
+}
+.insight-eyebrow,.insight-article-hero .insight-eyebrow,.insights-index-hero .insight-eyebrow{color:#F4A261!important}
+.insight-card{background:#FFFFFF!important;border-color:#D9E0E5!important;border-top-color:#F4A261!important}
+.insight-card h2 a,.insight-read-link,.insight-all-link,.insight-aside a,.insight-related a{color:#155DA8!important}
+.insight-aside,.insight-related{background:#FFFFFF!important;border-color:#D9E0E5!important;border-top-color:#F4A261!important}
+.insight-related a{background:#F4F7FB!important}
+.insights-contact-cta{background:#0B1F3A!important}
+.insights-contact-cta>a{background:#F4A261!important;color:#0B1F3A!important}
+
+.clients-story-panel{
+  background:linear-gradient(120deg,#0B1F3A 0%,#123257 100%)!important;
+}
+.clients-story-kicker,.clients-story-points strong{color:#F4A261!important}
+.client-card-enhanced:before{background:linear-gradient(90deg,#F4A261,#155DA8)!important}
+.client-card-enhanced:after{background:rgba(21,93,168,.06)!important}
+.client-logo-fallback{border-color:#F4A261!important;color:#0B1F3A!important}
+.client-card-arrow{color:#155DA8!important}
+.logo-chip-enhanced:before{background:#F4A261!important}
+.client-card-enhanced,.logo-chip-enhanced{background:#FFFFFF!important;border-color:#D9E0E5!important}
+
+/* Contact details and links must remain readable at narrow widths. */
+.contact-detail-list>div{grid-template-columns:minmax(90px,145px) minmax(0,1fr)!important}
+.contact-card small,.contact-detail-list a{overflow-wrap:anywhere}
+.contact-btn{min-height:44px}
+input,textarea,select{max-width:100%;min-width:0}
+input[type="file"]{width:100%}
+
+/* Admin tables can scroll inside their wrapper rather than forcing page overflow. */
+.table-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.admin-table{min-width:850px;border-collapse:collapse}
+.admin-table th,.admin-table td{overflow-wrap:anywhere}
+.admin-login{max-width:560px;width:100%;margin-inline:auto}
+
+/* Tablet article and client layouts */
+@media(max-width:900px){
+  .insight-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .insight-article-layout{grid-template-columns:minmax(0,1fr)!important;gap:30px!important;padding-top:42px!important;padding-bottom:60px!important}
+  .insight-aside{position:static!important}
+  .clients-story-panel{grid-template-columns:minmax(0,1fr)!important;gap:22px!important;padding:28px!important}
+}
+@media(max-width:560px){
+  .insight-card-grid{grid-template-columns:minmax(0,1fr)!important}
+  .insight-article-hero,.insights-index-hero{padding:58px 0 48px!important}
+  .insight-article-hero h1,.insights-index-hero h1{font-size:clamp(32px,9vw,44px)!important;line-height:1.06!important}
+  .insight-article-layout{padding-top:34px!important;padding-bottom:46px!important}
+  .insight-article-body p{font-size:14px!important}
+  .insight-aside{padding:20px!important}
+  .insights-contact-cta{align-items:flex-start!important;flex-direction:column!important;padding:22px!important}
+  .clients-story-panel{padding:22px!important}
+  .contact-detail-list>div{grid-template-columns:minmax(0,1fr)!important;gap:5px!important}
+}
