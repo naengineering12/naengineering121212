@@ -44,19 +44,19 @@
 .cap-card,.service-image,.supply-card,.industry-card,.value-card{
   transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease;
 }
-.cap-card{box-shadow:0 12px 32px rgba(10,17,40,.10)}
-.cap-card:hover{transform:translateY(-6px);box-shadow:0 20px 42px rgba(10,17,40,.18)}
-.service-row:hover .service-image{box-shadow:0 18px 42px rgba(10,17,40,.12)}
+.cap-card{box-shadow:0 12px 32px rgba(11,31,58,.10)}
+.cap-card:hover{transform:translateY(-6px);box-shadow:0 20px 42px rgba(11,31,58,.18)}
+.service-row:hover .service-image{box-shadow:0 18px 42px rgba(11,31,58,.12)}
 .service-image:after{content:none!important}
 .service-row:hover .service-image:after{content:none!important;opacity:0!important}
 
 /* Cards get a more engineered, premium edge without image borders */
-.supply-card{border-color:rgba(10,17,40,.10);position:relative}
+.supply-card{border-color:rgba(11,31,58,.10);position:relative}
 .supply-card:before{
   content:"";position:absolute;left:0;top:0;width:3px;height:0;background:var(--amber);transition:height .3s ease;z-index:2;
 }
 .supply-card:hover:before{height:100%}
-.industry-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(10,17,40,.08);z-index:1}
+.industry-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(11,31,58,.08);z-index:1}
 
 /* Numbered engineering feel */
 .process-grid>div:hover{background:rgba(244,162,97,.045)}
@@ -86,7 +86,7 @@
 .page-intro h1{position:relative;z-index:1}
 
 /* Contact/map and feature panels */
-.map-card,.about-feature-image,.detail-image{box-shadow:0 16px 38px rgba(10,17,40,.10)}
+.map-card,.about-feature-image,.detail-image{box-shadow:0 16px 38px rgba(11,31,58,.10)}
 .contact-line{transition:transform .2s ease;color:#435365}
 .contact-line:hover{transform:translateX(4px)}
 .contact-line svg{transition:transform .2s ease}
