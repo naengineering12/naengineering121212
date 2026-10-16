@@ -87,25 +87,49 @@
   }
   function apply() {
     const path = window.location.pathname.replace(/\/+$/, '') || '/';
-    let data = pages[path] || DEFAULT;
     const serviceMatch = path.match(/^\/services\/([^/]+)$/);
     const articleMatch = path.match(/^\/insights\/([^/]+)$/);
+    const serviceData = serviceMatch ? servicePages[serviceMatch[1]] : null;
     const articleData = articleMatch ? articlePages[articleMatch[1]] : null;
-    if (serviceMatch && servicePages[serviceMatch[1]]) data = { title: servicePages[serviceMatch[1]][0], description: servicePages[serviceMatch[1]][1] };
+    const isAdmin = path === '/admin';
+    const isKnownPath = Boolean(pages[path] || serviceData || articleData);
+    const isNotFound = !isAdmin && !isKnownPath;
+    let data = pages[path] || DEFAULT;
+    if (serviceData) data = { title: serviceData[0], description: serviceData[1] };
     if (articleData) data = { title: articleData[0], description: articleData[1] };
+    if (isAdmin) data = {
+      title: 'Admin Sign In | NA Engineering Solutions',
+      description: 'Private administration page for NA Engineering Solutions.'
+    };
+    if (isNotFound) data = {
+      title: 'Page Not Found | NA Engineering Solutions',
+      description: 'This page could not be found. Explore NA Engineering Solutions services, general order supplies or contact our Lahore team.'
+    };
     document.title = data.title;
     upsert('description', data.description);
-    upsert('robots', 'index, follow, max-image-preview:large');
+    upsert('robots', (isAdmin || isNotFound) ? 'noindex, follow' : 'index, follow, max-image-preview:large');
     upsertProperty('og:type', 'website');
     upsertProperty('og:site_name', 'NA Engineering Solutions');
+    upsertProperty('og:locale', 'en_PK');
     upsertProperty('og:title', data.title);
     upsertProperty('og:description', data.description);
     upsertProperty('og:url', SITE + path);
     upsertProperty('og:image', SITE + '/logo.png');
+    upsertProperty('og:image:alt', 'NA Engineering Solutions company logo');
     upsert('twitter:card', 'summary_large_image');
     upsert('twitter:title', data.title);
     upsert('twitter:description', data.description);
     upsert('twitter:image', SITE + '/logo.png');
+    if (isAdmin || isNotFound) {
+      const existingCanonical = document.head.querySelector('link[rel="canonical"]');
+      if (existingCanonical) existingCanonical.remove();
+      const staleSchema = document.getElementById('dynamic-seo-schema');
+      if (staleSchema) staleSchema.remove();
+      const staleFaq = document.getElementById('dynamic-service-faq-schema');
+      if (staleFaq) staleFaq.remove();
+      setTimeout(improveImageAlt, 350);
+      return;
+    }
     canonical(SITE + path);
     setTimeout(improveImageAlt, 350);
     let schema = document.getElementById('dynamic-seo-schema');
