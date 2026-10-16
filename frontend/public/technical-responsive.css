@@ -413,3 +413,11 @@ img,
 @media(max-width:800px){
   .section,.page-intro,.cta{content-visibility:visible!important;}
 }
+
+/* Keep the page canvas consistent with the warm off-white section background. */
+html,
+body,
+#root,
+.App {
+  background-color: #F6F5F2 !important;
+}
