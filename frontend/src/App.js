@@ -5,6 +5,7 @@ import "./clients-responsive.css";
 import "./clients-fix.css";
 import "./clients-enhancements";
 import "./ChatFix.css";
+import "./site-quality.css";
 import ContactPage from "./ContactPage";
 import InsightsPage, { InsightsPreview } from "./InsightsPage";
 import { BrowserRouter, Routes, Route, Link, NavLink, useLocation } from "react-router-dom";
@@ -191,7 +192,7 @@ function App() {
       <ScrollToTop/>
       <Header/>
         <Routes>
-          <Route path="/" element={<Home />} /><Route path="/services" element={<Services/>}/><Route path="/services/:slug" element={<ServiceRoute/>}/><Route path="/supplies" element={<Supplies/>}/><Route path="/it-services" element={<ITServices/>}/><Route path="/industries" element={<Industries/>}/><Route path="/insights" element={<InsightsPage/>}/><Route path="/insights/:slug" element={<InsightsPage/>}/><Route path="/clients" element={<Clients/>}/><Route path="/contact" element={<ContactPage/>}/><Route path="/admin" element={<Admin/>}/><Route path="*" element={<Home/>}/>
+          <Route path="/" element={<Home />} /><Route path="/services" element={<Services/>}/><Route path="/services/:slug" element={<ServiceRoute/>}/><Route path="/supplies" element={<Supplies/>}/><Route path="/it-services" element={<ITServices/>}/><Route path="/industries" element={<Industries/>}/><Route path="/insights" element={<InsightsPage/>}/><Route path="/insights/:slug" element={<InsightsPage/>}/><Route path="/clients" element={<Clients/>}/><Route path="/contact" element={<ContactPage/>}/><Route path="/admin" element={<Admin/>}/><Route path="*" element={<NotFound/>}/>
         </Routes>
       <Footer/>
       <ChatWidget/>
@@ -199,6 +200,8 @@ function App() {
   );
 }
 
-function ServiceRoute(){const {pathname}=useLocation();const service=services.find(s=>pathname.endsWith(s.slug))||services[0];return <ServiceDetail service={service}/>}
+function ServiceRoute(){const {pathname}=useLocation();const service=services.find(s=>pathname.endsWith(s.slug));return service?<ServiceDetail service={service}/>:<NotFound/>}
+
+function NotFound(){return <><PageIntro eyebrow="404 / PAGE NOT FOUND" title="This page could not be found.">The address may have changed or the link may be incorrect. You can browse our engineering services, explore General Order Supplies, or contact our Lahore team for help.</PageIntro><main className="section section-light"><div className="site-container"><div className="home-extra-links"><Link to="/services">Explore engineering services <ArrowRight size={16}/></Link><Link to="/supplies">General Order Supplies <ArrowRight size={16}/></Link><Link to="/contact">Contact our team <ArrowRight size={16}/></Link></div></div></main></>}
 
 export default App;
