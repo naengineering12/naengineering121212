@@ -45,7 +45,12 @@ export default function ContactPage(){
         const detail = typeof result.detail === "string" ? result.detail : "We could not submit your request. Please email na.engineeringsolutions2023@gmail.com.";
         throw new Error(detail);
       }
-      setQuoteStatus({ type: "success", message: "Thank you. Your quote request has been submitted successfully. Our team will review the details." });
+      setQuoteStatus({
+        type: "success",
+        message: result.notification_sent === false
+          ? "Your request has been received and saved. Our email notification could not be sent automatically, but the request is recorded. For urgent follow-up, email na.engineeringsolutions2023@gmail.com."
+          : "Thank you. Your quote request has been submitted successfully. Our team will review the details."
+      });
       setQuote({ full_name: "", company_name: "", email: "", phone: "", service_required: "", message: "" });
       setAttachment(null);
       const fileInput = formElement.querySelector('input[name="attachment"]');
