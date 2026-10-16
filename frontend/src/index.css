@@ -1943,3 +1943,8 @@ textarea{
   .service-faq-item h3{font-size:18px}
   .service-faq-item p{font-size:13px}
 }
+
+/* Match the home page Industries band to the same white as the section above. */
+.industry-section{
+  background:#FFFFFF!important;
+}
