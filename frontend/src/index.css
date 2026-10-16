@@ -18,16 +18,16 @@ body{background:#FFFFFF;color:var(--premium-ink)}
 .hero-copy h1{font-family:Chivo,Inter,sans-serif;font-size:clamp(46px,6vw,88px);line-height:.96;letter-spacing:-.045em;max-width:760px}
 .hero-copy h1 strong,.hero-copy h1 span{color:var(--premium-amber)}
 .hero-copy p{max-width:650px;font-size:18px;line-height:1.8;color:rgba(255,255,255,.78)}
-.hero:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.11;background-image:linear-gradient(rgba(73,198,208,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(73,198,208,.5) 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(90deg,#000,transparent 75%)}
-.hero:after{content:"";position:absolute;right:-90px;bottom:-170px;width:520px;height:520px;border:1px solid rgba(73,198,208,.28);border-radius:50%;box-shadow:0 0 0 48px rgba(73,198,208,.025),0 0 0 96px rgba(73,198,208,.018);pointer-events:none}
+.hero:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.11;background-image:linear-gradient(rgba(244,162,97,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(244,162,97,.5) 1px,transparent 1px);background-size:52px 52px;mask-image:linear-gradient(90deg,#000,transparent 75%)}
+.hero:after{content:"";position:absolute;right:-90px;bottom:-170px;width:520px;height:520px;border:1px solid rgba(244,162,97,.28);border-radius:50%;box-shadow:0 0 0 48px rgba(244,162,97,.025),0 0 0 96px rgba(244,162,97,.018);pointer-events:none}
 .hero-copy:after{content:"NA / ENGINEERING / SOLUTIONS";display:block;margin-top:48px;font:700 9px/1 Inter;letter-spacing:.32em;color:rgba(255,255,255,.35)}
 .button{transition:transform .22s ease,box-shadow .22s ease}.button:hover{transform:translateY(-2px);box-shadow:0 16px 35px rgba(244,162,97,.2)}
 .section{position:relative}.section-heading{margin-bottom:55px}.section-heading h2,.split h2{font-family:Chivo,Inter,sans-serif;letter-spacing:-.025em}.section-heading h2:after,.split h2:after{content:"";display:block;width:54px;height:3px;background:var(--premium-amber);margin-top:20px}
 .cap-card,.service-card,.industry-card,.supply-card,.value-card{transition:transform .3s ease,box-shadow .3s ease,background .3s ease}.cap-card:hover,.service-card:hover,.industry-card:hover,.supply-card:hover{transform:translateY(-7px);box-shadow:0 24px 55px rgba(8,18,37,.13)}
 .value-card:hover{transform:translateY(-5px);background:#123257}
 .service-card:after,.industry-card:after,.supply-card:after{content:"↗";position:absolute;right:22px;bottom:20px;color:var(--premium-amber);font-size:18px;opacity:0;transform:translate(-5px,5px);transition:.25s}.service-card:hover:after,.industry-card:hover:after,.supply-card:hover:after{opacity:1;transform:none}
-.page-intro{overflow:hidden;background:linear-gradient(110deg,#0B1F3A,#162542)!important}.page-intro:after{content:"ENGINEERING  /  PROCUREMENT  /  EXECUTION";position:absolute;right:5%;bottom:30px;color:rgba(255,255,255,.16);font:700 9px Inter;letter-spacing:.24em}
-.process-grid>div{transition:transform .25s ease,background .25s ease}.process-grid>div:hover{transform:translateX(6px);background:rgba(73,198,208,.045)}
+.page-intro{overflow:hidden;background:linear-gradient(110deg,#0B1F3A,#123257)!important}.page-intro:after{content:"ENGINEERING  /  PROCUREMENT  /  EXECUTION";position:absolute;right:5%;bottom:30px;color:rgba(255,255,255,.16);font:700 9px Inter;letter-spacing:.24em}
+.process-grid>div{transition:transform .25s ease,background .25s ease}.process-grid>div:hover{transform:translateX(6px);background:rgba(244,162,97,.045)}
 img{transition:transform .45s ease}.service-image:hover img,.industry-feature:hover img,.detail-image:hover{transform:scale(1.025)}
 @media(max-width:800px){.hero{min-height:610px}.hero-copy{padding-top:10px}.hero-copy h1{font-size:clamp(42px,12vw,64px)}.hero-copy p{font-size:16px}.hero:after{width:300px;height:300px;right:-150px;bottom:-110px}.page-intro:after{display:none}.section-heading{margin-bottom:38px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
@@ -241,7 +241,7 @@ img{transition:transform .45s ease}.service-image:hover img,.industry-feature:ho
 /* Commitment cards should visually blend into the warm section background. */
 .why-section .value-grid{
   background:transparent!important;
-  border-color:rgba(10,17,40,.10)!important;
+  border-color:rgba(11,31,58,.10)!important;
 }
 .why-section .value-card,
 .why-section .value-card:hover{
@@ -457,7 +457,7 @@ h1,h2,h3,h4,.hero h1,.page-intro h1{
   transform:none!important;
   transition:none!important;
   background:
-    linear-gradient(90deg,rgba(11,20,41,.94) 0%,rgba(11,20,41,.76) 48%,rgba(11,20,41,.30) 100%),
+    linear-gradient(90deg,rgba(11,31,58,.94) 0%,rgba(11,31,58,.76) 48%,rgba(11,31,58,.30) 100%),
     url("https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1800&q=70") center/cover!important;
 }
 .hero::before,
@@ -491,7 +491,7 @@ h1,h2,h3,h4,.hero h1,.page-intro h1{
   bottom:82px!important;
   min-width:200px!important;
   padding:15px 17px!important;
-  background:rgba(11,20,41,.72)!important;
+  background:rgba(11,31,58,.72)!important;
   border:1px solid rgba(255,255,255,.16)!important;
   border-left:2px solid var(--premium-amber)!important;
   box-shadow:none!important;
@@ -643,14 +643,14 @@ h1,h2,h3,h4,.hero h1,.page-intro h1{
   grid-template-columns:repeat(4,minmax(0,1fr))!important;
   gap:0!important;
   background:transparent!important;
-  border:1px solid rgba(10,17,40,.10)!important;
+  border:1px solid rgba(11,31,58,.10)!important;
 }
 .why-section .value-card{
   background:transparent!important;
   color:var(--navy)!important;
   min-height:155px!important;
   padding:24px 22px!important;
-  border-right:1px solid rgba(10,17,40,.10)!important;
+  border-right:1px solid rgba(11,31,58,.10)!important;
   border-bottom:0!important;
 }
 .why-section .value-card:last-child{border-right:0!important}
@@ -742,7 +742,7 @@ img,svg,video,canvas{
   .nav-links{gap:20px!important}
   .why-section .value-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   .why-section .value-card:nth-child(2n){border-right:0!important}
-  .why-section .value-card:nth-child(n+3){border-top:1px solid rgba(10,17,40,.10)!important}
+  .why-section .value-card:nth-child(n+3){border-top:1px solid rgba(11,31,58,.10)!important}
 }
 @media(max-width:800px){
   .site-header{height:70px!important}
@@ -765,7 +765,7 @@ img,svg,video,canvas{
   .why-section .value-card,
   .why-section .value-card:nth-child(2n){
     border-right:0!important;
-    border-bottom:1px solid rgba(10,17,40,.10)!important;
+    border-bottom:1px solid rgba(11,31,58,.10)!important;
   }
   .why-section .value-card:last-child{border-bottom:0!important}
 }
@@ -794,7 +794,7 @@ img,svg,video,canvas{
 .why-section .value-card:hover{
   background:rgba(255,255,255,.28)!important;
   transform:translateY(-3px)!important;
-  box-shadow:inset 0 0 0 1px rgba(10,17,40,.08)!important;
+  box-shadow:inset 0 0 0 1px rgba(11,31,58,.08)!important;
   color:var(--navy)!important;
 }
 @media(hover:none){
@@ -815,7 +815,7 @@ img,svg,video,canvas{
   transform:translateY(-4px)!important;
   background:rgba(255,255,255,.62)!important;
   border-color:rgba(194,106,31,.38)!important;
-  box-shadow:0 8px 18px rgba(10,17,40,.08)!important;
+  box-shadow:0 8px 18px rgba(11,31,58,.08)!important;
 }
 .why-section .value-card:hover span,
 .why-section .value-card:hover svg{
@@ -1707,7 +1707,7 @@ textarea{
 }
 .hero-bg{
   background:
-    linear-gradient(90deg,rgba(11,20,41,.94) 0%,rgba(11,20,41,.78) 48%,rgba(11,20,41,.34) 100%),
+    linear-gradient(90deg,rgba(11,31,58,.94) 0%,rgba(11,31,58,.78) 48%,rgba(11,31,58,.34) 100%),
     url("https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1600&q=55") center/cover!important;
 }
 
