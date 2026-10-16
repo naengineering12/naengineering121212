@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+import re
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
@@ -54,19 +55,45 @@ class QuoteRequest(BaseModel):
     handled: bool = False
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+class QuoteSubmissionResult(BaseModel):
+    request_id: str
+    received: bool
+    notification_sent: bool
+
 @api_router.get("/")
 async def root():
     return {"message": "NA Engineering Solutions API"}
 
-@api_router.post("/quote", response_model=QuoteRequest)
+@api_router.post("/quote", response_model=QuoteSubmissionResult)
 async def submit_quote(
     full_name: str = Form(...), company_name: str = Form(""), email: str = Form(...),
     phone: str = Form(""), service_required: str = Form(...), message: str = Form(...),
     attachment: Optional[UploadFile] = File(None),
 ):
+    full_name = full_name.strip()
+    company_name = company_name.strip()
+    email = email.strip()
+    phone = phone.strip()
+    service_required = service_required.strip()
+    message = message.strip()
+
+    if not full_name or len(full_name) > 120:
+        raise HTTPException(status_code=422, detail="Full name is required and must be 120 characters or fewer")
+    if len(company_name) > 160:
+        raise HTTPException(status_code=422, detail="Company name must be 160 characters or fewer")
+    if len(email) > 254 or not re.fullmatch(r"[^\s@]+@[^\s@]+\.[^\s@]+", email):
+        raise HTTPException(status_code=422, detail="Please provide a valid email address")
+    if len(phone) > 40:
+        raise HTTPException(status_code=422, detail="Phone number must be 40 characters or fewer")
+    if not service_required or len(service_required) > 160:
+        raise HTTPException(status_code=422, detail="Service is required and must be 160 characters or fewer")
+    if len(message) < 5 or len(message) > 5000:
+        raise HTTPException(status_code=422, detail="Requirement details must be between 5 and 5000 characters")
+
     if attachment and not attachment.filename:
         attachment = None
-    if attachment and attachment.size and attachment.size > 8 * 1024 * 1024:
+    max_attachment_bytes = 8 * 1024 * 1024
+    if attachment and attachment.size and attachment.size > max_attachment_bytes:
         raise HTTPException(status_code=413, detail="Attachment must be smaller than 8 MB")
     allowed_extensions = {".pdf", ".doc", ".docx", ".xls", ".xlsx", ".csv", ".jpg", ".jpeg", ".png"}
     allowed_types = {"application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "text/csv", "image/jpeg", "image/png"}
@@ -80,14 +107,16 @@ async def submit_quote(
     attachment_content_type = attachment.content_type if attachment else None
     attachment_data = None
     if attachment:
-        attachment_data = await attachment.read()
+        attachment_data = await attachment.read(max_attachment_bytes + 1)
+        if len(attachment_data) > max_attachment_bytes:
+            raise HTTPException(status_code=413, detail="Attachment must be smaller than 8 MB")
         ext = FilePath(attachment.filename or "file").suffix.lower().lstrip(".") or "bin"
         attachment_path = f"na-engineering/uploads/{uuid.uuid4()}.{ext}"
         if db is not None:
             try:
                 await asyncio.to_thread(put_object, attachment_path, attachment_data, attachment.content_type or "application/octet-stream")
             except Exception as e:
-                logger.error(f"Attachment upload failed: {e}")
+                logger.error("Attachment upload failed: %s", type(e).__name__)
                 attachment_path = None
                 attachment_content_type = None
 
@@ -101,19 +130,19 @@ async def submit_quote(
             await db.quote_requests.insert_one(doc)
             db_saved = True
         except Exception as e:
-            logger.error(f"Quote database save failed: {e}")
+            logger.error("Quote database save failed: %s", type(e).__name__)
 
     email_sent = False
     try:
         await send_quote_email(record, attachment_data)
         email_sent = True
     except Exception as e:
-        logger.error(f"Quote email skipped/failed: {e}")
+        logger.error("Quote email skipped/failed: %s", type(e).__name__)
 
     if not db_saved and not email_sent:
         raise HTTPException(status_code=503, detail="We could not record your request right now. Please email na.engineeringsolutions2023@gmail.com directly.")
 
-    return record
+    return QuoteSubmissionResult(request_id=record.id, received=True, notification_sent=email_sent)
 
 async def send_quote_email(record: QuoteRequest, attachment_data: Optional[bytes] = None):
     api_key = os.environ.get("RESEND_API_KEY")
@@ -247,7 +276,7 @@ async def download_attachment(quote_id: str, admin=Depends(require_admin)):
     return Response(content=data, media_type=quote.get("attachment_content_type") or content_type, headers={"Content-Disposition": f'attachment; filename="{filename}"'})
 
 @api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
+async def create_status_check(input: StatusCheckCreate, admin=Depends(require_admin)):
     if db is None:
         raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
     status_obj = StatusCheck(**input.model_dump())
@@ -257,7 +286,7 @@ async def create_status_check(input: StatusCheckCreate):
     return status_obj
 
 @api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
+async def get_status_checks(admin=Depends(require_admin)):
     if db is None:
         raise HTTPException(status_code=503, detail="Database is not configured on Vercel")
     status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(100)
@@ -267,7 +296,8 @@ async def get_status_checks():
     return status_checks
 
 app.include_router(api_router)
-app.add_middleware(CORSMiddleware, allow_credentials=True, allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','), allow_methods=["*"], allow_headers=["*"])
+cors_origins = [origin.strip() for origin in os.environ.get("CORS_ORIGINS", "https://www.naengineeringsolutions.com,https://naengineeringsolutions.com").split(",") if origin.strip()]
+app.add_middleware(CORSMiddleware, allow_credentials=False, allow_origins=cors_origins, allow_methods=["GET", "POST", "PATCH", "OPTIONS"], allow_headers=["Authorization", "Content-Type"])
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
