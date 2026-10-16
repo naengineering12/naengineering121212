@@ -4,6 +4,7 @@ from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import re
+import hmac
 import logging
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict
@@ -160,8 +161,8 @@ async def send_quote_email(record: QuoteRequest, attachment_data: Optional[bytes
 JWT_ALGORITHM = "HS256"
 
 class AdminLogin(BaseModel):
-    email: str
-    password: str
+    email: str = Field(min_length=3, max_length=254)
+    password: str = Field(min_length=1, max_length=256)
 
 async def require_admin(authorization: str = Header(None)):
     if not authorization or not authorization.startswith("Bearer "):
@@ -184,7 +185,7 @@ async def admin_login(input: AdminLogin):
     jwt_secret = os.environ.get("JWT_SECRET")
     if not admin_email or not admin_password or not jwt_secret:
         raise HTTPException(status_code=503, detail="Admin authentication is not configured")
-    if input.email.lower() != admin_email.lower() or input.password != admin_password:
+    if not hmac.compare_digest(input.email.strip().lower(), admin_email.strip().lower()) or not hmac.compare_digest(input.password, admin_password):
         raise HTTPException(status_code=401, detail="Invalid email or password")
     payload = {"sub": "admin", "email": input.email.lower(), "type": "admin", "exp": datetime.now(timezone.utc) + timedelta(hours=12)}
     return {"token": jwt.encode(payload, jwt_secret, algorithm=JWT_ALGORITHM), "email": input.email.lower()}
@@ -211,8 +212,8 @@ CHAT_SYSTEM = (
 )
 
 class ChatInput(BaseModel):
-    session_id: str
-    message: str
+    session_id: str = Field(min_length=1, max_length=128)
+    message: str = Field(min_length=1, max_length=5000)
     model: str = "gpt"
 
 @api_router.post("/chat")
@@ -272,7 +273,8 @@ async def download_attachment(quote_id: str, admin=Depends(require_admin)):
         data, content_type = await asyncio.to_thread(get_object, quote["attachment_path"])
     except Exception:
         raise HTTPException(status_code=404, detail="File missing from storage")
-    filename = quote.get("attachment_name") or "attachment"
+    filename = os.path.basename((quote.get("attachment_name") or "attachment").replace("\\", "/"))
+    filename = re.sub(r'[\r\n"\\]', "_", filename) or "attachment"
     return Response(content=data, media_type=quote.get("attachment_content_type") or content_type, headers={"Content-Disposition": f'attachment; filename="{filename}"'})
 
 @api_router.post("/status", response_model=StatusCheck)
@@ -296,7 +298,9 @@ async def get_status_checks(admin=Depends(require_admin)):
     return status_checks
 
 app.include_router(api_router)
-cors_origins = [origin.strip() for origin in os.environ.get("CORS_ORIGINS", "https://www.naengineeringsolutions.com,https://naengineeringsolutions.com").split(",") if origin.strip()]
+default_cors_origins = ["https://www.naengineeringsolutions.com", "https://naengineeringsolutions.com"]
+configured_cors_origins = [origin.strip() for origin in os.environ.get("CORS_ORIGINS", "").split(",") if origin.strip() and origin.strip() != "*"]
+cors_origins = list(dict.fromkeys(default_cors_origins + configured_cors_origins))
 app.add_middleware(CORSMiddleware, allow_credentials=False, allow_origins=cors_origins, allow_methods=["GET", "POST", "PATCH", "OPTIONS"], allow_headers=["Authorization", "Content-Type"])
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
