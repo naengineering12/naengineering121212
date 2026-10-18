@@ -300,3 +300,49 @@ input[type="file"]{width:100%}
   .clients-story-panel{padding:22px!important}
   .contact-detail-list>div{grid-template-columns:minmax(0,1fr)!important;gap:5px!important}
 }
+
+
+/* Homepage SEO content and semantic footer headings */
+.footer .footer-heading{
+  color:var(--amber);
+  font:700 11px Inter,sans-serif;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  margin:0 0 20px;
+}
+.home-seo-section{background:#f6f5f2}
+.home-seo-intro{
+  max-width:940px;
+  margin:0 0 30px;
+  color:#526071;
+  font-size:16px;
+  line-height:1.8;
+}
+.home-seo-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+.home-seo-card{
+  min-width:0;
+  padding:26px;
+  background:#fff;
+  border:1px solid var(--line,#d9e0e5);
+}
+.home-seo-card h3{
+  margin:0 0 12px;
+  color:var(--navy,#0B1F3A);
+  font:700 clamp(19px,2vw,23px)/1.2 Chivo,Inter,sans-serif;
+  letter-spacing:-.025em;
+}
+.home-seo-card p{
+  margin:0;
+  color:#526071;
+  font-size:14px;
+  line-height:1.8;
+}
+@media(max-width:800px){
+  .home-seo-grid{grid-template-columns:minmax(0,1fr)}
+  .home-seo-intro{font-size:15px}
+  .home-seo-card{padding:22px}
+}
