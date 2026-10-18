@@ -64,8 +64,578 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" />
   <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" /></noscript>
-  <link rel="stylesheet" href="%PUBLIC_URL%/brand-fix.css" />
-  <link rel="stylesheet" href="%PUBLIC_URL%/technical-responsive.css" />
+  <style id="brand-fix-inline">
+/* Brand consistency + performance overrides */
+.footer .logo{align-items:flex-start!important}.footer .logo-text{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:3px!important;flex:none!important;line-height:1!important}.footer .logo-text b,.footer .logo-text small{display:block!important;white-space:nowrap!important;line-height:1.05!important}
+@media(max-width:640px){.footer .logo-text b{font-size:15px!important}.footer .logo-text small{font-size:9px!important;letter-spacing:3px!important}}
+img[alt="Electrical Works service"]{content:url("https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=700&q=50")!important;object-fit:cover!important}
+img[alt="Safety & Security service"]{content:url("https://www.buchen-group.be/fileadmin/_processed_/6/1/csm_BUCHEN-_DSC4125-2-FINAL_teaser_033546d692.webp")!important;object-fit:cover!important}
+.hero-bg{background-image:linear-gradient(90deg,rgba(11,31,58,.97) 10%,rgba(11,31,58,.8) 46%,rgba(11,31,58,.28)),url('https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=900&q=50')!important}
+@media(max-width:640px){.hero-bg{background-image:linear-gradient(90deg,rgba(11,31,58,.97) 10%,rgba(11,31,58,.82) 46%,rgba(11,31,58,.35)),url('https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=480&q=40')!important}}
+/* Keep the main navigation permanently visible above the page content. */
+.site-header{position:fixed!important;top:0!important;left:0!important;right:0!important;width:100%!important;z-index:1000!important;transform:translateZ(0);background:rgba(11,31,58,.97)!important}
+.site-header .nav-wrap{position:relative;z-index:1001}
+@media(max-width:800px){.site-header{height:70px!important}.nav-links{z-index:1002!important}}
+@media(max-width:420px){.site-header{height:64px!important}}
+/* Reduce expensive mobile rendering work. */
+@media(max-width:800px){.site-header{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}.hero:after{display:none!important}.hero-copy{animation:none!important}.cap-card img,.supply-card-image img,.service-image img{transition:none!important}.cap-card:hover img,.supply-card:hover .supply-card-image img,.service-image:hover .service-image img{transform:none!important}.section,.page-intro,.cta{content-visibility:auto;contain-intrinsic-size:600px}.cap-card,.supply-card,.service-row{contain:layout paint}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+.footer [data-testid="footer-address"]{margin-bottom:0!important}.footer [data-testid="footer-address"]::after{content:"CEO  |  Muhammad Boota";display:block;width:fit-content;margin-top:9px;padding:6px 12px 6px 10px;border-left:3px solid var(--amber);background:rgba(244,162,97,.07);border-radius:0 5px 5px 0;color:#fff;font:800 12px/1.2 Chivo,sans-serif;letter-spacing:.04em}@media(max-width:640px){.footer [data-testid="footer-address"]::after{font-size:11px;padding:6px 10px 6px 9px}}
+
+/* Critical homepage hero styles — prevent flash of the previous layout before App.css loads. */
+.hero{min-height:720px!important;color:#fff!important;position:relative!important;overflow:hidden!important;background:var(--navy)!important}
+.hero-bg{background-image:linear-gradient(90deg,rgba(7,12,27,.97) 8%,rgba(7,12,27,.88) 44%,rgba(7,12,27,.48) 72%,rgba(7,12,27,.30) 100%),url('https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=900&q=50')!important;background-position:center!important;background-size:cover!important}
+.hero h1{font-size:clamp(34px,4vw,52px)!important;line-height:1.04!important;letter-spacing:-.048em!important;max-width:720px!important;margin:34px 0 16px!important}
+.hero p{max-width:680px!important;font-size:17px!important;line-height:1.75!important;color:#ccd5df!important}
+.hero-copy{max-width:780px!important}
+.hero-actions{margin-top:28px!important}
+.hero-note{right:28px!important;bottom:92px!important;min-width:235px!important;padding:17px 18px 18px!important;border:1px solid rgba(244,162,97,.28)!important;border-left:3px solid var(--amber)!important;background:rgba(7,12,27,.58)!important;box-shadow:0 18px 45px rgba(0,0,0,.18)!important}
+.hero-note span:first-child{color:var(--amber)!important;font:700 30px/1 Chivo,sans-serif!important}
+.hero-note span:last-child{color:#d7dee6!important;font-size:9px!important;line-height:1.6!important;letter-spacing:.16em!important}
+.hero-scroll{bottom:30px!important;font-size:9px!important}
+@media(max-width:800px){
+  .hero,.hero-content{min-height:660px!important}
+  .hero h1{font-size:38px!important;line-height:1.06!important}
+  .hero p{font-size:14px!important;line-height:1.7!important}
+  .hero-note{display:none!important}
+}
+@media(max-width:480px){
+  .hero h1{font-size:34px!important}
+  .hero p{font-size:13.5px!important}
+}
+
+/* HOMEPAGE HERO WIDTH + CTA POSITION */
+.hero-copy{max-width:880px}
+.hero h1{max-width:860px}
+.hero p{max-width:820px}
+.hero-actions{margin-top:30px;transform:translateY(48px)}
+@media(max-width:800px){
+  .hero-copy{max-width:100%}
+  .hero h1{max-width:100%}
+  .hero p{max-width:100%}
+  .hero-actions{transform:translateY(24px)}
+}
+
+</style>
+  <style id="technical-responsive-inline">
+/* Global technical + responsive hardening */
+/* Social links: Instagram https://www.instagram.com/na_engineering.co/ */
+html,body,#root{width:100%;max-width:100%;min-height:100%;overflow-x:hidden}html{-webkit-text-size-adjust:100%}body{margin:0}*,*::before,*::after{box-sizing:border-box}img,svg,video,canvas{max-width:100%}img{height:auto}button,input,textarea,select{font:inherit}button,a{-webkit-tap-highlight-color:transparent}:focus-visible{outline:2px solid #F4A261;outline-offset:3px}
+.site-header{width:100%}.site-container{max-width:1180px;width:min(1180px,calc(100% - 48px))}.hero,.page-intro,.section,.dark-section,.cta,.footer{max-width:100%;overflow:hidden}
+@media(max-width:1000px){.site-container{width:min(100% - 40px,900px)}.nav-links{gap:16px;font-size:11px}.split,.detail-grid,.industry-feature,.contact-grid{grid-template-columns:1fr;gap:45px}.cap-grid,.supply-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.industry-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.process-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.service-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px}.detail-image{height:460px}}
+@media(max-width:800px){.site-container{width:calc(100% - 32px);max-width:none}.site-header{height:70px}.nav-wrap{min-width:0}.logo{min-width:0}.logo-img{height:42px}.logo-text{min-width:0}.logo b{font-size:10px}.logo small{font-size:8px}.menu-toggle{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0}.nav-links{display:none;position:absolute;left:16px;right:16px;top:70px;z-index:50;flex-direction:column;align-items:stretch;gap:0;padding:8px;background:#0B1F3A;border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 35px rgba(0,0,0,.25)}.nav-links.open{display:flex}.nav-links a{padding:13px 12px;border-bottom:1px solid rgba(255,255,255,.08)}.nav-links a:last-child{border-bottom:0}.hero{min-height:620px}.hero-content{min-height:620px;padding:70px 0 90px}.hero h1,.page-intro h1{font-size:clamp(38px,11vw,56px);word-break:normal;overflow-wrap:anywhere}.hero p,.page-intro p{font-size:15px}.hero-actions{flex-direction:column;align-items:stretch}.hero-actions .button{justify-content:center}.hero-note{display:none}.hero-scroll{bottom:18px}.section{padding:70px 0}.page-intro{padding:65px 0 60px}.split,.detail-grid,.mission-grid,.industry-feature,.contact-grid{grid-template-columns:1fr;gap:35px}.value-grid,.cap-grid,.supply-grid,.industry-grid{grid-template-columns:1fr}.value-card{min-height:125px}.service-list{gap:48px}.service-row{grid-template-columns:1fr;gap:28px}.service-row:nth-child(even) .service-image{order:initial}.service-image{height:300px}.detail-image{height:330px}.process{margin-top:55px}.process-grid{grid-template-columns:1fr 1fr}.process-grid>div{border-right:0;border-bottom:1px solid var(--line)}.industry-feature img{height:300px}.section-heading{display:block}.section-heading p{margin-top:15px}.contact-grid{gap:30px}.form-grid{grid-template-columns:1fr}.quote-form{padding:24px}.map-card{height:190px}.footer{min-height:0!important;height:auto!important;margin-bottom:0!important;padding-bottom:0}.footer-grid{grid-template-columns:1fr!important;gap:35px}.footer-bottom{margin-bottom:0!important;padding-bottom:max(18px,env(safe-area-inset-bottom))}.footer-bottom .site-container{display:flex;flex-direction:column;gap:8px}}
+@media(max-width:420px){.site-container{width:calc(100% - 24px)}.site-header{height:64px}.nav-links{top:64px;left:12px;right:12px}.logo-img{height:38px}.hero{min-height:590px}.hero-content{min-height:590px}.section{padding:58px 0}.page-intro{padding:55px 0 48px}.page-intro h1,.hero h1{font-size:clamp(34px,12vw,48px)}.process-grid{grid-template-columns:1fr}.service-image,.industry-feature img,.detail-image{height:270px}.supply-card{padding-left:20px;padding-right:20px}.supply-card-image{margin-left:-20px;margin-right:-20px}}
+@supports(padding:max(0px)){body{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}}
+
+/* Mobile stability/performance hardening */
+html,body,#root{max-width:100%;overflow-x:clip}body{overscroll-behavior-x:none;-webkit-overflow-scrolling:touch}.App{width:100%;max-width:100%;overflow-x:clip}.site-container>*{max-width:100%}
+@media (max-width:800px){
+  .site-header,.nav-wrap,.hero,.hero-content,.page-intro,.section,.cta,.footer{width:100%;max-width:100%;}
+  .hero-bg{background-image:linear-gradient(90deg,rgba(11,31,58,.97) 8%,rgba(11,31,58,.82) 55%,rgba(11,31,58,.3)),url('https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=900&q=55')}
+  .hero:after{display:none}
+  .marquee-track{animation:none!important;transform:none!important;width:auto;gap:28px;overflow:hidden}
+  .marquee-track span{font-size:25px}
+  .mask-line{max-width:100%;overflow:hidden}
+  .hero h1,.page-intro h1,.section-heading h2,.split h2,.cta h2,.service-copy h2,.detail-grid h2,.industry-feature h2{overflow-wrap:anywhere;word-break:normal}
+  .service-row,.split,.detail-grid,.mission-grid,.industry-feature,.contact-grid,.about-feature,.people-grid{min-width:0}
+  .service-copy,.about-feature-copy,.people-copy,.contact-info,.quote-form{min-width:0;max-width:100%}
+  .feature-list li,.contact-line,.footer-grid a,.footer-grid span{min-width:0;overflow-wrap:anywhere}
+  .button{max-width:100%;white-space:normal;text-align:center}
+  .cap-card,.supply-card,.client-card,.project-card,.testi-card,.gallery-item,.value-card{min-width:0;max-width:100%}
+  .chat-widget{max-width:calc(100vw - 20px)}
+  .chat-panel{max-width:calc(100vw - 28px)}
+  .chat-msg{overflow-wrap:anywhere}
+  .footer-grid{min-width:0}
+  .footer-email-lead{overflow-wrap:anywhere}
+  .people-grid,.promise-grid,.clients-grid,.projects-grid,.stats-grid,.why-grid,.gallery-grid,.testi-grid,.logos-row{min-width:0;max-width:100%}
+  [style*="width:"]{max-width:100%!important}
+}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+@media (max-width:480px){
+  .logo-text{max-width:150px;overflow:hidden}.logo b,.logo small{white-space:nowrap}
+  .hero-content{padding-top:56px!important;padding-bottom:72px!important}
+  .page-intro h1{line-height:1.05}
+  .section-heading h2,.split h2,.cta h2{font-size:32px!important}
+  .service-copy h2,.detail-grid h2,.industry-feature h2{font-size:30px!important}
+  .about-feature-image{height:300px!important}
+  .chat-widget{right:10px!important;bottom:10px!important}
+}
+
+/* Final mobile paint/layout optimization */
+@media (max-width:800px){
+  .section,.dark-section,.page-intro,.cta,.footer{contain:layout paint;}
+  .service-row,.supply-card,.client-card,.project-card,.value-card,.testi-card,.gallery-item,.cap-card{contain:layout paint;}
+  .service-image,.detail-image,.industry-feature img,.supply-card-image,.about-feature-image{content-visibility:auto;contain-intrinsic-size:300px 270px;}
+  .hero-bg{background-attachment:scroll!important;}
+  *{scroll-margin-top:76px;}
+}
+@media (max-width:480px){
+  .section,.dark-section,.page-intro,.cta{contain:layout paint style;}
+  .chat-panel{max-height:calc(100dvh - 90px);overflow-y:auto;-webkit-overflow-scrolling:touch;}
+}
+
+/* Mobile footer bottom-gap fix */
+@media (max-width:800px){
+  html,body,#root{min-height:0!important;height:auto!important;}
+  body{height:auto!important;margin:0!important;}
+  #root,.App{min-height:0!important;height:auto!important;}
+  .footer{contain:layout paint!important;min-height:0!important;height:auto!important;margin-bottom:0!important;}
+  .footer-bottom{margin-bottom:0!important;}
+}
+
+/* Premium navigation hover */
+.nav-links a{position:relative;display:inline-flex;align-items:center;padding:8px 0;color:#c6ceda;transition:color .25s ease;text-decoration:none}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:1px;height:2px;background:var(--amber);transform:scaleX(0);transform-origin:center;transition:transform .25s ease}
+.nav-links a:hover,.nav-links a:focus-visible{color:#fff}
+.nav-links a:hover::after,.nav-links a:focus-visible::after{transform:scaleX(1)}
+.nav-links a.active,.nav-links a[aria-current="page"]{color:#fff}
+.nav-links a.active::after,.nav-links a[aria-current="page"]::after{transform:scaleX(1)}
+@media(max-width:800px){.nav-links a{display:flex;padding:13px 12px}.nav-links a::after{display:none}.nav-links a:hover,.nav-links a:focus-visible{color:#fff}.nav-links a.active,.nav-links a[aria-current="page"]{color:var(--amber)}}
+@media(prefers-reduced-motion:reduce){.nav-links a,.nav-links a::after{transition:none!important}}
+
+/* Restore normal page-intro sizing across all pages */
+@media(min-width:801px){
+  .page-intro{padding:72px 0 68px!important;}
+  .page-intro h1{font-size:clamp(38px,4.2vw,58px)!important;line-height:1.04!important;max-width:820px!important;letter-spacing:-.045em!important;margin:14px 0 16px!important;}
+  .page-intro p{max-width:700px!important;font-size:16px!important;line-height:1.65!important;}
+}
+@media(max-width:800px){
+  .page-intro h1{font-size:clamp(34px,9vw,48px)!important;line-height:1.05!important;}
+}
+
+
+
+/* ===== FINAL VERIFIED RESPONSIVE SYSTEM ===== */
+/* The site uses .site-container so Tailwind's .container utility cannot override it. */
+.site-container{
+  width:min(1180px,calc(100% - 48px));
+  max-width:1180px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* Keep the shared navigation in normal document flow; sticky keeps it visible without covering content. */
+.site-header{
+  position:sticky!important;
+  top:0!important;
+  left:auto!important;
+  right:auto!important;
+  height:78px!important;
+}
+
+/* Service/supply listing pages: remove the excessive empty band above the first row. */
+.service-list-page{
+  padding-top:58px!important;
+}
+.service-list-page .service-list{
+  padding-top:0!important;
+}
+
+/* Desktop / large PC */
+@media (min-width:1201px){
+  .site-container{width:min(1180px,calc(100% - 64px))}
+  .service-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .service-image{height:390px}
+}
+
+/* Standard laptops */
+@media (max-width:1200px){
+  .site-container{width:calc(100% - 48px)}
+  .nav-links{gap:18px}
+}
+
+/* Tablet landscape / small laptops */
+@media (max-width:1050px){
+  .site-header{height:72px!important}
+  .nav-wrap{height:72px}
+  .menu-toggle{display:inline-flex!important;align-items:center;justify-content:center;width:44px;height:44px}
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:72px;
+    left:16px;
+    right:16px;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:8px;
+    background:#0B1F3A;
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 18px 35px rgba(0,0,0,.25);
+    z-index:1002;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{padding:13px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav-links a:last-child{border-bottom:0}
+  .split,.detail-grid,.industry-feature,.mission-grid,.contact-grid{grid-template-columns:1fr;gap:42px}
+  .cap-grid,.supply-grid,.industry-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .value-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .process-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .service-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:44px}
+  .service-image{height:330px}
+  .detail-image{height:420px}
+  .footer-grid{grid-template-columns:1.3fr 1fr 1fr;gap:32px}
+}
+
+/* Tablet portrait */
+@media (max-width:800px){
+  .site-container{width:calc(100% - 32px);max-width:none}
+  .site-header{height:70px!important}
+  .nav-wrap{height:70px}
+  .nav-links{top:70px;left:12px;right:12px}
+  .logo-img{height:42px}
+  .logo-text{min-width:0}
+  .hero,.hero-content{min-height:620px}
+  .hero-content{padding:78px 0 82px}
+  .hero h1{font-size:clamp(38px,8vw,56px);line-height:1.05}
+  .hero p{font-size:15px;line-height:1.7}
+  .hero-actions{display:flex;flex-direction:column;align-items:stretch;gap:10px;transform:none!important}
+  .hero-actions .button{width:100%;justify-content:center}
+  .hero-note,.hero-scroll{display:none}
+  .section{padding:72px 0}
+  .page-intro{padding:62px 0 56px}
+  .page-intro h1{font-size:clamp(36px,9vw,52px)}
+  .section-heading{display:block}
+  .section-heading p{margin-top:12px;max-width:680px}
+  .section-heading .button{margin-top:16px}
+  .cap-grid,.supply-grid,.industry-grid{grid-template-columns:1fr 1fr}
+  .value-grid{grid-template-columns:1fr 1fr}
+  .service-list-page{padding-top:52px!important}
+  .service-row{grid-template-columns:1fr;gap:28px}
+  .service-row:nth-child(even) .service-image{order:0}
+  .service-image{height:300px}
+  .detail-image{height:330px}
+  .process-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .footer-grid>div:first-child{grid-column:1/-1}
+  .footer-bottom{flex-direction:column;gap:6px}
+}
+
+/* Phone */
+@media (max-width:600px){
+  .site-container{width:calc(100% - 28px)}
+  .site-header{height:66px!important}
+  .nav-wrap{height:66px}
+  .nav-links{top:66px}
+  .logo-img{height:39px}
+  .logo b{font-size:10px}
+  .logo small{font-size:7px;letter-spacing:.21em}
+  .hero,.hero-content{min-height:600px}
+  .hero-content{padding:70px 0 68px}
+  .hero h1{font-size:clamp(34px,10vw,48px)}
+  .hero p{font-size:14px;line-height:1.72}
+  .section{padding:58px 0}
+  .page-intro{padding:54px 0 50px}
+  .page-intro h1{font-size:clamp(34px,10vw,46px);overflow-wrap:anywhere}
+  .page-intro p{font-size:14px}
+  .split h2,.section-heading h2,.cta h2{font-size:32px}
+  .lead{font-size:15px}
+  .value-grid,.cap-grid,.supply-grid,.industry-grid{grid-template-columns:1fr}
+  .value-card{min-height:118px}
+  .cap-card{min-height:260px}
+  .service-list-page{padding-top:44px!important}
+  .service-list{gap:48px}
+  .service-image{height:250px}
+  .service-copy h2,.detail-grid h2,.contact-info h2,.form-head h2{font-size:clamp(28px,8vw,38px)}
+  .service-features{display:grid;gap:10px}
+  .detail-grid{gap:30px}
+  .detail-image{height:250px}
+  .process-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .quote-form{padding:20px}
+  .map-card{height:185px}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-grid>div:first-child{grid-column:auto}
+  .footer-bottom{display:flex;flex-direction:column;gap:6px;margin-top:40px}
+  .chat-widget{right:10px;bottom:10px}
+  .chat-toggle{width:50px;height:50px}
+  .chat-panel{width:calc(100vw - 20px);height:min(480px,calc(100dvh - 92px));max-height:none}
+  .button{width:100%;justify-content:center}
+}
+
+/* Small phones */
+@media (max-width:420px){
+  .site-container{width:calc(100% - 20px)}
+  .site-header{height:64px!important}
+  .nav-wrap{height:64px}
+  .nav-links{top:64px}
+  .logo-img{height:37px}
+  .hero,.hero-content{min-height:570px}
+  .hero-content{padding:66px 0 62px}
+  .hero h1{font-size:32px}
+  .hero p{font-size:13px}
+  .page-intro h1{font-size:34px}
+  .service-image{height:235px}
+  .detail-image{height:235px}
+  .section{padding:52px 0}
+  .service-list-page{padding-top:40px!important}
+}
+
+/* Never let long content create horizontal scroll. */
+.site-container > *, .site-container img, .site-container svg, .site-container video, .site-container canvas{
+  max-width:100%;
+}
+.service-row,.split,.detail-grid,.industry-feature,.mission-grid,.contact-grid,.footer-grid{
+  min-width:0;
+}
+.service-copy,.detail-grid>div,.industry-feature>div,.split>div{
+  min-width:0;
+}
+
+
+/* ===== SCROLL + PAINT STABILITY ===== */
+/* Keep the document itself scrollable on desktop, tablet and phone. */
+html{
+  height:auto!important;
+  min-height:100%!important;
+  overflow-x:clip!important;
+  overflow-y:auto!important;
+  scroll-behavior:auto!important;
+}
+body{
+  height:auto!important;
+  min-height:100%!important;
+  overflow-x:clip!important;
+  overflow-y:visible!important;
+  overscroll-behavior-y:auto!important;
+}
+#root,.App{
+  height:auto!important;
+  min-height:100vh!important;
+  overflow:visible!important;
+}
+
+/* Remove delayed reveal states so pages render immediately and do not depend on scroll observers. */
+.reveal-static,
+.hero-copy,
+.section-heading,
+.cap-grid,
+.supply-grid,
+.industry-grid,
+.service-list,
+.contact-grid,
+.about-feature,
+.mission-grid{
+  opacity:1!important;
+  transform:none!important;
+  animation:none!important;
+}
+
+/* Keep route content above the shared fixed-position utilities without creating a scroll trap. */
+main,section,article{
+  overflow:visible;
+}
+.chat-widget{
+  position:fixed!important;
+}
+
+
+/* ===== FINAL SCROLL + PERFORMANCE PASS ===== */
+html,
+body,
+#root,
+.App{
+  width:100%;
+  max-width:100%;
+  height:auto!important;
+  min-height:100%!important;
+}
+html{
+  overflow-x:clip!important;
+  overflow-y:auto!important;
+  scroll-behavior:auto!important;
+}
+body{
+  position:static!important;
+  overflow-x:clip!important;
+  overflow-y:auto!important;
+  overscroll-behavior-y:auto!important;
+  overscroll-behavior-x:none!important;
+  touch-action:pan-y;
+  -webkit-overflow-scrolling:touch!important;
+}
+#root,
+.App{
+  position:static!important;
+  overflow:visible!important;
+}
+main,
+section,
+article{
+  overflow:visible;
+}
+
+/* Remove high-cost effects from the scroll path. */
+.site-header{
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+.hero-bg{
+  filter:none!important;
+  transform:none!important;
+  transition:none!important;
+}
+.hero:hover .hero-bg{
+  transform:none!important;
+}
+img{
+  backface-visibility:hidden;
+}
+
+/* On touch devices, keep scrolling focused on layout/paint instead of hover effects. */
+@media (hover:none), (pointer:coarse){
+  *{
+    transition:none!important;
+    animation:none!important;
+  }
+  .marquee-track{
+    animation:none!important;
+    transform:none!important;
+    width:auto!important;
+  }
+  .cap-card:hover,
+  .service-row:hover,
+  .supply-card:hover,
+  .industry-card:hover,
+  .value-card:hover,
+  .project-card:hover,
+  .client-card:hover,
+  .testi-card:hover,
+  .gallery-item:hover{
+    transform:none!important;
+    box-shadow:none!important;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+}
+
+
+/* ===== IMAGE LOAD RESPONSIVENESS PASS ===== */
+/* Native lazy loading stays enabled, but section/image paint is never intentionally deferred. */
+img,
+.service-image,
+.detail-image,
+.supply-card-image,
+.about-feature-image,
+.people-image,
+.industry-feature img,
+.process-card-image,
+.project-card-img,
+.gallery-item{
+  content-visibility:visible!important;
+}
+@media(max-width:800px){
+  .section,.page-intro,.cta{content-visibility:visible!important;}
+}
+
+/* Keep the page canvas consistent with the warm off-white section background. */
+html,
+body,
+#root,
+.App {
+  background-color: #F6F5F2 !important;
+}
+
+
+/* ===== RESPONSIVE STABILITY PATCH (2026-10-17) ===== */
+/* Final, low-risk layout guards for phones, tablets and small laptops. */
+*,*::before,*::after{box-sizing:border-box}
+html,body,#root,.App{width:100%;max-width:100%;min-width:0}
+html,body{overflow-x:clip!important}
+img,video,iframe,canvas,svg{max-width:100%}
+img{height:auto}
+.site-container,.container,.contact-container{width:min(1180px,calc(100% - 48px));max-width:100%;min-width:0}
+.site-container>*,.container>*,.contact-container>*{min-width:0}
+.hero-copy,.hero-content,.hero h1,.hero p,.page-intro h1,.page-intro p{min-width:0;max-width:100%;overflow-wrap:anywhere}
+.hero-actions{transform:none!important;flex-wrap:wrap;min-width:0}
+.hero-actions .button{min-width:0;white-space:normal}
+.cap-grid,.supply-grid,.industry-grid,.value-grid,.split,.detail-grid,.industry-feature,.mission-grid,.contact-grid,.service-row,.footer-grid,.process-grid,.form-grid{min-width:0}
+.cap-card,.supply-card,.industry-card,.value-card,.service-row>*,.split>*,.detail-grid>*,.industry-feature>*,.contact-grid>*,.footer-grid>*{min-width:0;max-width:100%}
+.site-header,.contact-header{max-width:100%}
+.logo,.contact-logo{min-width:0;max-width:calc(100% - 52px)}
+.logo-img,.contact-logo img{max-width:100%;height:auto;object-fit:contain}
+button,a,input,select,textarea{max-width:100%}
+input,select,textarea{min-width:0}
+pre,code{overflow-wrap:anywhere;white-space:pre-wrap}
+table{max-width:100%;display:block;overflow-x:auto}
+
+/* Tablet and small laptop: prevent the desktop navigation from squeezing content. */
+@media(max-width:1050px){
+  .site-container,.container,.contact-container{width:calc(100% - 40px)}
+  .menu-toggle{display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 44px}
+  .nav-links{display:none;position:absolute;top:100%;left:12px;right:12px;flex-direction:column;align-items:stretch;gap:0;max-height:calc(100dvh - 90px);overflow-y:auto}
+  .nav-links.open{display:flex!important}
+  .nav-links a{white-space:normal;overflow-wrap:anywhere}
+  .contact-menu{display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 42px}
+  .contact-nav{display:none}
+  .contact-nav.open{display:flex!important;max-height:calc(100dvh - 90px);overflow-y:auto}
+  .service-row{gap:28px}
+  .contact-main-grid,.contact-details-grid{gap:36px}
+}
+
+/* Phones: one-column content, readable headings and full-width CTAs. */
+@media(max-width:800px){
+  .site-container,.container,.contact-container{width:calc(100% - 32px)}
+  .hero,.hero-content{min-height:0!important}
+  .hero-content{padding:96px 0 72px!important}
+  .hero-copy{width:100%;padding-top:0!important}
+  .hero h1{font-size:clamp(34px,8.5vw,48px)!important;line-height:1.06!important;letter-spacing:-.04em!important;margin:16px 0!important}
+  .hero p{font-size:15px!important;line-height:1.7!important}
+  .hero-actions{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:10px!important;margin-top:24px!important}
+  .hero-actions .button{width:100%!important;justify-content:center}
+  .hero-note,.hero-scroll{display:none!important}
+  .section-heading{align-items:flex-start;gap:16px}
+  .section-heading h2,.split h2,.cta h2{overflow-wrap:anywhere}
+  .service-row{grid-template-columns:minmax(0,1fr)!important;gap:24px}
+  .service-row:nth-child(even) .service-image{order:0}
+  .detail-grid,.split,.industry-feature,.mission-grid,.contact-grid,.contact-main-grid,.contact-details-grid{grid-template-columns:minmax(0,1fr)!important;gap:30px!important}
+  .cap-grid,.supply-grid,.industry-grid,.value-grid,.clients-grid,.projects-grid,.gallery-grid,.testi-grid,.why-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .service-image,.detail-image,.industry-feature img{max-width:100%}
+  .contact-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .contact-map-inner{grid-template-columns:minmax(0,1fr);gap:24px}
+  .contact-map-inner>a{white-space:normal;max-width:100%}
+  .site-footer-grid,.contact-footer-grid,.footer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .footer-bottom,.site-footer-bottom .contact-container{flex-wrap:wrap}
+  .quote-form,.form-grid>*{min-width:0;max-width:100%}
+}
+
+/* Narrow phones: avoid cramped two-column cards and text/button overflow. */
+@media(max-width:560px){
+  .site-container,.container,.contact-container{width:calc(100% - 28px)}
+  .cap-grid,.supply-grid,.industry-grid,.value-grid,.clients-grid,.projects-grid,.gallery-grid,.testi-grid,.why-grid,.contact-service-grid,.site-footer-grid,.contact-footer-grid,.footer-grid,.process-grid{grid-template-columns:minmax(0,1fr)!important}
+  .hero,.hero-content{min-height:0!important}
+  .hero-content{padding:88px 0 58px!important}
+  .hero h1{font-size:clamp(32px,9vw,40px)!important;line-height:1.08!important}
+  .hero p{font-size:14px!important}
+  .page-intro h1,.contact-intro h1{font-size:clamp(32px,9vw,44px)!important;line-height:1.06!important;overflow-wrap:anywhere}
+  .hero-actions .button,.button,.nav-cta{max-width:100%;white-space:normal}
+  .contact-detail-list>div{grid-template-columns:minmax(0,1fr);gap:6px}
+  .contact-buttons{flex-direction:column;align-items:stretch}
+  .contact-btn{justify-content:center;white-space:normal}
+  .site-footer-bottom .contact-container{flex-direction:column;align-items:flex-start}
+  .logo b{font-size:10px}
+  .logo small{letter-spacing:.14em}
+}
+
+/* Very small phones: reserve space for the logo and menu toggle. */
+@media(max-width:380px){
+  .site-container,.container,.contact-container{width:calc(100% - 24px)}
+  .logo-img{max-width:42px}
+  .logo b{font-size:9px}
+  .logo small{font-size:6px;letter-spacing:.12em}
+  .hero h1{font-size:31px!important}
+  .page-intro h1,.contact-intro h1{font-size:31px!important}
+  .contact-map-inner h2{font-size:29px!important}
+  .site-header,.contact-header{max-width:100vw}
+}
+
+</style>
   <style>
     html,body,#root{margin:0;min-height:100%;background:#f3f5f7;color:#111827;overflow-x:hidden}
     #root{min-height:100vh}
