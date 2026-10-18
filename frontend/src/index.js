@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import App from "./App";
 
 // The frontend and AI backend are separate Vercel projects. Use the stable
 // backend project URL instead of a deployment-specific URL that can become stale.
@@ -51,8 +52,6 @@ class RootErrorBoundary extends React.Component {
   }
 }
 
-const App = React.lazy(() => import("./App"));
-
 function BootScreen() {
   return (
     <main style={{minHeight:"100vh",background:"#0B1F3A",color:"#fff",fontFamily:"Inter,Arial,sans-serif"}}>
@@ -83,9 +82,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RootErrorBoundary>
-      <React.Suspense fallback={<BootScreen />}>
-        <App />
-      </React.Suspense>
+      <App />
     </RootErrorBoundary>
   </React.StrictMode>,
 );
