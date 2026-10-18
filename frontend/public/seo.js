@@ -7,7 +7,7 @@
   const pages = {
     '/': {
       title: 'NA Engineering Solutions | Engineering Services in Lahore',
-      description: 'NA Engineering Solutions in Lahore provides engineering services, industrial maintenance and General Order Supplies & Services for factories, facilities and projects.'
+      description: 'NA Engineering Solutions provides engineering services, industrial maintenance and general order supplies for Lahore factories and construction projects.'
     },
     '/services': {
       title: 'Engineering Services in Lahore | NA Engineering Solutions',
