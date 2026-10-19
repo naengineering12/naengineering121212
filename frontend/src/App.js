@@ -299,6 +299,7 @@ function App() {
   return (
     <BrowserRouter><div className="App"><Toaster position="top-right" />
       <ScrollToTop/>
+      <RouteSEO/>
       <Header/>
         <Routes>
           <Route path="/" element={<Home />} /><Route path="/services" element={<Services/>}/><Route path="/services/:slug" element={<ServiceRoute/>}/><Route path="/supplies" element={<Supplies/>}/><Route path="/it-services" element={<ITServices/>}/><Route path="/industries" element={<Industries/>}/><Route path="/insights" element={<InsightsPage/>}/><Route path="/insights/:slug" element={<InsightsPage/>}/><Route path="/clients" element={<Clients/>}/><Route path="/contact" element={<ContactPage/>}/><Route path="/admin" element={<Admin/>}/><Route path="*" element={<NotFound/>}/>
