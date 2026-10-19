@@ -17,3 +17,18 @@ if (!isWebP) {
 
 fs.writeFileSync(outputPath, image);
 console.log(`Prepared optimized brand logo (${image.length} bytes): public/logo-20261019.webp`);
+
+const faviconSourcePath = path.join(__dirname, "favicon-32.png.base64");
+const faviconOutputPath = path.join(__dirname, "public", "na-engineering-favicon-v2.png");
+const faviconEncoded = fs.readFileSync(faviconSourcePath, "utf8").replace(/\\s+/g, "");
+const favicon = Buffer.from(faviconEncoded, "base64");
+const isPng =
+  favicon.length > 8 &&
+  favicon.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+
+if (!isPng) {
+  throw new Error("Favicon source is not a valid PNG image.");
+}
+
+fs.writeFileSync(faviconOutputPath, favicon);
+console.log(`Prepared transparent favicon (${favicon.length} bytes): public/na-engineering-favicon-v2.png`);
