@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" role="img" aria-label="NA Engineering Solutions logo">
+  <defs>
+    <filter id="remove-white-background" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="
+        1 0 0 0 0
+        0 1 0 0 0
+        0 0 1 0 0
+       -1 -1 -1 0 3
+      "/>
+    </filter>
+  </defs>
+  <image x="0" y="0" width="256" height="256" preserveAspectRatio="xMidYMid meet"
+    href="/logo-20261019.webp" xlink:href="/logo-20261019.webp"
+    filter="url(#remove-white-background)"/>
+</svg>
