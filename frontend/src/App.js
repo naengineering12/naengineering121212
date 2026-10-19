@@ -197,6 +197,103 @@ function Admin(){
   </div></main>
 }
 
+function RouteSEO() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const path = location.pathname.replace(/\\/+$/, "") || "/";
+    const service = path.startsWith("/services/")
+      ? services.find((item) => path === `/services/${item.slug}`)
+      : null;
+    const article = path.startsWith("/insights/")
+      ? insightArticles.find((item) => path === `/insights/${item.slug}`)
+      : null;
+
+    const page = (() => {
+      if (path === "/") return {
+        title: "NA Engineering Solutions | Engineering Services & Supplies in Lahore",
+        description: "Engineering services, industrial maintenance and General Order Supplies & Services for commercial, industrial and construction projects in Lahore, Pakistan."
+      };
+      if (path === "/services") return {
+        title: "Engineering Services in Lahore | NA Engineering Solutions",
+        description: "Explore civil, mechanical, electrical, HVAC, PEB, fire-fighting and other engineering services for industrial and commercial projects in Lahore."
+      };
+      if (service) return {
+        title: `${service.title} in Lahore | NA Engineering Solutions`,
+        description: `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
+      };
+      if (path === "/supplies") return {
+        title: "General Order Supplies in Lahore | NA Engineering Solutions",
+        description: "Source industrial materials, hardware, tools, PPE, electrical items, office supplies and facility maintenance products through one general order supplier in Lahore."
+      };
+      if (path === "/it-services") return {
+        title: "IT Services & Technology Supplies in Lahore | NA Engineering Solutions",
+        description: "IT support and technology supply solutions for businesses, offices and project teams in Lahore, Pakistan."
+      };
+      if (path === "/industries") return {
+        title: "Industries We Serve | NA Engineering Solutions Lahore",
+        description: "Engineering, maintenance and procurement support for industrial, commercial, construction and facility operations in Lahore and across Pakistan."
+      };
+      if (path === "/insights") return {
+        title: "Engineering & Procurement Insights | NA Engineering Solutions",
+        description: "Practical guidance on general order procurement, engineering services, industrial maintenance and project supplies in Pakistan."
+      };
+      if (article) return {
+        title: `${article.title} | NA Engineering Solutions`,
+        description: article.description
+      };
+      if (path === "/clients") return {
+        title: "Clients & Project Experience | NA Engineering Solutions",
+        description: "Learn about the sectors and project environments supported by NA Engineering Solutions through engineering services and general order supplies."
+      };
+      if (path === "/contact") return {
+        title: "Contact NA Engineering Solutions | Lahore, Pakistan",
+        description: "Contact NA Engineering Solutions in Lahore for engineering services, industrial supplies, general order procurement and project support."
+      };
+      if (path === "/admin") return {
+        title: "Admin | NA Engineering Solutions",
+        description: "Website administration.",
+        noindex: true
+      };
+      return {
+        title: "Page Not Found | NA Engineering Solutions",
+        description: "This page could not be found. Browse our engineering services and general order supplies or contact our Lahore team.",
+        noindex: true
+      };
+    })();
+
+    const canonicalUrl = `https://www.naengineeringsolutions.com${path === "/" ? "/" : path}`;
+    document.title = page.title;
+
+    const setMeta = (selector, attribute, key, value) => {
+      let element = document.head.querySelector(selector);
+      if (!element) {
+        element = document.createElement("meta");
+        element.setAttribute(attribute, key);
+        document.head.appendChild(element);
+      }
+      element.setAttribute("content", value);
+    };
+    setMeta('meta[name="description"]', "name", "description", page.description);
+    setMeta('meta[name="robots"]', "name", "robots", page.noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
+    setMeta('meta[property="og:title"]', "property", "og:title", page.title);
+    setMeta('meta[property="og:description"]', "property", "og:description", page.description);
+    setMeta('meta[property="og:url"]', "property", "og:url", canonicalUrl);
+    setMeta('meta[name="twitter:title"]', "name", "twitter:title", page.title);
+    setMeta('meta[name="twitter:description"]', "name", "twitter:description", page.description);
+
+    let canonical = document.head.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", canonicalUrl);
+  }, [location.pathname]);
+
+  return null;
+}
+
 function App() {
   useLenis();
   return (
