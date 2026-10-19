@@ -201,7 +201,7 @@ function RouteSEO() {
   const location = useLocation();
 
   useEffect(() => {
-    const path = location.pathname.replace(/\\/+$/, "") || "/";
+    const path = location.pathname.replace(/\/+$/, "") || "/";
     const service = path.startsWith("/services/")
       ? services.find((item) => path === `/services/${item.slug}`)
       : null;
