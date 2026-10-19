@@ -65,12 +65,21 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "node patch-backend-url.js && react-scripts build",
-    "test": "craco test"
+    "build": "node patch-backend-url.js && node prepare-logo.js && craco build",
+    "test": "craco test",
+    "prestart": "node prepare-logo.js"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",
