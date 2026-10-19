@@ -1,7 +1,119 @@
 {
-  "buildCommand": "node patch-backend-url.js && node prepare-logo.js && craco build",
+  "buildCommand": "node patch-backend-url.js && node prepare-logo.js && craco build && node generate-seo-pages.js",
   "outputDirectory": "build",
   "rewrites": [
+    {
+      "source": "/services/engineering-consultancy",
+      "destination": "/seo-pages/services/engineering-consultancy.html"
+    },
+    {
+      "source": "/services/civil-engineering",
+      "destination": "/seo-pages/services/civil-engineering.html"
+    },
+    {
+      "source": "/services/mechanical-engineering",
+      "destination": "/seo-pages/services/mechanical-engineering.html"
+    },
+    {
+      "source": "/services/peb-works",
+      "destination": "/seo-pages/services/peb-works.html"
+    },
+    {
+      "source": "/services/electrical-works",
+      "destination": "/seo-pages/services/electrical-works.html"
+    },
+    {
+      "source": "/services/mechanical-electrical-supplies",
+      "destination": "/seo-pages/services/mechanical-electrical-supplies.html"
+    },
+    {
+      "source": "/services/utilities-facility-maintenance",
+      "destination": "/seo-pages/services/utilities-facility-maintenance.html"
+    },
+    {
+      "source": "/services/boiler-chemicals",
+      "destination": "/seo-pages/services/boiler-chemicals.html"
+    },
+    {
+      "source": "/services/seamless-pipes-fittings",
+      "destination": "/seo-pages/services/seamless-pipes-fittings.html"
+    },
+    {
+      "source": "/services/wastewater-treatment-plant",
+      "destination": "/seo-pages/services/wastewater-treatment-plant.html"
+    },
+    {
+      "source": "/services/hvac-supplies-services",
+      "destination": "/seo-pages/services/hvac-supplies-services.html"
+    },
+    {
+      "source": "/services/fire-fighting-equipment",
+      "destination": "/seo-pages/services/fire-fighting-equipment.html"
+    },
+    {
+      "source": "/services/safety-security-systems",
+      "destination": "/seo-pages/services/safety-security-systems.html"
+    },
+    {
+      "source": "/services/waterproofing-solutions",
+      "destination": "/seo-pages/services/waterproofing-solutions.html"
+    },
+    {
+      "source": "/services/pumps-valves-pneumatic",
+      "destination": "/seo-pages/services/pumps-valves-pneumatic.html"
+    },
+    {
+      "source": "/insights/prepare-a-general-order-supply-request",
+      "destination": "/seo-pages/insights/prepare-a-general-order-supply-request.html"
+    },
+    {
+      "source": "/insights/industrial-maintenance-supplier-checklist",
+      "destination": "/seo-pages/insights/industrial-maintenance-supplier-checklist.html"
+    },
+    {
+      "source": "/insights/hvac-preventive-maintenance-checklist",
+      "destination": "/seo-pages/insights/hvac-preventive-maintenance-checklist.html"
+    },
+    {
+      "source": "/insights/peb-project-planning-checklist",
+      "destination": "/seo-pages/insights/peb-project-planning-checklist.html"
+    },
+    {
+      "source": "/insights/fire-safety-equipment-site-planning",
+      "destination": "/seo-pages/insights/fire-safety-equipment-site-planning.html"
+    },
+    {
+      "source": "/services",
+      "destination": "/seo-pages/services.html"
+    },
+    {
+      "source": "/supplies",
+      "destination": "/seo-pages/supplies.html"
+    },
+    {
+      "source": "/it-services",
+      "destination": "/seo-pages/it-services.html"
+    },
+    {
+      "source": "/industries",
+      "destination": "/seo-pages/industries.html"
+    },
+    {
+      "source": "/insights",
+      "destination": "/seo-pages/insights.html"
+    },
+    {
+      "source": "/clients",
+      "destination": "/seo-pages/clients.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/seo-pages/contact.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/seo-pages/admin.html"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
