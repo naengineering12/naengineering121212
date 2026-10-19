@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const sourcePath = path.join(__dirname, "na-engineering-logo.webp.base64");
-const outputPath = path.join(__dirname, "public", "logo-20261019.webp");
+const outputPath = path.join(__dirname, "public", "logo-gradient-transparent-v2.webp");
 
 const encoded = fs.readFileSync(sourcePath, "utf8").replace(/\s+/g, "");
 const image = Buffer.from(encoded, "base64");
