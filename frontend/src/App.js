@@ -289,6 +289,58 @@ function RouteSEO() {
       document.head.appendChild(canonical);
     }
     canonical.setAttribute("href", canonicalUrl);
+
+    const schemaGraph = [];
+    if (path !== "/" && !page.noindex) {
+      schemaGraph.push({
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.naengineeringsolutions.com/" },
+          { "@type": "ListItem", position: 2, name: page.title.replace(" | NA Engineering Solutions", "").replace(" | NA Engineering Solutions Lahore", ""), item: canonicalUrl }
+        ]
+      });
+    }
+    if (service) {
+      schemaGraph.push({
+        "@type": "Service",
+        name: service.title,
+        description: service.text,
+        serviceType: service.title,
+        areaServed: { "@type": "City", name: "Lahore" },
+        provider: {
+          "@type": "ProfessionalService",
+          name: "NA Engineering Solutions",
+          url: "https://www.naengineeringsolutions.com/"
+        },
+        url: canonicalUrl
+      });
+    }
+    if (article) {
+      schemaGraph.push({
+        "@type": "BlogPosting",
+        headline: article.title,
+        description: article.description,
+        mainEntityOfPage: canonicalUrl,
+        author: { "@type": "Organization", name: "NA Engineering Solutions" },
+        publisher: {
+          "@type": "Organization",
+          name: "NA Engineering Solutions",
+          logo: { "@type": "ImageObject", url: "https://www.naengineeringsolutions.com/logo.png" }
+        }
+      });
+    }
+    let schemaScript = document.head.querySelector("#route-seo-schema");
+    if (schemaGraph.length) {
+      if (!schemaScript) {
+        schemaScript = document.createElement("script");
+        schemaScript.id = "route-seo-schema";
+        schemaScript.type = "application/ld+json";
+        document.head.appendChild(schemaScript);
+      }
+      schemaScript.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": schemaGraph });
+    } else if (schemaScript) {
+      schemaScript.remove();
+    }
   }, [location.pathname]);
 
   return null;
