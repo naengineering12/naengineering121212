@@ -21,7 +21,7 @@ const articles = [...articleBlock.matchAll(/\{\s*slug:\s*"([^"]+)",[\s\S]*?title
   .map((match) => ({ slug: match[1], title: match[2], description: match[3] }));
 
 if (services.length < 10 || articles.length < 5) {
-  throw new Error(\`Could not safely read route metadata from source (services=\${services.length}, articles=\${articles.length}).\`);
+  throw new Error("Could not safely read route metadata from source (services=" + services.length + ", articles=" + articles.length + ").");
 }
 
 const topLevel = {
@@ -62,13 +62,14 @@ const escapeHtml = (value) => String(value)
   .replace(/"/g, "&quot;");
 
 function replaceOrInsert(html, pattern, replacement) {
-  return pattern.test(html) ? html.replace(pattern, replacement) : html.replace("</head>", \`  \${replacement}\n</head>\`);
+  if (pattern.test(html)) return html.replace(pattern, replacement);
+  return html.replace("</head>", "  " + replacement + "\n</head>");
 }
 
 function setMeta(html, attribute, key, value) {
   const safe = escapeHtml(value);
-  const tag = \`<meta \${attribute}="\${key}" content="\${safe}" />\`;
-  const pattern = new RegExp(\`<meta\\\\s+\${attribute}=["']\${key}["'][^>]*\\\\/?>\`, "i");
+  const tag = '<meta ' + attribute + '="' + key + '" content="' + safe + '" />';
+  const pattern = new RegExp('<meta\\s+' + attribute + '="' + key + '"[^>]*\\/?>', "i");
   return replaceOrInsert(html, pattern, tag);
 }
 
@@ -80,8 +81,8 @@ function routeMetadata(route) {
     const service = services.find((item) => item.slug === slug);
     if (!service) return null;
     return {
-      title: \`\${service.title} in Lahore | NA Engineering Solutions\`,
-      description: \`\${service.description} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.\`,
+      title: service.title + " in Lahore | NA Engineering Solutions",
+      description: service.description + " NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.",
       type: "service",
       service
     };
@@ -92,7 +93,7 @@ function routeMetadata(route) {
     const article = articles.find((item) => item.slug === slug);
     if (!article) return null;
     return {
-      title: \`\${article.title} | NA Engineering Solutions\`,
+      title: article.title + " | NA Engineering Solutions",
       description: article.description,
       type: "article",
       article
@@ -108,7 +109,7 @@ function routeMetadata(route) {
 
 function makeSchema(route, page) {
   if (page.noindex) return null;
-  const canonical = \`https://www.naengineeringsolutions.com\${route}\`;
+  const canonical = "https://www.naengineeringsolutions.com" + route;
   const graph = [{
     "@type": "BreadcrumbList",
     itemListElement: [
@@ -152,9 +153,9 @@ function makeSchema(route, page) {
 }
 
 function renderPage(route, page, template) {
-  const canonical = \`https://www.naengineeringsolutions.com\${route}\`;
+  const canonical = "https://www.naengineeringsolutions.com" + route;
   let html = template;
-  html = replaceOrInsert(html, /<title>[\s\S]*?<\/title>/i, \`<title>\${escapeHtml(page.title)}</title>\`);
+  html = replaceOrInsert(html, /<title>[\s\S]*?<\/title>/i, "<title>" + escapeHtml(page.title) + "</title>");
   html = setMeta(html, "name", "description", page.description);
   html = setMeta(html, "name", "robots", page.noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
   html = setMeta(html, "property", "og:type", page.type === "article" ? "article" : "website");
@@ -163,19 +164,21 @@ function renderPage(route, page, template) {
   html = setMeta(html, "property", "og:url", canonical);
   html = setMeta(html, "name", "twitter:title", page.title);
   html = setMeta(html, "name", "twitter:description", page.description);
-  html = replaceOrInsert(html, /<link\s+rel=["']canonical["'][^>]*\/?>/i, \`<link rel="canonical" href="\${canonical}" />\`);
+  html = replaceOrInsert(html, /<link\s+rel=["']canonical["'][^>]*\/?>/i, '<link rel="canonical" href="' + canonical + '" />');
 
   const schema = makeSchema(route, page);
   const schemaTag = schema
-    ? \`<script id="route-seo-schema" type="application/ld+json">\${JSON.stringify(schema)}</script>\`
+    ? '<script id="route-seo-schema" type="application/ld+json">' + JSON.stringify(schema) + '</script>'
     : "";
   const existingSchema = /<script\s+id=["']route-seo-schema["'][\s\S]*?<\/script>/i;
-  html = existingSchema.test(html)
-    ? html.replace(existingSchema, schemaTag)
-    : (schemaTag ? html.replace("</head>", \`  \${schemaTag}\n</head>\`) : html);
+  if (existingSchema.test(html)) {
+    html = html.replace(existingSchema, schemaTag);
+  } else if (schemaTag) {
+    html = html.replace("</head>", "  " + schemaTag + "\n</head>");
+  }
 
   const relative = route.replace(/^\/+/, "");
-  const output = path.join(buildDir, "seo-pages", \`\${relative}.html\`);
+  const output = path.join(buildDir, "seo-pages", relative + ".html");
   fs.mkdirSync(path.dirname(output), { recursive: true });
   fs.writeFileSync(output, html, "utf8");
   return output;
@@ -187,17 +190,18 @@ const routes = [...sitemapSource.matchAll(/<loc>(.*?)<\/loc>/g)]
 routes.push("/admin");
 
 let generated = 0;
+const template = fs.readFileSync(templatePath, "utf8");
 for (const route of [...new Set(routes)]) {
   const page = routeMetadata(route);
   if (!page) {
-    console.warn(\`Skipped route without explicit metadata: \${route}\`);
+    console.warn("Skipped route without explicit metadata: " + route);
     continue;
   }
-  renderPage(route, page, fs.readFileSync(templatePath, "utf8"));
+  renderPage(route, page, template);
   generated += 1;
 }
 
 if (generated < 25) {
-  throw new Error(\`Expected at least 25 SEO route snapshots but generated only \${generated}.\`);
+  throw new Error("Expected at least 25 SEO route snapshots but generated only " + generated + ".");
 }
-console.log(\`Generated \${generated} route-specific static HTML metadata snapshots.\`);
+console.log("Generated " + generated + " route-specific static HTML metadata snapshots.");
