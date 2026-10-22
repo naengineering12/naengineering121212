@@ -262,3 +262,144 @@ html,body{margin-top:0!important}
   .App:not(:has(.hero)) .insights-index-hero{padding-top:108px!important}
   .App:not(:has(.hero)) .admin-wrap{padding-top:100px!important}
 }
+
+
+/* TWO DISTINCT GLASS PILLS — brand on the left, navigation on the right. */
+.site-header{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  border-radius:0!important;
+  padding:0!important;
+  overflow:visible!important;
+}
+.site-header .site-container.nav-wrap{
+  overflow:visible!important;
+  justify-content:space-between!important;
+  gap:18px!important;
+}
+/* Brand pill: its own fine transparent border, independent of navigation. */
+.site-header .logo{
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  padding:6px 17px!important;
+  min-height:58px!important;
+  border:1px solid rgba(218,231,246,.23)!important;
+  border-radius:999px!important;
+  background:rgba(8,28,53,.58)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important;
+  backdrop-filter:blur(14px)!important;
+  -webkit-backdrop-filter:blur(14px)!important;
+}
+/* The menu gets its own separate pill; there is no shared outer outline. */
+.site-header .nav-cluster{
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:10px!important;
+  min-width:0!important;
+  padding:5px 6px!important;
+  border:1px solid rgba(218,231,246,.23)!important;
+  border-radius:999px!important;
+  background:rgba(8,28,53,.70)!important;
+  box-shadow:0 8px 22px rgba(2,12,27,.12),inset 0 1px 0 rgba(255,255,255,.035)!important;
+  backdrop-filter:blur(15px) saturate(125%)!important;
+  -webkit-backdrop-filter:blur(15px) saturate(125%)!important;
+}
+.site-header .nav-links{
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  padding:0!important;
+}
+.site-header .nav-page-link{
+  min-height:40px!important;
+  border-radius:999px!important;
+  padding:0 10px!important;
+}
+.site-header .nav-contact-cta{
+  min-height:44px!important;
+  margin-left:2px!important;
+  padding:0 21px!important;
+  border-radius:999px!important;
+}
+/* Tablet and mobile: retain the separate brand pill and convert menu pill into a dropdown. */
+@media(max-width:1100px){
+  .site-header{
+    width:calc(100% - 40px)!important;
+    height:70px!important;
+    padding:0!important;
+  }
+  .site-header .site-container.nav-wrap{
+    width:100%!important;
+    height:100%!important;
+    padding:0!important;
+    gap:12px!important;
+  }
+  .site-header .logo{
+    min-height:54px!important;
+    max-width:calc(100% - 58px)!important;
+    padding:5px 12px!important;
+    gap:7px!important;
+  }
+  .site-header .logo-img{width:40px!important;height:40px!important}
+  .site-header .logo-text b{font-size:10px!important;letter-spacing:.055em!important}
+  .site-header .logo-text small{font-size:7px!important;letter-spacing:.2em!important}
+  .site-header .nav-cluster{
+    display:none!important;
+    position:absolute!important;
+    top:calc(100% + 9px)!important;
+    left:0!important;
+    right:0!important;
+    padding:12px!important;
+    border:1px solid rgba(218,231,246,.20)!important;
+    border-radius:22px!important;
+    background:rgba(7,25,49,.97)!important;
+    box-shadow:0 18px 38px rgba(2,12,27,.26)!important;
+  }
+  .site-header .nav-cluster.open{display:block!important}
+  .site-header .nav-links{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    justify-content:flex-start!important;
+    gap:3px!important;
+    max-height:calc(100dvh - 125px)!important;
+    overflow-y:auto!important;
+    white-space:normal!important;
+  }
+  .site-header .nav-page-link{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    width:100%!important;
+    min-height:43px!important;
+    padding:0 14px!important;
+    font-size:13px!important;
+  }
+  .site-header .nav-mobile-contact{
+    justify-content:center!important;
+    margin-top:6px!important;
+  }
+  .site-header .nav-contact-cta{display:none!important}
+}
+@media(max-width:520px){
+  .site-header{
+    top:8px!important;
+    width:calc(100% - 20px)!important;
+    height:64px!important;
+  }
+  .site-header .logo{
+    min-height:50px!important;
+    padding:4px 9px!important;
+    gap:5px!important;
+  }
+  .site-header .logo-img{width:36px!important;height:36px!important}
+  .site-header .logo-text b{font-size:9px!important;letter-spacing:.035em!important}
+  .site-header .logo-text small{font-size:7px!important;letter-spacing:.17em!important}
+  .site-header .nav-cluster{top:calc(100% + 8px)!important;padding:10px!important;border-radius:18px!important}
+}
