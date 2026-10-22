@@ -108,6 +108,64 @@ export const insightArticles = [
     ],
     related: [{ label: "Fire fighting equipment", href: "/services/fire-fighting-equipment" }, { label: "Contact our team", href: "/contact" }]
   }
+
+  {
+    slug: "industrial-electrical-maintenance-checklist",
+    category: "ELECTRICAL",
+    title: "Industrial Electrical Maintenance: A Safe Inspection Checklist",
+    description: "A practical guide for facility teams planning electrical inspections, maintenance records and corrective work in industrial and commercial environments.",
+    excerpt: "A repeatable inspection routine helps teams document visible issues, plan qualified maintenance and reduce missed follow-up actions.",
+    readTime: "6 min read",
+    image: "https://images.pexels.com/photos/33531833/pexels-photo-33531833.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    imageAlt: "Industrial technician inspecting an electrical control panel",
+    sections: [
+      { heading: "Start with asset identification and history", paragraphs: ["List the equipment covered by the inspection, including distribution boards, control panels, motors, isolators and critical loads. Use the site's asset tags and drawings so findings can be traced to the correct equipment.", "Review previous faults, nuisance trips, repairs, load changes and outstanding recommendations before planning the visit. A repeated fault should be investigated rather than treated as a new isolated event each time."] },
+      { heading: "Make the work area safe before inspection", paragraphs: ["Electrical inspection and testing must be planned and performed by appropriately qualified personnel under the site's permit, isolation and lockout procedures. Verify the required safe state before opening equipment or touching conductors, and use the specified personal protective equipment.", "Do not open or work on energized panels unless the task has been specifically assessed and authorized under the facility's electrical safety procedure. If access, isolation or equipment condition is uncertain, stop and escalate to the responsible electrical professional."] },
+      { heading: "Record visible warning signs", paragraphs: ["From a safe position, note damaged enclosures, missing covers, blocked access, water ingress, corrosion, discoloration, unusual smell, excessive noise or evidence of overheating. These observations are not a substitute for electrical testing, but they can identify conditions requiring prompt professional assessment.", "Check that panel labels, circuit identification and warning signs remain legible. Clear labelling supports safer maintenance and helps future teams confirm which equipment and circuits are involved."] },
+      { heading: "Plan qualified testing and corrective work", paragraphs: ["Testing, torque checks, thermal inspection, protective-device verification and earthing checks should follow the equipment manufacturer's instructions, the applicable standards and the facility's maintenance plan. The qualified person should select the method and acceptance criteria for the equipment concerned.", "Record any parts replaced, adjustments made, test results and unresolved limitations. Protective devices must never be bypassed simply to keep a process running; investigate the cause of a trip or abnormal reading."] },
+      { heading: "Close out findings and follow-up", paragraphs: ["Give each finding an owner, priority and due date. Distinguish urgent safety concerns from routine work so that critical defects are not lost in a general maintenance list.", "After approved work is complete, update the asset history and drawings where required, record the return-to-service approval and communicate any temporary restrictions to operations."] },
+      { heading: "Electrical inspection record checklist", bullets: ["Asset tag, location, panel or equipment reference recorded", "Previous faults and outstanding actions reviewed", "Site permit, isolation and access requirements confirmed", "Visible damage, obstruction, moisture or overheating signs documented", "Qualified testing and corrective actions recorded", "Parts, test results, approvals and outstanding restrictions noted", "Owner and due date assigned for every follow-up action"] }
+    ],
+    related: [{ label: "Electrical works", href: "/services/electrical-works" }, { label: "Mechanical & electrical supplies", href: "/services/mechanical-electrical-supplies" }, { label: "Contact our team", href: "/contact" }]
+  },
+  {
+    slug: "industrial-spare-parts-inventory-planning",
+    category: "INVENTORY",
+    title: "Planning Critical Industrial Spare Parts Inventory",
+    description: "How maintenance and procurement teams can identify critical spares, balance stock availability against cost and improve spare-parts traceability.",
+    excerpt: "The right inventory plan is more than a shelf full of parts: it connects equipment criticality, supplier lead times, correct specifications and disciplined records.",
+    readTime: "6 min read",
+    image: "https://images.pexels.com/photos/7568418/pexels-photo-7568418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    imageAlt: "Industrial mechanical spare parts arranged for inspection and maintenance",
+    sections: [
+      { heading: "Identify which assets matter most", paragraphs: ["Start with a list of the equipment that supports production, utilities, safety and essential building services. For each asset, consider the operational impact of failure, the availability of a backup and the likely time required to repair or replace it.", "Criticality should guide stocking decisions. A low-cost part can be highly important if its absence stops a line or utility, while an expensive component may not need to be held if a reliable alternative or short lead time exists."] },
+      { heading: "Build an accurate item master", paragraphs: ["Record a clear description, manufacturer, model or part number, dimensions, material or rating where applicable, unit of measure, equipment references and approved substitutes. Use photographs or datasheets where they help distinguish similar-looking items.", "Avoid creating duplicate inventory records for the same part under different names. Incorrect descriptions and untracked substitutions can result in a stock balance that looks healthy but cannot meet the maintenance need."] },
+      { heading: "Use lead time and usage to set stock levels", paragraphs: ["Review historic consumption, planned maintenance, shutdown schedules, minimum order quantities and supplier lead times. A practical replenishment trigger should give the buyer enough time to order and receive the part before it is likely to be required.", "Set min/max or reorder points for suitable items and review them after a major equipment change, supplier delay, change in consumption or stock-out. Avoid treating a single rule as appropriate for every spare."] },
+      { heading: "Keep storage and traceability under control", paragraphs: ["Store parts according to the manufacturer's requirements and site conditions. Protect items from moisture, contamination, damage and mix-ups; retain packaging, labels, batch details and certificates when traceability matters.", "Use a documented process for receipts, issues, returns and obsolete stock. For safety-critical or regulated components, confirm the source and technical documentation before the item is released for use."] },
+      { heading: "Coordinate inventory with procurement", paragraphs: ["Share the approved specification, required delivery date and acceptable makes with suppliers. Confirm actual availability, delivery lead time, warranty and documentation rather than assuming a catalogue listing means the item is ready to ship.", "For shutdowns or planned work, link the material list to the job plan and check availability before the maintenance window is confirmed. This reduces last-minute sourcing and avoidable schedule risk."] },
+      { heading: "Critical spares planning checklist", bullets: ["Equipment criticality and backup availability reviewed", "Correct part numbers, specifications and units verified", "Historic usage, lead times and maintenance plans considered", "Reorder triggers and approval limits documented", "Storage conditions, labelling and issue records maintained", "Approved alternatives and technical documents reviewed", "Obsolete stock and recurring stock-outs reviewed regularly"] }
+    ],
+    related: [{ label: "General Order Supplies", href: "/supplies" }, { label: "Mechanical & electrical supplies", href: "/services/mechanical-electrical-supplies" }, { label: "Contact our team", href: "/contact" }]
+  },
+  {
+    slug: "compare-industrial-supplier-quotations",
+    category: "PROCUREMENT",
+    title: "How to Compare Industrial Supplier Quotations Beyond Price",
+    description: "A procurement checklist for comparing industrial quotations using technical compliance, lead time, documentation, delivery scope and commercial terms.",
+    excerpt: "A low headline price does not always represent the best offer. Compare suppliers against the same specification and make exclusions visible before approval.",
+    readTime: "5 min read",
+    image: "https://images.pexels.com/photos/4484154/pexels-photo-4484154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    imageAlt: "Warehouse employee checking stock and inventory with a handheld scanner",
+    sections: [
+      { heading: "Issue the same scope to every supplier", paragraphs: ["Use the same item description, brand or approved equivalent, technical specification, quantity, unit of measure, delivery location and required date for each quotation request. If the scope differs, the resulting prices are not directly comparable.", "Attach drawings, photographs, datasheets or previous part references where needed. Ask suppliers to list any assumptions or information they still require before they can confirm compliance."] },
+      { heading: "Check technical compliance first", paragraphs: ["Compare the offered make, model, capacity, material, dimensions, rating and relevant certificates against the request. Mark each line as compliant, requiring clarification or proposed as an alternative instead of silently accepting a similar description.", "For critical equipment and safety-related items, send deviations to the responsible engineer, end user or safety professional for written review before an award is made. Procurement should not decide technical equivalence on price alone."] },
+      { heading: "Normalize the commercial offer", paragraphs: ["Check whether delivery, installation, commissioning, testing, packaging, taxes, freight and documentation are included or excluded. Note the quotation validity, payment terms, warranty conditions and any minimum order requirement.", "A comparison sheet should show the total like-for-like evaluated cost as well as the original quoted amount. Record any assumptions used in that comparison so an approver can follow the decision."] },
+      { heading: "Validate availability and delivery commitments", paragraphs: ["Ask whether stock is physically available, whether the order is subject to confirmation, and what lead time applies after purchase-order acceptance. For partial deliveries, identify which items can arrive first and how that affects the job plan.", "For urgent or shutdown-related orders, agree the date, delivery point, access instructions and escalation contact. Keep supplier promises in writing and communicate risks early if the schedule changes."] },
+      { heading: "Create an auditable award recommendation", paragraphs: ["Summarize technical compliance, evaluated cost, lead time, warranty, documentation, deviations and open clarifications. Explain why the recommended offer represents the best fit for the requirement rather than simply selecting the lowest line total.", "Keep the request for quotation, supplier responses, clarifications, approvals, purchase order and delivery records together. A consistent record supports later queries and helps improve future sourcing decisions."] },
+      { heading: "Quotation comparison checklist", bullets: ["Identical item scope and quantities sent to suppliers", "Brand, model and specification compliance checked line by line", "Deviations and substitutions reviewed by the right technical owner", "Freight, tax, installation and other exclusions normalized", "Stock status, realistic lead time and validity confirmed", "Warranty and required datasheets or certificates reviewed", "Award rationale and approvals recorded before order placement"] }
+    ],
+    related: [{ label: "General Order Supplies", href: "/supplies" }, { label: "Engineering services", href: "/services" }, { label: "Contact our team", href: "/contact" }]
+  },
 ];
 
 function ArticleCard({ article }) {
