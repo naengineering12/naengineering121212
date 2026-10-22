@@ -253,7 +253,6 @@ export default function InsightsPage() {
     const article = insightArticles.find((item) => item.slug === slug);
     if (!article) return <Navigate to="/blog" replace />;
 
-    const articleUrl = "https://www.naengineeringsolutions.com/blog/" + article.slug;
     return (
       <main className="insight-article-page">
         <header className="insight-article-hero">
