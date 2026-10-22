@@ -7,10 +7,10 @@ export const insightArticles = [
   {
     slug: "prepare-a-general-order-supply-request",
     category: "PROCUREMENT",
-    title: "How to Prepare a Clear General Order Supply Request",
+    title: "How to Prepare a General Order Supply Request",
     seoTitle: "General Order Supply Request | NA Engineering Solutions",
-    description: "A practical checklist for preparing a general order supply request so a supplier can quote accurately and reduce follow-up questions.",
-    excerpt: "A little detail up front can make procurement faster. Use this checklist before sending an item list to a general order supplier in Lahore.",
+    description: "Prepare a clear general order supply request with item specifications, quantities, approved alternatives and delivery details so suppliers can quote accurately.",
+    excerpt: "Good procurement starts with a clear request. Share the exact item details, quantities, acceptable brands and delivery needs before asking suppliers to quote.",
     readTime: "4 min read",
     image: "https://images.pexels.com/photos/37912780/pexels-photo-37912780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "Organized industrial spare parts and components on warehouse shelving",
@@ -29,10 +29,10 @@ export const insightArticles = [
   {
     slug: "industrial-maintenance-supplier-checklist",
     category: "MAINTENANCE",
-    title: "Choosing an Industrial Maintenance and Supply Partner",
-    seoTitle: "Industrial Maintenance Checklist | NA Engineering Solutions",
-    description: "Key questions to ask when selecting an industrial maintenance and supply partner for a factory, warehouse or commercial facility.",
-    excerpt: "The right partner should understand specifications, site conditions, safety rules, lead times and support after delivery — not just the lowest line price.",
+    title: "How to Choose an Industrial Maintenance Partner",
+    seoTitle: "Industrial Maintenance Partner | NA Engineering Solutions",
+    description: "Use this checklist to assess an industrial maintenance partner's technical fit, site safety, response times, spare-parts support and service records.",
+    excerpt: "A reliable maintenance partner needs to understand your equipment, site rules and operating priorities—not simply offer the lowest price.",
     readTime: "5 min read",
     image: "https://images.pexels.com/photos/4483773/pexels-photo-4483773.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "Industrial warehouse aisle with stocked shelves and organized materials",
@@ -51,10 +51,10 @@ export const insightArticles = [
   {
     slug: "hvac-preventive-maintenance-checklist",
     category: "HVAC",
-    title: "HVAC Preventive Maintenance: A Practical Facility Checklist",
-    seoTitle: "HVAC Preventive Maintenance | NA Engineering Solutions",
-    description: "A practical HVAC preventive maintenance checklist for commercial buildings, factories, packaging areas and other facilities.",
-    excerpt: "Routine inspections help facilities teams spot airflow, filter, drainage and operating issues before they become disruptive. Use this checklist with the equipment manufacturer's instructions.",
+    title: "HVAC Preventive Maintenance Checklist for Facilities",
+    seoTitle: "HVAC Maintenance Checklist | NA Engineering Solutions",
+    description: "Use a practical HVAC maintenance checklist for filters, airflow, drains, operating checks and service records in commercial and industrial facilities.",
+    excerpt: "Routine checks of filters, airflow, drains and operating conditions help facility teams spot issues early and plan maintenance before disruption occurs.",
     readTime: "5 min read",
     image: "https://images.pexels.com/photos/32497161/pexels-photo-32497161.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "HVAC technician checking an industrial cooling and refrigeration unit",
@@ -73,10 +73,10 @@ export const insightArticles = [
   {
     slug: "peb-project-planning-checklist",
     category: "CONSTRUCTION",
-    title: "What to Confirm Before Starting a PEB Project",
+    title: "PEB Project Planning: What to Confirm Before Fabrication",
     seoTitle: "PEB Project Planning Checklist | NA Engineering Solutions",
-    description: "A pre-engineered building planning checklist covering use, dimensions, loads, foundations, access, services and installation coordination.",
-    excerpt: "Before a PEB shed or industrial steel structure moves to fabrication, align the site team, designer, supplier and installer on the critical project inputs.",
+    description: "Plan a pre-engineered building project by confirming dimensions, loads, foundations, drawings, services, delivery sequence and safe installation before fabrication.",
+    excerpt: "Before steel fabrication starts, align the owner, designer, supplier and installer on site conditions, dimensions, foundations and the installation sequence.",
     readTime: "4 min read",
     image: "https://images.pexels.com/photos/7961889/pexels-photo-7961889.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "Steel frame erection for a pre-engineered warehouse building",
@@ -94,10 +94,10 @@ export const insightArticles = [
   {
     slug: "fire-safety-equipment-site-planning",
     category: "SAFETY",
-    title: "Planning Fire Safety Equipment for a Commercial or Industrial Site",
+    title: "Fire Safety Equipment Planning for Industrial Sites",
     seoTitle: "Fire Safety Equipment Planning | NA Engineering Solutions",
-    description: "Important considerations when reviewing fire safety equipment needs for a commercial building or industrial facility.",
-    excerpt: "Equipment selection should follow a site's hazards, layout, applicable codes and assessment by a qualified fire-safety professional.",
+    description: "Review fire safety equipment for industrial and commercial sites, including hazard assessment, suitable equipment, clear access, inspections and staff training.",
+    excerpt: "Fire protection should match the site's actual hazards. Review equipment needs, access routes and inspection responsibilities with a qualified fire-safety professional.",
     readTime: "4 min read",
     image: "https://images.pexels.com/photos/19143940/pexels-photo-19143940.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "Industrial fire safety installation and equipment in a facility",
@@ -118,8 +118,8 @@ export const insightArticles = [
     category: "ELECTRICAL",
     title: "Industrial Electrical Maintenance: A Safe Inspection Checklist",
     seoTitle: "Electrical Maintenance Checklist | NA Engineering Solutions",
-    description: "A practical guide for facility teams planning electrical inspections, maintenance records and corrective work in industrial and commercial environments.",
-    excerpt: "A repeatable inspection routine helps teams document visible issues, plan qualified maintenance and reduce missed follow-up actions.",
+    description: "Plan safer electrical maintenance with asset records, visible checks, qualified testing, isolation procedures and documented follow-up for each finding.",
+    excerpt: "A consistent inspection process helps teams record warning signs, arrange qualified testing and close out electrical maintenance actions safely.",
     readTime: "6 min read",
     image: "https://images.pexels.com/photos/33531833/pexels-photo-33531833.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "Industrial technician inspecting an electrical control panel",
@@ -136,10 +136,10 @@ export const insightArticles = [
   {
     slug: "industrial-spare-parts-inventory-planning",
     category: "INVENTORY",
-    title: "Planning Critical Industrial Spare Parts Inventory",
+    title: "How to Plan Critical Industrial Spare Parts",
     seoTitle: "Industrial Spare Parts Planning | NA Engineering Solutions",
-    description: "How maintenance and procurement teams can identify critical spares, balance stock availability against cost and improve spare-parts traceability.",
-    excerpt: "The right inventory plan is more than a shelf full of parts: it connects equipment criticality, supplier lead times, correct specifications and disciplined records.",
+    description: "Identify critical industrial spares, verify part numbers, set replenishment points and coordinate supplier lead times to avoid preventable downtime.",
+    excerpt: "A useful spare-parts plan balances equipment criticality, supplier lead times, storage conditions and accurate inventory records.",
     readTime: "6 min read",
     image: "https://images.pexels.com/photos/7568418/pexels-photo-7568418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "Industrial mechanical spare parts arranged for inspection and maintenance",
@@ -156,10 +156,10 @@ export const insightArticles = [
   {
     slug: "compare-industrial-supplier-quotations",
     category: "PROCUREMENT",
-    title: "How to Compare Industrial Supplier Quotations Beyond Price",
-    seoTitle: "Industrial Supplier Quote Comparison | NA Engineering Solutions",
-    description: "A procurement checklist for comparing industrial quotations using technical compliance, lead time, documentation, delivery scope and commercial terms.",
-    excerpt: "A low headline price does not always represent the best offer. Compare suppliers against the same specification and make exclusions visible before approval.",
+    title: "How to Compare Industrial Supplier Quotations",
+    seoTitle: "Industrial Supplier Quote Comparison | NA Engineering",
+    description: "Compare industrial supplier quotations by technical compliance, delivery, warranty, documentation and total evaluated cost—not just the headline price.",
+    excerpt: "The lowest quotation is not always the best value. Compare each supplier's offer against the same specification, delivery scope and commercial terms.",
     readTime: "5 min read",
     image: "https://images.pexels.com/photos/4484154/pexels-photo-4484154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "Warehouse employee checking stock and inventory with a handheld scanner",
@@ -359,8 +359,8 @@ export default function InsightsPage() {
         <div className="site-container insights-index-hero-grid">
           <div className="insights-index-hero-copy">
             <span className="insight-eyebrow"><BookOpen size={14}/> NA ENGINEERING SOLUTIONS / BLOG</span>
-            <h1>Practical knowledge for better project decisions.</h1>
-            <p>Clear, useful guides for industrial procurement, facility maintenance, HVAC systems, steel building projects and fire safety. Built for buyers, facility teams and project professionals who need the right questions before work begins.</p>
+            <h1>Engineering &amp; Procurement Guides for Real-World Projects</h1>
+            <p>Explore practical guidance on industrial procurement, HVAC maintenance, steel building projects and fire safety. Each guide gives buyers, facility teams and project professionals clear questions and checklists to plan their next step with confidence.</p>
             <div className="insights-hero-points"><span>Procurement checklists</span><span>Maintenance guidance</span><span>Project planning</span></div>
             <a className="blog-hero-button" href="#blog-library">Explore all guides <ArrowRight size={16}/></a>
           </div>
