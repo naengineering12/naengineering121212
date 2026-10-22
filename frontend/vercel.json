@@ -71,5 +71,17 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/insights",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/insights/:path*",
+      "destination": "/blog/:path*",
+      "permanent": true
+    }
   ]
 }
