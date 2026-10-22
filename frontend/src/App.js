@@ -97,9 +97,8 @@ function Header(){
       <div className={open?"nav-cluster open":"nav-cluster"}>
         <nav className={open?"nav-links open":"nav-links"} aria-label="Main navigation">
           {nav.map(([label,to])=><NavLink key={to} to={to} end={to==="/"} onClick={()=>setOpen(false)} className={({isActive})=>isActive?"nav-page-link nav-current":"nav-page-link"} data-testid={`nav-${label.toLowerCase().replaceAll(" ","-")}`}>{label}</NavLink>)}
-          <NavLink to="/contact" onClick={()=>setOpen(false)} className={({isActive})=>isActive?"nav-page-link nav-current nav-mobile-contact":"nav-page-link nav-mobile-contact"} data-testid="nav-contact-us">Contact Us <ArrowRight size={16}/></NavLink>
+          <NavLink to="/contact" onClick={()=>setOpen(false)} className="nav-page-link nav-contact-cta" data-testid="nav-contact-cta">Contact Us <ArrowRight size={17}/></NavLink>
         </nav>
-        <NavLink to="/contact" onClick={()=>setOpen(false)} className="nav-contact-cta" data-testid="nav-contact-cta">Contact Us <ArrowRight size={17}/></NavLink>
       </div>
     </div>
   </header>
