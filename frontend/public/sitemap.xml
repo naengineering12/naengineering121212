@@ -5,7 +5,7 @@
   <url><loc>https://www.naengineeringsolutions.com/supplies</loc><priority>0.9</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/it-services</loc><priority>0.8</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/industries</loc><priority>0.8</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/insights</loc><priority>0.8</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/blog</loc><priority>0.8</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/clients</loc><priority>0.8</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/contact</loc><priority>0.7</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/services/engineering-consultancy</loc><priority>0.8</priority></url>
@@ -23,9 +23,9 @@
   <url><loc>https://www.naengineeringsolutions.com/services/safety-security-systems</loc><priority>0.7</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/services/waterproofing-solutions</loc><priority>0.7</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/services/pumps-valves-pneumatic</loc><priority>0.8</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/insights/prepare-a-general-order-supply-request</loc><priority>0.7</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/insights/industrial-maintenance-supplier-checklist</loc><priority>0.7</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/insights/hvac-preventive-maintenance-checklist</loc><priority>0.7</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/insights/peb-project-planning-checklist</loc><priority>0.7</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/insights/fire-safety-equipment-site-planning</loc><priority>0.7</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/blog/prepare-a-general-order-supply-request</loc><priority>0.7</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/blog/industrial-maintenance-supplier-checklist</loc><priority>0.7</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/blog/hvac-preventive-maintenance-checklist</loc><priority>0.7</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/blog/peb-project-planning-checklist</loc><priority>0.7</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/blog/fire-safety-equipment-site-planning</loc><priority>0.7</priority></url>
 </urlset>
