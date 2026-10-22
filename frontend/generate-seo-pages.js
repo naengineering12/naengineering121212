@@ -17,8 +17,15 @@ const services = [...serviceBlock.matchAll(/\{\s*slug:"([^"]+)",\s*title:"([^"]+
   .map((match) => ({ slug: match[1], title: match[2], description: match[3] }));
 
 const articleBlock = insightsSource.match(/export const insightArticles = \[([\s\S]*?)\n\];/)?.[1] || "";
-const articles = [...articleBlock.matchAll(/\{\s*slug:\s*"([^"]+)",[\s\S]*?title:\s*"([^"]+)",\s*description:\s*"([^"]+)"/g)]
-  .map((match) => ({ slug: match[1], title: match[2], description: match[3] }));
+const articles = [...articleBlock.matchAll(/\{\s*slug:\s*"([^"]+)",\s*category:\s*"([^"]+)",[\s\S]*?title:\s*"([^"]+)",\s*description:\s*"([^"]+)",[\s\S]*?image:\s*"([^"]+)",\s*imageAlt:\s*"([^"]+)"/g)]
+  .map((match) => ({
+    slug: match[1],
+    category: match[2],
+    title: match[3],
+    description: match[4],
+    image: match[5],
+    imageAlt: match[6]
+  }));
 
 if (services.length < 10 || articles.length < 5) {
   throw new Error("Could not safely read route metadata from source (services=" + services.length + ", articles=" + articles.length + ").");
@@ -41,9 +48,10 @@ const topLevel = {
     title: "Industries We Serve | NA Engineering Solutions Lahore",
     description: "Engineering, maintenance and procurement support for industrial, commercial, construction and facility operations in Lahore and across Pakistan."
   },
-  "/insights": {
-    title: "Engineering & Procurement Insights | NA Engineering Solutions",
-    description: "Practical guidance on general order procurement, engineering services, industrial maintenance and project supplies in Pakistan."
+  "/blog": {
+    title: "Engineering & Industrial Blog | NA Engineering Solutions",
+    description: "Practical engineering guides, industrial maintenance checklists, HVAC tips, PEB planning and general order procurement advice for businesses in Pakistan.",
+    image: "https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   },
   "/clients": {
     title: "Clients & Project Experience | NA Engineering Solutions",
@@ -88,8 +96,8 @@ function routeMetadata(route) {
     };
   }
 
-  if (route.startsWith("/insights/")) {
-    const slug = route.slice("/insights/".length);
+  if (route.startsWith("/blog/")) {
+    const slug = route.slice("/blog/".length);
     const article = articles.find((item) => item.slug === slug);
     if (!article) return null;
     return {
@@ -118,6 +126,31 @@ function makeSchema(route, page) {
     ]
   }];
 
+  if (route === "/blog") {
+    graph.push({
+      "@type": "Blog",
+      name: "NA Engineering Solutions Blog",
+      description: page.description,
+      url: canonical,
+      inLanguage: "en-PK",
+      blogPost: articles.map((article) => ({
+        "@type": "BlogPosting",
+        headline: article.title,
+        description: article.description,
+        url: "https://www.naengineeringsolutions.com/blog/" + article.slug,
+        image: [article.image],
+        articleSection: article.category,
+        inLanguage: "en-PK",
+        author: { "@type": "Organization", name: "NA Engineering Solutions" },
+        publisher: {
+          "@type": "Organization",
+          name: "NA Engineering Solutions",
+          logo: { "@type": "ImageObject", url: "https://www.naengineeringsolutions.com/logo.png" }
+        }
+      }))
+    });
+  }
+
   if (page.type === "service" && page.service) {
     graph.push({
       "@type": "Service",
@@ -139,6 +172,10 @@ function makeSchema(route, page) {
       "@type": "BlogPosting",
       headline: page.article.title,
       description: page.article.description,
+      image: [page.article.image],
+      articleSection: page.article.category,
+      keywords: [page.article.category, "engineering", "industrial maintenance", "general order supplies", "Lahore"],
+      inLanguage: "en-PK",
       mainEntityOfPage: canonical,
       author: { "@type": "Organization", name: "NA Engineering Solutions" },
       publisher: {
@@ -162,6 +199,11 @@ function renderPage(route, page, template) {
   html = setMeta(html, "property", "og:title", page.title);
   html = setMeta(html, "property", "og:description", page.description);
   html = setMeta(html, "property", "og:url", canonical);
+  const socialImage = page.article?.image || page.image || "https://www.naengineeringsolutions.com/logo.png";
+  const socialImageAlt = page.article?.imageAlt || "NA Engineering Solutions engineering blog";
+  html = setMeta(html, "property", "og:image", socialImage);
+  html = setMeta(html, "property", "og:image:alt", socialImageAlt);
+  html = setMeta(html, "name", "twitter:image", socialImage);
   html = setMeta(html, "name", "twitter:title", page.title);
   html = setMeta(html, "name", "twitter:description", page.description);
   html = replaceOrInsert(html, /<link\s+rel=["']canonical["'][^>]*\/?>/i, '<link rel="canonical" href="' + canonical + '" />');
@@ -184,9 +226,19 @@ function renderPage(route, page, template) {
   return output;
 }
 
-const routes = [...sitemapSource.matchAll(/<loc>(.*?)<\/loc>/g)]
-  .map((match) => new URL(match[1]).pathname)
-  .filter((route) => route !== "/");
+const sitemapRoutes = [...sitemapSource.matchAll(/<loc>(.*?)<\/loc>/g)]
+  .map((match) => match[1].replace("https://www.naengineeringsolutions.com", "") || "/");
+const routes = sitemapRoutes.filter((route) => route !== "/");
+const expectedBlogRoutes = ["/blog", ...articles.map((article) => "/blog/" + article.slug)];
+const missingBlogRoutes = expectedBlogRoutes.filter((route) => !routes.includes(route));
+const oldInsightsRoutes = routes.filter((route) => route === "/insights" || route.startsWith("/insights/"));
+
+if (missingBlogRoutes.length) {
+  throw new Error("Blog sitemap is missing canonical URLs: " + missingBlogRoutes.join(", "));
+}
+if (oldInsightsRoutes.length) {
+  throw new Error("Sitemap must use canonical /blog URLs, not legacy /insights URLs.");
+}
 routes.push("/admin");
 
 let generated = 0;
@@ -201,7 +253,8 @@ for (const route of [...new Set(routes)]) {
   generated += 1;
 }
 
-if (generated < 25) {
-  throw new Error("Expected at least 25 SEO route snapshots but generated only " + generated + ".");
+const expectedSnapshotCount = new Set(routes).size;
+if (generated !== expectedSnapshotCount) {
+  throw new Error("Expected " + expectedSnapshotCount + " route snapshots but generated only " + generated + ".");
 }
 console.log("Generated " + generated + " route-specific static HTML metadata snapshots.");
