@@ -996,3 +996,129 @@ html,body{margin-top:0!important}
   .cta p{font-size:14px!important;line-height:1.7!important}
   .cta .button{width:auto!important;max-width:100%!important}
 }
+
+
+/* REFINED CTA — a light architectural transition before the deep-navy footer.
+   Remove the earlier grid/ring treatment; keep the brand accent restrained. */
+.cta{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  margin:0!important;
+  padding:clamp(62px,7vw,88px) 0!important;
+  color:#14263b!important;
+  background:#edf2f6!important;
+  border-top:1px solid #d9e2eb!important;
+  border-bottom:1px solid #d6e0e9!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8)!important;
+}
+.cta::before,
+.cta::after,
+.cta-inner::after{
+  content:none!important;
+  display:none!important;
+}
+.cta .cta-inner{
+  position:relative!important;
+  z-index:1!important;
+  max-width:1240px!important;
+}
+.cta .cta-inner-split{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:clamp(32px,6vw,88px)!important;
+}
+.cta .cta-copy{
+  min-width:0!important;
+  padding:4px 0 4px 24px!important;
+  border-left:3px solid #f4a261!important;
+}
+.cta .cta-copy .eyebrow{
+  color:#a75b18!important;
+  font-size:10px!important;
+  letter-spacing:.16em!important;
+}
+.cta .cta-copy h2{
+  max-width:760px!important;
+  margin:15px 0 12px!important;
+  color:#102844!important;
+  font-size:clamp(32px,3.8vw,48px)!important;
+  line-height:1.1!important;
+  letter-spacing:-.04em!important;
+}
+.cta .cta-copy p{
+  max-width:650px!important;
+  margin:0!important;
+  color:#536477!important;
+  font-size:15px!important;
+  line-height:1.75!important;
+}
+.cta .cta-actions{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex:0 0 auto!important;
+  margin:0!important;
+}
+.cta .cta-contact-button,
+.cta .cta-actions .button{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:12px!important;
+  min-height:48px!important;
+  margin:0!important;
+  padding:0 21px!important;
+  border:1px solid #0b1f3a!important;
+  border-radius:999px!important;
+  background:#0b1f3a!important;
+  color:#fff!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  white-space:nowrap!important;
+  box-shadow:0 5px 14px rgba(11,31,58,.12)!important;
+  transition:background .2s ease,border-color .2s ease,transform .2s ease!important;
+}
+.cta .cta-contact-button svg,
+.cta .cta-actions .button svg{
+  color:#f4a261!important;
+}
+.cta .cta-contact-button:hover,
+.cta .cta-actions .button:hover{
+  transform:translateY(-1px)!important;
+  background:#173b60!important;
+  border-color:#173b60!important;
+}
+.footer{
+  position:relative!important;
+  z-index:1!important;
+  background:#07172b!important;
+  border-top:0!important;
+  box-shadow:none!important;
+}
+@media(max-width:800px){
+  .cta{padding:58px 0 62px!important}
+  .cta .cta-inner-split{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:24px!important;
+    align-items:start!important;
+  }
+  .cta .cta-copy{padding-left:18px!important}
+  .cta .cta-copy h2{font-size:clamp(30px,6vw,42px)!important}
+  .cta .cta-copy p{font-size:14px!important}
+  .cta .cta-actions{justify-content:flex-start!important}
+}
+@media(max-width:520px){
+  .cta{padding:48px 0 52px!important}
+  .cta .cta-copy{padding-left:15px!important;border-left-width:2px!important}
+  .cta .cta-copy h2{font-size:clamp(28px,8vw,36px)!important;line-height:1.13!important}
+  .cta .cta-copy p{font-size:13.5px!important;line-height:1.7!important}
+  .cta .cta-contact-button,
+  .cta .cta-actions .button{
+    min-height:46px!important;
+    padding:0 17px!important;
+    font-size:11px!important;
+    white-space:normal!important;
+  }
+}
