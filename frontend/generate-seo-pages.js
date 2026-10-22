@@ -17,14 +17,15 @@ const services = [...serviceBlock.matchAll(/\{\s*slug:"([^"]+)",\s*title:"([^"]+
   .map((match) => ({ slug: match[1], title: match[2], description: match[3] }));
 
 const articleBlock = insightsSource.match(/export const insightArticles = \[([\s\S]*?)\n\];/)?.[1] || "";
-const articles = [...articleBlock.matchAll(/\{\s*slug:\s*"([^"]+)",\s*category:\s*"([^"]+)",[\s\S]*?title:\s*"([^"]+)",\s*description:\s*"([^"]+)",[\s\S]*?image:\s*"([^"]+)",\s*imageAlt:\s*"([^"]+)"/g)]
+const articles = [...articleBlock.matchAll(/\{\s*slug:\s*"([^"]+)",\s*category:\s*"([^"]+)",[\s\S]*?title:\s*"([^"]+)",\s*seoTitle:\s*"([^"]+)",\s*description:\s*"([^"]+)",[\s\S]*?image:\s*"([^"]+)",\s*imageAlt:\s*"([^"]+)"/g)]
   .map((match) => ({
     slug: match[1],
     category: match[2],
     title: match[3],
-    description: match[4],
-    image: match[5],
-    imageAlt: match[6]
+    seoTitle: match[4],
+    description: match[5],
+    image: match[6],
+    imageAlt: match[7]
   }));
 
 if (services.length < 10 || articles.length < 5) {
@@ -101,7 +102,7 @@ function routeMetadata(route) {
     const article = articles.find((item) => item.slug === slug);
     if (!article) return null;
     return {
-      title: article.title + " | NA Engineering Solutions",
+      title: article.seoTitle || (article.title + " | NA Engineering Solutions"),
       description: article.description,
       type: "article",
       article

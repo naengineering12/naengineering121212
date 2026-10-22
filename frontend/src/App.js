@@ -240,7 +240,7 @@ function RouteSEO() {
         description: "Practical engineering guides, industrial maintenance checklists, HVAC tips, PEB planning and general order procurement advice for businesses in Pakistan."
       };
       if (article) return {
-        title: `${article.title} | NA Engineering Solutions`,
+        title: article.seoTitle || `${article.title} | NA Engineering Solutions`,
         description: article.description
       };
       if (path === "/clients") return {
