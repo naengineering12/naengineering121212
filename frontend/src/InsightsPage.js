@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Clock3 } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Clock3, Search, Share2 } from "lucide-react";
 import "./InsightsPage.css";
 
 export const insightArticles = [
@@ -112,15 +112,15 @@ export const insightArticles = [
 
 function ArticleCard({ article }) {
   return <article className="insight-card">
-    <Link className="insight-card-image-link" to={`/insights/${article.slug}`} aria-label={`Read: ${article.title}`}>
+    <Link className="insight-card-image-link" to={`/blog/${article.slug}`} aria-label={`Read: ${article.title}`}>
       <img className="insight-card-image" src={article.image} alt={article.imageAlt} loading="lazy" decoding="async" />
       <span className="insight-card-image-label">FIELD GUIDE <ArrowRight size={14}/></span>
     </Link>
     <div className="insight-card-content">
       <div className="insight-card-top"><span>{article.category}</span><span><Clock3 size={13}/> {article.readTime}</span></div>
-      <h2><Link to={`/insights/${article.slug}`}>{article.title}</Link></h2>
+      <h2><Link to={`/blog/${article.slug}`}>{article.title}</Link></h2>
       <p>{article.excerpt}</p>
-      <Link className="insight-read-link" to={`/insights/${article.slug}`}>Read article <ArrowRight size={16}/></Link>
+      <Link className="insight-read-link" to={`/blog/${article.slug}`}>Read article <ArrowRight size={16}/></Link>
     </div>
   </article>;
 }
@@ -130,53 +130,249 @@ export function InsightsPreview() {
     <div className="site-container">
       <div className="section-heading">
         <div><span className="insight-eyebrow"><BookOpen size={14}/> FIELD NOTES / PRACTICAL GUIDES</span><h2>Useful notes for site and procurement teams.</h2></div>
-        <Link className="insight-all-link" to="/insights">All blog posts <ArrowRight size={16}/></Link>
+        <Link className="insight-all-link" to="/blog">All blog posts <ArrowRight size={16}/></Link>
       </div>
       <div className="insight-card-grid">{insightArticles.slice(0,3).map(article=><ArticleCard key={article.slug} article={article}/>)}</div>
     </div>
   </section>;
 }
 
+function sectionId(heading) {
+  return String(heading)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function ArticleShareLinks({ article }) {
+  const url = "https://www.naengineeringsolutions.com/blog/" + article.slug;
+  const shareText = article.title + " — NA Engineering Solutions";
+  return (
+    <div className="blog-share-links" aria-label="Share this article">
+      <a href={"https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(url)} target="_blank" rel="noreferrer">
+        Share on LinkedIn <Share2 size={14}/>
+      </a>
+      <a href={"https://wa.me/?text=" + encodeURIComponent(shareText + " " + url)} target="_blank" rel="noreferrer">
+        Share on WhatsApp <Share2 size={14}/>
+      </a>
+      <a href={"mailto:?subject=" + encodeURIComponent(shareText) + "&body=" + encodeURIComponent(url)}>
+        Email article <ArrowRight size={14}/>
+      </a>
+    </div>
+  );
+}
+
+function RelatedArticles({ article }) {
+  const sameCategory = insightArticles.filter((item) => item.slug !== article.slug && item.category === article.category);
+  const others = insightArticles.filter((item) => item.slug !== article.slug && item.category !== article.category);
+  const related = [...sameCategory, ...others].slice(0, 3);
+  if (!related.length) return null;
+
+  return (
+    <section className="blog-related-section">
+      <div className="site-container">
+        <div className="blog-section-heading">
+          <div>
+            <span className="insight-eyebrow">KEEP EXPLORING</span>
+            <h2>Related engineering guides</h2>
+          </div>
+          <Link className="insight-all-link" to="/blog">All blog articles <ArrowRight size={16}/></Link>
+        </div>
+        <div className="insight-card-grid">
+          {related.map((item) => <ArticleCard key={item.slug} article={item}/>)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function InsightsPage() {
   const { slug } = useParams();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeCategory, setActiveCategory] = useState("ALL");
+  const categories = ["ALL", ...new Set(insightArticles.map((article) => article.category))];
+
   if (slug) {
-    const article = insightArticles.find(item => item.slug === slug);
-    if (!article) return <Navigate to="/insights" replace />;
-    return <main className="insight-article-page">
-      <header className="insight-article-hero"><div className="site-container">
-        <Link className="insight-back" to="/insights"><ArrowLeft size={15}/> Back to Blog</Link>
-        <span className="insight-eyebrow">{article.category} / PRACTICAL GUIDE</span>
-        <h1>{article.title}</h1><p>{article.description}</p>
-        <div className="insight-article-meta"><span><BookOpen size={14}/> NA Engineering Solutions</span><span><Clock3 size={14}/> {article.readTime}</span><span>Updated October 2026</span></div>
-      </div></header>
-      <div className="site-container">
-        <figure className="insight-article-cover">
-          <img src={article.image} alt={article.imageAlt} loading="eager" decoding="async" />
-          <figcaption>{article.imageAlt}</figcaption>
-        </figure>
-      </div>
-      <div className="site-container insight-article-layout">
-        <article className="insight-article-body">
-          {article.sections.map((section,index)=><section key={section.heading}><h2>{section.heading}</h2>{(section.paragraphs||[]).map((para,i)=><p key={i}>{para}</p>)}{section.bullets&&<ul>{section.bullets.map(item=><li key={item}><CheckCircle2 size={17}/><span>{item}</span></li>)}</ul>}</section>)}
-          <div className="insight-related"><h2>Related services</h2><div>{article.related.map(item=><Link key={item.href} to={item.href}>{item.label}<ArrowRight size={15}/></Link>)}</div></div>
-        </article>
-        <aside className="insight-aside"><span>NA ENGINEERING SOLUTIONS</span><h2>Planning a requirement?</h2><p>Share your scope, specifications or site details with our team to discuss the next practical step.</p><Link to="/contact">Contact our team <ArrowRight size={16}/></Link><Link to="/supplies">General Order Supplies <ArrowRight size={16}/></Link><Link to="/services">Engineering services <ArrowRight size={16}/></Link></aside>
-      </div>
-    </main>;
+    const article = insightArticles.find((item) => item.slug === slug);
+    if (!article) return <Navigate to="/blog" replace />;
+
+    const articleUrl = "https://www.naengineeringsolutions.com/blog/" + article.slug;
+    return (
+      <main className="insight-article-page">
+        <header className="insight-article-hero">
+          <div className="site-container">
+            <Link className="insight-back" to="/blog"><ArrowLeft size={15}/> Back to Blog</Link>
+            <span className="insight-eyebrow">{article.category} / PRACTICAL GUIDE</span>
+            <h1>{article.title}</h1>
+            <p>{article.description}</p>
+            <div className="insight-article-meta">
+              <span><BookOpen size={14}/> NA Engineering Solutions Editorial Team</span>
+              <span><Clock3 size={14}/> {article.readTime}</span>
+              <span>{article.sections.length} sections</span>
+            </div>
+          </div>
+        </header>
+
+        <div className="site-container">
+          <figure className="insight-article-cover">
+            <img src={article.image} alt={article.imageAlt} loading="eager" decoding="async" />
+            <figcaption>{article.imageAlt}</figcaption>
+          </figure>
+        </div>
+
+        <div className="site-container insight-article-layout">
+          <article className="insight-article-body">
+            <p className="blog-article-intro">{article.excerpt}</p>
+            <div className="blog-article-actions">
+              <span>Share this guide</span>
+              <ArticleShareLinks article={article}/>
+            </div>
+            <div className="blog-guide-note">
+              <strong>In this guide</strong>
+              <p>Practical points to help your team prepare, ask the right questions and coordinate the next step. Project-specific engineering, safety and compliance decisions should be confirmed with the responsible qualified professional.</p>
+            </div>
+            {article.sections.map((section) => (
+              <section id={sectionId(section.heading)} key={section.heading}>
+                <h2>{section.heading}</h2>
+                {(section.paragraphs || []).map((para, index) => <p key={index}>{para}</p>)}
+                {section.bullets && (
+                  <ul>
+                    {section.bullets.map((item) => <li key={item}><CheckCircle2 size={17}/><span>{item}</span></li>)}
+                  </ul>
+                )}
+              </section>
+            ))}
+            <div className="blog-article-endnote">
+              <span className="insight-eyebrow">NEED HELP WITH A LIVE REQUIREMENT?</span>
+              <h2>Discuss your specifications with our team.</h2>
+              <p>Share your item list, drawings, dimensions or site requirements so the scope can be reviewed before the next step.</p>
+              <Link to="/contact" className="blog-contact-link">Contact NA Engineering Solutions <ArrowRight size={16}/></Link>
+            </div>
+          </article>
+
+          <aside className="insight-aside blog-article-aside">
+            <span>IN THIS GUIDE</span>
+            <nav aria-label="Article contents" className="blog-table-of-contents">
+              {article.sections.map((section) => (
+                <a key={section.heading} href={"#" + sectionId(section.heading)}>{section.heading}<ArrowRight size={13}/></a>
+              ))}
+            </nav>
+            <div className="blog-aside-cta">
+              <span>NA ENGINEERING SOLUTIONS</span>
+              <h2>Planning a requirement?</h2>
+              <p>Share your scope, specifications or site details with our team to discuss a practical next step.</p>
+              <Link to="/contact">Contact our team <ArrowRight size={16}/></Link>
+              <Link to="/supplies">General Order Supplies <ArrowRight size={16}/></Link>
+              <Link to="/services">Engineering services <ArrowRight size={16}/></Link>
+            </div>
+          </aside>
+        </div>
+        <RelatedArticles article={article}/>
+      </main>
+    );
   }
-  return <main className="insights-index-page">
-    <header className="insights-index-hero"><div className="site-container insights-index-hero-grid">
-    <div className="insights-index-hero-copy">
-      <span className="insight-eyebrow"><BookOpen size={14}/> NA ENGINEERING SOLUTIONS / BLOG</span>
-      <h1>Practical knowledge for better project decisions.</h1>
-      <p>Clear, useful guides for industrial procurement, facility maintenance, HVAC systems, steel building projects and fire safety. Built for buyers, facility teams and project professionals who need the right questions before work begins.</p>
-      <div className="insights-hero-points"><span>Procurement checklists</span><span>Maintenance guidance</span><span>Project planning</span></div>
-    </div>
-    <div className="insights-index-hero-visual">
-      <img src="https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Industrial engineers coordinating mechanical equipment and pipework" loading="eager" decoding="async"/>
-      <div className="insights-hero-image-caption"><span>FIELD NOTES / 01</span><strong>Engineering. Supply. Execution.</strong></div>
-    </div>
-  </div></header>
-    <section className="section insights-blog-listing"><div className="site-container"><div className="insights-listing-heading"><div><span className="insight-eyebrow">THE KNOWLEDGE DESK</span><h2>Guides for the work you do every day.</h2></div><p>Browse practical notes, planning prompts and checklists. Always validate project-specific design, safety and compliance decisions with the responsible qualified professional.</p></div><div className="insight-card-grid">{insightArticles.map(article=><ArticleCard key={article.slug} article={article}/>)}</div><div className="insights-contact-cta"><div><span className="insight-eyebrow">HAVE A SPECIFIC REQUIREMENT?</span><h2>Let's discuss the scope before you commit.</h2></div><Link to="/contact">Contact NA Engineering <ArrowRight size={16}/></Link></div></div></section>
-  </main>;
+
+  const normalizedSearch = searchTerm.trim().toLowerCase();
+  const filteredArticles = insightArticles.filter((article) => {
+    const matchesCategory = activeCategory === "ALL" || article.category === activeCategory;
+    const searchableContent = [
+      article.title,
+      article.category,
+      article.description,
+      article.excerpt,
+      ...article.sections.flatMap((section) => [
+        section.heading,
+        ...(section.paragraphs || []),
+        ...(section.bullets || [])
+      ])
+    ].join(" ").toLowerCase();
+    return matchesCategory && (!normalizedSearch || searchableContent.includes(normalizedSearch));
+  });
+  const featuredArticle = insightArticles[0];
+
+  return (
+    <main className="insights-index-page">
+      <header className="insights-index-hero">
+        <div className="site-container insights-index-hero-grid">
+          <div className="insights-index-hero-copy">
+            <span className="insight-eyebrow"><BookOpen size={14}/> NA ENGINEERING SOLUTIONS / BLOG</span>
+            <h1>Practical knowledge for better project decisions.</h1>
+            <p>Clear, useful guides for industrial procurement, facility maintenance, HVAC systems, steel building projects and fire safety. Built for buyers, facility teams and project professionals who need the right questions before work begins.</p>
+            <div className="insights-hero-points"><span>Procurement checklists</span><span>Maintenance guidance</span><span>Project planning</span></div>
+            <a className="blog-hero-button" href="#blog-library">Explore all guides <ArrowRight size={16}/></a>
+          </div>
+          <div className="insights-index-hero-visual">
+            <img src="https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Industrial engineers coordinating mechanical equipment and pipework" loading="eager" decoding="async"/>
+            <div className="insights-hero-image-caption"><span>FIELD NOTES / 01</span><strong>Engineering. Supply. Execution.</strong></div>
+          </div>
+        </div>
+      </header>
+
+      <section className="blog-featured-section">
+        <div className="site-container">
+          <div className="blog-featured-card">
+            <Link className="blog-featured-image" to={"/blog/" + featuredArticle.slug} aria-label={"Read " + featuredArticle.title}>
+              <img src={featuredArticle.image} alt={featuredArticle.imageAlt} loading="lazy" decoding="async"/>
+            </Link>
+            <div className="blog-featured-content">
+              <span className="blog-featured-kicker"><span className="blog-featured-dot"/> FEATURED FIELD GUIDE</span>
+              <span className="blog-featured-category">{featuredArticle.category} <span>•</span> {featuredArticle.readTime}</span>
+              <h2><Link to={"/blog/" + featuredArticle.slug}>{featuredArticle.title}</Link></h2>
+              <p>{featuredArticle.excerpt}</p>
+              <Link className="insight-read-link" to={"/blog/" + featuredArticle.slug}>Read featured guide <ArrowRight size={16}/></Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section insights-blog-listing" id="blog-library">
+        <div className="site-container">
+          <div className="insights-listing-heading">
+            <div><span className="insight-eyebrow">THE KNOWLEDGE DESK</span><h2>Guides for the work you do every day.</h2></div>
+            <p>Browse practical notes, planning prompts and checklists. Always validate project-specific design, safety and compliance decisions with the responsible qualified professional.</p>
+          </div>
+
+          <div className="blog-library-tools">
+            <label className="blog-search-field">
+              <Search size={18} aria-hidden="true"/>
+              <span className="sr-only">Search blog articles</span>
+              <input type="search" value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="Search procurement, HVAC, maintenance..." aria-label="Search blog articles"/>
+              {searchTerm && <button type="button" onClick={() => setSearchTerm("")} aria-label="Clear search">Clear</button>}
+            </label>
+            <span className="blog-results-count">{filteredArticles.length} of {insightArticles.length} guides</span>
+          </div>
+
+          <div className="blog-category-filter" role="group" aria-label="Filter blog articles by topic">
+            {categories.map((category) => (
+              <button
+                type="button"
+                key={category}
+                className={activeCategory === category ? "blog-category-chip is-active" : "blog-category-chip"}
+                aria-pressed={activeCategory === category}
+                onClick={() => setActiveCategory(category)}
+              >{category === "ALL" ? "All topics" : category}</button>
+            ))}
+          </div>
+
+          {filteredArticles.length ? (
+            <div className="insight-card-grid">
+              {filteredArticles.map((article) => <ArticleCard key={article.slug} article={article}/>)}
+            </div>
+          ) : (
+            <div className="blog-empty-state">
+              <Search size={24}/>
+              <h3>No guides match your search</h3>
+              <p>Try a different keyword or choose another topic.</p>
+              <button type="button" onClick={() => { setSearchTerm(""); setActiveCategory("ALL"); }}>Show all guides</button>
+            </div>
+          )}
+
+          <div className="insights-contact-cta">
+            <div><span className="insight-eyebrow">HAVE A SPECIFIC REQUIREMENT?</span><h2>Let's discuss the scope before you commit.</h2></div>
+            <Link to="/contact">Contact NA Engineering <ArrowRight size={16}/></Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
 }
