@@ -107,8 +107,7 @@ export const insightArticles = [
       {"heading":"Before approving the site plan","bullets":["Documented hazard assessment and site layout reviewed","Equipment type, rating and location checked by a qualified fire-safety professional","Escape routes, signage and emergency access kept clear","Inspection, servicing and defect-reporting responsibilities assigned","Staff and contractor emergency instructions communicated","Required approvals and records kept available for review"]}
     ],
     related: [{ label: "Fire fighting equipment", href: "/services/fire-fighting-equipment" }, { label: "Contact our team", href: "/contact" }]
-  }
-
+  },
   {
     slug: "industrial-electrical-maintenance-checklist",
     category: "ELECTRICAL",
