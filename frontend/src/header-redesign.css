@@ -102,3 +102,71 @@ html,body{margin-top:0!important}
 .site-header{position:fixed!important;top:10px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important}
 @media(max-width:1100px){.App{padding-top:0!important}.site-header{top:10px!important}}
 @media(max-width:520px){.App{padding-top:0!important}.site-header{top:8px!important}}
+
+
+/* FINAL HERO SPACING / TYPOGRAPHY FIX
+   Keep the hero photo flush to the top while keeping hero copy clear of the floating navbar. */
+.hero{
+  min-height:720px!important;
+  height:auto!important;
+}
+.hero-content{
+  min-height:720px!important;
+  height:auto!important;
+  align-items:center!important;
+  padding:92px 0 42px!important;
+}
+.hero-copy{
+  max-width:790px!important;
+  padding-top:0!important;
+}
+.hero .hero-copy h1{
+  max-width:790px!important;
+  font-size:clamp(42px,4.2vw,60px)!important;
+  line-height:1.03!important;
+  letter-spacing:-.045em!important;
+  margin:18px 0 18px!important;
+}
+.hero .hero-copy .eyebrow{
+  margin-top:0!important;
+  font-size:10px!important;
+  letter-spacing:.17em!important;
+}
+.hero .hero-copy p{
+  max-width:690px!important;
+  font-size:15px!important;
+  line-height:1.75!important;
+}
+.hero .hero-actions{
+  margin-top:24px!important;
+  transform:none!important;
+}
+.hero .hero-note{
+  bottom:82px!important;
+}
+@media(max-width:1350px) and (min-width:1101px){
+  .hero,.hero-content{min-height:700px!important}
+  .hero-content{padding:94px 0 42px!important}
+  .hero .hero-copy h1{font-size:clamp(42px,4.1vw,56px)!important}
+}
+@media(max-width:1100px){
+  .hero,.hero-content{min-height:660px!important}
+  .hero-content{padding:104px 0 48px!important}
+  .hero .hero-copy h1{font-size:clamp(38px,5.5vw,54px)!important}
+  .hero .hero-copy p{font-size:14px!important;line-height:1.7!important}
+}
+@media(max-width:800px){
+  .hero,.hero-content{min-height:650px!important}
+  .hero-content{padding:104px 0 48px!important}
+  .hero .hero-copy h1{font-size:clamp(36px,7.5vw,50px)!important;line-height:1.05!important}
+  .hero .hero-copy p{font-size:14px!important}
+  .hero-note{display:none!important}
+}
+@media(max-width:520px){
+  .hero,.hero-content{min-height:620px!important}
+  .hero-content{padding:92px 0 42px!important}
+  .hero .hero-copy h1{font-size:clamp(33px,8.8vw,42px)!important;line-height:1.06!important}
+  .hero .hero-copy .eyebrow{font-size:9px!important}
+  .hero .hero-copy p{font-size:13px!important;line-height:1.7!important}
+  .hero .hero-actions .button{width:100%!important;justify-content:center!important}
+}
