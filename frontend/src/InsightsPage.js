@@ -98,7 +98,7 @@ export function InsightsPreview() {
     <div className="site-container">
       <div className="section-heading">
         <div><span className="insight-eyebrow"><BookOpen size={14}/> FIELD NOTES / PRACTICAL GUIDES</span><h2>Useful notes for site and procurement teams.</h2></div>
-        <Link className="insight-all-link" to="/insights">All insights <ArrowRight size={16}/></Link>
+        <Link className="insight-all-link" to="/insights">All blog posts <ArrowRight size={16}/></Link>
       </div>
       <div className="insight-card-grid">{insightArticles.slice(0,3).map(article=><ArticleCard key={article.slug} article={article}/>)}</div>
     </div>
@@ -112,7 +112,7 @@ export default function InsightsPage() {
     if (!article) return <Navigate to="/insights" replace />;
     return <main className="insight-article-page">
       <header className="insight-article-hero"><div className="site-container">
-        <Link className="insight-back" to="/insights"><ArrowLeft size={15}/> All insights</Link>
+        <Link className="insight-back" to="/insights"><ArrowLeft size={15}/> All blog posts</Link>
         <span className="insight-eyebrow">{article.category} / PRACTICAL GUIDE</span>
         <h1>{article.title}</h1><p>{article.excerpt}</p>
         <span className="insight-read-time"><Clock3 size={14}/> {article.readTime}</span>
@@ -127,7 +127,7 @@ export default function InsightsPage() {
     </main>;
   }
   return <main className="insights-index-page">
-    <header className="insights-index-hero"><div className="site-container"><span className="insight-eyebrow"><BookOpen size={14}/> INSIGHTS / FIELD NOTES</span><h1>Practical guides for engineering, maintenance and procurement.</h1><p>Checklists and straightforward guidance for industrial facilities, project teams and buyers. For a site-specific decision, confirm requirements with the responsible engineer or safety professional.</p></div></header>
+    <header className="insights-index-hero"><div className="site-container"><span className="insight-eyebrow"><BookOpen size={14}/> BLOG / FIELD NOTES</span><h1>Practical guides for engineering, maintenance and procurement.</h1><p>Checklists and straightforward guidance for industrial facilities, project teams and buyers. For a site-specific decision, confirm requirements with the responsible engineer or safety professional.</p></div></header>
     <section className="section"><div className="site-container"><div className="insight-card-grid">{insightArticles.map(article=><ArticleCard key={article.slug} article={article}/>)}</div><div className="insights-contact-cta"><div><span className="insight-eyebrow">HAVE A SPECIFIC REQUIREMENT?</span><h2>Let's discuss the scope before you commit.</h2></div><Link to="/contact">Contact NA Engineering <ArrowRight size={16}/></Link></div></div></section>
   </main>;
 }
