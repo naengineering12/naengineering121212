@@ -92,7 +92,7 @@ function Header(){
   const nav=[["Home","/"],["Services","/services"],["General Order Supplies","/supplies"],["IT Services","/it-services"],["Industries","/industries"],["Blog","/blog"],["Our Clients","/clients"]];
   return <header className="site-header" style={{position:"fixed",top:0,left:0,right:0,width:"100%",zIndex:99999,height:"78px"}}>
     <div className="site-container nav-wrap">
-      <Logo/>
+      <div className="header-brand-pill"><Logo/></div>
       <button className="menu-toggle" data-testid="mobile-menu-button" onClick={()=>setOpen(!open)} aria-label="Toggle navigation" aria-expanded={open}>{open?<X/>:<Menu/>}</button>
       <div className={open?"nav-cluster open":"nav-cluster"}>
         <nav className={open?"nav-links open":"nav-links"} aria-label="Main navigation">
