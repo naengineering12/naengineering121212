@@ -1122,3 +1122,28 @@ html,body{margin-top:0!important}
     white-space:normal!important;
   }
 }
+
+
+/* Apply the same light CTA typography to every instance, including the fallback/404 CTA. */
+.cta h2{
+  color:#102844!important;
+}
+.cta p{
+  color:#536477!important;
+}
+.cta .eyebrow{
+  color:#a75b18!important;
+}
+.cta .cta-inner:not(.cta-inner-split){
+  padding-left:24px!important;
+  border-left:3px solid #f4a261!important;
+}
+.cta .cta-inner:not(.cta-inner-split) .cta-actions{
+  margin-top:24px!important;
+}
+@media(max-width:520px){
+  .cta .cta-inner:not(.cta-inner-split){
+    padding-left:15px!important;
+    border-left-width:2px!important;
+  }
+}
