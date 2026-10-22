@@ -11,7 +11,7 @@ export const insightArticles = [
     description: "A practical checklist for preparing a general order supply request so a supplier can quote accurately and reduce follow-up questions.",
     excerpt: "A little detail up front can make procurement faster. Use this checklist before sending an item list to a general order supplier in Lahore.",
     readTime: "4 min read",
-    image: "https://cdn.shopify.com/s/files/1/0478/1123/1902/files/contact_uip.png?v=1767893282&width=800",
+    image: "https://images.pexels.com/photos/37912780/pexels-photo-37912780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "Organized industrial spare parts and components on warehouse shelving",
     sections: [
       { heading: "Start with a clear item description", paragraphs: ["Include the common item name and, where possible, the brand, model, part number, material, size, grade or technical specification. A description such as “bearing” may be too broad to identify the exact part."] },
@@ -32,7 +32,7 @@ export const insightArticles = [
     description: "Key questions to ask when selecting an industrial maintenance and supply partner for a factory, warehouse or commercial facility.",
     excerpt: "The right partner should understand specifications, site conditions, safety rules, lead times and support after delivery — not just the lowest line price.",
     readTime: "5 min read",
-    image: "https://wahaair.com/assets/img/services/mechanical-installation-services.webp",
+    image: "https://images.pexels.com/photos/4483773/pexels-photo-4483773.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "Technicians inspecting industrial mechanical pipework and equipment",
     sections: [
       { heading: "Look for scope clarity", paragraphs: ["Ask whether the supplier can explain the proposed scope, exclusions, assumptions and handover requirements. Clear scope reduces the risk of missing materials or unexpected site work later."] },
@@ -53,7 +53,7 @@ export const insightArticles = [
     description: "A practical HVAC preventive maintenance checklist for commercial buildings, factories, packaging areas and other facilities.",
     excerpt: "Routine inspections help facilities teams spot airflow, filter, drainage and operating issues before they become disruptive. Use this checklist with the equipment manufacturer's instructions.",
     readTime: "5 min read",
-    image: "https://quorvia-congo.com/assets/maintenance-climatisation-froid.webp",
+    image: "https://images.pexels.com/photos/32497161/pexels-photo-32497161.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "HVAC technician checking an industrial cooling and refrigeration unit",
     sections: [
       { heading: "Inspect filters and airflow", paragraphs: ["Check filter condition and replacement intervals, inspect accessible grilles and confirm that supply and return paths are not blocked. Abnormal noise or uneven airflow may need a qualified technician to investigate."] },
@@ -74,7 +74,7 @@ export const insightArticles = [
     description: "A pre-engineered building planning checklist covering use, dimensions, loads, foundations, access, services and installation coordination.",
     excerpt: "Before a PEB shed or industrial steel structure moves to fabrication, align the site team, designer, supplier and installer on the critical project inputs.",
     readTime: "4 min read",
-    image: "https://image.made-in-china.com/202f0j00YHVBUTMzOqbc/High-Quality-Pre-Engineered-Building-Steel-Warehouse-Steel-Frame-Structure-with-Galvanized-or-Painting.webp",
+    image: "https://images.pexels.com/photos/7961889/pexels-photo-7961889.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "Steel frame erection for a pre-engineered warehouse building",
     sections: [
       { heading: "Define the use and clear dimensions", paragraphs: ["Confirm the intended use, building length and width, clear height, bay spacing, door openings, crane requirements and future expansion needs. These decisions affect the structural scheme and layout."] },
@@ -94,7 +94,7 @@ export const insightArticles = [
     description: "Important considerations when reviewing fire safety equipment needs for a commercial building or industrial facility.",
     excerpt: "Equipment selection should follow a site's hazards, layout, applicable codes and assessment by a qualified fire-safety professional.",
     readTime: "4 min read",
-    image: "https://deltahashim.com/images/sectors/Industrial-Facilities.jpeg",
+    image: "https://images.pexels.com/photos/19143940/pexels-photo-19143940.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     imageAlt: "Industrial fire safety installation and equipment in a facility",
     sections: [
       { heading: "Start with a documented risk assessment", paragraphs: ["Review the site's activities, combustible materials, electrical areas, storage layout, occupancy and access routes. Equipment selection and placement should be based on the hazard assessment and applicable local requirements."] },
@@ -173,7 +173,7 @@ export default function InsightsPage() {
       <div className="insights-hero-points"><span>Procurement checklists</span><span>Maintenance guidance</span><span>Project planning</span></div>
     </div>
     <div className="insights-index-hero-visual">
-      <img src="https://wahaair.com/assets/img/services/mechanical-installation-services.webp" alt="Industrial engineers coordinating mechanical equipment and pipework" loading="eager" decoding="async"/>
+      <img src="https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Industrial engineers coordinating mechanical equipment and pipework" loading="eager" decoding="async"/>
       <div className="insights-hero-image-caption"><span>FIELD NOTES / 01</span><strong>Engineering. Supply. Execution.</strong></div>
     </div>
   </div></header>
