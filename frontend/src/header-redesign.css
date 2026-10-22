@@ -856,3 +856,42 @@ html,body{margin-top:0!important}
   .site-header .menu-toggle{width:40px!important;height:40px!important;flex-basis:40px!important}
   .site-header .nav-cluster{top:calc(100% + 8px)!important;padding:9px!important;border-radius:18px!important}
 }
+
+
+/* SINGLE CONTACT BUTTON: the CTA is now the only Contact Us link in the nav. */
+.site-header .nav-links > .nav-contact-cta{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-height:42px!important;
+  margin:0 0 0 5px!important;
+  padding:0 22px!important;
+  border:1px solid rgba(255,181,102,.34)!important;
+  border-radius:999px!important;
+  background:linear-gradient(120deg,#e98216,#ff9b32)!important;
+  color:#fff!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  line-height:1.1!important;
+  box-shadow:0 4px 12px rgba(233,130,22,.14)!important;
+  white-space:nowrap!important;
+}
+.site-header .nav-links > .nav-contact-cta:hover{
+  background:linear-gradient(120deg,#ef8a1c,#ffab44)!important;
+  color:#fff!important;
+}
+/* Keep the single CTA visible as the last item in the expanded mobile menu. */
+@media(max-width:1100px){
+  .site-header .nav-links > .nav-contact-cta{
+    display:flex!important;
+    width:100%!important;
+    min-height:46px!important;
+    justify-content:center!important;
+    margin:8px 0 0!important;
+    padding:0 16px!important;
+    white-space:normal!important;
+  }
+  .site-header .nav-contact-cta{display:flex!important}
+}
