@@ -96,3 +96,9 @@
 @media(prefers-reduced-motion:reduce){
   .site-header,.site-header .nav-page-link,.site-header .nav-contact-cta{transition:none}
 }
+/* HERO OVERLAY FIX: let the industrial hero start at the top behind the floating header. */
+.App{padding-top:0!important;margin-top:0!important}
+html,body{margin-top:0!important}
+.site-header{position:fixed!important;top:10px!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important}
+@media(max-width:1100px){.App{padding-top:0!important}.site-header{top:10px!important}}
+@media(max-width:520px){.App{padding-top:0!important}.site-header{top:8px!important}}
