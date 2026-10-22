@@ -35,7 +35,7 @@ export const insightArticles = [
     excerpt: "The right partner should understand specifications, site conditions, safety rules, lead times and support after delivery — not just the lowest line price.",
     readTime: "5 min read",
     image: "https://images.pexels.com/photos/4483773/pexels-photo-4483773.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    imageAlt: "Technicians inspecting industrial mechanical pipework and equipment",
+    imageAlt: "Industrial warehouse aisle with stocked shelves and organized materials",
     sections: [
       { heading: "Look for scope clarity", paragraphs: ["Ask whether the supplier can explain the proposed scope, exclusions, assumptions and handover requirements. Clear scope reduces the risk of missing materials or unexpected site work later."] },
       { heading: "Match the work to site conditions", paragraphs: ["Industrial environments have different access, shutdown, safety and operating constraints. Share site photos, equipment tags, dimensions, drawings and permit requirements before the quotation is finalised."] },
