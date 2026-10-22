@@ -280,7 +280,6 @@ export default function InsightsPage() {
         <div className="site-container">
           <figure className="insight-article-cover">
             <img src={article.image} alt={article.imageAlt} loading="eager" decoding="async" />
-            <figcaption>{article.imageAlt}</figcaption>
           </figure>
         </div>
 
