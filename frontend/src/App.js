@@ -245,14 +245,16 @@ function RouteSEO() {
         description: "Explore civil, mechanical, electrical, HVAC, PEB, fire-fighting and other engineering services for industrial and commercial projects in Lahore."
       };
       if (service) return {
-        title: service.slug === "boiler-chemicals" ? "Boiler Chemicals in Lahore | NA Engineering Solutions" : service.slug === "mechanical-electrical-supplies" ? "Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions" : `${service.title} in Lahore | NA Engineering Solutions`,
+        title: service.slug === "boiler-chemicals" ? "Boiler Chemicals in Lahore | NA Engineering Solutions" : service.slug === "mechanical-electrical-supplies" ? "Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions" : service.slug === "utilities-facility-maintenance" ? "Utility & Facility Maintenance in Lahore | NA Engineering Solutions" : `${service.title} in Lahore | NA Engineering Solutions`,
         description: service.slug === "boiler-chemicals"
           ? "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan."
           : service.slug === "engineering-consultancy"
             ? "Engineering consultancy in Lahore for project planning, technical reviews, specifications and execution support for commercial and industrial projects."
             : service.slug === "mechanical-electrical-supplies"
               ? "NA Engineering Solutions supplies industrial motors, pumps, gearboxes, valves, cables and electrical panels for industrial projects in Lahore, Pakistan."
-              : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
+              : service.slug === "utilities-facility-maintenance"
+                ? "Utility and facility maintenance in Lahore for water, compressed air, steam and boiler systems, preventive servicing and repairs by NA Engineering Solutions."
+                : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
       };
       if (path === "/supplies") return {
         title: "General Order Supplies in Lahore | NA Engineering Solutions",
