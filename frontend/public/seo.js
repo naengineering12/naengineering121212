@@ -53,7 +53,7 @@
     'safety-security-systems': ['Safety & Security Systems in Lahore | NA Engineering Solutions', 'CCTV, access control, biometric attendance, alarm systems, emergency lighting, safety signage and related security equipment support in Lahore.'],
     'waterproofing-solutions': ['Waterproofing Services in Lahore | NA Engineering Solutions', 'Roof, basement, water tank and wet-area waterproofing with chemicals, membranes and leakage rectification in Lahore.'],
     'pumps-valves-pneumatic': ['Pumps, Valves & Pneumatic Fittings | Lahore', 'Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support.'],
-    'engineering-consultancy': ['Engineering Consultancy in Lahore | NA Engineering Solutions', 'Engineering consultancy for project scope, technical reviews, specifications, planning and execution coordination for industrial and commercial projects in Lahore.']
+    'engineering-consultancy': ['Engineering Consultancy in Lahore | NA Engineering Solutions', '${desc}']
   };
   const articlePages = {
     'prepare-a-general-order-supply-request': ['How to Prepare a General Order Supply Request | NA Engineering Solutions', 'A checklist for clear item descriptions, specifications, quantities, delivery details and documents when requesting general order supplies.'],
