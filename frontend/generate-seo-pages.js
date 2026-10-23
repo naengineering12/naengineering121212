@@ -93,8 +93,11 @@ function routeMetadata(route) {
     const slug = route.slice("/services/".length);
     const service = services.find((item) => item.slug === slug);
     if (!service) return null;
+    const serviceTitleOverrides = {
+      "boiler-chemicals": "Boiler Chemicals in Lahore | NA Engineering Solutions"
+    };
     return {
-      title: service.title + " in Lahore | NA Engineering Solutions",
+      title: serviceTitleOverrides[slug] || (service.title + " in Lahore | NA Engineering Solutions"),
       description: service.description + " NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.",
       type: "service",
       service
