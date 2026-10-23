@@ -1395,3 +1395,13 @@ html,body{margin-top:0!important}
     margin-top:6px!important;
   }
 }
+
+
+/* Image performance: reduce the mobile hero background payload while preserving the same treatment. */
+@media(max-width:768px){
+  .hero-bg{
+    background:
+      linear-gradient(90deg,rgba(11,31,58,.94) 0%,rgba(11,31,58,.78) 48%,rgba(11,31,58,.34) 100%),
+      url("https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=900&q=48") center/cover!important;
+  }
+}
