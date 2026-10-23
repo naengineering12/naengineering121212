@@ -245,8 +245,8 @@ function RouteSEO() {
         description: "Explore civil, mechanical, electrical, HVAC, PEB, fire-fighting and other engineering services for industrial and commercial projects in Lahore."
       };
       if (service) return {
-        title: `${service.title} in Lahore | NA Engineering Solutions`,
-        description: `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
+        title: service.slug === "boiler-chemicals" ? "Boiler Chemicals in Lahore | NA Engineering Solutions" : `${service.title} in Lahore | NA Engineering Solutions`,
+        description: service.slug === "boiler-chemicals" ? "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan." : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
       };
       if (path === "/supplies") return {
         title: "General Order Supplies in Lahore | NA Engineering Solutions",
