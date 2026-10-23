@@ -224,26 +224,20 @@ function renderPage(route, page, template) {
     html = html.replace("</head>", "  " + schemaTag + "\n</head>");
   }
 
-  const fallbackStart = "<!--SEO_HOME_FALLBACK_START-->";
-  const fallbackEnd = "<!--SEO_HOME_FALLBACK_END-->";
-  if (route === "/") {
-    if (!html.includes(fallbackStart) || !html.includes("<h1>")) {
-      throw new Error("Homepage initial HTML must include a crawlable H1 fallback.");
-    }
-  } else {
-    const fallbackStartIndex = html.indexOf(fallbackStart);
-    const fallbackEndIndex = fallbackStartIndex >= 0
-      ? html.indexOf(fallbackEnd, fallbackStartIndex + fallbackStart.length)
-      : -1;
-    if (fallbackStartIndex >= 0 && fallbackEndIndex >= 0) {
-      html = html.slice(0, fallbackStartIndex) + html.slice(fallbackEndIndex + fallbackEnd.length);
+  // The CRA production build strips HTML comments, so remove the source-only
+  // homepage fallback by its actual section markup from every non-home snapshot.
+  if (route !== "/") {
+    const fallbackStartIndex = html.indexOf('<section class="hero">');
+    if (fallbackStartIndex >= 0) {
+      const fallbackEndIndex = html.indexOf("</section>", fallbackStartIndex);
+      if (fallbackEndIndex >= 0) {
+        html = html.slice(0, fallbackStartIndex) + html.slice(fallbackEndIndex + "</section>".length);
+      }
     }
   }
 
   const relative = route.slice(1);
-  const output = route === "/"
-    ? path.join(buildDir, "seo-pages", "home.html")
-    : path.join(buildDir, "seo-pages", relative + ".html");
+  const output = path.join(buildDir, "seo-pages", relative + ".html");
   fs.mkdirSync(path.dirname(output), { recursive: true });
   fs.writeFileSync(output, html, "utf8");
   return output;
@@ -251,7 +245,7 @@ function renderPage(route, page, template) {
 
 const sitemapRoutes = [...sitemapSource.matchAll(/<loc>(.*?)<\/loc>/g)]
   .map((match) => match[1].replace("https://www.naengineeringsolutions.com", "") || "/");
-const routes = sitemapRoutes;
+const routes = sitemapRoutes.filter((route) => route !== "/");
 const expectedBlogRoutes = ["/blog", ...articles.map((article) => "/blog/" + article.slug)];
 const missingBlogRoutes = expectedBlogRoutes.filter((route) => !routes.includes(route));
 const oldInsightsRoutes = routes.filter((route) => route === "/insights" || route.startsWith("/insights/"));
