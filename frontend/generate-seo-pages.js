@@ -97,7 +97,8 @@ function routeMetadata(route) {
       "boiler-chemicals": "Boiler Chemicals in Lahore | NA Engineering Solutions"
     };
     const serviceDescriptionOverrides = {
-      "boiler-chemicals": "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan."
+      "boiler-chemicals": "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan.",
+      "engineering-consultancy": "Engineering consultancy in Lahore for project planning, technical reviews, specifications and execution support for commercial and industrial projects."
     };
     return {
       title: serviceTitleOverrides[slug] || (service.title + " in Lahore | NA Engineering Solutions"),
