@@ -233,7 +233,7 @@ function renderPage(route, page, template) {
     html = html.replace(rootMarker, '<div id="root">' + homeFallback + '</div>');
   }
 
-  const relative = route.replace(/^\\/+/, "");
+  const relative = route.slice(1);
   const output = route === "/"
     ? path.join(buildDir, "seo-pages", "home.html")
     : path.join(buildDir, "seo-pages", relative + ".html");
