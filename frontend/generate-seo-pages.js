@@ -224,13 +224,20 @@ function renderPage(route, page, template) {
     html = html.replace("</head>", "  " + schemaTag + "\n</head>");
   }
 
-  const homeFallbackPattern = /<!--SEO_HOME_FALLBACK_START-->[\\s\\S]*?<!--SEO_HOME_FALLBACK_END-->/;
+  const fallbackStart = "<!--SEO_HOME_FALLBACK_START-->";
+  const fallbackEnd = "<!--SEO_HOME_FALLBACK_END-->";
   if (route === "/") {
-    if (!homeFallbackPattern.test(html) || !/<h1[\\s>]/i.test(html)) {
+    if (!html.includes(fallbackStart) || !html.includes("<h1>")) {
       throw new Error("Homepage initial HTML must include a crawlable H1 fallback.");
     }
   } else {
-    html = html.replace(homeFallbackPattern, "");
+    const fallbackStartIndex = html.indexOf(fallbackStart);
+    const fallbackEndIndex = fallbackStartIndex >= 0
+      ? html.indexOf(fallbackEnd, fallbackStartIndex + fallbackStart.length)
+      : -1;
+    if (fallbackStartIndex >= 0 && fallbackEndIndex >= 0) {
+      html = html.slice(0, fallbackStartIndex) + html.slice(fallbackEndIndex + fallbackEnd.length);
+    }
   }
 
   const relative = route.slice(1);
