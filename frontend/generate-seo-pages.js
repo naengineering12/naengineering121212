@@ -96,9 +96,12 @@ function routeMetadata(route) {
     const serviceTitleOverrides = {
       "boiler-chemicals": "Boiler Chemicals in Lahore | NA Engineering Solutions"
     };
+    const serviceDescriptionOverrides = {
+      "boiler-chemicals": "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan."
+    };
     return {
       title: serviceTitleOverrides[slug] || (service.title + " in Lahore | NA Engineering Solutions"),
-      description: service.description + " NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.",
+      description: serviceDescriptionOverrides[slug] || (service.description + " NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan."),
       type: "service",
       service
     };
