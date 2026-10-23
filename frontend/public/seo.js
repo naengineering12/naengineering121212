@@ -45,7 +45,7 @@
     'electrical-works': ['Electrical Works in Lahore | NA Engineering Solutions', 'Industrial electrical installation, lighting, cables, accessories, maintenance, troubleshooting and material supply in Lahore.'],
     'mechanical-electrical-supplies': ['Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions', 'Industrial motors, pumps, gearboxes, valves, conveyors, cables, panels, breakers and spare parts supplied in Lahore.'],
     'utilities-facility-maintenance': ['Utility & Facility Maintenance in Lahore | NA Engineering Solutions', 'Maintenance support for water, compressed air and steam systems, compressors, boilers, preventive maintenance and AMC requirements in Lahore.'],
-    'boiler-chemicals': ['Boiler Chemicals & Water Treatment | Lahore | NA Engineering Solutions', 'Boiler water treatment chemicals, dosing systems, testing and technical support for corrosion, scaling and efficiency requirements in Lahore.'],
+    'boiler-chemicals': ['Boiler Chemicals in Lahore | NA Engineering Solutions', '${desc}'],
     'seamless-pipes-fittings': ['Seamless MS & SS Pipes & Fittings | Lahore', 'Seamless Mild Steel and Stainless Steel pipes, flanges, elbows, reducers, tees and project-specific fittings supplied in Lahore.'],
     'wastewater-treatment-plant': ['WWTP Supplies & Services in Lahore | NA Engineering Solutions', 'Wastewater treatment equipment, pumps, blowers, diffusers, dosing systems, chemicals and O&M support in Lahore.'],
     'hvac-supplies-services': ['HVAC Services & Supplies in Lahore | NA Engineering Solutions', 'HVAC equipment, installation, ducting, chillers, AHUs, FCUs, exhaust and fresh-air systems, maintenance and filters in Lahore.'],
