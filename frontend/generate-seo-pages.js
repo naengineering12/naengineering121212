@@ -224,14 +224,51 @@ function renderPage(route, page, template) {
     html = html.replace("</head>", "  " + schemaTag + "\n</head>");
   }
 
-  // The CRA production build strips HTML comments, so remove the source-only
-  // homepage fallback by its actual section markup from every non-home snapshot.
+  // Replace the source homepage hero with a route-specific, visible page intro.
+  // This gives crawlers a semantic H1 in the initial HTML before the React app mounts.
   if (route !== "/") {
     const fallbackStartIndex = html.indexOf('<section class="hero">');
     if (fallbackStartIndex >= 0) {
       const fallbackEndIndex = html.indexOf("</section>", fallbackStartIndex);
       if (fallbackEndIndex >= 0) {
-        html = html.slice(0, fallbackStartIndex) + html.slice(fallbackEndIndex + "</section>".length);
+        let eyebrow = "NA ENGINEERING SOLUTIONS";
+        let heading = page.service?.title || page.article?.title || page.title.split(" | ")[0];
+        let intro = page.description || "";
+
+        if (route === "/services") {
+          eyebrow = "CAPABILITIES / 01";
+          heading = "Engineering services in Lahore";
+          intro = "We provide practical engineering and maintenance support for factories, commercial facilities and project sites, covering civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing and industrial work.";
+        } else if (route === "/supplies") {
+          eyebrow = "GENERAL ORDER / 01";
+          heading = "General Order Supplies in Lahore";
+        } else if (route === "/it-services") {
+          eyebrow = "IT SERVICES / 01";
+          heading = "IT Services & Equipment in Lahore";
+        } else if (route === "/industries") {
+          eyebrow = "INDUSTRIES / 01";
+          heading = "Industries We Serve";
+        } else if (route === "/clients") {
+          eyebrow = "OUR CLIENTS / 01";
+          heading = "Our Clients & Project Experience";
+        } else if (route === "/contact") {
+          eyebrow = "CONTACT / 01";
+          heading = "Contact NA Engineering Solutions";
+        } else if (route === "/blog") {
+          eyebrow = "ENGINEERING / INDUSTRIAL INSIGHTS";
+          heading = "Engineering & Industrial Blog";
+        } else if (route.startsWith("/services/")) {
+          eyebrow = "SERVICES / " + (page.service?.title || "ENGINEERING").toUpperCase();
+          heading = page.service?.title || heading;
+        } else if (route.startsWith("/blog/")) {
+          eyebrow = "ENGINEERING / INDUSTRIAL INSIGHTS";
+          heading = page.article?.title || heading;
+        }
+
+        const staticIntro = route === "/admin"
+          ? ""
+          : '<section class="page-intro"><div class="site-container"><span class="eyebrow">' + escapeHtml(eyebrow) + '</span><h1 data-testid="page-heading">' + escapeHtml(heading) + '</h1><p>' + escapeHtml(intro) + '</p></div></section>';
+        html = html.slice(0, fallbackStartIndex) + staticIntro + html.slice(fallbackEndIndex + "</section>".length);
       }
     }
   }
