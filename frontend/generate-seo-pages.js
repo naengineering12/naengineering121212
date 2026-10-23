@@ -224,13 +224,13 @@ function renderPage(route, page, template) {
     html = html.replace("</head>", "  " + schemaTag + "\n</head>");
   }
 
+  const homeFallbackPattern = /<!--SEO_HOME_FALLBACK_START-->[\\s\\S]*?<!--SEO_HOME_FALLBACK_END-->/;
   if (route === "/") {
-    const homeFallback = '<header class="site-header"><div class="site-container nav-wrap"><div class="header-brand-pill"><a href="/" class="logo" aria-label="NA Engineering Solutions home"><img class="logo-img" src="/logo-gradient-transparent-v2.webp" alt="NA Engineering Solutions" width="50" height="50" /><span class="logo-text"><b>NA ENGINEERING</b><small>SOLUTIONS</small></span></a></div><nav class="nav-cluster" aria-label="Main navigation"><div class="nav-links"><a class="nav-page-link nav-current" href="/">Home</a><a class="nav-page-link" href="/services">Services</a><a class="nav-page-link" href="/supplies">General Order Supplies</a><a class="nav-page-link" href="/it-services">IT Services</a><a class="nav-page-link" href="/industries">Industries</a><a class="nav-page-link" href="/blog">Blog</a><a class="nav-page-link" href="/clients">Our Clients</a><a class="nav-page-link nav-contact-cta" href="/contact">Contact Us →</a></div></nav></div></header><section class="hero"><div class="hero-bg"></div><div class="site-container hero-content"><div class="hero-copy"><span class="eyebrow">ENGINEERING / SUPPLY / EXECUTION</span><h1><span class="mask-line"><span style="color:var(--amber)">NA Engineering Solutions</span></span><span class="mask-line"><span>Engineering Services in Lahore</span></span></h1><p>NA Engineering Solutions supports factories, commercial facilities and project teams in Lahore with engineering consultancy, civil and mechanical works, HVAC, electrical installation, PEB, fire protection, industrial maintenance and General Order Supplies &amp; Services. Tell us your scope, item list or site requirement and we will discuss the practical next steps.</p><div class="hero-actions"><a href="/services" class="button button-secondary">Explore Our Services →</a></div></div><div class="hero-note"><span>01</span><span>Planning to<br/>project support</span></div></div><div class="hero-scroll">SCROLL TO EXPLORE</div></section>';
-    const rootMarker = '<div id="root"></div>';
-    if (!html.includes(rootMarker)) {
-      throw new Error("Could not insert the homepage H1 snapshot: root marker is missing.");
+    if (!homeFallbackPattern.test(html) || !/<h1[\\s>]/i.test(html)) {
+      throw new Error("Homepage initial HTML must include a crawlable H1 fallback.");
     }
-    html = html.replace(rootMarker, '<div id="root">' + homeFallback + '</div>');
+  } else {
+    html = html.replace(homeFallbackPattern, "");
   }
 
   const relative = route.slice(1);
