@@ -94,11 +94,13 @@ function routeMetadata(route) {
     const service = services.find((item) => item.slug === slug);
     if (!service) return null;
     const serviceTitleOverrides = {
-      "boiler-chemicals": "Boiler Chemicals in Lahore | NA Engineering Solutions"
+      "boiler-chemicals": "Boiler Chemicals in Lahore | NA Engineering Solutions",
+      "mechanical-electrical-supplies": "Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions"
     };
     const serviceDescriptionOverrides = {
       "boiler-chemicals": "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan.",
-      "engineering-consultancy": "Engineering consultancy in Lahore for project planning, technical reviews, specifications and execution support for commercial and industrial projects."
+      "engineering-consultancy": "Engineering consultancy in Lahore for project planning, technical reviews, specifications and execution support for commercial and industrial projects.",
+      "mechanical-electrical-supplies": "NA Engineering Solutions supplies industrial motors, pumps, gearboxes, valves, cables and electrical panels for industrial projects in Lahore, Pakistan."
     };
     return {
       title: serviceTitleOverrides[slug] || (service.title + " in Lahore | NA Engineering Solutions"),
