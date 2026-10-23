@@ -43,17 +43,17 @@
     'mechanical-engineering': ['Mechanical Engineering Services in Lahore | NA Engineering Solutions', 'Mechanical services in Lahore covering pumps, motors, gearboxes, conveyors, fabrication, welding, industrial repair and spare parts.'],
     'peb-works': ['PEB Works in Lahore | NA Engineering Solutions', 'PEB sheds, structural steel, industrial structures, platforms, walkways, canopies, installation and modification support in Lahore.'],
     'electrical-works': ['Electrical Works in Lahore | NA Engineering Solutions', 'Industrial electrical installation, lighting, cables, accessories, maintenance, troubleshooting and material supply in Lahore.'],
-    'mechanical-electrical-supplies': ['${meTitle}', '${meDesc}'],
-    'utilities-facility-maintenance': ['${title}', '${desc}'],
-    'boiler-chemicals': ['Boiler Chemicals in Lahore | NA Engineering Solutions', '${boilerDesc}'],
-    'seamless-pipes-fittings': ['Seamless MS & SS Pipes & Fittings | Lahore', 'Seamless Mild Steel and Stainless Steel pipes, flanges, elbows, reducers, tees and project-specific fittings supplied in Lahore.'],
+    'mechanical-electrical-supplies': ["Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions", "NA Engineering Solutions supplies industrial motors, pumps, gearboxes, valves, cables and electrical panels for industrial projects in Lahore, Pakistan."],
+    'utilities-facility-maintenance': ["Utility & Facility Maintenance in Lahore | NA Engineering Solutions", "Utility and facility maintenance in Lahore for water, compressed air, steam and boiler systems, preventive servicing and repairs by NA Engineering Solutions."],
+    'boiler-chemicals': ["Boiler Chemicals in Lahore | NA Engineering Solutions", "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan."],
+    'seamless-pipes-fittings': ["Seamless Pipes & Fittings in Lahore | NA Engineering Solutions", "NA Engineering Solutions supplies seamless MS and SS pipes, flanges, elbows, reducers and tees in project-specific grades and sizes across Lahore, Pakistan."],
     'wastewater-treatment-plant': ['WWTP Supplies & Services in Lahore | NA Engineering Solutions', 'Wastewater treatment equipment, pumps, blowers, diffusers, dosing systems, chemicals and O&M support in Lahore.'],
     'hvac-supplies-services': ['HVAC Services & Supplies in Lahore | NA Engineering Solutions', 'HVAC equipment, installation, ducting, chillers, AHUs, FCUs, exhaust and fresh-air systems, maintenance and filters in Lahore.'],
     'fire-fighting-equipment': ['Fire Fighting Equipment in Lahore | NA Engineering Solutions', 'Fire extinguishers, hoses, hydrants, sprinklers and related accessories with refilling and service support in Lahore.'],
     'safety-security-systems': ['Safety & Security Systems in Lahore | NA Engineering Solutions', 'CCTV, access control, biometric attendance, alarm systems, emergency lighting, safety signage and related security equipment support in Lahore.'],
     'waterproofing-solutions': ['Waterproofing Services in Lahore | NA Engineering Solutions', 'Roof, basement, water tank and wet-area waterproofing with chemicals, membranes and leakage rectification in Lahore.'],
     'pumps-valves-pneumatic': ['Pumps, Valves & Pneumatic Fittings | Lahore', 'Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support.'],
-    'engineering-consultancy': ['Engineering Consultancy in Lahore | NA Engineering Solutions', '${desc}']
+    'engineering-consultancy': ["Engineering Consultancy in Lahore | NA Engineering Solutions", "Engineering consultancy in Lahore for project planning, technical reviews, specifications and execution support for commercial and industrial projects."]
   };
   const articlePages = {
     'prepare-a-general-order-supply-request': ['How to Prepare a General Order Supply Request | NA Engineering Solutions', 'A checklist for clear item descriptions, specifications, quantities, delivery details and documents when requesting general order supplies.'],
