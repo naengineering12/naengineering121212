@@ -3,6 +3,10 @@
   "outputDirectory": "build",
   "rewrites": [
     {
+      "source": "/",
+      "destination": "/seo-pages/home.html"
+    },
+    {
       "source": "/services",
       "destination": "/seo-pages/services.html"
     },
