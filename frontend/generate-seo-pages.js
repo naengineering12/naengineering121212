@@ -97,14 +97,16 @@ function routeMetadata(route) {
       "boiler-chemicals": "Boiler Chemicals in Lahore | NA Engineering Solutions",
       "mechanical-electrical-supplies": "Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions",
       "utilities-facility-maintenance": "Utility & Facility Maintenance in Lahore | NA Engineering Solutions",
-      "seamless-pipes-fittings": "Seamless Pipes & Fittings in Lahore | NA Engineering Solutions"
+      "seamless-pipes-fittings": "Seamless Pipes & Fittings in Lahore | NA Engineering Solutions",
+      "wastewater-treatment-plant": "Wastewater Treatment Plant Services | NA Engineering Solutions"
     };
     const serviceDescriptionOverrides = {
       "boiler-chemicals": "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan.",
       "engineering-consultancy": "Engineering consultancy in Lahore for project planning, technical reviews, specifications and execution support for commercial and industrial projects.",
       "mechanical-electrical-supplies": "NA Engineering Solutions supplies industrial motors, pumps, gearboxes, valves, cables and electrical panels for industrial projects in Lahore, Pakistan.",
       "utilities-facility-maintenance": "Utility and facility maintenance in Lahore for water, compressed air, steam and boiler systems, preventive servicing and repairs by NA Engineering Solutions.",
-      "seamless-pipes-fittings": "NA Engineering Solutions supplies seamless MS and SS pipes, flanges, elbows, reducers and tees in project-specific grades and sizes across Lahore, Pakistan."
+      "seamless-pipes-fittings": "NA Engineering Solutions supplies seamless MS and SS pipes, flanges, elbows, reducers and tees in project-specific grades and sizes across Lahore, Pakistan.",
+      "wastewater-treatment-plant": "NA Engineering Solutions supplies wastewater treatment equipment, pumps, blowers, diffusers and dosing systems for industrial projects in Lahore, Pakistan."
     };
     return {
       title: serviceTitleOverrides[slug] || (service.title + " in Lahore | NA Engineering Solutions"),
