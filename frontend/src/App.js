@@ -246,7 +246,11 @@ function RouteSEO() {
       };
       if (service) return {
         title: service.slug === "boiler-chemicals" ? "Boiler Chemicals in Lahore | NA Engineering Solutions" : `${service.title} in Lahore | NA Engineering Solutions`,
-        description: service.slug === "boiler-chemicals" ? "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan." : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
+        description: service.slug === "boiler-chemicals"
+          ? "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan."
+          : service.slug === "engineering-consultancy"
+            ? "Engineering consultancy in Lahore for project planning, technical reviews, specifications and execution support for commercial and industrial projects."
+            : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
       };
       if (path === "/supplies") return {
         title: "General Order Supplies in Lahore | NA Engineering Solutions",
