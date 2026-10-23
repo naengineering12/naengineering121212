@@ -41,7 +41,8 @@
         "/it-services":"https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
         "/industries":"https://images.unsplash.com/photo-1567789884554-0b844b597180"
       };
-      var path=window.location.pathname.replace(/\\/+$/,"")||"/";
+      var path=window.location.pathname||"/";
+      while(path.length>1 && path.endsWith("/"))path=path.slice(0,-1);
       var base=firstImages[path];
       if(!base)return;
       var isHome=path==="/";
