@@ -33,6 +33,10 @@ if (services.length < 10 || articles.length < 5) {
 }
 
 const topLevel = {
+  "/": {
+    title: "NA Engineering Solutions | Engineering Services & Supplies in Lahore",
+    description: "NA Engineering Solutions provides engineering consultancy, civil and mechanical works, HVAC, electrical installation, PEB, fire protection, industrial maintenance and General Order Supplies & Services in Lahore, Pakistan."
+  },
   "/services": {
     title: "Engineering Services in Lahore | NA Engineering Solutions",
     description: "Explore civil, mechanical, electrical, HVAC, PEB, fire-fighting and other engineering services for industrial and commercial projects in Lahore."
@@ -117,7 +121,7 @@ function routeMetadata(route) {
 }
 
 function makeSchema(route, page) {
-  if (page.noindex) return null;
+  if (page.noindex || route === "/") return null;
   const canonical = "https://www.naengineeringsolutions.com" + route;
   const graph = [{
     "@type": "BreadcrumbList",
@@ -220,8 +224,19 @@ function renderPage(route, page, template) {
     html = html.replace("</head>", "  " + schemaTag + "\n</head>");
   }
 
-  const relative = route.replace(/^\/+/, "");
-  const output = path.join(buildDir, "seo-pages", relative + ".html");
+  if (route === "/") {
+    const homeFallback = '<header class="site-header"><div class="site-container nav-wrap"><div class="header-brand-pill"><a href="/" class="logo" aria-label="NA Engineering Solutions home"><img class="logo-img" src="/logo-gradient-transparent-v2.webp" alt="NA Engineering Solutions" width="50" height="50" /><span class="logo-text"><b>NA ENGINEERING</b><small>SOLUTIONS</small></span></a></div><nav class="nav-cluster" aria-label="Main navigation"><div class="nav-links"><a class="nav-page-link nav-current" href="/">Home</a><a class="nav-page-link" href="/services">Services</a><a class="nav-page-link" href="/supplies">General Order Supplies</a><a class="nav-page-link" href="/it-services">IT Services</a><a class="nav-page-link" href="/industries">Industries</a><a class="nav-page-link" href="/blog">Blog</a><a class="nav-page-link" href="/clients">Our Clients</a><a class="nav-page-link nav-contact-cta" href="/contact">Contact Us →</a></div></nav></div></header><section class="hero"><div class="hero-bg"></div><div class="site-container hero-content"><div class="hero-copy"><span class="eyebrow">ENGINEERING / SUPPLY / EXECUTION</span><h1><span class="mask-line"><span style="color:var(--amber)">NA Engineering Solutions</span></span><span class="mask-line"><span>Engineering Services in Lahore</span></span></h1><p>NA Engineering Solutions supports factories, commercial facilities and project teams in Lahore with engineering consultancy, civil and mechanical works, HVAC, electrical installation, PEB, fire protection, industrial maintenance and General Order Supplies &amp; Services. Tell us your scope, item list or site requirement and we will discuss the practical next steps.</p><div class="hero-actions"><a href="/services" class="button button-secondary">Explore Our Services →</a></div></div><div class="hero-note"><span>01</span><span>Planning to<br/>project support</span></div></div><div class="hero-scroll">SCROLL TO EXPLORE</div></section>';
+    const rootMarker = '<div id="root"></div>';
+    if (!html.includes(rootMarker)) {
+      throw new Error("Could not insert the homepage H1 snapshot: root marker is missing.");
+    }
+    html = html.replace(rootMarker, '<div id="root">' + homeFallback + '</div>');
+  }
+
+  const relative = route.replace(/^\\/+/, "");
+  const output = route === "/"
+    ? path.join(buildDir, "seo-pages", "home.html")
+    : path.join(buildDir, "seo-pages", relative + ".html");
   fs.mkdirSync(path.dirname(output), { recursive: true });
   fs.writeFileSync(output, html, "utf8");
   return output;
@@ -229,7 +244,7 @@ function renderPage(route, page, template) {
 
 const sitemapRoutes = [...sitemapSource.matchAll(/<loc>(.*?)<\/loc>/g)]
   .map((match) => match[1].replace("https://www.naengineeringsolutions.com", "") || "/");
-const routes = sitemapRoutes.filter((route) => route !== "/");
+const routes = sitemapRoutes;
 const expectedBlogRoutes = ["/blog", ...articles.map((article) => "/blog/" + article.slug)];
 const missingBlogRoutes = expectedBlogRoutes.filter((route) => !routes.includes(route));
 const oldInsightsRoutes = routes.filter((route) => route === "/insights" || route.startsWith("/insights/"));
