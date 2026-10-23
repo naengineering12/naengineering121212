@@ -16,23 +16,25 @@ import "./header-redesign.css";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
-const imageUrl = (url,w=640,q=45) => {
-  const sep = url.includes("?") ? "&" : "?";
-  return `${url}${sep}auto=format&fit=crop&w=${w}&q=${q}`;
-};
-const img = (url,w=640) => imageUrl(url,w,45);
-const imgSet = (url) => `${imageUrl(url,360)} 360w, ${imageUrl(url,480)} 480w, ${imageUrl(url,640)} 640w, ${imageUrl(url,800)} 800w`;
+// Use the original image URLs directly. The old generated srcSet variants were
+// failing on some mobile/browser combinations and left image frames completely blank.
+const imageUrl = (url) => url;
+const img = (url) => url;
+const imgSet = () => undefined;
 
 function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",className="",...rest}){
+  const [useFallback,setUseFallback] = useState(false);
+  useEffect(()=>{setUseFallback(false)},[src]);
+  const source = typeof src === "string" ? src.split("?")[0] : src;
+  const fallbackSource = "https://images.unsplash.com/photo-1503387762-592deb58ef4e";
   return <img
-    src={src}
-    srcSet={srcSet}
-    sizes={sizes}
+    src={useFallback ? fallbackSource : source}
     loading={loading}
     fetchPriority={fetchPriority}
     decoding="async"
     alt={alt}
     className={className}
+    onError={()=>{if(!useFallback) setUseFallback(true)}}
     {...rest}
   />;
 }
