@@ -245,7 +245,7 @@ function RouteSEO() {
         description: "Explore civil, mechanical, electrical, HVAC, PEB, fire-fighting and other engineering services for industrial and commercial projects in Lahore."
       };
       if (service) return {
-        title: service.slug === "boiler-chemicals" ? "Boiler Chemicals in Lahore | NA Engineering Solutions" : service.slug === "mechanical-electrical-supplies" ? "Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions" : service.slug === "utilities-facility-maintenance" ? "Utility & Facility Maintenance in Lahore | NA Engineering Solutions" : service.slug === "seamless-pipes-fittings" ? "Seamless Pipes & Fittings in Lahore | NA Engineering Solutions" : service.slug === "wastewater-treatment-plant" ? "Wastewater Treatment Plant Services | NA Engineering Solutions" : service.slug === "hvac-supplies-services" ? "HVAC Services in Lahore | NA Engineering Solutions" : `${service.title} in Lahore | NA Engineering Solutions`,
+        title: service.slug === "boiler-chemicals" ? "Boiler Chemicals in Lahore | NA Engineering Solutions" : service.slug === "mechanical-electrical-supplies" ? "Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions" : service.slug === "utilities-facility-maintenance" ? "Utility & Facility Maintenance in Lahore | NA Engineering Solutions" : service.slug === "seamless-pipes-fittings" ? "Seamless Pipes & Fittings in Lahore | NA Engineering Solutions" : service.slug === "wastewater-treatment-plant" ? "Wastewater Treatment Plant Services | NA Engineering Solutions" : service.slug === "hvac-supplies-services" ? "HVAC Services in Lahore | NA Engineering Solutions" : service.slug === "fire-fighting-equipment" ? "Fire Fighting Services in Lahore | NA Engineering Solutions" : `${service.title} in Lahore | NA Engineering Solutions`,
         description: service.slug === "boiler-chemicals"
           ? "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan."
           : service.slug === "engineering-consultancy"
@@ -260,7 +260,9 @@ function RouteSEO() {
                     ? "NA Engineering Solutions supplies wastewater treatment equipment, pumps, blowers, diffusers and dosing systems for industrial projects in Lahore, Pakistan."
                     : service.slug === "hvac-supplies-services"
                       ? "HVAC installation, ducting, chillers, AHUs, FCUs and preventive maintenance for commercial and industrial facilities in Lahore by NA Engineering Solutions."
-                      : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
+                      : service.slug === "fire-fighting-equipment"
+                        ? "Fire extinguishers, hydrants, hoses, sprinklers and fire protection equipment, plus inspection and maintenance support in Lahore from NA Engineering Solutions."
+                        : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
       };
       if (path === "/supplies") return {
         title: "General Order Supplies in Lahore | NA Engineering Solutions",
