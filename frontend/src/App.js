@@ -262,7 +262,9 @@ function RouteSEO() {
                       ? "HVAC installation, ducting, chillers, AHUs, FCUs and preventive maintenance for commercial and industrial facilities in Lahore by NA Engineering Solutions."
                       : service.slug === "fire-fighting-equipment"
                         ? "Fire extinguishers, hydrants, hoses, sprinklers and fire protection equipment, plus inspection and maintenance support in Lahore from NA Engineering Solutions."
-                        : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
+                        : service.slug === "safety-security-systems"
+                          ? "NA Engineering Solutions supplies CCTV, access control, biometric attendance, alarm systems, emergency lighting and safety signage across Lahore, Pakistan."
+                          : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
       };
       if (path === "/supplies") return {
         title: "General Order Supplies in Lahore | NA Engineering Solutions",
