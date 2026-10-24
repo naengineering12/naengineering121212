@@ -110,7 +110,8 @@ function routeMetadata(route) {
       "seamless-pipes-fittings": "NA Engineering Solutions supplies seamless MS and SS pipes, flanges, elbows, reducers and tees in project-specific grades and sizes across Lahore, Pakistan.",
       "wastewater-treatment-plant": "NA Engineering Solutions supplies wastewater treatment equipment, pumps, blowers, diffusers and dosing systems for industrial projects in Lahore, Pakistan.",
       "hvac-supplies-services": "HVAC installation, ducting, chillers, AHUs, FCUs and preventive maintenance for commercial and industrial facilities in Lahore by NA Engineering Solutions.",
-      "fire-fighting-equipment": "Fire extinguishers, hydrants, hoses, sprinklers and fire protection equipment, plus inspection and maintenance support in Lahore from NA Engineering Solutions."
+      "fire-fighting-equipment": "Fire extinguishers, hydrants, hoses, sprinklers and fire protection equipment, plus inspection and maintenance support in Lahore from NA Engineering Solutions.",
+      "safety-security-systems": "NA Engineering Solutions supplies CCTV, access control, biometric attendance, alarm systems, emergency lighting and safety signage across Lahore, Pakistan."
     };
     return {
       title: serviceTitleOverrides[slug] || (service.title + " in Lahore | NA Engineering Solutions"),
