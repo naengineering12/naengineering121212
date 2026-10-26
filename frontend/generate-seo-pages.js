@@ -100,7 +100,8 @@ function routeMetadata(route) {
       "seamless-pipes-fittings": "Seamless Pipes & Fittings in Lahore | NA Engineering Solutions",
       "wastewater-treatment-plant": "Wastewater Treatment Plant Services | NA Engineering Solutions",
       "hvac-supplies-services": "HVAC Services in Lahore | NA Engineering Solutions",
-      "fire-fighting-equipment": "Fire Fighting Services in Lahore | NA Engineering Solutions"
+      "fire-fighting-equipment": "Fire Fighting Services in Lahore | NA Engineering Solutions",
+      "waterproofing-solutions": "Waterproofing in Lahore | NA Engineering Solutions"
     };
     const serviceDescriptionOverrides = {
       "boiler-chemicals": "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan.",
@@ -111,7 +112,8 @@ function routeMetadata(route) {
       "wastewater-treatment-plant": "NA Engineering Solutions supplies wastewater treatment equipment, pumps, blowers, diffusers and dosing systems for industrial projects in Lahore, Pakistan.",
       "hvac-supplies-services": "HVAC installation, ducting, chillers, AHUs, FCUs and preventive maintenance for commercial and industrial facilities in Lahore by NA Engineering Solutions.",
       "fire-fighting-equipment": "Fire extinguishers, hydrants, hoses, sprinklers and fire protection equipment, plus inspection and maintenance support in Lahore from NA Engineering Solutions.",
-      "safety-security-systems": "NA Engineering Solutions supplies CCTV, access control, biometric attendance, alarm systems, emergency lighting and safety signage across Lahore, Pakistan."
+      "safety-security-systems": "NA Engineering Solutions supplies CCTV, access control, biometric attendance, alarm systems, emergency lighting and safety signage across Lahore, Pakistan.",
+      "waterproofing-solutions": "Roof, basement and water tank waterproofing in Lahore, including membranes, protective coatings and leakage repairs for commercial and industrial properties."
     };
     return {
       title: serviceTitleOverrides[slug] || (service.title + " in Lahore | NA Engineering Solutions"),
