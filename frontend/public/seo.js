@@ -41,7 +41,7 @@
   const servicePages = {
     'civil-engineering': ['Civil Engineering in Lahore | NA Engineering Solutions', "Civil engineering services in Lahore covering construction, concrete, flooring, waterproofing and site development for commercial and industrial projects."],
     'mechanical-engineering': ['Mechanical Engineering Services in Lahore | NA Engineering Solutions', "Mechanical engineering in Lahore for pumps, motors, conveyors, fabrication, welding, industrial repairs and spare parts from NA Engineering Solutions."],
-    'peb-works': ['PEB Works in Lahore | NA Engineering Solutions', 'PEB sheds, structural steel, industrial structures, platforms, walkways, canopies, installation and modification support in Lahore.'],
+    'peb-works': ["PEB Works in Lahore | NA Engineering Solutions", "PEB works in Lahore for steel sheds, industrial structures, platforms and canopies, with installation and modification support by NA Engineering Solutions."],
     'electrical-works': ['Electrical Works in Lahore | NA Engineering Solutions', 'Industrial electrical installation, lighting, cables, accessories, maintenance, troubleshooting and material supply in Lahore.'],
     'mechanical-electrical-supplies': ["Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions", "NA Engineering Solutions supplies industrial motors, pumps, gearboxes, valves, cables and electrical panels for industrial projects in Lahore, Pakistan."],
     'utilities-facility-maintenance': ["Utility & Facility Maintenance in Lahore | NA Engineering Solutions", "Utility and facility maintenance in Lahore for water, compressed air, steam and boiler systems, preventive servicing and repairs by NA Engineering Solutions."],
