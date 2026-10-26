@@ -268,7 +268,9 @@ function RouteSEO() {
                             ? "Roof, basement and water tank waterproofing in Lahore, including membranes, protective coatings and leakage repairs for commercial and industrial properties."
                             : service.slug === "pumps-valves-pneumatic"
                               ? "Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support by NA Engineering Solutions."
-                              : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
+                              : service.slug === "civil-engineering"
+                                ? "Civil engineering services in Lahore covering construction, concrete, flooring, waterproofing and site development for commercial and industrial projects."
+                                : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
       };
       if (path === "/supplies") return {
         title: "General Order Supplies in Lahore | NA Engineering Solutions",
