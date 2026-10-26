@@ -115,7 +115,8 @@ function routeMetadata(route) {
       "fire-fighting-equipment": "Fire extinguishers, hydrants, hoses, sprinklers and fire protection equipment, plus inspection and maintenance support in Lahore from NA Engineering Solutions.",
       "safety-security-systems": "NA Engineering Solutions supplies CCTV, access control, biometric attendance, alarm systems, emergency lighting and safety signage across Lahore, Pakistan.",
       "waterproofing-solutions": "Roof, basement and water tank waterproofing in Lahore, including membranes, protective coatings and leakage repairs for commercial and industrial properties.",
-      "pumps-valves-pneumatic": "Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support by NA Engineering Solutions."
+      "pumps-valves-pneumatic": "Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support by NA Engineering Solutions.",
+      "civil-engineering": "Civil engineering services in Lahore covering construction, concrete, flooring, waterproofing and site development for commercial and industrial projects."
     };
     return {
       title: serviceTitleOverrides[slug] || (service.title + " in Lahore | NA Engineering Solutions"),
