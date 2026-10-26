@@ -274,7 +274,9 @@ function RouteSEO() {
                                   ? "Mechanical engineering in Lahore for pumps, motors, conveyors, fabrication, welding, industrial repairs and spare parts from NA Engineering Solutions."
                                   : service.slug === "peb-works"
                                     ? "PEB works in Lahore for steel sheds, industrial structures, platforms and canopies, with installation and modification support by NA Engineering Solutions."
-                                    : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
+                                    : service.slug === "electrical-works"
+                                      ? "Electrical works in Lahore covering industrial wiring, lighting, panels, cables, installation, troubleshooting and maintenance by NA Engineering Solutions."
+                                      : `${service.text} NA Engineering Solutions supports industrial and commercial projects in Lahore, Pakistan.`
       };
       if (path === "/supplies") return {
         title: "General Order Supplies in Lahore | NA Engineering Solutions",
