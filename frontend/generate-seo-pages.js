@@ -117,7 +117,8 @@ function routeMetadata(route) {
       "waterproofing-solutions": "Roof, basement and water tank waterproofing in Lahore, including membranes, protective coatings and leakage repairs for commercial and industrial properties.",
       "pumps-valves-pneumatic": "Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support by NA Engineering Solutions.",
       "civil-engineering": "Civil engineering services in Lahore covering construction, concrete, flooring, waterproofing and site development for commercial and industrial projects.",
-      "mechanical-engineering": "Mechanical engineering in Lahore for pumps, motors, conveyors, fabrication, welding, industrial repairs and spare parts from NA Engineering Solutions."
+      "mechanical-engineering": "Mechanical engineering in Lahore for pumps, motors, conveyors, fabrication, welding, industrial repairs and spare parts from NA Engineering Solutions.",
+      "peb-works": "PEB works in Lahore for steel sheds, industrial structures, platforms and canopies, with installation and modification support by NA Engineering Solutions."
     };
     return {
       title: serviceTitleOverrides[slug] || (service.title + " in Lahore | NA Engineering Solutions"),
