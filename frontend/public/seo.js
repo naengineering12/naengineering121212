@@ -52,7 +52,7 @@
     'fire-fighting-equipment': ["Fire Fighting Services in Lahore | NA Engineering Solutions", "Fire extinguishers, hydrants, hoses, sprinklers and fire protection equipment, plus inspection and maintenance support in Lahore from NA Engineering Solutions."],
     'safety-security-systems': ['Safety & Security Systems in Lahore | NA Engineering Solutions', "NA Engineering Solutions supplies CCTV, access control, biometric attendance, alarm systems, emergency lighting and safety signage across Lahore, Pakistan."],
     'waterproofing-solutions': ["Waterproofing in Lahore | NA Engineering Solutions", "Roof, basement and water tank waterproofing in Lahore, including membranes, protective coatings and leakage repairs for commercial and industrial properties."],
-    'pumps-valves-pneumatic': ['Pumps, Valves & Pneumatic Fittings | Lahore', 'Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support.'],
+    'pumps-valves-pneumatic': ["Pumps & Valves in Lahore | NA Engineering Solutions", "Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support by NA Engineering Solutions."],
     'engineering-consultancy': ["Engineering Consultancy in Lahore | NA Engineering Solutions", "Engineering consultancy in Lahore for project planning, technical reviews, specifications and execution support for commercial and industrial projects."]
   };
   const articlePages = {
