@@ -1,0 +1,24 @@
+/* Restore normal page scrolling after legacy global style layers. */
+html {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  scroll-behavior: auto !important;
+  scroll-padding-top: 100px;
+}
+
+body {
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+}
+
+#root,
+.App {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow: visible !important;
+}
