@@ -13,6 +13,7 @@ import { ArrowRight, ArrowUpRight, Building2, CheckCircle2, ChefHat, ChevronDown
 import { toast, Toaster } from "sonner";
 import "./site-quality.css";
 import "./header-redesign.css";
+import "./scroll-recovery.css";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
