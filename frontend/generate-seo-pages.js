@@ -42,8 +42,8 @@ const topLevel = {
     description: "Explore civil, mechanical, electrical, HVAC, PEB, fire-fighting and other engineering services for industrial and commercial projects in Lahore."
   },
   "/supplies": {
-    title: "General Order Supplies in Lahore | NA Engineering Solutions",
-    description: "Source industrial materials, hardware, tools, PPE, electrical items, office supplies and facility maintenance products through one general order supplier in Lahore."
+    title: "General Order Supply in Lahore | NA Engineering Solutions",
+    description: "General order supply in Lahore for industrial, electrical, mechanical, hardware, tools and PPE. Send your BOQ or RFQ to NA Engineering Solutions."
   },
   "/it-services": {
     title: "IT Services & Technology Supplies in Lahore | NA Engineering Solutions",
@@ -181,6 +181,25 @@ function makeSchema(route, page) {
           logo: { "@type": "ImageObject", url: "https://www.naengineeringsolutions.com/logo.png" }
         }
       }))
+    });
+  }
+
+  if (route === "/supplies") {
+    graph.push({
+      "@type": "Service",
+      name: "General Order Supplies & Procurement Support",
+      description: page.description,
+      serviceType: "General order supply and procurement support",
+      areaServed: [
+        { "@type": "City", name: "Lahore" },
+        { "@type": "Country", name: "Pakistan" }
+      ],
+      provider: {
+        "@type": "Organization",
+        name: "NA Engineering Solutions",
+        url: "https://www.naengineeringsolutions.com/"
+      },
+      url: canonical
     });
   }
 
