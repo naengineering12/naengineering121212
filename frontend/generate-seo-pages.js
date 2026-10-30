@@ -134,16 +134,42 @@ function makeSchema(route, page) {
   if (page.noindex || route === "/") return null;
   const canonical = "https://www.naengineeringsolutions.com" + route;
   const graph = [{
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.naengineeringsolutions.com/" },
-      { "@type": "ListItem", position: 2, name: page.title, item: canonical }
-    ]
+    "@type": "WebPage",
+    "@id": canonical + "#webpage",
+    name: page.title.split(" | ")[0],
+    url: canonical,
+    description: page.description,
+    isPartOf: { "@id": "https://www.naengineeringsolutions.com/#website" },
+    about: { "@id": "https://www.naengineeringsolutions.com/#business" }
   }];
+
+  const breadcrumbItems = [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.naengineeringsolutions.com/" }
+  ];
+  if (route.startsWith("/blog/")) {
+    breadcrumbItems.push(
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.naengineeringsolutions.com/blog" },
+      { "@type": "ListItem", position: 3, name: page.article.title, item: canonical }
+    );
+  } else if (route.startsWith("/services/")) {
+    breadcrumbItems.push(
+      { "@type": "ListItem", position: 2, name: "Services", item: "https://www.naengineeringsolutions.com/services" },
+      { "@type": "ListItem", position: 3, name: page.service.title, item: canonical }
+    );
+  } else {
+    const label = route === "/blog" ? "Blog" : (route === "/services" ? "Engineering Services" : page.title.split(" | ")[0]);
+    breadcrumbItems.push({ "@type": "ListItem", position: 2, name: label, item: canonical });
+  }
+  graph.push({
+    "@type": "BreadcrumbList",
+    "@id": canonical + "#breadcrumb",
+    itemListElement: breadcrumbItems
+  });
 
   if (route === "/blog") {
     graph.push({
       "@type": "Blog",
+      "@id": canonical + "#blog",
       name: "NA Engineering Solutions Blog",
       description: page.description,
       url: canonical,
@@ -156,31 +182,25 @@ function makeSchema(route, page) {
         image: [article.image],
         articleSection: article.category,
         inLanguage: "en-PK",
-        author: { "@type": "Organization", name: "NA Engineering Solutions" },
-        publisher: {
-          "@type": "Organization",
-          name: "NA Engineering Solutions",
-          logo: { "@type": "ImageObject", url: "https://www.naengineeringsolutions.com/logo.png" }
-        }
+        mainEntityOfPage: "https://www.naengineeringsolutions.com/blog/" + article.slug,
+        author: { "@id": "https://www.naengineeringsolutions.com/#business" },
+        publisher: { "@id": "https://www.naengineeringsolutions.com/#business" }
       }))
     });
   }
 
-  if (route === "/supplies") {
+  if (route === "/supplies" || route === "/it-services") {
     graph.push({
       "@type": "Service",
-      name: "General Order Supplies & Procurement Support",
+      "@id": canonical + "#service",
+      name: route === "/supplies" ? "General Order Supplies & Procurement Support" : "IT Services & Equipment",
+      serviceType: route === "/supplies" ? "General order supply and procurement support" : "IT services and technology equipment support",
       description: page.description,
-      serviceType: "General order supply and procurement support",
       areaServed: [
         { "@type": "City", name: "Lahore" },
         { "@type": "Country", name: "Pakistan" }
       ],
-      provider: {
-        "@type": "Organization",
-        name: "NA Engineering Solutions",
-        url: "https://www.naengineeringsolutions.com/"
-      },
+      provider: { "@id": "https://www.naengineeringsolutions.com/#business" },
       url: canonical
     });
   }
@@ -188,15 +208,12 @@ function makeSchema(route, page) {
   if (page.type === "service" && page.service) {
     graph.push({
       "@type": "Service",
+      "@id": canonical + "#service",
       name: page.service.title,
       description: page.description,
       serviceType: page.service.title,
       areaServed: { "@type": "City", name: "Lahore" },
-      provider: {
-        "@type": "ProfessionalService",
-        name: "NA Engineering Solutions",
-        url: "https://www.naengineeringsolutions.com/"
-      },
+      provider: { "@id": "https://www.naengineeringsolutions.com/#business" },
       url: canonical
     });
   }
@@ -204,6 +221,7 @@ function makeSchema(route, page) {
   if (page.type === "article" && page.article) {
     graph.push({
       "@type": "BlogPosting",
+      "@id": canonical + "#article",
       headline: page.article.title,
       description: page.article.description,
       image: [page.article.image],
@@ -211,12 +229,8 @@ function makeSchema(route, page) {
       keywords: [page.article.category, "engineering", "industrial maintenance", "general order supplies", "Lahore"],
       inLanguage: "en-PK",
       mainEntityOfPage: canonical,
-      author: { "@type": "Organization", name: "NA Engineering Solutions" },
-      publisher: {
-        "@type": "Organization",
-        name: "NA Engineering Solutions",
-        logo: { "@type": "ImageObject", url: "https://www.naengineeringsolutions.com/logo.png" }
-      }
+      author: { "@id": "https://www.naengineeringsolutions.com/#business" },
+      publisher: { "@id": "https://www.naengineeringsolutions.com/#business" }
     });
   }
 
@@ -228,7 +242,7 @@ function renderPage(route, page, template) {
   let html = template;
   html = replaceOrInsert(html, /<title>[\s\S]*?<\/title>/i, "<title>" + escapeHtml(page.title) + "</title>");
   html = setMeta(html, "name", "description", page.description);
-  html = setMeta(html, "name", "robots", page.noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
+  html = setMeta(html, "name", "robots", page.noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
   html = setMeta(html, "property", "og:type", page.type === "article" ? "article" : "website");
   html = setMeta(html, "property", "og:title", page.title);
   html = setMeta(html, "property", "og:description", page.description);
@@ -238,6 +252,7 @@ function renderPage(route, page, template) {
   html = setMeta(html, "property", "og:image", socialImage);
   html = setMeta(html, "property", "og:image:alt", socialImageAlt);
   html = setMeta(html, "name", "twitter:image", socialImage);
+  html = setMeta(html, "name", "twitter:image:alt", socialImageAlt);
   html = setMeta(html, "name", "twitter:title", page.title);
   html = setMeta(html, "name", "twitter:description", page.description);
   html = replaceOrInsert(html, /<link\s+rel=["']canonical["'][^>]*\/?>/i, '<link rel="canonical" href="' + canonical + '" />');
