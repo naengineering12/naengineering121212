@@ -392,6 +392,8 @@ button,input,textarea,select{font:inherit}
   background:linear-gradient(118deg,#07172B 0%,#0B1F3A 68%,#183653 100%)!important;
   color:#fff!important;
 }
+.insight-article-hero,.insights-index-hero{padding-top:138px!important}
+.admin-wrap{padding-top:132px!important}
 .contact-intro h1{color:#fff!important;font:600 clamp(40px,5.5vw,68px)/1.02 Chivo,Inter,sans-serif!important;letter-spacing:-.05em!important}
 .contact-intro p{color:rgba(235,242,248,.82)!important;font-size:16px!important;line-height:1.8!important}
 .contact-section{padding:clamp(58px,7vw,94px) 0!important}
@@ -462,7 +464,7 @@ input:focus,textarea:focus,select:focus{outline:2px solid rgba(53,107,145,.25)!i
 /* Tablet layouts. */
 @media(max-width:1180px){
   .site-header{height:72px!important}
-  .site-header .site-container.nav-wrap{height:72px!important;min-height:72px!important;width:calc(100% - 40px)!important;gap:12px!important}
+  .site-header .site-container.nav-wrap{position:relative!important;height:72px!important;min-height:72px!important;width:calc(100% - 40px)!important;gap:12px!important}
   .site-header .menu-toggle{display:inline-flex!important}
   .site-header .nav-cluster{
     display:none!important;position:absolute!important;top:calc(100% + 8px)!important;
