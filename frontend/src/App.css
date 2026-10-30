@@ -309,12 +309,14 @@ h2{font-weight:800}.logo-img{width:54px;height:54px;object-fit:contain}.footer .
 .home-extra-links a{display:inline-flex;align-items:center;gap:8px;color:var(--blue,#155DA8);font-size:12px;font-weight:800;text-decoration:none;padding:5px 0}
 .home-extra-links a:hover{color:var(--amber,#f4a261)}
 
-/* Neutral image placeholder: prevents dark/navy flashes while remote photos load. */
+/* Same-origin visual placeholder appears immediately while remote photos load. */
 .smart-image{
-  background-color:#eaf0f5;
-  background-image:linear-gradient(105deg,#eaf0f5 8%,#f7f9fb 18%,#eaf0f5 33%);
-  background-size:200% 100%;
-  animation:smart-image-shimmer 1.25s ease-in-out infinite;
+  background-color:#0B1F3A;
+  background-image:url("/images/engineering-visual-fallback.svg");
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:cover;
+  animation:none;
   transition:background-color .2s ease;
 }
 .smart-image[data-image-state="loaded"]{
