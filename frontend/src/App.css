@@ -330,3 +330,9 @@ h2{font-weight:800}.logo-img{width:54px;height:54px;object-fit:contain}.footer .
 @media(prefers-reduced-motion:reduce){
   .smart-image{animation:none;background-color:#0B1F3A}
 }
+
+.smart-image[data-image-state="error"]{
+  background:#eaf0f5;
+  background-image:none;
+  animation:none;
+}
