@@ -29,6 +29,7 @@ const blogImageById = {
 const optimizedInsightImage = (url) => {
   if (typeof url !== "string" || !url) return "/images/local/blog-engineering-v1.svg";
   const base = url.split("?")[0];
+  if (base.includes("/images/local/")) return base.slice(base.indexOf("/images/local/"));
   const id = base.match(/photos\/(\d+)/)?.[1];
   return "/images/local/" + (blogImageById[id] || "blog-engineering-v1.svg");
 };
@@ -42,7 +43,7 @@ export const insightArticles = [
     description: "Prepare a clear general order supply request with item specifications, quantities, approved alternatives and delivery details so suppliers can quote accurately.",
     excerpt: "Good procurement starts with a clear request. Share the exact item details, quantities, acceptable brands and delivery needs before asking suppliers to quote.",
     readTime: "4 min read",
-    image: "https://images.pexels.com/photos/37912780/pexels-photo-37912780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image: "https://www.naengineeringsolutions.com/images/local/hardware-tools-v1.svg",
     imageAlt: "Organized industrial spare parts and components on warehouse shelving",
     sections: [
       { heading: "Start with a clear item description", paragraphs: ["Include the common item name and, where possible, the brand, model, part number, material, size, grade or technical specification. A description such as “bearing” may be too broad to identify the exact part."] },
@@ -64,7 +65,7 @@ export const insightArticles = [
     description: "Use this checklist to assess an industrial maintenance partner's technical fit, site safety, response times, spare-parts support and service records.",
     excerpt: "A reliable maintenance partner needs to understand your equipment, site rules and operating priorities—not simply offer the lowest price.",
     readTime: "5 min read",
-    image: "https://images.pexels.com/photos/4483773/pexels-photo-4483773.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image: "https://www.naengineeringsolutions.com/images/local/maintenance-consumables-v1.svg",
     imageAlt: "Industrial warehouse aisle with stocked shelves and organized materials",
     sections: [
       { heading: "Look for scope clarity", paragraphs: ["Ask whether the supplier can explain the proposed scope, exclusions, assumptions and handover requirements. Clear scope reduces the risk of missing materials or unexpected site work later."] },
@@ -86,7 +87,7 @@ export const insightArticles = [
     description: "Use a practical HVAC maintenance checklist for filters, airflow, drains, operating checks and service records in commercial and industrial facilities.",
     excerpt: "Routine checks of filters, airflow, drains and operating conditions help facility teams spot issues early and plan maintenance before disruption occurs.",
     readTime: "5 min read",
-    image: "https://images.pexels.com/photos/32497161/pexels-photo-32497161.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image: "https://www.naengineeringsolutions.com/images/local/hvac-systems-v1.svg",
     imageAlt: "HVAC technician checking an industrial cooling and refrigeration unit",
     sections: [
       { heading: "Inspect filters and airflow", paragraphs: ["Check filter condition and replacement intervals, inspect accessible grilles and confirm that supply and return paths are not blocked. Abnormal noise or uneven airflow may need a qualified technician to investigate."] },
@@ -108,7 +109,7 @@ export const insightArticles = [
     description: "Plan a pre-engineered building project by confirming dimensions, loads, foundations, drawings, services, delivery and safe installation before fabrication.",
     excerpt: "Before steel fabrication starts, align the owner, designer, supplier and installer on site conditions, dimensions, foundations and the installation sequence.",
     readTime: "4 min read",
-    image: "https://images.pexels.com/photos/7961889/pexels-photo-7961889.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image: "https://www.naengineeringsolutions.com/images/local/peb-steelworks-v1.svg",
     imageAlt: "Steel frame erection for a pre-engineered warehouse building",
     sections: [
       { heading: "Define the use and clear dimensions", paragraphs: ["Confirm the intended use, building length and width, clear height, bay spacing, door openings, crane requirements and future expansion needs. These decisions affect the structural scheme and layout."] },
@@ -129,7 +130,7 @@ export const insightArticles = [
     description: "Review fire safety equipment for industrial and commercial sites, including hazard assessment, suitable equipment, clear access, inspections and staff training.",
     excerpt: "Fire protection should match the site's actual hazards. Review equipment needs, access routes and inspection responsibilities with a qualified fire-safety professional.",
     readTime: "4 min read",
-    image: "https://images.pexels.com/photos/19143940/pexels-photo-19143940.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image: "https://www.naengineeringsolutions.com/images/local/fire-protection-v1.svg",
     imageAlt: "Industrial fire safety installation and equipment in a facility",
     sections: [
       { heading: "Start with a documented risk assessment", paragraphs: ["Review the site's activities, combustible materials, electrical areas, storage layout, occupancy and access routes. Equipment selection and placement should be based on the hazard assessment and applicable local requirements."] },
@@ -151,7 +152,7 @@ export const insightArticles = [
     description: "Plan safer electrical maintenance with asset records, visible checks, qualified testing, isolation procedures and documented follow-up for each finding.",
     excerpt: "A consistent inspection process helps teams record warning signs, arrange qualified testing and close out electrical maintenance actions safely.",
     readTime: "6 min read",
-    image: "https://images.pexels.com/photos/33531833/pexels-photo-33531833.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image: "https://www.naengineeringsolutions.com/images/local/electrical-systems-v1.svg",
     imageAlt: "Industrial technician inspecting an electrical control panel",
     sections: [
       { heading: "Start with asset identification and history", paragraphs: ["List the equipment covered by the inspection, including distribution boards, control panels, motors, isolators and critical loads. Use the site's asset tags and drawings so findings can be traced to the correct equipment.", "Review previous faults, nuisance trips, repairs, load changes and outstanding recommendations before planning the visit. A repeated fault should be investigated rather than treated as a new isolated event each time."] },
@@ -171,7 +172,7 @@ export const insightArticles = [
     description: "Identify critical industrial spares, verify part numbers, set replenishment points and coordinate supplier lead times to avoid preventable downtime.",
     excerpt: "A useful spare-parts plan balances equipment criticality, supplier lead times, storage conditions and accurate inventory records.",
     readTime: "6 min read",
-    image: "https://images.pexels.com/photos/7568418/pexels-photo-7568418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image: "https://www.naengineeringsolutions.com/images/local/mechanical-engineering-v1.svg",
     imageAlt: "Industrial mechanical spare parts arranged for inspection and maintenance",
     sections: [
       { heading: "Identify which assets matter most", paragraphs: ["Start with a list of the equipment that supports production, utilities, safety and essential building services. For each asset, consider the operational impact of failure, the availability of a backup and the likely time required to repair or replace it.", "Criticality should guide stocking decisions. A low-cost part can be highly important if its absence stops a line or utility, while an expensive component may not need to be held if a reliable alternative or short lead time exists."] },
@@ -191,7 +192,7 @@ export const insightArticles = [
     description: "Compare industrial supplier quotations by technical compliance, delivery, warranty, documentation and total evaluated cost—not just the headline price.",
     excerpt: "The lowest quotation is not always the best value. Compare each supplier's offer against the same specification, delivery scope and commercial terms.",
     readTime: "5 min read",
-    image: "https://images.pexels.com/photos/4484154/pexels-photo-4484154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    image: "https://www.naengineeringsolutions.com/images/local/packaging-logistics-v1.svg",
     imageAlt: "Warehouse employee checking stock and inventory with a handheld scanner",
     sections: [
       { heading: "Issue the same scope to every supplier", paragraphs: ["Use the same item description, brand or approved equivalent, technical specification, quantity, unit of measure, delivery location and required date for each quotation request. If the scope differs, the resulting prices are not directly comparable.", "Attach drawings, photographs, datasheets or previous part references where needed. Ask suppliers to list any assumptions or information they still require before they can confirm compliance."] },
