@@ -55,8 +55,7 @@ button,a,input,textarea,select{ -webkit-tap-highlight-color:transparent }
 .hero{background-color:#0B1F3A!important}
 .hero-bg{
   background-image:
-    linear-gradient(90deg,rgba(11,31,58,.97) 8%,rgba(11,31,58,.82) 50%,rgba(11,31,58,.34) 100%),
-    url("https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1600&q=72")!important;
+    linear-gradient(90deg,rgba(11,31,58,.97) 8%,rgba(11,31,58,.82) 50%,rgba(11,31,58,.34) 100%);
 }
 .hero .eyebrow,.dark-section .eyebrow,.cta .eyebrow{color:#F4A261!important}
 .hero h1 .mask-line:first-child span,
