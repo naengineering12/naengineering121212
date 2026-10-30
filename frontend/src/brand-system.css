@@ -957,3 +957,9 @@ input:focus,textarea:focus,select:focus{outline:2px solid rgba(53,107,145,.25)!i
 }
 
 
+
+
+/* Hero must sit behind the floating glass header; remove the legacy header spacer.
+   Inner pages already use their own page-intro/contact top padding. */
+html,body,#root{margin-top:0!important}
+.App{padding-top:0!important;margin-top:0!important}
