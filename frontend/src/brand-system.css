@@ -35,7 +35,7 @@ body{
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
 }
-.App{width:100%;max-width:100%;min-width:0;overflow:clip}
+.App{width:100%;max-width:100%;min-width:0}
 .site-container{width:min(1280px,calc(100% - 48px))!important;margin-inline:auto!important}
 h1,h2,h3,h4,h5,h6{font-family:Chivo,Inter,sans-serif;color:inherit;text-wrap:balance}
 p{color:inherit;overflow-wrap:break-word}
