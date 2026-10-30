@@ -5,64 +5,44 @@
     description: 'NA Engineering Solutions provides engineering services, industrial maintenance and General Order Supplies & Services in Lahore, including civil, mechanical, electrical, HVAC, PEB, fire fighting and industrial supplies.'
   };
   const pages = {
-    '/': {
-      title: 'NA Engineering Solutions | General Order Supplies & Services',
-      description: 'NA Engineering Solutions supports Lahore businesses with engineering consultancy, engineering services, general order supplies and project support.'
-    },
-    '/services': {
-      title: 'Engineering Services in Lahore | NA Engineering Solutions',
-      description: 'Civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing and industrial maintenance services for facilities and projects in Lahore.'
-    },
-    '/supplies': {
-      title: 'General Order Supplier in Lahore | NA Engineering Solutions',
-      description: 'General Order Supplies in Lahore covering hardware, tools, PPE, electrical items, janitorial products, maintenance consumables, stationery, IT and more.'
-    },
-    '/it-services': {
-      title: 'IT Services & Equipment in Lahore | NA Engineering Solutions',
-      description: 'IT equipment and support in Lahore: computers, laptops, printers, networking, servers, CCTV, power backup, accessories and maintenance.'
-    },
-    '/industries': {
-      title: 'Industrial Engineering Solutions | Lahore & Pakistan',
-      description: 'Engineering, maintenance and supply support for manufacturing, pharmaceutical, food, construction, power, warehouses, offices and commercial facilities.'
-    },
-    '/clients': {
-      title: 'Clients & Project Experience | NA Engineering Solutions',
-      description: 'See the industries and project environments supported by NA Engineering Solutions across aviation, manufacturing, chemicals, food production and facilities.'
-    },
-    '/contact': {
-      title: 'Contact NA Engineering Solutions | Lahore',
-      description: 'Contact NA Engineering Solutions in Lahore for engineering services, industrial supplies, maintenance, IT equipment and General Order Supplies & Services.'
-    },
-    '/insights': {
-      title: 'Engineering & Industrial Supply Guides | NA Engineering Solutions',
-      description: 'Practical guides for industrial maintenance, HVAC, general order procurement, PEB planning and fire safety from NA Engineering Solutions in Lahore.'
-    }
+    "/": { title: "NA Engineering Solutions | General Order Supplies & Services", description: "NA Engineering Solutions supports Lahore businesses with engineering consultancy, engineering services, general order supplies and project support." },
+    "/services": { title: "Engineering Services in Lahore | NA Engineering Solutions", description: "Civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing and industrial maintenance services for facilities and projects in Lahore." },
+    "/supplies": { title: "General Order Supplier in Lahore | NA Engineering Solutions", description: "General Order Supplies in Lahore covering hardware, tools, PPE, electrical items, janitorial products, maintenance consumables, stationery, IT and more." },
+    "/it-services": { title: "IT Services & Equipment in Lahore | NA Engineering Solutions", description: "IT equipment and support in Lahore: computers, laptops, printers, networking, servers, CCTV, power backup, accessories and maintenance." },
+    "/industries": { title: "Industries We Serve in Lahore | NA Engineering Solutions", description: "Engineering, maintenance and supply support for manufacturing, pharmaceutical, food, construction, power, warehouses, offices and commercial facilities." },
+    "/blog": { title: "Engineering & Industrial Blog | NA Engineering Solutions", description: "Practical guides for industrial maintenance, HVAC, general order procurement, PEB planning and fire safety from NA Engineering Solutions in Lahore.", image: "https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", imageAlt: "Engineering and industrial project environment" },
+    "/clients": { title: "Clients & Project Experience | NA Engineering Solutions", description: "See the industries and project environments supported by NA Engineering Solutions across aviation, manufacturing, chemicals, food production and facilities." },
+    "/contact": { title: "Contact NA Engineering Solutions | Lahore", description: "Contact NA Engineering Solutions in Lahore for engineering services, industrial supplies, maintenance, IT equipment and General Order Supplies & Services." },
+    "/insights": { title: "Engineering & Industrial Blog | NA Engineering Solutions", description: "Practical guides for industrial maintenance, HVAC, general order procurement, PEB planning and fire safety from NA Engineering Solutions in Lahore.", image: "https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", imageAlt: "Engineering and industrial project environment" }
   };
-  const servicePages = {
-    'civil-engineering': ['Civil Engineering in Lahore | NA Engineering Solutions', "Civil engineering services in Lahore covering construction, concrete, flooring, waterproofing and site development for commercial and industrial projects."],
-    'mechanical-engineering': ['Mechanical Engineering Services in Lahore | NA Engineering Solutions', "Mechanical engineering in Lahore for pumps, motors, conveyors, fabrication, welding, industrial repairs and spare parts from NA Engineering Solutions."],
-    'peb-works': ["PEB Works in Lahore | NA Engineering Solutions", "PEB works in Lahore for steel sheds, industrial structures, platforms and canopies, with installation and modification support by NA Engineering Solutions."],
-    'electrical-works': ['Electrical Works in Lahore | NA Engineering Solutions', "Electrical works in Lahore covering industrial wiring, lighting, panels, cables, installation, troubleshooting and maintenance by NA Engineering Solutions."],
-    'mechanical-electrical-supplies': ["Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions", "NA Engineering Solutions supplies industrial motors, pumps, gearboxes, valves, cables and electrical panels for industrial projects in Lahore, Pakistan."],
-    'utilities-facility-maintenance': ["Utility & Facility Maintenance in Lahore | NA Engineering Solutions", "Utility and facility maintenance in Lahore for water, compressed air, steam and boiler systems, preventive servicing and repairs by NA Engineering Solutions."],
-    'boiler-chemicals': ["Boiler Chemicals in Lahore | NA Engineering Solutions", "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan."],
-    'seamless-pipes-fittings': ["Seamless Pipes & Fittings in Lahore | NA Engineering Solutions", "NA Engineering Solutions supplies seamless MS and SS pipes, flanges, elbows, reducers and tees in project-specific grades and sizes across Lahore, Pakistan."],
-    'wastewater-treatment-plant': ["Wastewater Treatment Plant Services | NA Engineering Solutions", "NA Engineering Solutions supplies wastewater treatment equipment, pumps, blowers, diffusers and dosing systems for industrial projects in Lahore, Pakistan."],
-    'hvac-supplies-services': ["HVAC Services in Lahore | NA Engineering Solutions", "HVAC installation, ducting, chillers, AHUs, FCUs and preventive maintenance for commercial and industrial facilities in Lahore by NA Engineering Solutions."],
-    'fire-fighting-equipment': ["Fire Fighting Services in Lahore | NA Engineering Solutions", "Fire extinguishers, hydrants, hoses, sprinklers and fire protection equipment, plus inspection and maintenance support in Lahore from NA Engineering Solutions."],
-    'safety-security-systems': ['Safety & Security Systems in Lahore | NA Engineering Solutions', "NA Engineering Solutions supplies CCTV, access control, biometric attendance, alarm systems, emergency lighting and safety signage across Lahore, Pakistan."],
-    'waterproofing-solutions': ["Waterproofing in Lahore | NA Engineering Solutions", "Roof, basement and water tank waterproofing in Lahore, including membranes, protective coatings and leakage repairs for commercial and industrial properties."],
-    'pumps-valves-pneumatic': ["Pumps & Valves in Lahore | NA Engineering Solutions", "Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support by NA Engineering Solutions."],
-    'engineering-consultancy': ["Engineering Consultancy in Lahore | NA Engineering Solutions", "Engineering consultancy in Lahore for project planning, technical reviews, specifications and execution support for commercial and industrial projects."]
+const servicePages = {
+    "civil-engineering": ["Civil Engineering in Lahore | NA Engineering Solutions", "Civil engineering services in Lahore covering construction, concrete, flooring, waterproofing and site development for commercial and industrial projects."],
+    "mechanical-engineering": ["Mechanical Engineering in Lahore | NA Engineering Solutions", "Mechanical engineering in Lahore for pumps, motors, conveyors, fabrication, welding, industrial repairs and spare parts from NA Engineering Solutions."],
+    "peb-works": ["PEB Works in Lahore | NA Engineering Solutions", "PEB works in Lahore for steel sheds, industrial structures, platforms and canopies, with installation and modification support by NA Engineering Solutions."],
+    "electrical-works": ["Electrical Works in Lahore | NA Engineering Solutions", "Electrical works in Lahore covering industrial wiring, lighting, panels, cables, installation, troubleshooting and maintenance by NA Engineering Solutions."],
+    "mechanical-electrical-supplies": ["Mechanical & Electrical Supplies | NA Engineering Solutions", "NA Engineering Solutions supplies industrial motors, pumps, gearboxes, valves, cables and electrical panels for industrial projects in Lahore, Pakistan."],
+    "utilities-facility-maintenance": ["Utility Maintenance in Lahore | NA Engineering Solutions", "Utility and facility maintenance in Lahore for water, compressed air, steam and boiler systems, preventive servicing and repairs by NA Engineering Solutions."],
+    "boiler-chemicals": ["Boiler Chemicals in Lahore | NA Engineering Solutions", "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan."],
+    "seamless-pipes-fittings": ["Seamless Pipes & Fittings | NA Engineering Solutions", "NA Engineering Solutions supplies seamless MS and SS pipes, flanges, elbows, reducers and tees in project-specific grades and sizes across Lahore, Pakistan."],
+    "wastewater-treatment-plant": ["Wastewater Treatment in Lahore | NA Engineering Solutions", "NA Engineering Solutions supplies wastewater treatment equipment, pumps, blowers, diffusers and dosing systems for industrial projects in Lahore, Pakistan."],
+    "hvac-supplies-services": ["HVAC Services in Lahore | NA Engineering Solutions", "HVAC installation, ducting, chillers, AHUs, FCUs and preventive maintenance for commercial and industrial facilities in Lahore by NA Engineering Solutions."],
+    "fire-fighting-equipment": ["Fire Fighting Services in Lahore | NA Engineering Solutions", "Fire extinguishers, hydrants, hoses, sprinklers and fire protection equipment, plus inspection and maintenance support in Lahore from NA Engineering Solutions."],
+    "safety-security-systems": ["Safety & Security in Lahore | NA Engineering Solutions", "NA Engineering Solutions supplies CCTV, access control, biometric attendance, alarm systems, emergency lighting and safety signage across Lahore, Pakistan."],
+    "waterproofing-solutions": ["Waterproofing in Lahore | NA Engineering Solutions", "Roof, basement and water tank waterproofing in Lahore, including membranes, protective coatings and leakage repairs for commercial and industrial properties."],
+    "pumps-valves-pneumatic": ["Pumps & Valves in Lahore | NA Engineering Solutions", "Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support by NA Engineering Solutions."],
+    "engineering-consultancy": ["Engineering Consultancy in Lahore | NA Engineering Solutions", "Engineering consultancy in Lahore for project planning, technical reviews, specifications and execution support for commercial and industrial projects."]
   };
-  const articlePages = {
-    'prepare-a-general-order-supply-request': ['How to Prepare a General Order Supply Request | NA Engineering Solutions', 'A checklist for clear item descriptions, specifications, quantities, delivery details and documents when requesting general order supplies.'],
-    'industrial-maintenance-supplier-checklist': ['Choosing an Industrial Maintenance Supplier | NA Engineering Solutions', 'Questions to ask about technical fit, site safety, scope, lead times and after-delivery support when choosing an industrial maintenance supplier.'],
-    'hvac-preventive-maintenance-checklist': ['HVAC Preventive Maintenance Checklist | NA Engineering Solutions', 'A practical facility checklist covering HVAC filters, airflow, drainage, operating condition, accessibility and maintenance records.'],
-    'peb-project-planning-checklist': ['PEB Project Planning Checklist | NA Engineering Solutions', 'What to confirm before a PEB project, including dimensions, design loads, foundations, drainage, building services and installation coordination.'],
-    'fire-safety-equipment-site-planning': ['Fire Safety Equipment Planning Guide | NA Engineering Solutions', 'Key considerations for fire safety equipment selection, placement, inspection and records at commercial and industrial sites.']
+const articlePages = {
+    "prepare-a-general-order-supply-request": ["General Order Supply Request | NA Engineering Solutions", "Prepare a clear general order supply request with item specifications, quantities, approved alternatives and delivery details so suppliers can quote accurately.", "https://images.pexels.com/photos/37912780/pexels-photo-37912780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "Organized industrial spare parts and components on warehouse shelving"],
+    "industrial-maintenance-supplier-checklist": ["Industrial Maintenance Partner | NA Engineering Solutions", "Use this checklist to assess an industrial maintenance partner's technical fit, site safety, response times, spare-parts support and service records.", "https://images.pexels.com/photos/4483773/pexels-photo-4483773.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "Industrial warehouse aisle with stocked shelves and organized materials"],
+    "hvac-preventive-maintenance-checklist": ["HVAC Maintenance Checklist | NA Engineering Solutions", "Use a practical HVAC maintenance checklist for filters, airflow, drains, operating checks and service records in commercial and industrial facilities.", "https://images.pexels.com/photos/32497161/pexels-photo-32497161.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "HVAC technician checking an industrial cooling and refrigeration unit"],
+    "peb-project-planning-checklist": ["PEB Project Planning Checklist | NA Engineering Solutions", "Plan a pre-engineered building project by confirming dimensions, loads, foundations, drawings, services, delivery and safe installation before fabrication.", "https://images.pexels.com/photos/7961889/pexels-photo-7961889.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "Steel frame erection for a pre-engineered warehouse building"],
+    "fire-safety-equipment-site-planning": ["Fire Safety Equipment Planning | NA Engineering Solutions", "Review fire safety equipment for industrial and commercial sites, including hazard assessment, suitable equipment, clear access, inspections and staff training.", "https://images.pexels.com/photos/19143940/pexels-photo-19143940.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "Industrial fire safety installation and equipment in a facility"],
+    "industrial-electrical-maintenance-checklist": ["Electrical Maintenance Checklist | NA Engineering Solutions", "Plan safer electrical maintenance with asset records, visible checks, qualified testing, isolation procedures and documented follow-up for each finding.", "https://images.pexels.com/photos/33531833/pexels-photo-33531833.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "Industrial technician inspecting an electrical control panel"],
+    "industrial-spare-parts-inventory-planning": ["Industrial Spare Parts Planning | NA Engineering Solutions", "Identify critical industrial spares, verify part numbers, set replenishment points and coordinate supplier lead times to avoid preventable downtime.", "https://images.pexels.com/photos/7568418/pexels-photo-7568418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "Industrial mechanical spare parts arranged for inspection and maintenance"],
+    "compare-industrial-supplier-quotations": ["Industrial Quote Comparison | NA Engineering Solutions", "Compare industrial supplier quotations by technical compliance, delivery, warranty, documentation and total evaluated cost—not just the headline price.", "https://images.pexels.com/photos/4484154/pexels-photo-4484154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "Warehouse employee checking stock and inventory with a handheld scanner"]
   };
-  function upsert(name, content) {
+function upsert(name, content) {
     let el = document.head.querySelector('meta[name="' + name + '"]');
     if (!el) { el = document.createElement('meta'); el.name = name; document.head.appendChild(el); }
     el.content = content;
@@ -87,8 +67,10 @@
   }
   function apply() {
     const path = window.location.pathname.replace(/\/+$/, '') || '/';
+    const canonicalPath = path === '/insights' ? '/blog' : path.startsWith('/insights/') ? path.replace(/^\/insights\//, '/blog/') : path;
+    const canonicalUrl = SITE + canonicalPath;
     const serviceMatch = path.match(/^\/services\/([^/]+)$/);
-    const articleMatch = path.match(/^\/insights\/([^/]+)$/);
+    const articleMatch = path.match(/^\/(?:blog|insights)\/([^/]+)$/);
     const serviceData = serviceMatch ? servicePages[serviceMatch[1]] : null;
     const articleData = articleMatch ? articlePages[articleMatch[1]] : null;
     const isAdmin = path === '/admin';
@@ -113,13 +95,15 @@
     upsertProperty('og:locale', 'en_PK');
     upsertProperty('og:title', data.title);
     upsertProperty('og:description', data.description);
-    upsertProperty('og:url', SITE + path);
-    upsertProperty('og:image', SITE + '/logo.png');
-    upsertProperty('og:image:alt', 'NA Engineering Solutions company logo');
+    upsertProperty('og:url', canonicalUrl);
+    const socialImage = articleData?.[2] || pages[path]?.image || SITE + '/logo.png';
+    const socialImageAlt = articleData?.[3] || pages[path]?.imageAlt || 'NA Engineering Solutions company logo';
+    upsertProperty('og:image', socialImage);
+    upsertProperty('og:image:alt', socialImageAlt);
     upsert('twitter:card', 'summary_large_image');
     upsert('twitter:title', data.title);
     upsert('twitter:description', data.description);
-    upsert('twitter:image', SITE + '/logo.png');
+    upsert('twitter:image', socialImage);
     if (isAdmin || isNotFound) {
       const existingCanonical = document.head.querySelector('link[rel="canonical"]');
       if (existingCanonical) existingCanonical.remove();
@@ -130,7 +114,7 @@
       setTimeout(improveImageAlt, 350);
       return;
     }
-    canonical(SITE + path);
+    canonical(canonicalUrl);
     setTimeout(improveImageAlt, 350);
     let schema = document.getElementById('dynamic-seo-schema');
     if (!schema) { schema = document.createElement('script'); schema.id = 'dynamic-seo-schema'; schema.type = 'application/ld+json'; document.head.appendChild(schema); }
@@ -166,9 +150,9 @@
       : (standaloneService ? standaloneService.description : null);
     graph.push({
       '@type': 'WebPage',
-      '@id': SITE + path + '#webpage',
+      '@id': canonicalUrl + '#webpage',
       name: data.title.split(' | ')[0],
-      url: SITE + path,
+      url: canonicalUrl,
       description: data.description,
       isPartOf: {'@id': SITE + '/#website'},
       about: {'@id': SITE + '/#business'}
@@ -176,24 +160,25 @@
     if (serviceName) {
       graph.push({
         '@type': 'Service',
-        '@id': SITE + path + '#service',
+        '@id': canonicalUrl + '#service',
         name: serviceName,
         serviceType: serviceName,
         description: serviceDescription,
-        url: SITE + path,
+        url: canonicalUrl,
         provider: { '@id': SITE + '/#business' },
         areaServed: { '@type': 'City', name: 'Lahore' },
-        mainEntityOfPage: { '@type': 'WebPage', '@id': SITE + path }
+        mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl }
       });
     }
     if (articleData) {
       graph.push({
         '@type': 'BlogPosting',
-        '@id': SITE + path + '#article',
+        '@id': canonicalUrl + '#article',
         headline: data.title.split(' | ')[0],
         description: data.description,
-        url: SITE + path,
-        mainEntityOfPage: { '@type': 'WebPage', '@id': SITE + path },
+        url: canonicalUrl,
+        image: [articleData?.[2]],
+        mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
         author: { '@type': 'Organization', '@id': SITE + '/#business', name: 'NA Engineering Solutions' },
         publisher: { '@id': SITE + '/#business' },
         inLanguage: 'en-PK',
@@ -202,22 +187,22 @@
     }
     graph.push({
       '@type': 'BreadcrumbList',
-      '@id': SITE + path + '#breadcrumb',
+      '@id': canonicalUrl + '#breadcrumb',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: SITE + '/' },
         ...(articleData
           ? [
-              { '@type': 'ListItem', position: 2, name: 'Insights', item: SITE + '/insights' },
-              { '@type': 'ListItem', position: 3, name: data.title.split(' | ')[0], item: SITE + path }
+              { '@type': 'ListItem', position: 2, name: 'Blog', item: SITE + '/blog' },
+              { '@type': 'ListItem', position: 3, name: data.title.split(' | ')[0], item: canonicalUrl }
             ]
           : serviceKey
             ? [
                 { '@type': 'ListItem', position: 2, name: 'Services', item: SITE + '/services' },
-                { '@type': 'ListItem', position: 3, name: serviceName, item: SITE + path }
+                { '@type': 'ListItem', position: 3, name: serviceName, item: canonicalUrl }
               ]
-            : path === '/insights'
-              ? [{ '@type': 'ListItem', position: 2, name: 'Insights', item: SITE + path }]
-              : [{ '@type': 'ListItem', position: 2, name: data.title.split(' | ')[0], item: SITE + path }])
+            : (path === '/insights' || path === '/blog')
+              ? [{ '@type': 'ListItem', position: 2, name: 'Insights', item: canonicalUrl }]
+              : [{ '@type': 'ListItem', position: 2, name: data.title.split(' | ')[0], item: canonicalUrl }])
       ]
     });
     schema.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
