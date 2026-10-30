@@ -552,14 +552,12 @@ input:focus,textarea:focus,select:focus{outline:2px solid rgba(53,107,145,.25)!i
 }
 
 
-/* Screenshot-matched header: photo-backed strip, separate logo pill and rounded nav capsule. */
+/* Screenshot-matched header: transparent over the hero, with separate logo and nav capsules. */
 .site-header{
   position:fixed!important;inset:0 0 auto!important;width:100%!important;max-width:none!important;
   height:80px!important;padding:0!important;margin:0!important;transform:none!important;
   border:0!important;border-radius:0!important;
-  background:
-    linear-gradient(90deg,rgba(5,20,39,.94) 0%,rgba(7,25,47,.83) 52%,rgba(7,25,47,.48) 100%),
-    url("https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1600&q=58") center 43%/cover!important;
+  background:transparent!important;
   box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
   z-index:99999!important;overflow:visible!important;
 }
