@@ -112,7 +112,7 @@ function routeMetadata(route) {
       "utilities-facility-maintenance": "Utility and facility maintenance in Lahore for water, compressed air, steam and boiler systems, preventive servicing and repairs by NA Engineering Solutions.",
       "seamless-pipes-fittings": "NA Engineering Solutions supplies seamless MS and SS pipes, flanges, elbows, reducers and tees in project-specific grades and sizes across Lahore, Pakistan.",
       "wastewater-treatment-plant": "NA Engineering Solutions supplies wastewater treatment equipment, pumps, blowers, diffusers and dosing systems for industrial projects in Lahore, Pakistan.",
-      "hvac-supplies-services": "HVAC installation, ducting, chillers, AHUs, FCUs and preventive maintenance for commercial and industrial facilities in Lahore by NA Engineering Solutions.",
+      "hvac-supplies-services": "Industrial HVAC services in Lahore, including chillers, AHUs, FCUs, ducting, ventilation and preventive maintenance by NA Engineering Solutions.",
       "fire-fighting-equipment": "Fire extinguishers, hydrants, hoses, sprinklers and fire protection equipment, plus inspection and maintenance support in Lahore from NA Engineering Solutions.",
       "safety-security-systems": "NA Engineering Solutions supplies CCTV, access control, biometric attendance, alarm systems, emergency lighting and safety signage across Lahore, Pakistan.",
       "waterproofing-solutions": "Roof, basement and water tank waterproofing in Lahore, including membranes, protective coatings and leakage repairs for commercial and industrial properties.",
@@ -305,6 +305,10 @@ function renderPage(route, page, template) {
         } else if (route === "/blog") {
           eyebrow = "ENGINEERING / INDUSTRIAL INSIGHTS";
           heading = "Engineering & Industrial Blog";
+        } else if (route === "/services/hvac-supplies-services") {
+          eyebrow = "HVAC SERVICES / LAHORE";
+          heading = "HVAC Services in Lahore";
+          intro = "NA Engineering Solutions provides HVAC services in Lahore for industrial and commercial facilities, including chillers, AHUs, FCUs, fresh-air and exhaust ventilation, GI ducting, equipment supply and installation, preventive maintenance and filter replacement.";
         } else if (route === "/services/peb-works") {
           eyebrow = "PRE-ENGINEERED BUILDINGS / PEB WORKS";
           heading = "PEB Company in Lahore | Industrial Sheds";
