@@ -312,7 +312,7 @@ h2{font-weight:800}.logo-img{width:54px;height:54px;object-fit:contain}.footer .
 /* Show a real, same-origin visual immediately while the full photo loads. */
 .smart-image{
   background-color:#0B1F3A;
-  background-image:url("/images/engineering-visual-fallback.svg");
+  background-image:url("./images/engineering-visual-fallback.svg");
   background-position:center;
   background-repeat:no-repeat;
   background-size:cover;
