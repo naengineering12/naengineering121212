@@ -982,3 +982,22 @@ html,body,#root{margin-top:0!important}
   transform:translateY(-1px)!important;
   box-shadow:0 8px 18px rgba(11,31,58,.16)!important;
 }
+
+/* HOME INDUSTRIES: keep the light-section Explore industries action high-contrast. */
+.industry-section .button.button-secondary{
+  background:#0B1F3A!important;
+  border:1px solid #0B1F3A!important;
+  color:#FFFFFF!important;
+  opacity:1!important;
+  box-shadow:0 5px 14px rgba(11,31,58,.14)!important;
+  transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease,box-shadow .18s ease!important;
+}
+.industry-section .button.button-secondary:hover,
+.industry-section .button.button-secondary:focus-visible{
+  background:#F4A261!important;
+  border-color:#F4A261!important;
+  color:#0B1F3A!important;
+  opacity:1!important;
+  transform:translateY(-1px)!important;
+  box-shadow:0 8px 18px rgba(11,31,58,.16)!important;
+}
