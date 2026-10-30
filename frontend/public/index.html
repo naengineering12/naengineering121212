@@ -56,20 +56,30 @@
         "/supplies":"https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1000&q=68",
         "/it-services":"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1000&q=68",
         "/industries":"https://images.unsplash.com/photo-1567789884554-0b844b597180?auto=format&fit=crop&w=1000&q=68",
-        "/blog":"https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=900&h=535&dpr=1"
+        "/blog":"https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=900&h=536&dpr=1&fm=webp&q=68"
       };
       var path=window.location.pathname||"/";
       while(path.length>1&&path.endsWith("/"))path=path.slice(0,-1);
       var src=localImages[path];
-      if(!src)return;
-      var link=document.createElement("link");
-      link.rel="preload";
-      link.as="image";
-      link.href=src;
-      link.fetchPriority="high";
-      document.head.appendChild(link);
+      function preloadImage(url){
+        var imageLink=document.createElement("link");
+        imageLink.rel="preload";
+        imageLink.as="image";
+        imageLink.href=url;
+        imageLink.fetchPriority="high";
+        document.head.appendChild(imageLink);
+      }
+      if(src) preloadImage(src);
+      if(path==="/blog"){
+        // The featured image sits immediately after the hero; start both requests together.
+        preloadImage("https://www.naengineeringsolutions.com/images/local/hardware-tools-v1.svg");
+      }
     }());
   </script>
+  <link rel="preconnect" href="https://images.pexels.com" crossorigin />
+  <link rel="dns-prefetch" href="//images.pexels.com" />
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link rel="dns-prefetch" href="//images.unsplash.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" />
