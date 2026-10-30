@@ -32,18 +32,31 @@ const imgSet = () => undefined;
 
 function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",className="",...rest}){
   const [useFallback,setUseFallback] = useState(false);
-  useEffect(()=>{setUseFallback(false)},[src]);
+  const [imageLoaded,setImageLoaded] = useState(false);
+  useEffect(()=>{
+    setUseFallback(false);
+    setImageLoaded(false);
+  },[src]);
   const source = src;
   const fallbackSource = "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=640&q=55";
   return <img
     src={useFallback ? fallbackSource : source}
     loading={loading}
     fetchPriority={fetchPriority}
-    decoding="async"
+    decoding={loading==="eager" ? "sync" : "async"}
     alt={alt}
-    className={className}
+    className={`smart-image${className ? ` ${className}` : ""}`}
+    data-image-state={imageLoaded ? "loaded" : "loading"}
     {...rest}
-    onError={()=>{if(!useFallback) setUseFallback(true)}}
+    onLoad={()=>setImageLoaded(true)}
+    onError={()=>{
+      if(!useFallback){
+        setImageLoaded(false);
+        setUseFallback(true);
+      }else{
+        setImageLoaded(true);
+      }
+    }}
   />;
 }
 const services = [
