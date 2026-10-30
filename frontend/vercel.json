@@ -206,6 +206,16 @@
       "source": "/insights/:path*",
       "destination": "/blog/:path*",
       "permanent": true
+    },
+    {
+      "source": "/services/hvac",
+      "destination": "/services/hvac-supplies-services",
+      "permanent": true
+    },
+    {
+      "source": "/services/fire-fighting",
+      "destination": "/services/fire-fighting-equipment",
+      "permanent": true
     }
   ]
 }
