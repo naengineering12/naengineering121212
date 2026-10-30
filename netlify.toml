@@ -7,6 +7,228 @@
   NODE_VERSION = "18"
 
 [[redirects]]
+  from = "/clients.html"
+  to = "/clients"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/mechanical-electrical-supplies-services"
+  to = "/services/mechanical-electrical-supplies"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/pumps-valves-pneumatic-fittings"
+  to = "/services/pumps-valves-pneumatic"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/insights"
+  to = "/blog"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/insights/*"
+  to = "/blog/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/hvac"
+  to = "/services/hvac-supplies-services"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services/fire-fighting"
+  to = "/services/fire-fighting-equipment"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/services"
+  to = "/seo-pages/services.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/supplies"
+  to = "/seo-pages/supplies.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/it-services"
+  to = "/seo-pages/it-services.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/industries"
+  to = "/seo-pages/industries.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog"
+  to = "/seo-pages/blog.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/clients"
+  to = "/seo-pages/clients.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/contact"
+  to = "/seo-pages/contact.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/engineering-consultancy"
+  to = "/seo-pages/services/engineering-consultancy.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/civil-engineering"
+  to = "/seo-pages/services/civil-engineering.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/mechanical-engineering"
+  to = "/seo-pages/services/mechanical-engineering.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/peb-works"
+  to = "/seo-pages/services/peb-works.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/electrical-works"
+  to = "/seo-pages/services/electrical-works.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/mechanical-electrical-supplies"
+  to = "/seo-pages/services/mechanical-electrical-supplies.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/utilities-facility-maintenance"
+  to = "/seo-pages/services/utilities-facility-maintenance.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/boiler-chemicals"
+  to = "/seo-pages/services/boiler-chemicals.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/seamless-pipes-fittings"
+  to = "/seo-pages/services/seamless-pipes-fittings.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/wastewater-treatment-plant"
+  to = "/seo-pages/services/wastewater-treatment-plant.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/hvac-supplies-services"
+  to = "/seo-pages/services/hvac-supplies-services.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/fire-fighting-equipment"
+  to = "/seo-pages/services/fire-fighting-equipment.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/safety-security-systems"
+  to = "/seo-pages/services/safety-security-systems.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/waterproofing-solutions"
+  to = "/seo-pages/services/waterproofing-solutions.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/services/pumps-valves-pneumatic"
+  to = "/seo-pages/services/pumps-valves-pneumatic.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog/prepare-a-general-order-supply-request"
+  to = "/seo-pages/blog/prepare-a-general-order-supply-request.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog/industrial-maintenance-supplier-checklist"
+  to = "/seo-pages/blog/industrial-maintenance-supplier-checklist.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog/hvac-preventive-maintenance-checklist"
+  to = "/seo-pages/blog/hvac-preventive-maintenance-checklist.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog/peb-project-planning-checklist"
+  to = "/seo-pages/blog/peb-project-planning-checklist.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog/fire-safety-equipment-site-planning"
+  to = "/seo-pages/blog/fire-safety-equipment-site-planning.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog/industrial-electrical-maintenance-checklist"
+  to = "/seo-pages/blog/industrial-electrical-maintenance-checklist.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog/industrial-spare-parts-inventory-planning"
+  to = "/seo-pages/blog/industrial-spare-parts-inventory-planning.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/blog/compare-industrial-supplier-quotations"
+  to = "/seo-pages/blog/compare-industrial-supplier-quotations.html"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
