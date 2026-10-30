@@ -18,10 +18,10 @@ MAX_BODY_BYTES = 12 * 1024 * 1024
 
 
 def _strip_header(headers, name):
-    try:
-        headers.pop(name)
-    except KeyError:
-        pass
+    # Starlette MutableHeaders implements mapping deletion, not dict.pop().
+    # Check first so absent headers are harmless and response middleware cannot crash.
+    if name in headers:
+        del headers[name]
 
 
 def _apply_cors(response, origin):
