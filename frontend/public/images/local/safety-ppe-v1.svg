@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" role="img" aria-labelledby="title desc">
+<title id="title">Safety and PPE</title>
+<desc id="desc">A fast-loading original NA Engineering Solutions industrial illustration for safety and ppe.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#07172B"/><stop offset=".55" stop-color="#102D4A"/><stop offset="1" stop-color="#1C4664"/></linearGradient>
+<linearGradient id="copper" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F4A261"/><stop offset="1" stop-color="#FFD0A0"/></linearGradient>
+<pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#B7CBD9" stroke-opacity=".075" stroke-width="1"/></pattern>
+<radialGradient id="glow"><stop offset="0" stop-color="#7EA4C2" stop-opacity=".22"/><stop offset="1" stop-color="#7EA4C2" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1280" height="800" fill="url(#bg)"/><rect width="1280" height="800" fill="url(#grid)"/>
+<ellipse cx="650" cy="385" rx="410" ry="340" fill="url(#glow)"/>
+<circle cx="990" cy="135" r="230" fill="#7392AB" opacity=".07"/><circle cx="990" cy="135" r="175" fill="none" stroke="#C4D6E2" stroke-opacity=".14" stroke-width="2"/>
+<path d="M80 665H1200" stroke="#A8BECD" stroke-opacity=".35" stroke-width="3"/><path d="M80 688H450" stroke="url(#copper)" stroke-width="5"/>
+<g fill="none" stroke="#D8E4EC" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0 0)">
+<path d="M310 470c0-185 125-300 300-300s300 115 300 300v35H310z"/>
+<path d="M610 170v300M460 235l-70 270M760 235l70 270" stroke="#F4A261"/>
+<path d="M285 505h650v65H285z"/>
+<path d="M875 190l120 45v110c0 80-60 120-120 160-60-40-120-80-120-160V235z"/>
+</g></g>
+<g fill="#F4A261"><circle cx="160" cy="185" r="7"/><circle cx="190" cy="185" r="7"/><circle cx="220" cy="185" r="7"/></g>
+<path d="M85 748h180m18 0h70" stroke="#F4A261" stroke-opacity=".55" stroke-width="4"/>
+</svg>
