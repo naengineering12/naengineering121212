@@ -3,6 +3,8 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Clock3, Search, Share2 } from "lucide-react";
 import "./InsightsPage.css";
 
+// Keep the Blog's high-priority WebP image loading changes in this production build.
+
 // Blog uses real Pexels/Unsplash photographs. If one provider fails, recover
 // with a photo from a second CDN instead of substituting a vector illustration.
 const insightPhotoFallback = "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=800&q=60";
