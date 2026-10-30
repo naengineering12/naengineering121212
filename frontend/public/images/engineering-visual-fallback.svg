@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" role="img" aria-labelledby="title desc">
+  <title id="title">Engineering and industrial services</title>
+  <desc id="desc">A clean navy and copper illustration of industrial buildings, construction structures and engineering lines.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07172B"/>
+      <stop offset=".58" stop-color="#102D4A"/>
+      <stop offset="1" stop-color="#1C4664"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8AA5B9" stop-opacity=".72"/>
+      <stop offset="1" stop-color="#365B78" stop-opacity=".35"/>
+    </linearGradient>
+    <linearGradient id="copper" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#F4A261"/>
+      <stop offset="1" stop-color="#FFD0A0"/>
+    </linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#B7CBD9" stroke-opacity=".09" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="800" fill="url(#bg)"/>
+  <rect width="1280" height="800" fill="url(#grid)"/>
+  <circle cx="1030" cy="150" r="250" fill="#6E91AA" opacity=".08"/>
+  <circle cx="1030" cy="150" r="190" fill="none" stroke="#B3C7D6" stroke-opacity=".16" stroke-width="2"/>
+  <path d="M0 645H1280" stroke="#B8C9D5" stroke-opacity=".42" stroke-width="3"/>
+  <path d="M0 678H1280" stroke="#F4A261" stroke-opacity=".72" stroke-width="3"/>
+  <!-- factory block -->
+  <path d="M110 645V420L245 350L380 420V645Z" fill="#183B58" stroke="#91AABD" stroke-opacity=".78" stroke-width="4"/>
+  <path d="M110 420L245 350L380 420" fill="none" stroke="url(#copper)" stroke-width="5"/>
+  <path d="M160 645V490H220V645M260 645V490H320V645" fill="#0A2139" stroke="#7897AF" stroke-width="3"/>
+  <path d="M160 490H220M260 490H320" stroke="#F4A261" stroke-width="3"/>
+  <path d="M275 350V255H326V394" fill="#244866" stroke="#8AA5B9" stroke-width="4"/>
+  <path d="M285 255H316M285 276H316" stroke="#F4A261" stroke-width="3"/>
+  <!-- steel shed -->
+  <path d="M410 645V465L570 380L730 465V645Z" fill="#12304B" stroke="#A2B9C9" stroke-opacity=".76" stroke-width="4"/>
+  <path d="M410 465L570 380L730 465" fill="none" stroke="url(#copper)" stroke-width="5"/>
+  <path d="M445 645V490L570 425L695 490V645" fill="none" stroke="#7394AC" stroke-width="4"/>
+  <path d="M445 490L695 490M570 425V645M445 565L695 565" stroke="#7394AC" stroke-opacity=".65" stroke-width="3"/>
+  <path d="M475 645V530M665 645V530" stroke="#F4A261" stroke-opacity=".75" stroke-width="4"/>
+  <!-- crane -->
+  <path d="M875 645V190M858 645H892M875 190L850 645" stroke="#A8BDCB" stroke-width="8" fill="none"/>
+  <path d="M875 190H1160M920 190L875 230M1115 190L875 230" stroke="url(#copper)" stroke-width="7" fill="none"/>
+  <path d="M1118 190V310Q1118 345 1090 345" stroke="#E7B27F" stroke-width="5" fill="none"/>
+  <path d="M1090 345V390" stroke="#E7B27F" stroke-width="5"/>
+  <path d="M1076 390H1104L1090 410Z" fill="#F4A261"/>
+  <path d="M875 230H1050M875 300H960" stroke="#9BB2C2" stroke-opacity=".6" stroke-width="2" stroke-dasharray="8 10"/>
+  <!-- engineering measurement marks -->
+  <path d="M790 470H850M790 460V480M850 460V480M755 520H850M755 510V530M850 510V530" stroke="#F4A261" stroke-opacity=".8" stroke-width="3" fill="none"/>
+  <path d="M90 705H1190" stroke="#8FA8BA" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M90 725H360M90 738H270" stroke="#F4A261" stroke-opacity=".68" stroke-width="4"/>
+  <g fill="#DCE6ED" opacity=".68">
+    <circle cx="1100" cy="560" r="4"/><circle cx="1130" cy="560" r="4"/><circle cx="1160" cy="560" r="4"/>
+    <circle cx="1100" cy="590" r="4"/><circle cx="1130" cy="590" r="4"/><circle cx="1160" cy="590" r="4"/>
+  </g>
+</svg>
