@@ -45,6 +45,14 @@
 @media(max-width:600px){.insight-card-grid{grid-template-columns:1fr}.insight-card{min-height:0;padding:22px}.insight-card h2{margin-top:20px}.insight-article-layout{padding-top:45px;padding-bottom:65px}.insight-article-hero h1,.insights-index-hero h1{font-size:clamp(36px,10vw,48px)}.insights-contact-cta{align-items:flex-start;flex-direction:column}.insights-contact-cta>a{white-space:normal}.insight-related>div{display:grid}}
 
 
+/* Fast same-origin visual while editorial photos are fetched. */
+.insight-card-image,
+.insight-article-cover img,
+.insights-index-hero-visual img,
+.blog-featured-image img{
+  background:#0B1F3A url("/images/engineering-visual-fallback.svg") center/cover no-repeat;
+}
+
 /* Professional Blog / Guide imagery and editorial layout */
 .insights-index-hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:clamp(28px,5vw,72px);align-items:center}
 .insights-index-hero-copy{position:relative;z-index:2}
