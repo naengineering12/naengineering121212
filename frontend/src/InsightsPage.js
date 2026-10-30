@@ -395,7 +395,7 @@ export default function InsightsPage() {
             <a className="blog-hero-button" href="#blog-library">Explore all guides <ArrowRight size={16}/></a>
           </div>
           <div className="insights-index-hero-visual">
-            <img src="https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=900&h=535&dpr=1" alt="Industrial engineers coordinating mechanical equipment and pipework" loading="eager" decoding="async" onError={recoverInsightImage}/>
+            <img src="/images/local/blog-engineering-v1.svg" alt="Industrial engineers coordinating mechanical equipment and pipework" loading="eager" decoding="async" onError={recoverInsightImage}/>
             <div className="insights-hero-image-caption"><span>FIELD NOTES / 01</span><strong>Engineering. Supply. Execution.</strong></div>
           </div>
         </div>
