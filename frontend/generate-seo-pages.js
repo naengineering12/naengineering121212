@@ -102,7 +102,8 @@ function routeMetadata(route) {
       "hvac-supplies-services": "HVAC Services in Lahore | NA Engineering Solutions",
       "fire-fighting-equipment": "Fire Fighting Services in Lahore | NA Engineering Solutions",
       "waterproofing-solutions": "Waterproofing in Lahore | NA Engineering Solutions",
-      "pumps-valves-pneumatic": "Pumps & Valves in Lahore | NA Engineering Solutions"
+      "pumps-valves-pneumatic": "Pumps & Valves in Lahore | NA Engineering Solutions",
+      "peb-works": "PEB Company in Lahore | NA Engineering Solutions"
     };
     const serviceDescriptionOverrides = {
       "boiler-chemicals": "NA Engineering Solutions supplies boiler water treatment chemicals, dosing systems and testing support for industrial boilers in Lahore, Pakistan.",
@@ -118,7 +119,7 @@ function routeMetadata(route) {
       "pumps-valves-pneumatic": "Industrial pumps, valves, pneumatic fittings, hoses and regulators supplied in Lahore with application-based selection support by NA Engineering Solutions.",
       "civil-engineering": "Civil engineering services in Lahore covering construction, concrete, flooring, waterproofing and site development for commercial and industrial projects.",
       "mechanical-engineering": "Mechanical engineering in Lahore for pumps, motors, conveyors, fabrication, welding, industrial repairs and spare parts from NA Engineering Solutions.",
-      "peb-works": "PEB works in Lahore for steel sheds, industrial structures, platforms and canopies, with installation and modification support by NA Engineering Solutions.",
+      "peb-works": "PEB works in Lahore for pre-engineered buildings, industrial steel sheds, structural steel, roofing, cladding, platforms and modifications by NA Engineering Solutions.",
       "electrical-works": "Electrical works in Lahore covering industrial wiring, lighting, panels, cables, installation, troubleshooting and maintenance by NA Engineering Solutions."
     };
     return {
@@ -304,6 +305,10 @@ function renderPage(route, page, template) {
         } else if (route === "/blog") {
           eyebrow = "ENGINEERING / INDUSTRIAL INSIGHTS";
           heading = "Engineering & Industrial Blog";
+        } else if (route === "/services/peb-works") {
+          eyebrow = "PRE-ENGINEERED BUILDINGS / PEB WORKS";
+          heading = "PEB Company in Lahore | Industrial Sheds";
+          intro = "NA Engineering Solutions supports pre-engineered building works, industrial steel sheds, structural steel, roofing, cladding, platforms and PEB modifications in Lahore.";
         } else if (route.startsWith("/services/")) {
           eyebrow = "SERVICES / " + (page.service?.title || "ENGINEERING").toUpperCase();
           heading = page.service?.title || heading;
