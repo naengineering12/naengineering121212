@@ -42,11 +42,13 @@ function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",cla
     setImageLoaded(false);
   },[src]);
   const source = src;
-  const fallbackSource = "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=640&q=48";
+  // Keep the final fallback on the same domain as the website. A remote fallback
+  // cannot help when the image CDN itself is unavailable or blocked.
+  const fallbackSource = "/images/engineering-visual-fallback.svg";
   return <img
     src={useFallback ? fallbackSource : source}
     srcSet={useFallback ? undefined : srcSet}
-    sizes={sizes}
+    sizes={useFallback ? undefined : sizes}
     loading={loading}
     fetchPriority={fetchPriority}
     decoding={loading==="eager" ? "sync" : "async"}
@@ -55,12 +57,15 @@ function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",cla
     data-image-state={imageLoaded ? "loaded" : "loading"}
     {...rest}
     onLoad={()=>setImageLoaded(true)}
-    onError={()=>{
+    onError={(event)=>{
       if(!useFallback){
         setImageLoaded(false);
         setUseFallback(true);
       }else{
-        setImageLoaded(true);
+        // Never leave the browser's broken-image glyph visible if even the
+        // same-origin fallback asset is unavailable.
+        event.currentTarget.onerror = null;
+        event.currentTarget.style.display = "none";
       }
     }}
   />;
