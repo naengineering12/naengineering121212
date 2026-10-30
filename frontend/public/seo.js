@@ -89,7 +89,7 @@ function upsert(name, content) {
     };
     document.title = data.title;
     upsert('description', data.description);
-    upsert('robots', (isAdmin || isNotFound) ? 'noindex, follow' : 'index, follow, max-image-preview:large');
+    upsert('robots', (isAdmin || isNotFound) ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
     upsertProperty('og:type', articleData ? 'article' : 'website');
     upsertProperty('og:site_name', 'NA Engineering Solutions');
     upsertProperty('og:locale', 'en_PK');
@@ -104,6 +104,7 @@ function upsert(name, content) {
     upsert('twitter:title', data.title);
     upsert('twitter:description', data.description);
     upsert('twitter:image', socialImage);
+    upsert('twitter:image:alt', socialImageAlt);
     if (isAdmin || isNotFound) {
       const existingCanonical = document.head.querySelector('link[rel="canonical"]');
       if (existingCanonical) existingCanonical.remove();
@@ -118,24 +119,8 @@ function upsert(name, content) {
     setTimeout(improveImageAlt, 350);
     let schema = document.getElementById('dynamic-seo-schema');
     if (!schema) { schema = document.createElement('script'); schema.id = 'dynamic-seo-schema'; schema.type = 'application/ld+json'; document.head.appendChild(schema); }
-    const business = {
-      '@type': 'ProfessionalService',
-      '@id': SITE + '/#business',
-      name: 'NA Engineering Solutions',
-      alternateName: ['NA Engineering', 'NA Engineering Solutions Lahore'],
-      url: SITE,
-      logo: SITE + '/logo.png',
-      image: SITE + '/logo.png',
-      description: 'NA Engineering Solutions is a Lahore-based engineering services and general order supplies company serving industrial, commercial and construction requirements in Pakistan.',
-      email: 'na.engineeringsolutions2023@gmail.com',
-      telephone: '+92 300 8596393',
-      address: { '@type': 'PostalAddress', streetAddress: '593 Block-A LDA Avenue, 1 Raiwind Rd', addressLocality: 'Lahore', postalCode: '54000', addressCountry: 'PK' },
-      geo: { '@type': 'GeoCoordinates', latitude: 31.4274139, longitude: 74.2215347 },
-      areaServed: [{ '@type': 'City', name: 'Lahore' }, { '@type': 'Country', name: 'Pakistan' }],
-      serviceType: ['Engineering Consultancy', 'Engineering Services', 'General Order Supplies & Services', 'Industrial Maintenance', 'Utilities & Facility Maintenance', 'HVAC Services', 'Mechanical Engineering', 'Electrical Works', 'Civil Engineering', 'PEB Works', 'Fire Fighting Equipment', 'Safety & Security Systems', 'IT Services & Equipment', 'Wastewater Treatment Plant Supplies', 'Boiler Water Treatment Chemicals', 'Seamless MS & SS Pipes & Fittings', 'Waterproofing Solutions', 'Pumps, Valves & Pneumatic Fittings', 'Industrial Supplies'],
-      sameAs: ['https://www.tiktok.com/@na_engineering.co', 'https://www.instagram.com/na_engineering.co/', 'https://x.com/NA_engsolutions']
-    };
-    const graph = [business];
+    // Reuse the canonical ProfessionalService and WebSite entities in the base document's JSON-LD.
+    const graph = [];
     const serviceKey = serviceMatch && servicePages[serviceMatch[1]] ? serviceMatch[1] : null;
     const standaloneService = path === '/supplies'
       ? {name: 'General Order Supplies', description: pages['/supplies'].description}
@@ -179,7 +164,7 @@ function upsert(name, content) {
         url: canonicalUrl,
         image: [articleData?.[2]],
         mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
-        author: { '@type': 'Organization', '@id': SITE + '/#business', name: 'NA Engineering Solutions' },
+        author: { '@id': SITE + '/#business' },
         publisher: { '@id': SITE + '/#business' },
         inLanguage: 'en-PK',
         articleSection: 'Engineering, maintenance and procurement'
@@ -201,7 +186,7 @@ function upsert(name, content) {
                 { '@type': 'ListItem', position: 3, name: serviceName, item: canonicalUrl }
               ]
             : (path === '/insights' || path === '/blog')
-              ? [{ '@type': 'ListItem', position: 2, name: 'Insights', item: canonicalUrl }]
+              ? [{ '@type': 'ListItem', position: 2, name: 'Blog', item: SITE + '/blog' }]
               : [{ '@type': 'ListItem', position: 2, name: data.title.split(' | ')[0], item: canonicalUrl }])
       ]
     });
