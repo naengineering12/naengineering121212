@@ -26,13 +26,13 @@ const imageUrl = (url,w=640,q=52) => {
   if (base.includes("images.pexels.com")) return `${base}?auto=compress&cs=tinysrgb&w=${width}`;
   return base;
 };
-const img = (url,w=640) => imageUrl(url,w,52);
+const img = (url,w=640) => imageUrl(url,w,48);
 // The browser selects one srcSet candidate matching the rendered size and device pixel ratio.
 const imgSet = (url) => {
   if (typeof url !== "string" || !url) return undefined;
   const base = url.split("?")[0];
   if (!base.includes("images.unsplash.com") && !base.includes("images.pexels.com")) return undefined;
-  return [480,640,960,1280,1600].map((width) => `${imageUrl(base,width,52)} ${width}w`).join(", ");
+  return [480,640,960,1280,1600].map((width) => `${imageUrl(base,width,48)} ${width}w`).join(", ");
 };
 function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",className="",...rest}){
   const [useFallback,setUseFallback] = useState(false);
