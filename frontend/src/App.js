@@ -61,18 +61,13 @@ const localImageById = {
   "photo-1497366811353-6870744d04b2":"office-stationery-v1.svg",
   "photo-1497366216548-37526070297c":"facility-maintenance-v1.svg"
 };
+// Preserve the actual photography URLs defined by each service/category.
+ // The previous mapping replaced every photo with a vector illustration, which
+ // made the site's image sections look incorrect. Keep same-origin assets as-is
+ // and use the supplied photo URL for remote photography.
 const localImage = (url) => {
   if (typeof url !== "string" || !url) return "/images/local/hero-engineering-v1.svg";
-  if (url.startsWith("/")) return url;
-  const base = url.split("?")[0];
-  if (base.includes("buchen-group")) return "/images/local/security-systems-v1.svg";
-  const id = base.match(/photo-[A-Za-z0-9-]+/)?.[0];
-  const pexelsId = base.match(/photos\/(\d+)/)?.[1];
-  const file = (id && localImageById[id]) ||
-    (pexelsId === "33996167" ? "pipes-fittings-v1.svg" : null) ||
-    (pexelsId === "18329661" ? "fire-protection-v1.svg" : null) ||
-    "hero-engineering-v1.svg";
-  return "/images/local/" + file;
+  return url;
 };
 const imageUrl = (url) => localImage(url);
 const img = (url) => localImage(url);
