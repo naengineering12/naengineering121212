@@ -17,24 +17,28 @@ import "./brand-system.css";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
-// Resize remote photos at the source CDN rather than downloading full-resolution originals.
-const imageUrl = (url,w=640,q=60) => {
+// Serve responsive, compressed image variants directly from the image CDN.
+const imageUrl = (url,w=640,q=52) => {
   if (typeof url !== "string" || !url) return url;
   const base = url.split("?")[0];
-  const width = Math.max(320, Math.min(1200, Math.round(w)));
+  const width = Math.max(320, Math.min(1600, Math.round(w)));
   if (base.includes("images.unsplash.com")) return `${base}?auto=format&fit=crop&w=${width}&q=${q}`;
   if (base.includes("images.pexels.com")) return `${base}?auto=compress&cs=tinysrgb&w=${width}`;
   return base;
 };
-const img = (url,w=640) => imageUrl(url,w,60);
-// Avoid requesting several competing image variants; each card gets one appropriately sized image.
-const imgSet = () => undefined;
-
+const img = (url,w=640) => imageUrl(url,w,52);
+// The browser selects one srcSet candidate matching the rendered size and device pixel ratio.
+const imgSet = (url) => {
+  if (typeof url !== "string" || !url) return undefined;
+  const base = url.split("?")[0];
+  if (!base.includes("images.unsplash.com") && !base.includes("images.pexels.com")) return undefined;
+  return [480,640,960,1280,1600].map((width) => `${imageUrl(base,width,52)} ${width}w`).join(", ");
+};
 function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",className="",...rest}){
   const [useFallback,setUseFallback] = useState(false);
   useEffect(()=>{setUseFallback(false)},[src]);
   const source = src;
-  const fallbackSource = "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=640&q=55";
+  const fallbackSource = "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=640&q=48";
   return <img
     src={useFallback ? fallbackSource : source}
     srcSet={useFallback ? undefined : srcSet}
@@ -126,7 +130,7 @@ function Footer(){ return <footer className="footer"><div className="site-contai
 function PageIntro({eyebrow,title,children}){return <section className="page-intro"><div className="site-container"><span className="eyebrow">{eyebrow}</span><h1 data-testid="page-heading">{title}</h1><p>{children}</p></div></section>}
 function SectionLabel({children}){return <span className="eyebrow"><CircleDot size={13}/>{children}</span>}
 const HERO_PHOTO="https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea";
-const HERO_PHOTO_URL=(width)=>`${HERO_PHOTO}?auto=format&fit=crop&w=${width}&q=64`;
+const HERO_PHOTO_URL=(width)=>`${HERO_PHOTO}?auto=format&fit=crop&w=${width}&q=55`;
 const HERO_PHOTO_SRCSET=[640,960,1280,1600].map((width)=>`${HERO_PHOTO_URL(width)} ${width}w`).join(", ");
 function Hero(){return <section className="hero"><div className="hero-bg"><SmartImage src={HERO_PHOTO_URL(960)} srcSet={HERO_PHOTO_SRCSET} sizes="100vw" loading="eager" fetchPriority="high" alt="Industrial engineering and construction project site" /></div><div className="site-container hero-content"><div className="hero-copy"><span className="eyebrow">ENGINEERING / SUPPLY / EXECUTION</span><h1><span className="mask-line"><span style={{color:"var(--amber)"}}>NA Engineering Solutions</span></span><span className="mask-line"><span>Engineering Services in Lahore</span></span></h1><p>NA Engineering Solutions supports factories, commercial facilities and project teams in Lahore with engineering consultancy, civil and mechanical works, HVAC, electrical installation, PEB, fire protection, industrial maintenance and General Order Supplies & Services. Tell us your scope, item list or site requirement and we will discuss the practical next steps.</p><div className="hero-actions"><Button to="/contact" testid="hero-request-quote">Request a Quote</Button><Button to="/services" secondary testid="hero-explore-services">Explore Our Services</Button></div></div><div className="hero-note"><span>01</span><span>From first brief<br/>to project support</span></div></div><div className="hero-scroll">SCROLL TO EXPLORE <ChevronDown size={15}/></div></section>}
 function Marquee(){const items=["General Order Supplies & Services","Civil Engineering","HVAC","Mechanical Engineering","PEB Works","Electrical Works","Fire Fighting"];const row=[...items,...items];return <div className="marquee" aria-hidden="true"><div className="marquee-track">{row.map((x,i)=><span key={i} className={i%2?"marquee-outline":""}>{x}</span>)}</div></div>}
