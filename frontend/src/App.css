@@ -308,10 +308,10 @@ h2{font-weight:800}.logo-img{width:54px;height:54px;object-fit:contain}.footer .
 .home-extra-links a{display:inline-flex;align-items:center;gap:8px;color:var(--blue,#155DA8);font-size:12px;font-weight:800;text-decoration:none;padding:5px 0}
 .home-extra-links a:hover{color:var(--amber,#f4a261)}
 
-/* Show a real, same-origin visual immediately while the full photo loads. */
+/* Neutral, light placeholder while the real photographic asset loads. */
 .smart-image{
-  background-color:#0B1F3A;
-  background-image:url("/images/engineering-visual-fallback.svg");
+  background-color:#e9eef2;
+  background-image:none;
   background-position:center;
   background-repeat:no-repeat;
   background-size:cover;
@@ -323,12 +323,8 @@ h2{font-weight:800}.logo-img{width:54px;height:54px;object-fit:contain}.footer .
   background-image:none;
   animation:none;
 }
-@keyframes smart-image-shimmer{
-  0%{background-position:100% 0}
-  100%{background-position:-100% 0}
-}
 @media(prefers-reduced-motion:reduce){
-  .smart-image{animation:none;background-color:#0B1F3A}
+  .smart-image{animation:none;background-color:#e9eef2}
 }
 
 .smart-image[data-image-state="error"]{
