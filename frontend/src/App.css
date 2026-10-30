@@ -308,3 +308,24 @@ h2{font-weight:800}.logo-img{width:54px;height:54px;object-fit:contain}.footer .
 .home-extra-links{display:flex;align-items:center;gap:10px 22px;flex-wrap:wrap;margin-top:30px;padding-top:20px;border-top:1px solid var(--line,#d9e0e5)}
 .home-extra-links a{display:inline-flex;align-items:center;gap:8px;color:var(--blue,#155DA8);font-size:12px;font-weight:800;text-decoration:none;padding:5px 0}
 .home-extra-links a:hover{color:var(--amber,#f4a261)}
+
+/* Neutral image placeholder: prevents dark/navy flashes while remote photos load. */
+.smart-image{
+  background-color:#eaf0f5;
+  background-image:linear-gradient(105deg,#eaf0f5 8%,#f7f9fb 18%,#eaf0f5 33%);
+  background-size:200% 100%;
+  animation:smart-image-shimmer 1.25s ease-in-out infinite;
+  transition:background-color .2s ease;
+}
+.smart-image[data-image-state="loaded"]{
+  background-color:transparent;
+  background-image:none;
+  animation:none;
+}
+@keyframes smart-image-shimmer{
+  0%{background-position:100% 0}
+  100%{background-position:-100% 0}
+}
+@media(prefers-reduced-motion:reduce){
+  .smart-image{animation:none;background-image:none;background-color:#eaf0f5}
+}
