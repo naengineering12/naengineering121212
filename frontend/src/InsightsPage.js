@@ -5,7 +5,7 @@ import "./InsightsPage.css";
 
 // Blog uses real Pexels/Unsplash photographs. If one provider fails, recover
 // with a photo from a second CDN instead of substituting a vector illustration.
-const insightPhotoFallback = "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=1000&q=68";
+const insightPhotoFallback = "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=800&q=60";
 function recoverInsightImage(event) {
   const image = event.currentTarget;
   if (image.dataset.fallbackApplied === "true") {
@@ -20,13 +20,13 @@ function recoverInsightImage(event) {
 const optimizedInsightImage = (url,width=640) => {
   if (typeof url !== "string" || !url) return insightPhotoFallback;
   const base = url.split("?")[0];
-  const w = Math.max(320,Math.min(1200,Math.round(width)));
+  const w = Math.max(320,Math.min(960,Math.round(width)));
   if (base.includes("images.pexels.com")) {
     const h = Math.round(w * 0.595);
-    return `${base}?auto=compress&cs=tinysrgb&w=${w}&h=${h}&dpr=1`;
+    return `${base}?auto=compress&cs=tinysrgb&w=${w}&h=${h}&dpr=1&fm=webp&q=68`;
   }
   if (base.includes("images.unsplash.com")) {
-    return `${base}?auto=format&fit=crop&w=${w}&q=68`;
+    return `${base}?auto=format&fit=crop&w=${w}&q=62`;
   }
   return base;
 };
@@ -307,7 +307,7 @@ export default function InsightsPage() {
 
         <div className="site-container">
           <figure className="insight-article-cover">
-            <img src={optimizedInsightImage(article.image,900)} alt={article.imageAlt} loading="eager" decoding="async" onError={recoverInsightImage} />
+            <img src={optimizedInsightImage(article.image,900)} alt={article.imageAlt} width="900" height="536" loading="eager" fetchPriority="high" decoding="async" onError={recoverInsightImage} />
           </figure>
         </div>
 
@@ -393,7 +393,7 @@ export default function InsightsPage() {
             <a className="blog-hero-button" href="#blog-library">Explore all guides <ArrowRight size={16}/></a>
           </div>
           <div className="insights-index-hero-visual">
-            <img src="https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=900&h=535&dpr=1" alt="Industrial engineers coordinating mechanical equipment and pipework" loading="eager" decoding="async" onError={recoverInsightImage}/>
+            <img src="https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=900&h=536&dpr=1&fm=webp&q=68" alt="Industrial engineers coordinating mechanical equipment and pipework" width="900" height="536" loading="eager" fetchPriority="high" decoding="async" onError={recoverInsightImage}/>
             <div className="insights-hero-image-caption"><span>FIELD NOTES / 01</span><strong>Engineering. Supply. Execution.</strong></div>
           </div>
         </div>
@@ -403,7 +403,7 @@ export default function InsightsPage() {
         <div className="site-container">
           <div className="blog-featured-card">
             <Link className="blog-featured-image" to={"/blog/" + featuredArticle.slug} aria-label={"Read " + featuredArticle.title}>
-              <img src={optimizedInsightImage(featuredArticle.image,480)} alt={featuredArticle.imageAlt} loading="lazy" decoding="async" onError={recoverInsightImage}/>
+              <img src={optimizedInsightImage(featuredArticle.image,480)} alt={featuredArticle.imageAlt} width="480" height="286" loading="eager" fetchPriority="high" decoding="async" onError={recoverInsightImage}/>
             </Link>
             <div className="blog-featured-content">
               <span className="blog-featured-kicker"><span className="blog-featured-dot"/> FEATURED FIELD GUIDE</span>
