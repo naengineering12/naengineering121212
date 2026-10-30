@@ -22,7 +22,7 @@ function recoverInsightImage(event) {
 const optimizedInsightImage = (url,width=640) => {
   if (typeof url !== "string" || !url) return insightPhotoFallback;
   const base = url.split("?")[0];
-  const w = Math.max(320,Math.min(960,Math.round(width)));
+  const w = Math.max(320,Math.min(800,Math.round(width)));
   if (base.includes("images.pexels.com")) {
     const h = Math.round(w * 0.595);
     return `${base}?auto=compress&cs=tinysrgb&w=${w}&h=${h}&dpr=1&fm=webp&q=68`;
