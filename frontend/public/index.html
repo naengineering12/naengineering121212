@@ -32,7 +32,7 @@
   <link rel="icon" type="image/png" href="%PUBLIC_URL%/na-engineering-favicon-v2.png" sizes="32x32" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-  <link rel="preload" as="image" imagesrcset="https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&amp;fit=crop&amp;w=640&amp;q=64 640w, https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&amp;fit=crop&amp;w=960&amp;q=64 960w, https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&amp;fit=crop&amp;w=1280&amp;q=64 1280w, https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&amp;fit=crop&amp;w=1600&amp;q=64 1600w" imagesizes="100vw" fetchpriority="high" />
+  <link rel="preload" as="image" imagesrcset="https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&amp;fit=crop&amp;w=640&amp;q=55 640w, https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&amp;fit=crop&amp;w=960&amp;q=55 960w, https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&amp;fit=crop&amp;w=1280&amp;q=55 1280w, https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&amp;fit=crop&amp;w=1600&amp;q=55 1600w" imagesizes="100vw" fetchpriority="high" />
   <script>
     (function(){
       var firstImages={
@@ -48,7 +48,7 @@
       var isHome=path==="/";
       var isMobile=isHome && window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
       var width=isHome?(isMobile?900:1600):640;
-      var quality=isHome?(isMobile?48:55):60;
+      var quality=isHome?(isMobile?45:52):52;
       var link=document.createElement("link");
       link.rel="preload";
       link.as="image";
