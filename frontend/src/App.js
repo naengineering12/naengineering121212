@@ -106,10 +106,11 @@ function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",cla
         setImageLoaded(false);
         setUseFallback(true);
       }else{
-        // Never leave the browser's broken-image glyph visible if even the
-        // same-origin fallback asset is unavailable.
+        // Last-resort inline visual: this does not depend on another
+        // network request, so a failed asset can never leave a blank image box.
         event.currentTarget.onerror = null;
-        event.currentTarget.style.display = "none";
+        event.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 800'%3E%3Cdefs%3E%3ClinearGradient id='g' x2='1' y2='1'%3E%3Cstop stop-color='%230B1F3A'/%3E%3Cstop offset='1' stop-color='%23155DA8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1280' height='800' fill='url(%23g)'/%3E%3Cpath d='M180 620h920M300 520l180-220 150 160 130-190 220 250' fill='none' stroke='%23F4A261' stroke-width='18' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='640' cy='300' r='90' fill='none' stroke='%23D8E4EC' stroke-width='16'/%3E%3C/svg%3E";
+        event.currentTarget.style.display = "block";
       }
     }}
   />;
