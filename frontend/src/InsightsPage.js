@@ -3,8 +3,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Clock3, Search, Share2 } from "lucide-react";
 import "./InsightsPage.css";
 
-// Article photos use third-party CDNs, so always recover to a small same-origin
-// visual rather than leaving a broken-image icon on the page.
+// Blog artwork is served from this site's static image directory as well.
 function recoverInsightImage(event) {
   const image = event.currentTarget;
   if (image.dataset.fallbackApplied === "true") {
@@ -14,22 +13,24 @@ function recoverInsightImage(event) {
   }
   image.dataset.fallbackApplied = "true";
   image.removeAttribute("srcset");
-  image.src = "/images/engineering-visual-fallback.svg";
+  image.src = "/images/local/blog-engineering-v1.svg";
 }
-
-const optimizedInsightImage = (url,width=640) => {
-  if (typeof url !== "string" || !url) return url;
+const blogImageById = {
+  "37912780":"hardware-tools-v1.svg",
+  "4483773":"maintenance-consumables-v1.svg",
+  "32497161":"hvac-systems-v1.svg",
+  "7961889":"peb-steelworks-v1.svg",
+  "19143940":"fire-protection-v1.svg",
+  "33531833":"electrical-systems-v1.svg",
+  "7568418":"mechanical-engineering-v1.svg",
+  "4484154":"packaging-logistics-v1.svg",
+  "10202865":"blog-engineering-v1.svg"
+};
+const optimizedInsightImage = (url) => {
+  if (typeof url !== "string" || !url) return "/images/local/blog-engineering-v1.svg";
   const base = url.split("?")[0];
-  if (base.includes("images.pexels.com")) {
-    const w = Math.max(320,Math.min(1000,Math.round(width)));
-    const h = Math.round(w * 0.595);
-    return `${base}?auto=compress&cs=tinysrgb&w=${w}&h=${h}&dpr=1`;
-  }
-  if (base.includes("images.unsplash.com")) {
-    const w = Math.max(320,Math.min(1000,Math.round(width)));
-    return `${base}?auto=format&fit=crop&w=${w}&q=50`;
-  }
-  return base;
+  const id = base.match(/photos\/(\d+)/)?.[1];
+  return "/images/local/" + (blogImageById[id] || "blog-engineering-v1.svg");
 };
 
 export const insightArticles = [
