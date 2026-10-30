@@ -17,23 +17,67 @@ import "./brand-system.css";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
-// Serve responsive, compressed image variants directly from the image CDN.
-const imageUrl = (url,w=640,q=52) => {
-  if (typeof url !== "string" || !url) return url;
-  const base = url.split("?")[0];
-  const width = Math.max(320, Math.min(1600, Math.round(w)));
-  if (base.includes("images.unsplash.com")) return `${base}?auto=format&fit=crop&w=${width}&q=${q}`;
-  if (base.includes("images.pexels.com")) return `${base}?auto=compress&cs=tinysrgb&w=${width}`;
-  return base;
+// All service, supplies, IT and industry visuals are served from this site's
+// own static assets. Do not wait for third-party image CDNs on a fresh visit.
+const localImageById = {
+  "photo-1565008447742-97f6f38c985c":"civil-construction-v1.svg",
+  "photo-1503387762-592deb58ef4e":"engineering-consultancy-v1.svg",
+  "photo-1606337321936-02d1b1a4d5ef":"mechanical-engineering-v1.svg",
+  "photo-1429497419816-9ca5cfb4571a":"peb-steelworks-v1.svg",
+  "photo-1518770660439-4636190af475":"electrical-systems-v1.svg",
+  "photo-1513828583688-c52646db42da":"mechanical-engineering-v1.svg",
+  "photo-1581578731548-c64695cc6952":"facility-maintenance-v1.svg",
+  "photo-1611581372056-30cf28a7bd2e":"boiler-chemicals-v1.svg",
+  "photo-33996167":"pipes-fittings-v1.svg",
+  "photo-1533163238111-4a7ced54f2e4":"water-treatment-v1.svg",
+  "photo-1615309662243-70f6df917b59":"hvac-systems-v1.svg",
+  "photo-18329661":"fire-protection-v1.svg",
+  "photo-1602064828974-fcac67d33f4e":"waterproofing-v1.svg",
+  "photo-1513828742140-ccaa28f3eda0":"pumps-valves-v1.svg",
+  "photo-1530124566582-a618bc2615dc":"hardware-tools-v1.svg",
+  "photo-1544724569-5f546fd6f2b5":"electrical-systems-v1.svg",
+  "photo-1651499910684-b6b82c2da504":"safety-ppe-v1.svg",
+  "photo-1781637590564-01c65dbf2039":"cleaning-janitorial-v1.svg",
+  "photo-1587293852726-70cdb56c2866":"maintenance-consumables-v1.svg",
+  "photo-1553413077-190dd305871c":"packaging-logistics-v1.svg",
+  "photo-1495474472287-4d71bcdd2085":"pantry-supplies-v1.svg",
+  "photo-1587829741301-dc798b83add3":"it-accessories-v1.svg",
+  "photo-1497032628192-86f99bcd76bc":"office-stationery-v1.svg",
+  "photo-1473341304170-971dccb5ac1e":"generator-power-v1.svg",
+  "photo-1509391366360-2e959784a276":"solar-energy-v1.svg",
+  "photo-1581092921461-eab62e97a780":"industrial-automation-v1.svg",
+  "photo-1508450859948-4e04fabaa4ea":"infrastructure-v1.svg",
+  "photo-1496181133206-80ce9b88a853":"computer-equipment-v1.svg",
+  "photo-1591405351990-4726e331f141":"pc-components-v1.svg",
+  "photo-1544197150-b99a580bb7a8":"networking-v1.svg",
+  "photo-1558494949-ef010cbdcc31":"server-infrastructure-v1.svg",
+  "photo-1557597774-9d273605dfa9":"security-systems-v1.svg",
+  "photo-1573164713988-8665fc963095":"software-it-v1.svg",
+  "photo-1567789884554-0b844b597180":"manufacturing-v1.svg",
+  "photo-1579165466741-7f35e4755660":"pharmaceutical-v1.svg",
+  "photo-1556910103-1c02745aae4d":"food-beverage-v1.svg",
+  "photo-1541888946425-d81bb19240f5":"civil-construction-v1.svg",
+  "photo-1486406146926-c627a92ad1ab":"commercial-building-v1.svg",
+  "photo-1497366811353-6870744d04b2":"office-stationery-v1.svg",
+  "photo-1497366216548-37526070297c":"facility-maintenance-v1.svg"
 };
-const img = (url,w=640) => imageUrl(url,w,48);
-// The browser selects one srcSet candidate matching the rendered size and device pixel ratio.
-const imgSet = (url) => {
-  if (typeof url !== "string" || !url) return undefined;
+const localImage = (url) => {
+  if (typeof url !== "string" || !url) return "/images/local/hero-engineering-v1.svg";
+  if (url.startsWith("/")) return url;
   const base = url.split("?")[0];
-  if (!base.includes("images.unsplash.com") && !base.includes("images.pexels.com")) return undefined;
-  return [320,480,640,960,1280].map((width) => `${imageUrl(base,width,48)} ${width}w`).join(", ");
+  if (base.includes("buchen-group")) return "/images/local/security-systems-v1.svg";
+  const id = base.match(/photo-[A-Za-z0-9-]+/)?.[0];
+  const pexelsId = base.match(/photos\/(\d+)/)?.[1];
+  const file = (id && localImageById[id]) ||
+    (pexelsId === "33996167" ? "pipes-fittings-v1.svg" : null) ||
+    (pexelsId === "18329661" ? "fire-protection-v1.svg" : null) ||
+    "hero-engineering-v1.svg";
+  return "/images/local/" + file;
 };
+const imageUrl = (url) => localImage(url);
+const img = (url) => localImage(url);
+// Local SVGs are fixed-size and small; no third-party responsive srcSet is needed.
+const imgSet = () => undefined;
 function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",className="",...rest}){
   const [useFallback,setUseFallback] = useState(false);
   const [imageLoaded,setImageLoaded] = useState(false);
@@ -147,9 +191,9 @@ function Header(){
 function Footer(){ return <footer className="footer"><div className="site-container footer-grid"><div><Logo/><p className="footer-intro">Engineering • Construction • Industrial Solutions • General Order Supplies & Services</p><div className="socials"><a href="https://www.tiktok.com/@na_engineering.co" target="_blank" rel="noreferrer" data-testid="social-tiktok" aria-label="TikTok"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a><a href="https://www.instagram.com/na_engineering.co/" target="_blank" rel="noreferrer" data-testid="social-instagram" aria-label="Instagram"><Instagram size={17}/></a><a href="https://www.linkedin.com/in/na-engineering-solutions-6a3b9726a/" target="_blank" rel="noreferrer" data-testid="social-linkedin" aria-label="LinkedIn"><Linkedin size={17}/></a><a href="https://x.com/NA_engsolutions" target="_blank" rel="noreferrer" data-testid="social-x" aria-label="X"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6 9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a></div></div><div><h3 className="footer-heading">Company</h3>{[['Home','/'],['Services','/services'],['General Order Supplies','/supplies'],['IT Services','/it-services'],['Industries','/industries'],['Blog','/blog'],['Our Clients','/clients']].map(([x,y])=><Link key={y} to={y} data-testid={`footer-${x.toLowerCase().replaceAll(' ','-')}`}>{x}</Link>)}</div><div><h3 className="footer-heading">Services</h3>{services.slice(0,5).map(s=><Link key={s.slug} to={`/services/${s.slug}`} data-testid={`footer-service-${s.slug}`}>{s.title}</Link>)}</div></div><div className="site-container footer-contact-strip"><a className="footer-contact-pill" href="https://www.google.com/maps/place/31%C2%B025%2738.7%22N+74%C2%B013%2717.5%22E/@31.4274139,74.2189598,17z/data=!3m1!4b1!4m4!3m3!8m2!3d31.4274139!4d74.2215347?hl=en&entry=ttu&g_ep=EgoyMDI2MDgyNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noreferrer"><MapPin size={17}/><span>593 Block-A LDA Avenue, 1 Raiwind Rd, Lahore, 54000</span></a><a className="footer-contact-pill" href="https://mail.google.com/mail/?view=cm&to=na.engineeringsolutions2023@gmail.com" target="_blank" rel="noreferrer"><Mail size={17}/><span>na.engineeringsolutions2023@gmail.com</span></a><a className="footer-contact-pill" href="tel:+923008596393"><Phone size={16}/><span>+92 300 8596393&nbsp;&nbsp;|&nbsp;&nbsp;+92 302 6880398</span></a></div><div className="site-container footer-bottom"><span>© {new Date().getFullYear()} NA Engineering Solutions</span><span>Built for dependable project delivery.</span></div></footer> }function Button({to='/',children='Request a Quote',secondary=false,testid}){ return <Link to={to} className={secondary?'button button-secondary':'button'} data-testid={testid||`button-${children.toLowerCase().replaceAll(' ','-')}`}>{children}<ArrowRight size={16}/></Link> }
 function PageIntro({eyebrow,title,children}){return <section className="page-intro"><div className="site-container"><span className="eyebrow">{eyebrow}</span><h1 data-testid="page-heading">{title}</h1><p>{children}</p></div></section>}
 function SectionLabel({children}){return <span className="eyebrow"><CircleDot size={13}/>{children}</span>}
-const HERO_PHOTO="https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea";
-const HERO_PHOTO_URL=(width)=>`${HERO_PHOTO}?auto=format&fit=crop&w=${width}&q=55`;
-const HERO_PHOTO_SRCSET=[640,960,1280,1600].map((width)=>`${HERO_PHOTO_URL(width)} ${width}w`).join(", ");
+const HERO_PHOTO="/images/local/hero-engineering-v1.svg";
+const HERO_PHOTO_URL=()=>HERO_PHOTO;
+const HERO_PHOTO_SRCSET=undefined;
 function Hero(){return <section className="hero"><div className="hero-bg"><SmartImage src={HERO_PHOTO_URL(960)} srcSet={HERO_PHOTO_SRCSET} sizes="100vw" loading="eager" fetchPriority="high" alt="Industrial engineering and construction project site" /></div><div className="site-container hero-content"><div className="hero-copy"><h1><span className="mask-line"><span style={{color:"var(--amber)"}}>NA Engineering Solutions</span></span><span className="mask-line"><span>Engineering Services in Lahore</span></span></h1><p>NA Engineering Solutions supports factories, commercial facilities and project teams in Lahore with engineering consultancy, civil and mechanical works, HVAC, electrical installation, PEB, fire protection, industrial maintenance and General Order Supplies & Services. Tell us your scope, item list or site requirement and we will discuss the practical next steps.</p><div className="hero-actions"><Button to="/contact" testid="hero-request-quote">Request a Quote</Button><Button to="/services" secondary testid="hero-explore-services">Explore Our Services</Button></div></div><div className="hero-note"><span>01</span><span>From first brief<br/>to project support</span></div></div><div className="hero-scroll">SCROLL TO EXPLORE <ChevronDown size={15}/></div></section>}
 function Marquee(){const items=["General Order Supplies & Services","Civil Engineering","HVAC","Mechanical Engineering","PEB Works","Electrical Works","Fire Fighting"];const row=[...items,...items];return <div className="marquee" aria-hidden="true"><div className="marquee-track">{row.map((x,i)=><span key={i} className={i%2?"marquee-outline":""}>{x}</span>)}</div></div>}
 function Reveal({children}){return <div className="reveal-static">{children}</div>}

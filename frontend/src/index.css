@@ -456,8 +456,7 @@ h1,h2,h3,h4,.hero h1,.page-intro h1{
   transform:none!important;
   transition:none!important;
   background:
-    linear-gradient(90deg,rgba(11,31,58,.94) 0%,rgba(11,31,58,.76) 48%,rgba(11,31,58,.30) 100%),
-    url("https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1800&q=70") center/cover!important;
+    linear-gradient(90deg,rgba(11,31,58,.94) 0%,rgba(11,31,58,.76) 48%,rgba(11,31,58,.30) 100%) !important;
 }
 .hero::before,
 .hero::after,
@@ -1706,8 +1705,7 @@ textarea{
 }
 .hero-bg{
   background:
-    linear-gradient(90deg,rgba(11,31,58,.94) 0%,rgba(11,31,58,.78) 48%,rgba(11,31,58,.34) 100%),
-    url("https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea?auto=format&fit=crop&w=1600&q=55") center/cover!important;
+    linear-gradient(90deg,rgba(11,31,58,.94) 0%,rgba(11,31,58,.78) 48%,rgba(11,31,58,.34) 100%) !important;
 }
 
 /* More editorial spacing; less "generated card wall". */

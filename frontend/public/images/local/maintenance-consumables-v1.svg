@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" role="img" aria-labelledby="title desc">
+<title id="title">Industrial maintenance consumables</title>
+<desc id="desc">A fast-loading original NA Engineering Solutions industrial illustration for industrial maintenance consumables.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#07172B"/><stop offset=".55" stop-color="#102D4A"/><stop offset="1" stop-color="#1C4664"/></linearGradient>
+<linearGradient id="copper" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F4A261"/><stop offset="1" stop-color="#FFD0A0"/></linearGradient>
+<pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#B7CBD9" stroke-opacity=".075" stroke-width="1"/></pattern>
+<radialGradient id="glow"><stop offset="0" stop-color="#7EA4C2" stop-opacity=".22"/><stop offset="1" stop-color="#7EA4C2" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1280" height="800" fill="url(#bg)"/><rect width="1280" height="800" fill="url(#grid)"/>
+<ellipse cx="650" cy="385" rx="410" ry="340" fill="url(#glow)"/>
+<circle cx="990" cy="135" r="230" fill="#7392AB" opacity=".07"/><circle cx="990" cy="135" r="175" fill="none" stroke="#C4D6E2" stroke-opacity=".14" stroke-width="2"/>
+<path d="M80 665H1200" stroke="#A8BECD" stroke-opacity=".35" stroke-width="3"/><path d="M80 688H450" stroke="url(#copper)" stroke-width="5"/>
+<g fill="none" stroke="#D8E4EC" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"><g transform="translate(0 0)">
+<circle cx="590" cy="385" r="180"/><circle cx="590" cy="385" r="70"/>
+<path d="M590 150v70m0 330v70M355 385h70m330 0h70M425 220l50 50m230 230 50 50M755 220l-50 50m-230 230-50 50" stroke="#F4A261"/>
+<path d="M820 300l145 145-80 80-145-145zM915 395l65-65"/>
+</g></g>
+<g fill="#F4A261"><circle cx="160" cy="185" r="7"/><circle cx="190" cy="185" r="7"/><circle cx="220" cy="185" r="7"/></g>
+<path d="M85 748h180m18 0h70" stroke="#F4A261" stroke-opacity=".55" stroke-width="4"/>
+</svg>
