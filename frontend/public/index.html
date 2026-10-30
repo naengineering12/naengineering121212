@@ -640,6 +640,31 @@ table{max-width:100%;display:block;overflow-x:auto}
     #root{min-height:100vh}
     img{max-width:100%;height:auto}
     .footer .logo-text{display:block!important;flex:none!important}.footer .logo-text b,.footer .logo-text small{display:block!important}
+    /* Styled, crawlable first-paint shell while the React application starts. */
+    #root>.boot-header{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 max(24px,calc((100vw - 1280px)/2));box-sizing:border-box;background:#07172b;border-bottom:1px solid rgba(255,255,255,.1);font:500 11px Inter,Arial,sans-serif;color:#fff}
+    #root>.boot-header a{color:#d5dfe9;text-decoration:none}
+    #root>.boot-header .boot-brand{display:flex;align-items:center;gap:10px;color:#fff;white-space:nowrap}
+    #root>.boot-header .boot-brand img{width:44px;height:44px;object-fit:contain}
+    #root>.boot-header .boot-brand strong{font:800 11px/1.2 Chivo,Arial,sans-serif;letter-spacing:.08em}
+    #root>.boot-header .boot-brand small{display:block;margin-top:3px;color:#aab9c9;font:600 8px/1.4 Inter,Arial,sans-serif;letter-spacing:.23em}
+    #root>.boot-header .boot-nav{display:flex;align-items:center;gap:clamp(10px,1.4vw,22px);white-space:nowrap}
+    #root>.boot-header .boot-nav a:last-child{padding:12px 16px;border-radius:8px;background:#f4a261;color:#0b1f3a;font-weight:800}
+    #root>.hero{position:relative;min-height:660px;overflow:hidden;background:#0b1f3a;color:#fff;font-family:Inter,Arial,sans-serif}
+    #root>.hero .hero-bg{position:absolute;inset:0;background:linear-gradient(120deg,#07172b 0%,#0b1f3a 62%,#183653 100%)}
+    #root>.hero .hero-bg:after{content:"";position:absolute;inset:0;opacity:.1;background-image:linear-gradient(rgba(244,162,97,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(244,162,97,.4) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(90deg,#000,transparent 78%)}
+    #root>.hero .hero-content{position:relative;z-index:1;display:flex;align-items:center;min-height:660px;width:min(1280px,calc(100% - 48px));margin:0 auto;padding:100px 0 74px;box-sizing:border-box}
+    #root>.hero .hero-copy{max-width:760px}
+    #root>.hero .eyebrow{color:#ffc18f;font-size:10px;font-weight:800;letter-spacing:.18em}
+    #root>.hero h1{max-width:760px;margin:21px 0;color:#fff;font:600 clamp(42px,5vw,70px)/1.02 Chivo,Inter,Arial,sans-serif;letter-spacing:-.05em}
+    #root>.hero h1 .mask-line{display:block}
+    #root>.hero h1 .mask-line:first-child span{color:#f4a261!important}
+    #root>.hero p{max-width:680px;margin:0;color:rgba(238,244,250,.84);font-size:16px;line-height:1.78}
+    #root>.hero .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+    #root>.hero .button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 19px;border:1px solid #f4a261;border-radius:8px;background:#f4a261;color:#0b1f3a;text-decoration:none;font-size:12px;font-weight:800}
+    #root>.hero .button-secondary{background:transparent;color:#fff;border-color:rgba(255,255,255,.52)}
+    #root>.hero .hero-note,#root>.hero .hero-scroll{display:none}
+    @media(max-width:1120px){#root>.boot-header{height:70px;padding:0 22px}#root>.boot-header .boot-nav{display:none}}
+    @media(max-width:700px){#root>.boot-header{height:64px;padding:0 15px}#root>.boot-header .boot-brand img{width:39px;height:39px}#root>.hero{min-height:600px}#root>.hero .hero-content{min-height:600px;width:calc(100% - 30px);padding:88px 0 62px}#root>.hero h1{font-size:clamp(34px,9vw,46px)}#root>.hero p{font-size:14px}#root>.hero .hero-actions{display:grid;grid-template-columns:1fr}#root>.hero .button{width:100%;box-sizing:border-box}}
   </style>
   <title>NA Engineering Solutions | Engineering Services & Supplies in Lahore</title>
   <script type="application/ld+json">
@@ -656,6 +681,6 @@ table{max-width:100%;display:block;overflow-x:auto}
 </head>
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"><!--SEO_HOME_FALLBACK_START--><section class="hero"><div class="hero-bg"></div><div class="site-container hero-content"><div class="hero-copy"><span class="eyebrow">ENGINEERING / SUPPLY / EXECUTION</span><h1><span class="mask-line"><span style="color:var(--amber)">NA Engineering Solutions</span></span><span class="mask-line"><span>Engineering Services in Lahore</span></span></h1><p>NA Engineering Solutions supports factories, commercial facilities and project teams in Lahore with engineering consultancy, civil and mechanical works, HVAC, electrical installation, PEB, fire protection, industrial maintenance and General Order Supplies &amp; Services. Tell us your scope, item list or site requirement and we will discuss the practical next steps.</p><div class="hero-actions"><a href="/services" class="button button-secondary">Explore Our Services <span aria-hidden="true">→</span></a></div></div><div class="hero-note"><span>01</span><span>Planning to<br/>project support</span></div></div><div class="hero-scroll">SCROLL TO EXPLORE</div></section><!--SEO_HOME_FALLBACK_END--></div>
+  <div id="root"><!--SEO_HOME_FALLBACK_START--><header class="boot-header"><a href="/" class="boot-brand"><img src="/logo.png" alt=""/><strong>NA ENGINEERING<br/><small>SOLUTIONS</small></strong></a><nav class="boot-nav" aria-label="Main navigation"><a href="/">Home</a><a href="/services">Services</a><a href="/supplies">General Order Supplies</a><a href="/it-services">IT Services</a><a href="/industries">Industries</a><a href="/blog">Blog</a><a href="/clients">Our Clients</a><a href="/contact">Contact Us</a></nav></header><section class="hero"><div class="hero-bg"></div><div class="site-container hero-content"><div class="hero-copy"><span class="eyebrow">ENGINEERING / SUPPLY / EXECUTION</span><h1><span class="mask-line"><span>NA Engineering Solutions</span></span><span class="mask-line"><span>Engineering Services in Lahore</span></span></h1><p>NA Engineering Solutions supports factories, commercial facilities and project teams in Lahore with engineering consultancy, civil and mechanical works, HVAC, electrical installation, PEB, fire protection, industrial maintenance and General Order Supplies &amp; Services. Tell us your scope, item list or site requirement and we will discuss the practical next steps.</p><div class="hero-actions"><a href="/contact" class="button">Request a Quote <span aria-hidden="true">→</span></a><a href="/services" class="button button-secondary">Explore Our Services <span aria-hidden="true">→</span></a></div></div><div class="hero-note"><span>01</span><span>From first brief<br/>to project support</span></div></div><div class="hero-scroll">SCROLL TO EXPLORE</div></section><!--SEO_HOME_FALLBACK_END--></div>
 </body>
 </html>
