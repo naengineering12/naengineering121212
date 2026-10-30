@@ -32,66 +32,30 @@
   </script>
   <link rel="icon" type="image/png" href="%PUBLIC_URL%/na-engineering-favicon-v2.png" sizes="32x32" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
-  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
   <script>
     (function(){
-      // Preload only the image that belongs to the current route. Do not fetch the
-      // homepage hero on service pages where it is never displayed.
-      var pageImages={
-        "/": {
-          base:"https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea",
-          quality:55,
-          widths:[640,960,1280,1600],
-          sizes:"100vw",
-          fallbackWidth:960
-        },
-        "/services": {
-          base:"https://images.unsplash.com/photo-1565008447742-97f6f38c985c",
-          quality:48,
-          widths:[320,480,640,960,1280],
-          sizes:"(max-width: 800px) calc(100vw - 36px), (max-width: 1440px) 45vw, 640px",
-          fallbackWidth:640
-        },
-        "/supplies": {
-          base:"https://images.unsplash.com/photo-1530124566582-a618bc2615dc",
-          quality:48,
-          widths:[320,480,640,960,1280],
-          sizes:"(max-width: 800px) calc(100vw - 36px), (max-width: 1440px) 45vw, 640px",
-          fallbackWidth:640
-        },
-        "/it-services": {
-          base:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
-          quality:48,
-          widths:[320,480,640,960,1280],
-          sizes:"(max-width: 800px) calc(100vw - 36px), (max-width: 1440px) 45vw, 640px",
-          fallbackWidth:640
-        },
-        "/industries": {
-          base:"https://images.unsplash.com/photo-1567789884554-0b844b597180",
-          quality:48,
-          widths:[320,480,640,960,1280],
-          sizes:"(max-width: 800px) calc(100vw - 36px), (max-width: 1440px) 45vw, 640px",
-          fallbackWidth:640
-        }
+      // Each landing page preloads only its own tiny same-origin SVG artwork.
+      // No third-party image host is contacted during the initial page render.
+      var localImages={
+        "/":"/images/local/hero-engineering-v1.svg",
+        "/services":"/images/local/civil-construction-v1.svg",
+        "/supplies":"/images/local/hardware-tools-v1.svg",
+        "/it-services":"/images/local/computer-equipment-v1.svg",
+        "/industries":"/images/local/manufacturing-v1.svg",
+        "/blog":"/images/local/blog-engineering-v1.svg"
       };
       var path=window.location.pathname||"/";
-      while(path.length>1 && path.endsWith("/"))path=path.slice(0,-1);
-      var image=pageImages[path];
-      if(!image)return;
-      var query="?auto=format&fit=crop&w=";
+      while(path.length>1&&path.endsWith("/"))path=path.slice(0,-1);
+      var src=localImages[path];
+      if(!src)return;
       var link=document.createElement("link");
       link.rel="preload";
       link.as="image";
-      link.href=image.base+query+image.fallbackWidth+"&q="+image.quality;
-      link.imageSrcset=image.widths.map(function(width){
-        return image.base+query+width+"&q="+image.quality+" "+width+"w";
-      }).join(", ");
-      link.imageSizes=image.sizes;
+      link.href=src;
       link.fetchPriority="high";
       document.head.appendChild(link);
     }());
   </script>
-  <link rel="preconnect" href="https://images.pexels.com" crossorigin />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" />
