@@ -41,7 +41,7 @@ function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",cla
     setImageLoaded(false);
     setImageError(false);
     // Never leave a remote image occupying the page indefinitely.
-    if (typeof src === "string" && /^https?:\\/\\//i.test(src)) {
+    if (typeof src === "string" && (src.startsWith("https://") || src.startsWith("http://"))) {
       fallbackTimer.current = window.setTimeout(()=>{
         setImageLoaded(false);
         setUseFallback(true);
@@ -52,7 +52,7 @@ function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",cla
     };
   },[src]);
   const source = src;
-  // Use a real industrial photograph from a second image CDN if the primary photo fails.
+  // Use a bundled local industrial illustration if the primary photo fails.
   // This fallback is bundled with the site, so it does not depend on a second image CDN.
   const fallbackSource = "/images/engineering-visual-fallback.svg";
   return <img
