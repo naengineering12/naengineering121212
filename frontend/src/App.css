@@ -348,3 +348,7 @@ h2{font-weight:800}.logo-img{width:54px;height:54px;object-fit:contain}.footer .
 }
 .hero-bg:after{z-index:2;pointer-events:none}
 .hero-bg .smart-image[data-image-state="error"]{visibility:hidden}
+
+
+/* Remove decorative grid overlay from homepage hero photo */
+.hero-bg:after{display:none!important;content:none!important}
