@@ -32,47 +32,44 @@
   </script>
   <link rel="icon" type="image/png" href="%PUBLIC_URL%/na-engineering-favicon-v2.png" sizes="32x32" />
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
-  <link rel="dns-prefetch" href="//images.pexels.com" />
-  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-  <link rel="dns-prefetch" href="//images.unsplash.com" />
   <script>
     (function(){
       // Preload one optimized real photo for each main landing page.
       var localImages={
-        "/":"/images/optimized/unsplash-1508450859948.webp",
-        "/services":"/images/optimized/unsplash-1565008447742.webp",
-        "/services/civil-engineering":"/images/optimized/unsplash-1565008447742.webp",
-        "/services/engineering-consultancy":"/images/optimized/unsplash-1503387762.webp",
-        "/services/mechanical-engineering":"/images/optimized/unsplash-1606337321936.webp",
-        "/services/peb-works":"/images/optimized/unsplash-1429497419816.webp",
-        "/services/electrical-works":"/images/optimized/unsplash-1518770660439.webp",
-        "/services/mechanical-electrical-supplies":"/images/optimized/unsplash-1513828583688.webp",
-        "/services/utilities-facility-maintenance":"/images/optimized/unsplash-1581578731548.webp",
-        "/services/boiler-chemicals":"/images/optimized/unsplash-1611581372056.webp",
-        "/services/seamless-pipes-fittings":"/images/optimized/pexels-33996167.webpss&cs=tinysrgb&w=760&q=64",
-        "/services/wastewater-treatment-plant":"/images/optimized/unsplash-1533163238111.webp",
-        "/services/hvac-supplies-services":"/images/optimized/unsplash-1615309662243.webp",
-        "/services/fire-fighting-equipment":"/images/optimized/pexels-18329661.webpss&cs=tinysrgb&w=760&q=64",
-        "/services/safety-security-systems":"/images/optimized/unsplash-1557597774.webp",
-        "/services/waterproofing-solutions":"/images/optimized/unsplash-1602064828974.webp",
-        "/services/pumps-valves-pneumatic":"/images/optimized/unsplash-1513828742140.webp",
-        "/supplies":"/images/optimized/unsplash-1530124566582.webp",
-        "/it-services":"/images/optimized/unsplash-1496181133206.webp",
-        "/industries":"/images/optimized/unsplash-1567789884554.webp",
-        "/blog":"/images/optimized/pexels-10202865.webpss&cs=tinysrgb&w=900&h=536&dpr=1&fm=webp&q=68"
+        "/":"/images/optimized/unsplash-1508450859948-4e04fabaa4ea.webp",
+        "/services":"/images/optimized/unsplash-1565008447742-97f6f38c985c.webp",
+        "/services/civil-engineering":"/images/optimized/unsplash-1565008447742-97f6f38c985c.webp",
+        "/services/engineering-consultancy":"/images/optimized/unsplash-1503387762-592deb58ef4e.webp",
+        "/services/mechanical-engineering":"/images/optimized/unsplash-1606337321936-02d1b1a4d5ef.webp",
+        "/services/peb-works":"/images/optimized/unsplash-1429497419816-9ca5cfb4571a.webp",
+        "/services/electrical-works":"/images/optimized/unsplash-1518770660439-4636190af475.webp",
+        "/services/mechanical-electrical-supplies":"/images/optimized/unsplash-1513828583688-c52646db42da.webp",
+        "/services/utilities-facility-maintenance":"/images/optimized/unsplash-1581578731548-c64695cc6952.webp",
+        "/services/boiler-chemicals":"/images/optimized/unsplash-1611581372056-30cf28a7bd2e.webp",
+        "/services/seamless-pipes-fittings":"/images/optimized/pexels-33996167.webp",
+        "/services/wastewater-treatment-plant":"/images/optimized/unsplash-1533163238111-4a7ced54f2e4.webp",
+        "/services/hvac-supplies-services":"/images/optimized/unsplash-1615309662243-70f6df917b59.webp",
+        "/services/fire-fighting-equipment":"/images/optimized/pexels-18329661.webp",
+        "/services/safety-security-systems":"/images/optimized/unsplash-1557597774-9d273605dfa9.webp",
+        "/services/waterproofing-solutions":"/images/optimized/unsplash-1602064828974-fcac67d33f4e.webp",
+        "/services/pumps-valves-pneumatic":"/images/optimized/unsplash-1513828742140-ccaa28f3eda0.webp",
+        "/supplies":"/images/optimized/unsplash-1530124566582-a618bc2615dc.webp",
+        "/it-services":"/images/optimized/unsplash-1496181133206-80ce9b88a853.webp",
+        "/industries":"/images/optimized/unsplash-1567789884554-0b844b597180.webp",
+        "/blog":"/images/optimized/pexels-10202865.webp"
       };
       var path=window.location.pathname||"/";
       while(path.length>1&&path.endsWith("/"))path=path.slice(0,-1);
       var src=localImages[path];
       var articleImages={
-        "prepare-a-general-order-supply-request":"/images/optimized/pexels-37912780.webpss&cs=tinysrgb&w=800&h=476&dpr=1&fm=webp&q=68",
-        "industrial-maintenance-supplier-checklist":"/images/optimized/pexels-4483773.webpss&cs=tinysrgb&w=800&h=476&dpr=1&fm=webp&q=68",
-        "hvac-preventive-maintenance-checklist":"/images/optimized/pexels-32497161.webpss&cs=tinysrgb&w=800&h=476&dpr=1&fm=webp&q=68",
-        "peb-project-planning-checklist":"/images/optimized/pexels-7961889.webpss&cs=tinysrgb&w=800&h=476&dpr=1&fm=webp&q=68",
-        "fire-safety-equipment-site-planning":"/images/optimized/pexels-19143940.webpss&cs=tinysrgb&w=800&h=476&dpr=1&fm=webp&q=68",
-        "industrial-electrical-maintenance-checklist":"/images/optimized/pexels-33531833.webpss&cs=tinysrgb&w=800&h=476&dpr=1&fm=webp&q=68",
-        "industrial-spare-parts-inventory-planning":"/images/optimized/pexels-7568418.webpss&cs=tinysrgb&w=800&h=476&dpr=1&fm=webp&q=68",
-        "compare-industrial-supplier-quotations":"/images/optimized/pexels-4484154.webpss&cs=tinysrgb&w=800&h=476&dpr=1&fm=webp&q=68"
+        "prepare-a-general-order-supply-request":"/images/optimized/pexels-37912780.webp",
+        "industrial-maintenance-supplier-checklist":"/images/optimized/pexels-4483773.webp",
+        "hvac-preventive-maintenance-checklist":"/images/optimized/pexels-32497161.webp",
+        "peb-project-planning-checklist":"/images/optimized/pexels-7961889.webp",
+        "fire-safety-equipment-site-planning":"/images/optimized/pexels-19143940.webp",
+        "industrial-electrical-maintenance-checklist":"/images/optimized/pexels-33531833.webp",
+        "industrial-spare-parts-inventory-planning":"/images/optimized/pexels-7568418.webp",
+        "compare-industrial-supplier-quotations":"/images/optimized/pexels-4484154.webp"
       };
       if(!src && path.indexOf("/blog/")===0){
         var articleSlug=path.slice("/blog/".length).split("/")[0];
@@ -89,7 +86,7 @@
       if(src) preloadImage(src);
       if(path==="/blog"){
         // The first featured guide sits immediately after the hero; load it alongside the hero photo.
-        preloadImage("/images/optimized/pexels-37912780.webpss&cs=tinysrgb&w=480&h=286&dpr=1&fm=webp&q=68");
+        preloadImage("/images/optimized/pexels-37912780.webp");
       }
     }());
   </script>
@@ -689,7 +686,7 @@ table{max-width:100%;display:block;overflow-x:auto}
     #root>.boot-header .boot-nav a.is-active{color:#f4a261;background:rgba(244,162,97,.11);box-shadow:inset 0 -2px 0 #f4a261}
     #root>.boot-header .boot-nav a.boot-contact{gap:11px;margin-left:3px;padding:0 22px;min-height:44px;border:1px solid rgba(255,181,102,.34);background:linear-gradient(120deg,#e98216,#ff9b32);color:#fff;font-weight:700}
     #root>.hero{position:relative;min-height:660px;overflow:hidden;background:#0b1f3a;color:#fff;font-family:Inter,Arial,sans-serif}
-    #root>.hero .hero-bg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,23,43,.88) 0%,rgba(11,31,58,.66) 48%,rgba(11,31,58,.20) 100%),url("/images/optimized/unsplash-1508450859948.webp") center/cover no-repeat}
+    #root>.hero .hero-bg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,23,43,.88) 0%,rgba(11,31,58,.66) 48%,rgba(11,31,58,.20) 100%),url("/images/optimized/unsplash-1508450859948-4e04fabaa4ea.webp") center/cover no-repeat}
     #root>.hero .hero-bg:after{content:"";position:absolute;inset:0;opacity:.1;background-image:linear-gradient(rgba(244,162,97,.4) 1px,transparent 1px),linear-gradient(90deg,rgba(244,162,97,.4) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(90deg,#000,transparent 78%)}
     #root>.hero .hero-content{position:relative;z-index:1;display:flex;align-items:center;min-height:660px;width:min(1280px,calc(100% - 48px));margin:0 auto;padding:100px 0 74px;box-sizing:border-box}
     #root>.hero .hero-copy{max-width:760px}
