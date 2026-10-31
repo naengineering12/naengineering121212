@@ -12,7 +12,7 @@ function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) walk(full);
-    else if (/\\.(js|jsx|ts|tsx|html|json|css)$/i.test(entry.name)) sourceFiles.push(full);
+    else if (/\.(js|jsx|ts|tsx|html|json|css)$/i.test(entry.name)) sourceFiles.push(full);
   }
 }
 sourceDirs.forEach(walk);
@@ -21,9 +21,9 @@ const unsplashIds = new Set();
 const pexelsIds = new Set();
 for (const file of sourceFiles) {
   const content = fs.readFileSync(file, "utf8");
-  for (const match of content.matchAll(/photo-([0-9]{10,})/g)) unsplashIds.add(match[1]);
-  for (const match of content.matchAll(/\\bim\\s*:\\s*["']([0-9]{10,})["']/g)) unsplashIds.add(match[1]);
-  for (const match of content.matchAll(/images\\.pexels\\.com\\/photos\\/([0-9]+)\\/pexels-photo-\\1\\.jpeg/g)) pexelsIds.add(match[1]);
+  for (const match of content.matchAll(/photo-([a-z0-9-]{10,})/gi)) unsplashIds.add(match[1]);
+  for (const match of content.matchAll(/\bim\s*:\s*["']([0-9]{10,})["']/g)) unsplashIds.add(match[1]);
+  for (const match of content.matchAll(/images\.pexels\.com\/photos\/([0-9]+)\/pexels-photo-\1\.jpeg/gi)) pexelsIds.add(match[1]);
 }
 for (const id of pexelsIds) unsplashIds.delete(id);
 
@@ -78,14 +78,13 @@ async function runPool(items, limit, worker) {
   for (const task of tasks) {
     if (fs.existsSync(task.file) && fs.statSync(task.file).size > 3000) manifest[task.kind][task.id] = true;
   }
-  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\\n");
+  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
 
-  // Keep the early HTML preload aligned with the assets actually downloaded.
   const htmlPath = path.join(root, "public", "index.html");
   if (fs.existsSync(htmlPath)) {
     let html = fs.readFileSync(htmlPath, "utf8");
-    html = html.replace(/\\/images\\/optimized\\/unsplash-([0-9]+)\\.webp/g, (match, id) => manifest.unsplash[id] ? match : "");
-    html = html.replace(/\\/images\\/optimized\\/pexels-([0-9]+)\\.webp/g, (match, id) => manifest.pexels[id] ? match : "");
+    html = html.replace(/\/images\/optimized\/unsplash-([a-z0-9-]+)\.webp/gi, (match, id) => manifest.unsplash[id] ? match : "");
+    html = html.replace(/\/images\/optimized\/pexels-([0-9]+)\.webp/gi, (match, id) => manifest.pexels[id] ? match : "");
     fs.writeFileSync(htmlPath, html);
   }
 
