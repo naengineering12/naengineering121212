@@ -23,14 +23,17 @@ const API = `${BACKEND_URL}/api`;
 const imageUrl = (url,w=640,q=64) => {
   if (typeof url !== "string" || !url) return url;
   const base = url.split("?")[0];
+  const width = Math.max(320, Math.min(1800, Math.round(w)));
   const unsplash = base.match(/images\.unsplash\.com\/photo-([a-z0-9-]+)/i);
-  if (unsplash) return localImageManifest.unsplash[unsplash[1]]
-    ? `/images/optimized/unsplash-${unsplash[1]}.webp`
-    : `${base}?auto=format&fit=crop&w=${Math.max(320,Math.min(1800,Math.round(w)))}&q=${q}`;
+  if (unsplash) {
+    if (localImageManifest.unsplash[unsplash[1]]) return "/images/optimized/unsplash-" + unsplash[1] + ".webp";
+    return base + "?auto=format&fit=crop&w=" + width + "&q=" + q;
+  }
   const pexels = base.match(/images\.pexels\.com\/photos\/([0-9]+)/);
-  if (pexels) return localImageManifest.pexels[pexels[1]]
-    ? `/images/optimized/pexels-${pexels[1]}.webp`
-    : `${base}?auto=compress&cs=tinysrgb&w=${Math.max(320,Math.min(1800,Math.round(w)))}&q=${q}`;
+  if (pexels) {
+    if (localImageManifest.pexels[pexels[1]]) return "/images/optimized/pexels-" + pexels[1] + ".webp";
+    return base + "?auto=compress&cs=tinysrgb&w=" + width + "&q=" + q;
+  }
   return url;
 };
 const img = (url,w=640) => imageUrl(url,w,64);
