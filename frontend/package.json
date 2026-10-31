@@ -65,7 +65,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "node download-site-images.js && node patch-backend-url.js && node prepare-logo.js && craco build && node generate-seo-pages.js",
+    "build": "node patch-backend-url.js && node prepare-logo.js && craco build && node generate-seo-pages.js",
     "test": "craco test",
     "prestart": "node prepare-logo.js"
   },
