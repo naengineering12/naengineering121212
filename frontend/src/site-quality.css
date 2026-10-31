@@ -345,3 +345,18 @@ input[type="file"]{width:100%}
   .home-seo-intro{font-size:15px}
   .home-seo-card{padding:22px}
 }
+
+
+/* Keep a bundled local illustration visible while remote photography downloads.
+   If a remote image stalls, SmartImage switches to this same local asset after 8s. */
+.smart-image[data-image-state="loading"],
+.smart-image[data-image-state="error"] {
+  background-color: #0B1F3A !important;
+  background-image: url("/images/engineering-visual-fallback.svg") !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.smart-image[data-image-state="loaded"] {
+  background-image: none !important;
+}
