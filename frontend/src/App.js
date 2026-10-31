@@ -444,6 +444,104 @@ function RouteSEO() {
   return null;
 }
 
+
+const RELATED_LINKS = {
+  "/": [
+    ["Engineering Services in Lahore", "/services"],
+    ["General Order Supplies", "/supplies"],
+    ["Industries We Serve", "/industries"],
+    ["Engineering & Industrial Guides", "/blog"],
+    ["Our Clients & Project Experience", "/clients"]
+  ],
+  "/services": [
+    ["Civil Engineering", "/services/civil-engineering"],
+    ["HVAC Services", "/services/hvac-supplies-services"],
+    ["PEB Works", "/services/peb-works"],
+    ["Fire Fighting Systems", "/services/fire-fighting-equipment"],
+    ["General Order Supplies", "/supplies"],
+    ["HVAC Preventive Maintenance Checklist", "/blog/hvac-preventive-maintenance-checklist"]
+  ],
+  "/supplies": [
+    ["Mechanical & Electrical Supplies", "/services/mechanical-electrical-supplies"],
+    ["Pumps, Valves & Pneumatic Fittings", "/services/pumps-valves-pneumatic"],
+    ["Utility & Facility Maintenance", "/services/utilities-facility-maintenance"],
+    ["IT Services & Equipment", "/it-services"],
+    ["How to Prepare a General Order Supply Request", "/blog/prepare-a-general-order-supply-request"],
+    ["Industrial Maintenance Supplier Checklist", "/blog/industrial-maintenance-supplier-checklist"]
+  ],
+  "/it-services": [
+    ["General Order Supplies", "/supplies"],
+    ["Safety & Security Systems", "/services/safety-security-systems"],
+    ["Industries We Serve", "/industries"],
+    ["Contact for IT Equipment & Support", "/contact"]
+  ],
+  "/industries": [
+    ["Engineering Services", "/services"],
+    ["HVAC Services", "/services/hvac-supplies-services"],
+    ["Fire Fighting Equipment", "/services/fire-fighting-equipment"],
+    ["Electrical Works", "/services/electrical-works"],
+    ["General Order Supplies", "/supplies"],
+    ["Project Experience", "/clients"]
+  ],
+  "/clients": [
+    ["Engineering Services", "/services"],
+    ["General Order Supplies", "/supplies"],
+    ["Industries We Serve", "/industries"],
+    ["PEB Project Planning Checklist", "/blog/peb-project-planning-checklist"],
+    ["Contact Our Team", "/contact"]
+  ],
+  "/blog": [
+    ["Engineering Services", "/services"],
+    ["General Order Supplies", "/supplies"],
+    ["HVAC Services", "/services/hvac-supplies-services"],
+    ["PEB Works", "/services/peb-works"],
+    ["Fire Fighting Equipment", "/services/fire-fighting-equipment"]
+  ]
+};
+const SERVICE_RELATED_LINKS = {
+  "engineering-consultancy": [["Civil Engineering", "civil-engineering"], ["Mechanical Engineering", "mechanical-engineering"], ["PEB Works", "peb-works"]],
+  "civil-engineering": [["PEB Works", "peb-works"], ["Waterproofing Solutions", "waterproofing-solutions"], ["Engineering Consultancy", "engineering-consultancy"]],
+  "mechanical-engineering": [["Pumps, Valves & Pneumatic Fittings", "pumps-valves-pneumatic"], ["Mechanical & Electrical Supplies", "mechanical-electrical-supplies"], ["Utility & Facility Maintenance", "utilities-facility-maintenance"]],
+  "peb-works": [["Civil Engineering", "civil-engineering"], ["Mechanical Engineering", "mechanical-engineering"], ["PEB Project Planning Checklist", "/blog/peb-project-planning-checklist"]],
+  "electrical-works": [["Mechanical & Electrical Supplies", "mechanical-electrical-supplies"], ["Safety & Security Systems", "safety-security-systems"], ["Electrical Maintenance Checklist", "/blog/industrial-electrical-maintenance-checklist"]],
+  "mechanical-electrical-supplies": [["Mechanical Engineering", "mechanical-engineering"], ["Pumps, Valves & Pneumatic Fittings", "pumps-valves-pneumatic"], ["General Order Supplies", "/supplies"]],
+  "utilities-facility-maintenance": [["Mechanical Engineering", "mechanical-engineering"], ["HVAC Services", "hvac-supplies-services"], ["Industrial Maintenance Supplier Checklist", "/blog/industrial-maintenance-supplier-checklist"]],
+  "boiler-chemicals": [["Utility & Facility Maintenance", "utilities-facility-maintenance"], ["Wastewater Treatment Plant", "wastewater-treatment-plant"], ["General Order Supplies", "/supplies"]],
+  "seamless-pipes-fittings": [["Mechanical Engineering", "mechanical-engineering"], ["Pumps, Valves & Pneumatic Fittings", "pumps-valves-pneumatic"], ["Wastewater Treatment Plant", "wastewater-treatment-plant"]],
+  "wastewater-treatment-plant": [["Utility & Facility Maintenance", "utilities-facility-maintenance"], ["Boiler Chemicals", "boiler-chemicals"], ["Seamless Pipes & Fittings", "seamless-pipes-fittings"]],
+  "hvac-supplies-services": [["Mechanical & Electrical Supplies", "mechanical-electrical-supplies"], ["Utility & Facility Maintenance", "utilities-facility-maintenance"], ["HVAC Preventive Maintenance Checklist", "/blog/hvac-preventive-maintenance-checklist"]],
+  "fire-fighting-equipment": [["Safety & Security Systems", "safety-security-systems"], ["Electrical Works", "electrical-works"], ["Fire Safety Equipment Planning", "/blog/fire-safety-equipment-site-planning"]],
+  "safety-security-systems": [["Fire Fighting Equipment", "fire-fighting-equipment"], ["Electrical Works", "electrical-works"], ["IT Services & Equipment", "/it-services"]],
+  "waterproofing-solutions": [["Civil Engineering", "civil-engineering"], ["PEB Works", "peb-works"], ["General Order Supplies", "/supplies"]],
+  "pumps-valves-pneumatic": [["Mechanical Engineering", "mechanical-engineering"], ["Mechanical & Electrical Supplies", "mechanical-electrical-supplies"], ["Seamless Pipes & Fittings", "seamless-pipes-fittings"]]
+};
+const ARTICLE_RELATED_LINKS = {
+  "prepare-a-general-order-supply-request": [["General Order Supplies", "/supplies"], ["Mechanical & Electrical Supplies", "/services/mechanical-electrical-supplies"], ["Pumps, Valves & Pneumatic Fittings", "/services/pumps-valves-pneumatic"]],
+  "industrial-maintenance-supplier-checklist": [["Utility & Facility Maintenance", "/services/utilities-facility-maintenance"], ["Mechanical Engineering", "/services/mechanical-engineering"], ["General Order Supplies", "/supplies"]],
+  "hvac-preventive-maintenance-checklist": [["HVAC Services", "/services/hvac-supplies-services"], ["Mechanical & Electrical Supplies", "/services/mechanical-electrical-supplies"], ["Utility & Facility Maintenance", "/services/utilities-facility-maintenance"]],
+  "peb-project-planning-checklist": [["PEB Works", "/services/peb-works"], ["Civil Engineering", "/services/civil-engineering"], ["Mechanical Engineering", "/services/mechanical-engineering"]],
+  "fire-safety-equipment-site-planning": [["Fire Fighting Equipment", "/services/fire-fighting-equipment"], ["Safety & Security Systems", "/services/safety-security-systems"], ["Industries We Serve", "/industries"]],
+  "industrial-electrical-maintenance-checklist": [["Electrical Works", "/services/electrical-works"], ["Mechanical & Electrical Supplies", "/services/mechanical-electrical-supplies"], ["Utility & Facility Maintenance", "/services/utilities-facility-maintenance"]],
+  "industrial-spare-parts-inventory-planning": [["Mechanical Engineering", "/services/mechanical-engineering"], ["Pumps, Valves & Pneumatic Fittings", "/services/pumps-valves-pneumatic"], ["General Order Supplies", "/supplies"]],
+  "compare-industrial-supplier-quotations": [["General Order Supplies", "/supplies"], ["Mechanical & Electrical Supplies", "/services/mechanical-electrical-supplies"], ["Pumps, Valves & Pneumatic Fittings", "/services/pumps-valves-pneumatic"]]
+};
+function RelatedLinks() {
+  const { pathname } = useLocation();
+  const path = pathname.replace(/\/+$/, "") || "/";
+  if (path === "/admin" || path === "/404") return null;
+  let links = RELATED_LINKS[path] || [];
+  if (path.startsWith("/services/")) {
+    const slug = path.split("/")[2];
+    links = (SERVICE_RELATED_LINKS[slug] || []).map(([label, target]) => [label, target.startsWith("/blog/") || target === "/supplies" ? target : `/services/${target}`]);
+  } else if (path.startsWith("/blog/")) {
+    const slug = path.split("/")[2];
+    links = ARTICLE_RELATED_LINKS[slug] || [];
+  }
+  links = links.filter(([, target]) => target !== path).slice(0, 6);
+  if (!links.length) return null;
+  return <section className="section section-light related-links-section" aria-labelledby="related-resources-heading"><div className="site-container"><div className="section-heading"><div><SectionLabel>RELATED RESOURCES</SectionLabel><h2 id="related-resources-heading">Explore related services and guides</h2></div><p>Useful information and connected services from NA Engineering Solutions.</p></div><nav className="home-extra-links" aria-label="Related pages">{links.map(([label, target]) => <Link key={target} to={target}>{label} <ArrowRight size={16}/></Link>)}</nav></div></section>;
+}
+
 function App() {
   useLenis();
   return (
@@ -467,6 +565,7 @@ function App() {
           <Route path="/admin" element={<Admin/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
+      <RelatedLinks/>
       <Footer/>
       <ChatWidget/>
     </div></BrowserRouter>
