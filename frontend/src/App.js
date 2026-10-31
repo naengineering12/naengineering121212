@@ -25,12 +25,12 @@ const imageUrl = (url,w=640,q=64) => {
   const base = url.split("?")[0];
   const unsplash = base.match(/images\.unsplash\.com\/photo-([a-z0-9-]+)/i);
   if (unsplash) return localImageManifest.unsplash[unsplash[1]]
-    ? \`/images/optimized/unsplash-\${unsplash[1]}.webp\`
-    : \`\${base}?auto=format&fit=crop&w=\${Math.max(320,Math.min(1800,Math.round(w)))}&q=\${q}\`;
+    ? `/images/optimized/unsplash-${unsplash[1]}.webp`
+    : `${base}?auto=format&fit=crop&w=${Math.max(320,Math.min(1800,Math.round(w)))}&q=${q}`;
   const pexels = base.match(/images\.pexels\.com\/photos\/([0-9]+)/);
   if (pexels) return localImageManifest.pexels[pexels[1]]
-    ? \`/images/optimized/pexels-\${pexels[1]}.webp\`
-    : \`\${base}?auto=compress&cs=tinysrgb&w=\${Math.max(320,Math.min(1800,Math.round(w)))}&q=\${q}\`;
+    ? `/images/optimized/pexels-${pexels[1]}.webp`
+    : `${base}?auto=compress&cs=tinysrgb&w=${Math.max(320,Math.min(1800,Math.round(w)))}&q=${q}`;
   return url;
 };
 const img = (url,w=640) => imageUrl(url,w,64);
