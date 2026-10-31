@@ -332,3 +332,19 @@ h2{font-weight:800}.logo-img{width:54px;height:54px;object-fit:contain}.footer .
   background-image:none;
   animation:none;
 }
+
+
+/* Hero photo: fill the whole hero and keep the branded overlay above it. */
+.hero-bg{isolation:isolate;background-color:#0B1F3A!important;overflow:hidden}
+.hero-bg .smart-image{
+  position:absolute!important;inset:0!important;z-index:0!important;
+  display:block!important;width:100%!important;height:100%!important;
+  max-width:none!important;object-fit:cover!important;object-position:center 48%;
+  background:transparent!important;
+}
+.hero-bg:before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(7,12,27,.94) 8%,rgba(7,12,27,.82) 44%,rgba(7,12,27,.48) 72%,rgba(7,12,27,.30) 100%);
+}
+.hero-bg:after{z-index:2;pointer-events:none}
+.hero-bg .smart-image[data-image-state="error"]{visibility:hidden}
