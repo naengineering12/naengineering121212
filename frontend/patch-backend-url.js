@@ -1,5 +1,13 @@
 const fs = require('fs');
 const path = require('path');
+const { spawnSync } = require('child_process');
+
+// Vercel project-level build commands may call this preparation script directly.
+// Run the photo downloader here so the local image assets exist before React builds.
+const imagePrep = spawnSync(process.execPath, [path.join(__dirname, 'download-site-images.js')], { stdio: 'inherit' });
+if (imagePrep.error || imagePrep.status !== 0) {
+  console.warn('[site-images] Image preparation did not complete; remote photo fallbacks remain enabled.');
+}
 
 const appPath = path.join(__dirname, 'src', 'App.js');
 const envPath = path.join(__dirname, '.env.production');
