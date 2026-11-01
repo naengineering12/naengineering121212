@@ -50,7 +50,7 @@ function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",cla
     src={src}
     srcSet={srcSet}
     sizes={sizes}
-    loading={loading}
+    loading="eager"
     fetchPriority={fetchPriority}
     decoding={loading==="eager" ? "async" : "async"}
     alt={alt}
@@ -553,6 +553,39 @@ function RelatedLinks() {
 
 function App() {
   useLenis();
+
+  // Warm the complete self-hosted photo library after the first screen has rendered.
+  // This makes images on other routes available from the browser cache on later visits.
+  useEffect(() => {
+    const urls = [
+      ...Object.keys(localImageManifest.unsplash || {}).map(id => "/images/optimized/unsplash-" + id + ".webp"),
+      ...Object.keys(localImageManifest.pexels || {}).map(id => "/images/optimized/pexels-" + id + ".webp")
+    ];
+    if (!urls.length || typeof window === "undefined") return undefined;
+
+    let nextIndex = 0;
+    let cancelled = false;
+    const loadNext = () => {
+      if (cancelled || nextIndex >= urls.length) return;
+      const image = new window.Image();
+      image.decoding = "async";
+      image.onload = loadNext;
+      image.onerror = loadNext;
+      image.src = urls[nextIndex++];
+    };
+    const timer = window.setTimeout(() => {
+      // A small pool avoids competing too aggressively with the first visible images.
+      loadNext();
+      loadNext();
+      loadNext();
+    }, 1200);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
+  }, []);
+
   return (
     <BrowserRouter><div className="App"><Toaster position="top-right" />
       <ScrollToTop/>
