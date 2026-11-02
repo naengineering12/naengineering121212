@@ -50,9 +50,9 @@ function SmartImage({src,srcSet,sizes,alt,loading="lazy",fetchPriority="low",cla
     src={src}
     srcSet={srcSet}
     sizes={sizes}
-    loading="eager"
-    fetchPriority={fetchPriority}
-    decoding={loading==="eager" ? "async" : "async"}
+    loading={loading}
+    fetchPriority={loading === "eager" ? fetchPriority : "low"}
+    decoding="async"
     alt={alt}
     className={`smart-image${className ? ` ${className}` : ""}`}
     data-image-state={imageError ? "error" : imageLoaded ? "loaded" : "loading"}
@@ -565,24 +565,39 @@ function App() {
 
     let nextIndex = 0;
     let cancelled = false;
+    let idleHandle = null;
+    let timer = null;
     const loadNext = () => {
       if (cancelled || nextIndex >= urls.length) return;
       const image = new window.Image();
       image.decoding = "async";
+      if ("fetchPriority" in image) image.fetchPriority = "low";
       image.onload = loadNext;
       image.onerror = loadNext;
       image.src = urls[nextIndex++];
     };
-    const timer = window.setTimeout(() => {
-      // A small pool avoids competing too aggressively with the first visible images.
+    const startWarmup = () => {
+      if (cancelled) return;
+      // Two low-priority downloads warm other pages without starving visible images.
       loadNext();
       loadNext();
-      loadNext();
-    }, 1200);
+    };
+    const scheduleWarmup = () => {
+      if (cancelled) return;
+      if ("requestIdleCallback" in window) {
+        idleHandle = window.requestIdleCallback(startWarmup, { timeout: 2500 });
+      } else {
+        timer = window.setTimeout(startWarmup, 1400);
+      }
+    };
+    if (document.readyState === "complete") scheduleWarmup();
+    else window.addEventListener("load", scheduleWarmup, { once: true });
 
     return () => {
       cancelled = true;
-      window.clearTimeout(timer);
+      window.removeEventListener("load", scheduleWarmup);
+      if (timer) window.clearTimeout(timer);
+      if (idleHandle !== null && "cancelIdleCallback" in window) window.cancelIdleCallback(idleHandle);
     };
   }, []);
 
