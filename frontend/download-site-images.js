@@ -57,12 +57,12 @@ async function runPool(items, limit, worker) {
   const tasks = [];
   for (const id of unsplashIds) tasks.push({
     kind: "unsplash", id,
-    url: "https://images.unsplash.com/photo-" + id + "?fit=crop&w=1100&q=62&fm=webp",
+    url: "https://images.unsplash.com/photo-" + id + "?fit=crop&w=900&q=56&fm=webp",
     file: path.join(outDir, "unsplash-" + id + ".webp")
   });
   for (const id of pexelsIds) tasks.push({
     kind: "pexels", id,
-    url: "https://images.pexels.com/photos/" + id + "/pexels-photo-" + id + ".jpeg?auto=compress&cs=tinysrgb&w=1100&fm=webp&q=62",
+    url: "https://images.pexels.com/photos/" + id + "/pexels-photo-" + id + ".jpeg?auto=compress&cs=tinysrgb&w=900&fm=webp&q=56",
     file: path.join(outDir, "pexels-" + id + ".webp")
   });
 
