@@ -1,27 +1,39 @@
 import React, { useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Clock3, Search, Share2 } from "lucide-react";
+import localImageManifest from "./local-image-manifest.json";
 import "./InsightsPage.css";
 
-// Keep the Blog's high-priority WebP image loading changes in this production build.
+// Prefer the same self-hosted WebP assets used across the rest of the site.
+// This avoids depending on third-party image CDNs when visitors open the Blog.
+const fallbackImageId = "1581092921461-eab62e97a780";
+const insightPhotoFallback = localImageManifest.unsplash?.[fallbackImageId]
+  ? `/images/optimized/unsplash-${fallbackImageId}.webp`
+  : "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=800&q=60";
 
-// Blog uses real Pexels/Unsplash photographs. If one provider fails, recover
-// with a photo from a second CDN instead of substituting a vector illustration.
-const insightPhotoFallback = "https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=800&q=60";
 function recoverInsightImage(event) {
   const image = event.currentTarget;
   if (image.dataset.fallbackApplied === "true") {
     image.onerror = null;
-    image.style.display = "none";
+    image.style.visibility = "hidden";
     return;
   }
   image.dataset.fallbackApplied = "true";
   image.removeAttribute("srcset");
   image.src = insightPhotoFallback;
 }
+
 const optimizedInsightImage = (url,width=640) => {
   if (typeof url !== "string" || !url) return insightPhotoFallback;
   const base = url.split("?")[0];
+  const pexelsMatch = base.match(/images\\.pexels\\.com\\/photos\\/([0-9]+)\\/pexels-photo-\\1\\.jpeg/i);
+  if (pexelsMatch && localImageManifest.pexels?.[pexelsMatch[1]]) {
+    return `/images/optimized/pexels-${pexelsMatch[1]}.webp`;
+  }
+  const unsplashMatch = base.match(/images\\.unsplash\\.com\\/photo-([a-z0-9-]+)/i);
+  if (unsplashMatch && localImageManifest.unsplash?.[unsplashMatch[1]]) {
+    return `/images/optimized/unsplash-${unsplashMatch[1]}.webp`;
+  }
   const w = Math.max(320,Math.min(800,Math.round(width)));
   if (base.includes("images.pexels.com")) {
     const h = Math.round(w * 0.595);
