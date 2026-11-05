@@ -26,11 +26,11 @@ function recoverInsightImage(event) {
 const optimizedInsightImage = (url,width=640) => {
   if (typeof url !== "string" || !url) return insightPhotoFallback;
   const base = url.split("?")[0];
-  const pexelsMatch = base.match(/images\\.pexels\\.com\\/photos\\/([0-9]+)\\/pexels-photo-\\1\\.jpeg/i);
+  const pexelsMatch = base.match(/images\.pexels\.com\/photos\/([0-9]+)\/pexels-photo-\1\.jpeg/i);
   if (pexelsMatch && localImageManifest.pexels?.[pexelsMatch[1]]) {
     return `/images/optimized/pexels-${pexelsMatch[1]}.webp`;
   }
-  const unsplashMatch = base.match(/images\\.unsplash\\.com\\/photo-([a-z0-9-]+)/i);
+  const unsplashMatch = base.match(/images\.unsplash\.com\/photo-([a-z0-9-]+)/i);
   if (unsplashMatch && localImageManifest.unsplash?.[unsplashMatch[1]]) {
     return `/images/optimized/unsplash-${unsplashMatch[1]}.webp`;
   }
