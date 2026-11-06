@@ -310,8 +310,25 @@ function renderPage(route, page, template) {
           heading = "PEB Contractor in Lahore";
           intro = "NA Engineering Solutions supports pre-engineered building works, industrial steel sheds, structural steel, roofing, cladding, platforms and PEB modifications in Lahore.";
         } else if (route.startsWith("/services/")) {
+          const serviceHeadingOverrides = {
+            "engineering-consultancy": "Engineering Consultancy in Lahore",
+            "civil-engineering": "Civil Engineering in Lahore",
+            "mechanical-engineering": "Mechanical Engineering in Lahore",
+            "peb-works": "PEB Contractor in Lahore",
+            "electrical-works": "Electrical Works in Lahore",
+            "mechanical-electrical-supplies": "Mechanical & Electrical Supplies in Lahore",
+            "utilities-facility-maintenance": "Industrial Maintenance Services in Lahore",
+            "boiler-chemicals": "Boiler Chemicals Supplier in Lahore",
+            "seamless-pipes-fittings": "Seamless MS & SS Pipes in Lahore",
+            "wastewater-treatment-plant": "Wastewater Treatment Plant Services in Lahore",
+            "hvac-supplies-services": "HVAC Services in Lahore",
+            "fire-fighting-equipment": "Fire Fighting Equipment in Lahore",
+            "safety-security-systems": "Safety & Security Systems in Lahore",
+            "waterproofing-solutions": "Waterproofing Services in Lahore",
+            "pumps-valves-pneumatic": "Industrial Pumps & Valves Supplier in Lahore"
+          };
           eyebrow = "SERVICES / " + (page.service?.title || "ENGINEERING").toUpperCase();
-          heading = page.service?.title || heading;
+          heading = serviceHeadingOverrides[route.slice("/services/".length)] || page.service?.title || heading;
         } else if (route.startsWith("/blog/")) {
           eyebrow = "ENGINEERING / INDUSTRIAL INSIGHTS";
           heading = page.article?.title || heading;
