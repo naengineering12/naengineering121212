@@ -75,18 +75,30 @@
         var articleSlug=path.slice("/blog/".length).split("/")[0];
         src=articleImages[articleSlug];
       }
-      function preloadImage(url){
+      function preloadImage(url, sizes){
         var imageLink=document.createElement("link");
         imageLink.rel="preload";
         imageLink.as="image";
         imageLink.href=url;
+        if(sizes && /\/images\/optimized\/(unsplash-[a-z0-9-]+|pexels-[0-9]+)\.webp$/.test(url)){
+          var stem=url.replace(/\.webp$/,"");
+          imageLink.setAttribute("imagesrcset",stem+"-480.webp 480w, "+url+" 900w");
+          imageLink.setAttribute("imagesizes",sizes);
+        }
         imageLink.fetchPriority="high";
         document.head.appendChild(imageLink);
       }
-      if(src) preloadImage(src);
+      var imageSizes = path==="/"
+        ? null
+        : path==="/blog"
+          ? "(max-width: 800px) 100vw, 900px"
+          : path.indexOf("/services/")===0 || path==="/industries"
+            ? "(max-width: 800px) 100vw, 52vw"
+            : "(max-width: 800px) calc(100vw - 36px), (max-width: 1440px) 45vw, 640px";
+      if(src) preloadImage(src,imageSizes);
       if(path==="/blog"){
-        // The first featured guide sits immediately after the hero; load it alongside the hero photo.
-        preloadImage("/images/optimized/pexels-37912780.webp");
+        // Preload the featured card using the same candidate and sizes as its img element.
+        preloadImage("/images/optimized/pexels-37912780.webp","(max-width: 800px) 100vw, 480px");
       }
     }());
   </script>
