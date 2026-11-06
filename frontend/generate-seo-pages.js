@@ -285,7 +285,7 @@ function renderPage(route, page, template) {
           intro = "We provide practical engineering and maintenance support for factories, commercial facilities and project sites, covering civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing and industrial work.";
         } else if (route === "/supplies") {
           eyebrow = "GENERAL ORDER / 01";
-          heading = "General Order Supplies in Lahore";
+          heading = "General Order Supplier in Lahore";
         } else if (route === "/it-services") {
           eyebrow = "IT SERVICES / 01";
           heading = "IT Services & Equipment in Lahore";
@@ -307,7 +307,7 @@ function renderPage(route, page, template) {
           intro = "NA Engineering Solutions provides HVAC services in Lahore for industrial and commercial facilities, including chillers, AHUs, FCUs, fresh-air and exhaust ventilation, GI ducting, equipment supply and installation, preventive maintenance and filter replacement.";
         } else if (route === "/services/peb-works") {
           eyebrow = "PRE-ENGINEERED BUILDINGS / PEB WORKS";
-          heading = "PEB Company in Lahore | Industrial Sheds";
+          heading = "PEB Contractor in Lahore";
           intro = "NA Engineering Solutions supports pre-engineered building works, industrial steel sheds, structural steel, roofing, cladding, platforms and PEB modifications in Lahore.";
         } else if (route.startsWith("/services/")) {
           eyebrow = "SERVICES / " + (page.service?.title || "ENGINEERING").toUpperCase();
