@@ -45,6 +45,28 @@ const optimizedInsightImage = (url,width=640) => {
   return base;
 };
 
+const optimizedInsightImageSet = (url) => {
+  if (typeof url !== "string" || !url) return undefined;
+  const base = url.split("?")[0];
+  const pexels = base.match(/images\.pexels\.com\/photos\/([0-9]+)\/pexels-photo-\1\.jpeg/i);
+  if (pexels) {
+    const id = pexels[1];
+    if (localImageManifest.pexels?.[id] && localImageManifest.responsive?.pexels?.[id]) {
+      return "/images/optimized/pexels-" + id + "-480.webp 480w, /images/optimized/pexels-" + id + ".webp 900w";
+    }
+    return base + "?auto=compress&cs=tinysrgb&w=480&fm=webp&q=45 480w, " + base + "?auto=compress&cs=tinysrgb&w=900&fm=webp&q=50 900w";
+  }
+  const unsplash = base.match(/images\.unsplash\.com\/photo-([a-z0-9-]+)/i);
+  if (unsplash) {
+    const id = unsplash[1];
+    if (localImageManifest.unsplash?.[id] && localImageManifest.responsive?.unsplash?.[id]) {
+      return "/images/optimized/unsplash-" + id + "-480.webp 480w, /images/optimized/unsplash-" + id + ".webp 900w";
+    }
+    return base + "?auto=format&fit=crop&w=480&q=45&fm=webp 480w, " + base + "?auto=format&fit=crop&w=900&q=50&fm=webp 900w";
+  }
+  return undefined;
+};
+
 export const insightArticles = [
   {
     slug: "prepare-a-general-order-supply-request",
@@ -220,7 +242,7 @@ export const insightArticles = [
 function ArticleCard({ article }) {
   return <article className="insight-card">
     <Link className="insight-card-image-link" to={`/blog/${article.slug}`} aria-label={`Read: ${article.title}`}>
-      <img className="insight-card-image" src={optimizedInsightImage(article.image,480)} alt={article.imageAlt} loading="lazy" decoding="async" onError={recoverInsightImage} />
+      <img className="insight-card-image" src={optimizedInsightImage(article.image,480)} srcSet={optimizedInsightImageSet(article.image)} sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 480px" width="480" height="286" alt={article.imageAlt} loading="lazy" decoding="async" onError={recoverInsightImage} />
       <span className="insight-card-image-label">FIELD GUIDE <ArrowRight size={14}/></span>
     </Link>
     <div className="insight-card-content">
@@ -321,7 +343,7 @@ export default function InsightsPage() {
 
         <div className="site-container">
           <figure className="insight-article-cover">
-            <img src={optimizedInsightImage(article.image,900)} alt={article.imageAlt} width="900" height="536" loading="eager" fetchPriority="high" decoding="async" onError={recoverInsightImage} />
+            <img src={optimizedInsightImage(article.image,900)} srcSet={optimizedInsightImageSet(article.image)} sizes="(max-width: 800px) 100vw, 900px" alt={article.imageAlt} width="900" height="536" loading="eager" fetchPriority="high" decoding="async" onError={recoverInsightImage} />
           </figure>
         </div>
 
@@ -407,7 +429,7 @@ export default function InsightsPage() {
             <a className="blog-hero-button" href="#blog-library">Explore all guides <ArrowRight size={16}/></a>
           </div>
           <div className="insights-index-hero-visual">
-            <img src="https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=900&h=536&dpr=1&fm=webp&q=68" alt="Industrial engineers coordinating mechanical equipment and pipework" width="900" height="536" loading="eager" fetchPriority="high" decoding="async" onError={recoverInsightImage}/>
+            <img src="https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=900&h=536&dpr=1&fm=webp&q=50" srcSet={optimizedInsightImageSet("https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg")} sizes="(max-width: 800px) 100vw, 900px" alt="Industrial engineers coordinating mechanical equipment and pipework" width="900" height="536" loading="eager" fetchPriority="high" decoding="async" onError={recoverInsightImage}/>
             <div className="insights-hero-image-caption"><span>FIELD NOTES / 01</span><strong>Engineering. Supply. Execution.</strong></div>
           </div>
         </div>
@@ -417,7 +439,7 @@ export default function InsightsPage() {
         <div className="site-container">
           <div className="blog-featured-card">
             <Link className="blog-featured-image" to={"/blog/" + featuredArticle.slug} aria-label={"Read " + featuredArticle.title}>
-              <img src={optimizedInsightImage(featuredArticle.image,480)} alt={featuredArticle.imageAlt} width="480" height="286" loading="eager" fetchPriority="high" decoding="async" onError={recoverInsightImage}/>
+              <img src={optimizedInsightImage(featuredArticle.image,480)} srcSet={optimizedInsightImageSet(featuredArticle.image)} sizes="(max-width: 800px) 100vw, 480px" alt={featuredArticle.imageAlt} width="480" height="286" loading="eager" fetchPriority="high" decoding="async" onError={recoverInsightImage}/>
             </Link>
             <div className="blog-featured-content">
               <span className="blog-featured-kicker"><span className="blog-featured-dot"/> FEATURED FIELD GUIDE</span>
