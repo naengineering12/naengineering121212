@@ -1,10 +1,11 @@
-// Download and self-host the site's photographic assets during the Vercel build.
+// Download self-hosted responsive WebP variants during the Vercel build.
 const fs = require("fs");
 const path = require("path");
-const root = process.cwd();
+const root = __dirname;
 const sourceDirs = [path.join(root, "src"), path.join(root, "public")];
 const outDir = path.join(root, "public", "images", "optimized");
 const manifestPath = path.join(root, "src", "local-image-manifest.json");
+const cacheMarker = path.join(root, ".image-optimization-v2");
 const sourceFiles = [];
 
 function walk(dir) {
@@ -28,8 +29,10 @@ for (const file of sourceFiles) {
 for (const id of pexelsIds) unsplashIds.delete(id);
 
 fs.mkdirSync(outDir, { recursive: true });
+const forceRefresh = !fs.existsSync(cacheMarker);
+
 async function download(url, destination) {
-  if (fs.existsSync(destination) && fs.statSync(destination).size > 3000) return "cached";
+  if (!forceRefresh && fs.existsSync(destination) && fs.statSync(destination).size > 3000) return "cached";
   try {
     const response = await fetch(url, { signal: AbortSignal.timeout(18000) });
     if (!response.ok) throw new Error("HTTP " + response.status);
@@ -53,30 +56,37 @@ async function runPool(items, limit, worker) {
     }
   }));
 }
+function addImageTasks(tasks, kind, id) {
+  const variants = [
+    { width: 480, quality: 45, suffix: "-480" },
+    { width: 900, quality: 50, suffix: "" }
+  ];
+  for (const variant of variants) {
+    const file = path.join(outDir, kind + "-" + id + variant.suffix + ".webp");
+    const url = kind === "unsplash"
+      ? "https://images.unsplash.com/photo-" + id + "?fit=crop&w=" + variant.width + "&q=" + variant.quality + "&fm=webp"
+      : "https://images.pexels.com/photos/" + id + "/pexels-photo-" + id + ".jpeg?auto=compress&cs=tinysrgb&w=" + variant.width + "&fm=webp&q=" + variant.quality;
+    tasks.push({ kind, id, width: variant.width, file, url });
+  }
+}
 (async () => {
   const tasks = [];
-  for (const id of unsplashIds) tasks.push({
-    kind: "unsplash", id,
-    url: "https://images.unsplash.com/photo-" + id + "?fit=crop&w=900&q=56&fm=webp",
-    file: path.join(outDir, "unsplash-" + id + ".webp")
-  });
-  for (const id of pexelsIds) tasks.push({
-    kind: "pexels", id,
-    url: "https://images.pexels.com/photos/" + id + "/pexels-photo-" + id + ".jpeg?auto=compress&cs=tinysrgb&w=900&fm=webp&q=56",
-    file: path.join(outDir, "pexels-" + id + ".webp")
-  });
+  for (const id of unsplashIds) addImageTasks(tasks, "unsplash", id);
+  for (const id of pexelsIds) addImageTasks(tasks, "pexels", id);
 
   let downloaded = 0, cached = 0, failed = 0;
-  await runPool(tasks, 6, async task => {
+  await runPool(tasks, 8, async task => {
     const result = await download(task.url, task.file);
     if (result === "downloaded") downloaded++;
     else if (result === "cached") cached++;
     else failed++;
   });
 
-  const manifest = { unsplash: {}, pexels: {} };
+  const manifest = { unsplash: {}, pexels: {}, responsive: { unsplash: {}, pexels: {} } };
   for (const task of tasks) {
-    if (fs.existsSync(task.file) && fs.statSync(task.file).size > 3000) manifest[task.kind][task.id] = true;
+    if (!fs.existsSync(task.file) || fs.statSync(task.file).size <= 3000) continue;
+    if (task.width === 900) manifest[task.kind][task.id] = true;
+    if (task.width === 480) manifest.responsive[task.kind][task.id] = true;
   }
   fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + "\n");
 
@@ -88,7 +98,13 @@ async function runPool(items, limit, worker) {
     fs.writeFileSync(htmlPath, html);
   }
 
-  console.log("[site-images] " + downloaded + " downloaded, " + cached + " cached, " + failed + " failed; " + tasks.length + " total assets.");
+  if (failed === 0) {
+    fs.writeFileSync(cacheMarker, "responsive-webp-v2\n");
+  } else if (fs.existsSync(cacheMarker)) {
+    fs.unlinkSync(cacheMarker);
+  }
+
+  console.log("[site-images] " + downloaded + " downloaded, " + cached + " cached, " + failed + " failed; " + tasks.length + " variants for " + (unsplashIds.size + pexelsIds.size) + " photos.");
   if (!manifest.unsplash["1508450859948-4e04fabaa4ea"]) {
     console.warn("[site-images] Homepage hero could not be self-hosted; the app will safely retain its remote source.");
   }
