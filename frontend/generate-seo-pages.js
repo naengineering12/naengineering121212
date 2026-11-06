@@ -33,7 +33,7 @@ if (services.length < 10 || articles.length < 5) {
 }
 
 const topLevel = {
-  "/": { title: "Engineering Company in Lahore | NA Engineering Solutions", description: "Lahore-based engineering company and general order supplier providing industrial supplies, engineering services, maintenance and project support for businesses across Pakistan." },
+  "/": { title: "Engineering Services & General Order Supplies | NA Engineering Solutions", description: "NA Engineering Solutions supports Lahore businesses with engineering services and General Order Supplies & Services. Send an item list or BOQ for a quote." },
   "/services": { title: "Engineering Services in Lahore | NA Engineering Solutions", description: "Civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing and industrial maintenance services for facilities and projects in Lahore." },
   "/supplies": { title: "General Order Supplier in Lahore | NA Engineering Solutions", description: "General order supplies and industrial supplies in Lahore for factories, offices and projects, including tools, PPE, electrical, mechanical and maintenance items. Request a quote." },
   "/it-services": { title: "IT Equipment Supplier in Lahore | NA Engineering Solutions", description: "Business IT supplies in Lahore: computers, laptops, printers, networking equipment, servers, CCTV, UPS and accessories, with installation and support." },
