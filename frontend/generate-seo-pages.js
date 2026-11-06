@@ -365,7 +365,19 @@ if (oldInsightsRoutes.length) {
 routes.push("/admin");
 
 let generated = 0;
-const template = fs.readFileSync(templatePath, "utf8");
+let template = fs.readFileSync(templatePath, "utf8");
+const stylesheetTag = (template.match(/<link\b[^>]*>/gi) || [])
+  .find((tag) => /rel=["']stylesheet["']/i.test(tag) && /\.css(?:[?"']|$)/i.test(tag));
+const stylesheetHref = stylesheetTag?.match(/\bhref=["']([^"']+\.css(?:\?[^"']*)?)["']/i)?.[1];
+if (stylesheetHref) {
+  const preloadTag = '<link rel="preload" as="style" href="' + stylesheetHref + '" />';
+  if (!template.includes(preloadTag)) {
+    template = template.replace(/<head\b([^>]*)>/i, '<head$1>\n  ' + preloadTag);
+    fs.writeFileSync(templatePath, template, "utf8");
+  }
+} else {
+  console.warn("Main stylesheet preload skipped: no built CSS link was found in build/index.html.");
+}
 for (const route of [...new Set(routes)]) {
   const page = routeMetadata(route);
   if (!page) {
