@@ -99,8 +99,8 @@ const SERVICE_PAGE_HEADINGS = {
   "mechanical-electrical-supplies": "Mechanical & Electrical Supplies for Factories in Lahore",
   "utilities-facility-maintenance": "Industrial Utility Maintenance Services in Lahore",
   "boiler-chemicals": "Boiler Water Treatment Chemicals in Lahore",
-  "seamless-pipes-fittings": "Seamless MS & SS Pipe Fittings Supplier in Lahore",
-  "wastewater-treatment-plant": "Wastewater Treatment Equipment Supplier in Lahore",
+  "seamless-pipes-fittings": "Seamless MS & SS Pipe Fittings in Lahore",
+  "wastewater-treatment-plant": "Wastewater Treatment Equipment in Lahore",
   "hvac-supplies-services": "Industrial HVAC Ducting & Maintenance in Lahore",
   "fire-fighting-equipment": "Fire Fighting Equipment in Lahore",
   "safety-security-systems": "Safety & Security Systems in Lahore",
@@ -298,29 +298,29 @@ function RouteSEO() {
 
     const page = (() => {
       if (path === "/") return {
-        title: "Engineering Company in Lahore | NA Engineering Solutions",
-        description: "Lahore-based engineering company and general order supplier providing industrial supplies, engineering services, maintenance and project support for businesses across Pakistan."
+        title: "Industrial Supplies for Factories in Lahore | NA Engineering Solutions",
+        description: "Industrial supplies for Lahore factories: maintenance items, mechanical and electrical materials, PPE and BOQ-based sourcing. Send your item list for a quote."
       };
       if (path === "/services") return {
         title: "Engineering Services in Lahore | NA Engineering Solutions",
         description: "Explore civil, mechanical, electrical, HVAC, PEB, fire-fighting and other engineering services for industrial and commercial projects in Lahore."
       };
       if (service) return {
-        title: service.slug === "peb-works" ? "PEB Contractor in Lahore | NA Engineering Solutions" : service.slug === "boiler-chemicals" ? "Boiler Chemicals Supplier in Lahore | NA Engineering Solutions" : service.slug === "mechanical-electrical-supplies" ? "Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions" : service.slug === "utilities-facility-maintenance" ? "Industrial Maintenance Services in Lahore | NA Engineering Solutions" : service.slug === "seamless-pipes-fittings" ? "Seamless MS & SS Pipes in Lahore | NA Engineering Solutions" : service.slug === "wastewater-treatment-plant" ? "Wastewater Treatment Plant Services in Lahore | NA Engineering Solutions" : service.slug === "hvac-supplies-services" ? "HVAC Services in Lahore | NA Engineering Solutions" : service.slug === "fire-fighting-equipment" ? "Fire Fighting Equipment in Lahore | NA Engineering Solutions" : service.slug === "waterproofing-solutions" ? "Waterproofing Services in Lahore | NA Engineering Solutions" : service.slug === "pumps-valves-pneumatic" ? "Industrial Pumps & Valves Supplier in Lahore | NA Engineering Solutions" : `${service.title} in Lahore | NA Engineering Solutions`,
+        title: service.slug === "peb-works" ? "PEB Contractor in Lahore | NA Engineering Solutions" : service.slug === "boiler-chemicals" ? "Boiler Water Treatment Chemicals in Lahore | NA Engineering" : service.slug === "mechanical-electrical-supplies" ? "Mechanical & Electrical Supplies in Lahore | NA Engineering" : service.slug === "utilities-facility-maintenance" ? "Industrial Utility Maintenance in Lahore | NA Engineering" : service.slug === "seamless-pipes-fittings" ? "Seamless MS & SS Pipe Fittings in Lahore | NA Engineering" : service.slug === "wastewater-treatment-plant" ? "Wastewater Treatment Equipment in Lahore | NA Engineering" : service.slug === "hvac-supplies-services" ? "Industrial HVAC Ducting & Maintenance in Lahore | NA Engineering" : service.slug === "fire-fighting-equipment" ? "Fire Fighting Equipment in Lahore | NA Engineering Solutions" : service.slug === "waterproofing-solutions" ? "Waterproofing Services in Lahore | NA Engineering Solutions" : service.slug === "pumps-valves-pneumatic" ? "Industrial Pumps & Pneumatic Fittings in Lahore | NA Engineering" : `${service.title} in Lahore | NA Engineering Solutions`,
         description: service.slug === "boiler-chemicals"
-          ? "Boiler water treatment chemicals in Lahore, including scale inhibitors, oxygen scavengers and pH control products, with dosing and testing support."
+          ? "Boiler water treatment chemicals in Lahore, including scale inhibitors, oxygen scavengers and pH adjusters, with dosing and water-testing support."
           : service.slug === "engineering-consultancy"
             ? "Engineering consultancy in Lahore for project planning, technical reviews, scope definition, specifications and execution coordination."
             : service.slug === "mechanical-electrical-supplies"
-              ? "Industrial mechanical and electrical supplies in Lahore: motors, pumps, gearboxes, valves, cables, breakers and panels, sourced to your specifications."
+              ? "Mechanical and electrical supplies for Lahore factories, including motors, pumps, gearboxes, cables, panels, breakers and pneumatic items. Request a quote."
               : service.slug === "utilities-facility-maintenance"
-                ? "Industrial maintenance services in Lahore for pumps, compressors, boilers, water, compressed-air and steam utility systems, including preventive and corrective support."
+                ? "Industrial utility maintenance in Lahore for boiler, compressor, water, steam and compressed-air systems, with parts sourcing and maintenance support."
                 : service.slug === "seamless-pipes-fittings"
                   ? "Seamless MS and SS pipes and fittings in Lahore, including flanges, elbows, reducers and tees in project-specific grades, schedules and sizes."
                   : service.slug === "wastewater-treatment-plant"
-                    ? "Wastewater treatment plant equipment and services in Lahore, including pumps, blowers, diffusers, dosing systems and maintenance support."
+                    ? "Wastewater treatment equipment in Lahore, including pumps, blowers, diffusers, dosing systems, treatment chemicals and plant maintenance support."
                     : service.slug === "hvac-supplies-services"
-                      ? "HVAC services in Lahore for industrial and commercial facilities, including chillers, AHUs, FCUs, ducting, ventilation, installation and maintenance."
+                      ? "Industrial HVAC ducting and maintenance in Lahore for chillers, AHUs, FCUs, fresh-air and exhaust ventilation systems. Request a site-specific quote."
                       : service.slug === "fire-fighting-equipment"
                         ? "Fire fighting equipment in Lahore, including extinguishers, hydrants, hoses, sprinklers and related installation, inspection and maintenance support."
                         : service.slug === "safety-security-systems"
@@ -328,7 +328,7 @@ function RouteSEO() {
                           : service.slug === "waterproofing-solutions"
                             ? "Waterproofing services in Lahore for roofs, basements, water tanks and wet areas, including membranes, protective coatings and leakage rectification."
                             : service.slug === "pumps-valves-pneumatic"
-                              ? "Industrial pumps and valves supplier in Lahore for centrifugal, submersible and dosing pumps, gate and ball valves, pneumatic fittings, hoses and regulators."
+                              ? "Industrial pumps, valves and pneumatic fittings in Lahore, including centrifugal, submersible and dosing pumps, hoses, regulators and accessories."
                               : service.slug === "civil-engineering"
                                 ? "Civil engineering in Lahore for construction, concrete, flooring, waterproofing, site development and rehabilitation at industrial and commercial properties. Request a scope-based quote."
                                 : service.slug === "mechanical-engineering"
@@ -341,7 +341,7 @@ function RouteSEO() {
       };
       if (path === "/supplies") return {
         title: "General Order Supplier in Lahore | NA Engineering Solutions",
-        description: "General order supplies and industrial supplies in Lahore for factories, offices and projects, including tools, PPE, electrical, mechanical and maintenance items. Request a quote."
+        description: "General order supply for Lahore factories and project teams. We source mechanical, electrical, safety and maintenance items against your BOQ and specifications."
       };
       if (path === "/it-services") return {
         title: "IT Equipment Supplier in Lahore | NA Engineering Solutions",
