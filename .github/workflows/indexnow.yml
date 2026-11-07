@@ -68,9 +68,11 @@ jobs:
             throw new Error("Production sitemap or IndexNow key file was not available after 5 minutes.");
           }
 
-          const urls = [...sitemapXml.matchAll(/<loc>\s*([^<]+)\s*<\\/loc>/gi)]
-            .map((match) => match[1].trim())
-            .filter((url) => url.startsWith(`https://${host}/`));
+          const urls = sitemapXml
+  .split("<loc>")
+  .slice(1)
+  .map((chunk) => chunk.split("</loc>")[0].trim())
+  .filter((url) => url.startsWith(`https://${host}/`));
 
           if (urls.length === 0) {
             throw new Error("No valid production URLs were found in sitemap.xml.");
