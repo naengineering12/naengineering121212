@@ -96,16 +96,16 @@ const SERVICE_PAGE_HEADINGS = {
   "mechanical-engineering": "Mechanical Engineering in Lahore",
   "peb-works": "PEB Contractor in Lahore",
   "electrical-works": "Electrical Works in Lahore",
-  "mechanical-electrical-supplies": "Mechanical & Electrical Supplies in Lahore",
-  "utilities-facility-maintenance": "Industrial Maintenance Services in Lahore",
-  "boiler-chemicals": "Boiler Chemicals Supplier in Lahore",
-  "seamless-pipes-fittings": "Seamless MS & SS Pipes in Lahore",
-  "wastewater-treatment-plant": "Wastewater Treatment Plant Services in Lahore",
-  "hvac-supplies-services": "HVAC Services in Lahore",
+  "mechanical-electrical-supplies": "Mechanical & Electrical Supplies for Factories in Lahore",
+  "utilities-facility-maintenance": "Industrial Utility Maintenance Services in Lahore",
+  "boiler-chemicals": "Boiler Water Treatment Chemicals in Lahore",
+  "seamless-pipes-fittings": "Seamless MS & SS Pipe Fittings in Lahore",
+  "wastewater-treatment-plant": "Wastewater Treatment Equipment in Lahore",
+  "hvac-supplies-services": "Industrial HVAC Ducting & Maintenance in Lahore",
   "fire-fighting-equipment": "Fire Fighting Equipment in Lahore",
   "safety-security-systems": "Safety & Security Systems in Lahore",
   "waterproofing-solutions": "Waterproofing Services in Lahore",
-  "pumps-valves-pneumatic": "Industrial Pumps & Valves Supplier in Lahore"
+  "pumps-valves-pneumatic": "Industrial Pumps, Valves & Pneumatic Fittings in Lahore"
 };
 const industries = ["Manufacturing","Pharmaceutical","Food & Beverage","Industrial Plants","Power & Utilities","Construction","Commercial Buildings","Warehouses","Offices","Facility Management"];
 const supplyGroups = [
@@ -170,7 +170,7 @@ function SectionLabel({children}){return <span className="eyebrow"><CircleDot si
 const HERO_PHOTO=imageUrl("https://images.unsplash.com/photo-1508450859948-4e04fabaa4ea",1200,62);
 const HERO_PHOTO_URL=()=>HERO_PHOTO;
 const HERO_PHOTO_SRCSET=undefined;
-function Hero(){return <section className="hero"><div className="hero-bg"><SmartImage src={HERO_PHOTO_URL(960)} srcSet={HERO_PHOTO_SRCSET} sizes="100vw" loading="eager" fetchPriority="high" alt="Industrial engineering and construction project site" /></div><div className="site-container hero-content"><div className="hero-copy"><h1><span className="mask-line"><span style={{color:"var(--amber)"}}>NA Engineering Solutions</span></span><span className="mask-line"><span>Engineering Company in Lahore</span></span></h1><p>NA Engineering Solutions supports factories, commercial facilities and project teams in Lahore with engineering consultancy, civil and mechanical works, HVAC, electrical installation, PEB, fire protection, industrial maintenance and General Order Supplies & Services. Tell us your scope, item list or site requirement and we will discuss the practical next steps.</p><div className="hero-actions"><Button to="/contact" testid="hero-request-quote">Request a Quote</Button><Button to="/services" secondary testid="hero-explore-services">Explore Our Services</Button></div></div><div className="hero-note"><span>01</span><span>From first brief<br/>to project support</span></div></div><div className="hero-scroll">SCROLL TO EXPLORE <ChevronDown size={15}/></div></section>}
+function Hero(){return <section className="hero"><div className="hero-bg"><SmartImage src={HERO_PHOTO_URL(960)} srcSet={HERO_PHOTO_SRCSET} sizes="100vw" loading="eager" fetchPriority="high" alt="Industrial engineering and construction project site" /></div><div className="site-container hero-content"><div className="hero-copy"><h1><span className="mask-line"><span style={{color:"var(--amber)"}}>NA Engineering Solutions</span></span><span className="mask-line"><span>Industrial Supplies for Factories in Lahore</span></span></h1><p>NA Engineering Solutions supports factories, commercial facilities and project teams in Lahore with engineering consultancy, civil and mechanical works, HVAC, electrical installation, PEB, fire protection, industrial maintenance and General Order Supplies & Services. Tell us your scope, item list or site requirement and we will discuss the practical next steps.</p><div className="hero-actions"><Button to="/contact" testid="hero-request-quote">Request a Quote</Button><Button to="/services" secondary testid="hero-explore-services">Explore Our Services</Button></div></div><div className="hero-note"><span>01</span><span>From first brief<br/>to project support</span></div></div><div className="hero-scroll">SCROLL TO EXPLORE <ChevronDown size={15}/></div></section>}
 function Marquee(){const items=["General Order Supplies & Services","Civil Engineering","HVAC","Mechanical Engineering","PEB Works","Electrical Works","Fire Fighting"];const row=[...items,...items];return <div className="marquee" aria-hidden="true"><div className="marquee-track">{row.map((x,i)=><span key={i} className={i%2?"marquee-outline":""}>{x}</span>)}</div></div>}
 function Reveal({children}){return <div className="reveal-static">{children}</div>}
 function Home(){return <><Hero/><Marquee/><main>
@@ -179,13 +179,13 @@ function Home(){return <><Hero/><Marquee/><main>
   <Reveal><section className="section section-light"><div className="site-container"><SectionLabel>03 / ENGINEERING SERVICES</SectionLabel><div className="section-heading"><h2>Choose the service that fits your requirement.</h2><p>Each service has its own scope, supporting details and common questions.</p></div><div className="cap-grid">{services.slice(0,6).map((s,i)=><Link to={`/services/${s.slug}`} className="cap-card" key={s.slug} data-testid={`capability-${s.slug}`}><SmartImage loading="lazy" fetchPriority="low" src={img(s.image,480)} sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw" alt={`${s.title} engineering service`}/><div><s.icon size={21}/><span>0{i+1}</span><h2>{s.title}</h2><ArrowUpRight size={18}/></div></Link>)}</div><div className="home-extra-links"><Link to="/services">All engineering services <ArrowRight size={16}/></Link><Link to="/supplies">General Order Supplies <ArrowRight size={16}/></Link><Link to="/it-services">IT Services &amp; Equipment <ArrowRight size={16}/></Link><Link to="/contact">Request a quotation <ArrowRight size={16}/></Link></div></div></section></Reveal>
   <Reveal><section className="section industry-section"><div className="site-container"><div className="split"><div><SectionLabel>04 / INDUSTRIES</SectionLabel><h2>Support shaped around your site.</h2></div><div><p className="lead">From manufacturing and pharmaceutical environments to warehouses, utilities and commercial facilities, we discuss the actual site requirement before agreeing on a scope.</p><Button to="/industries" secondary testid="home-industries-link">Explore industries</Button></div></div><div className="industry-list">{industries.map((x,i)=><span key={x}><b>{String(i+1).padStart(2,'0')}</b>{x}<ArrowUpRight size={16}/></span>)}</div></div></section></Reveal>
   <Reveal><section className="section home-seo-section"><div className="site-container">
-    <div className="section-heading"><div><SectionLabel>05 / SCOPE &amp; PROCUREMENT</SectionLabel><h2>Engineering Services &amp; General Order Supplies in Lahore</h2></div><p>One point of contact for technical work, industrial materials and day-to-day procurement requirements.</p></div>
+    <div className="section-heading"><div><SectionLabel>05 / SCOPE &amp; PROCUREMENT</SectionLabel><h2>Industrial Supplies &amp; Maintenance Support for Lahore Factories</h2></div><p>One point of contact for technical work, industrial materials and day-to-day procurement requirements.</p></div>
     <h3 className="home-seo-support-heading">How NA Engineering Solutions supports Lahore businesses</h3>
     <p className="home-seo-intro">NA Engineering Solutions supports Lahore businesses with engineering consultancy, engineering services, general order supplies and project support. We help customers define requirements, review specifications, coordinate sourcing and plan practical site work. Each quotation is based on the agreed scope, quantities, technical details and delivery needs rather than a one-size-fits-all package.</p>
     <p className="home-seo-intro">For businesses in Lahore, a clear request helps us assess engineering services and general order supplies efficiently. For materials, include the item description, quantity, size, grade, brand preference and delivery location where known. For maintenance or installation work, share site photos, drawings, equipment details, access requirements and the expected completion date. Our team can review the information, identify any missing specifications and discuss sourcing or site-work options before a quotation is finalized. Availability, timelines and the agreed scope are confirmed for each request.</p>
     <div className="home-seo-grid">
       <article className="home-seo-card"><h3>Services: Civil Engineering, HVAC, Mechanical Engineering, PEB Works, Electrical Works &amp; Fire Fighting</h3><p>Our engineering services cover civil engineering and building works, mechanical engineering, HVAC systems, electrical works, pre-engineered buildings (PEB), fire fighting equipment, safety and security systems, waterproofing, and utility or facility maintenance. Support can include a discussion of site conditions, drawings, equipment information and execution requirements so the requested work is clearly described before scheduling. The final scope is confirmed project by project.</p></article>
-      <article className="home-seo-card"><h3>Engineering Consultancy in Lahore</h3><p>Our engineering consultancy support includes project planning, technical reviews, scope definition, specifications, coordination and practical guidance for industrial and commercial projects in Lahore.</p></article><article className="home-seo-card"><h3>General Order Supplies &amp; Services</h3><p>General order supplies can include hardware and hand tools, electrical and mechanical items, industrial spare parts, pumps and valves, HVAC materials, PPE and safety products, janitorial and cleaning consumables, office stationery, furniture, IT equipment and other approved project items. We source to the client's stated brand, model, size, material, grade or other specification wherever provided, and confirm availability and delivery details during quotation.</p></article>
+      <article className="home-seo-card"><h3>Engineering Consultancy in Lahore</h3><p>Our engineering consultancy support includes project planning, technical reviews, scope definition, specifications, coordination and practical guidance for industrial and commercial projects in Lahore.</p></article><article className="home-seo-card"><h3>BOQ-Based General Order Supplies for Lahore Factories</h3><p>General order supplies can include hardware and hand tools, electrical and mechanical items, industrial spare parts, pumps and valves, HVAC materials, PPE and safety products, janitorial and cleaning consumables, office stationery, furniture, IT equipment and other approved project items. We source to the client's stated brand, model, size, material, grade or other specification wherever provided, and confirm availability and delivery details during quotation.</p></article>
       <article className="home-seo-card"><h3>Industrial maintenance and project support</h3><p>We work with procurement teams, maintenance staff, contractors and facility managers who need one point of contact for multiple line items or a defined job. For recurring requirements, planned maintenance or a one-off project, a clear item list and agreed scope help reduce clarification cycles and keep communication organized. Where site work is required, the work plan and deliverables are agreed before execution.</p></article>
       <article className="home-seo-card"><h3>What to share: BOQ or item list for a quotation</h3><p>Send a BOQ or item list where available, along with quantities, sizes, technical datasheets, photos or drawings, preferred brands and the required delivery date. For site work, include the location, dimensions, existing conditions and expected scope. These details help us review the request and respond with the information needed to discuss next steps.</p></article>
     </div>
@@ -298,29 +298,29 @@ function RouteSEO() {
 
     const page = (() => {
       if (path === "/") return {
-        title: "Engineering Company in Lahore | NA Engineering Solutions",
-        description: "Lahore-based engineering company and general order supplier providing industrial supplies, engineering services, maintenance and project support for businesses across Pakistan."
+        title: "Industrial Supplies for Factories in Lahore | NA Engineering Solutions",
+        description: "Industrial supplies for Lahore factories: maintenance items, mechanical and electrical materials, PPE and BOQ-based sourcing. Send your item list for a quote."
       };
       if (path === "/services") return {
         title: "Engineering Services in Lahore | NA Engineering Solutions",
         description: "Explore civil, mechanical, electrical, HVAC, PEB, fire-fighting and other engineering services for industrial and commercial projects in Lahore."
       };
       if (service) return {
-        title: service.slug === "peb-works" ? "PEB Contractor in Lahore | NA Engineering Solutions" : service.slug === "boiler-chemicals" ? "Boiler Chemicals Supplier in Lahore | NA Engineering Solutions" : service.slug === "mechanical-electrical-supplies" ? "Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions" : service.slug === "utilities-facility-maintenance" ? "Industrial Maintenance Services in Lahore | NA Engineering Solutions" : service.slug === "seamless-pipes-fittings" ? "Seamless MS & SS Pipes in Lahore | NA Engineering Solutions" : service.slug === "wastewater-treatment-plant" ? "Wastewater Treatment Plant Services in Lahore | NA Engineering Solutions" : service.slug === "hvac-supplies-services" ? "HVAC Services in Lahore | NA Engineering Solutions" : service.slug === "fire-fighting-equipment" ? "Fire Fighting Equipment in Lahore | NA Engineering Solutions" : service.slug === "waterproofing-solutions" ? "Waterproofing Services in Lahore | NA Engineering Solutions" : service.slug === "pumps-valves-pneumatic" ? "Industrial Pumps & Valves Supplier in Lahore | NA Engineering Solutions" : `${service.title} in Lahore | NA Engineering Solutions`,
+        title: service.slug === "peb-works" ? "PEB Contractor in Lahore | NA Engineering Solutions" : service.slug === "boiler-chemicals" ? "Boiler Water Treatment Chemicals in Lahore | NA Engineering" : service.slug === "mechanical-electrical-supplies" ? "Mechanical & Electrical Supplies in Lahore | NA Engineering" : service.slug === "utilities-facility-maintenance" ? "Industrial Utility Maintenance in Lahore | NA Engineering" : service.slug === "seamless-pipes-fittings" ? "Seamless MS & SS Pipe Fittings in Lahore | NA Engineering" : service.slug === "wastewater-treatment-plant" ? "Wastewater Treatment Equipment in Lahore | NA Engineering" : service.slug === "hvac-supplies-services" ? "Industrial HVAC Ducting & Maintenance in Lahore | NA Engineering" : service.slug === "fire-fighting-equipment" ? "Fire Fighting Equipment in Lahore | NA Engineering Solutions" : service.slug === "waterproofing-solutions" ? "Waterproofing Services in Lahore | NA Engineering Solutions" : service.slug === "pumps-valves-pneumatic" ? "Industrial Pumps & Pneumatic Fittings in Lahore | NA Engineering" : `${service.title} in Lahore | NA Engineering Solutions`,
         description: service.slug === "boiler-chemicals"
-          ? "Boiler water treatment chemicals in Lahore, including scale inhibitors, oxygen scavengers and pH control products, with dosing and testing support."
+          ? "Boiler water treatment chemicals in Lahore, including scale inhibitors, oxygen scavengers and pH adjusters, with dosing and water-testing support."
           : service.slug === "engineering-consultancy"
             ? "Engineering consultancy in Lahore for project planning, technical reviews, scope definition, specifications and execution coordination."
             : service.slug === "mechanical-electrical-supplies"
-              ? "Industrial mechanical and electrical supplies in Lahore: motors, pumps, gearboxes, valves, cables, breakers and panels, sourced to your specifications."
+              ? "Mechanical and electrical supplies for Lahore factories, including motors, pumps, gearboxes, cables, panels, breakers and pneumatic items. Request a quote."
               : service.slug === "utilities-facility-maintenance"
-                ? "Industrial maintenance services in Lahore for pumps, compressors, boilers, water, compressed-air and steam utility systems, including preventive and corrective support."
+                ? "Industrial utility maintenance in Lahore for boiler, compressor, water, steam and compressed-air systems, with parts sourcing and maintenance support."
                 : service.slug === "seamless-pipes-fittings"
                   ? "Seamless MS and SS pipes and fittings in Lahore, including flanges, elbows, reducers and tees in project-specific grades, schedules and sizes."
                   : service.slug === "wastewater-treatment-plant"
-                    ? "Wastewater treatment plant equipment and services in Lahore, including pumps, blowers, diffusers, dosing systems and maintenance support."
+                    ? "Wastewater treatment equipment in Lahore, including pumps, blowers, diffusers, dosing systems, treatment chemicals and plant maintenance support."
                     : service.slug === "hvac-supplies-services"
-                      ? "HVAC services in Lahore for industrial and commercial facilities, including chillers, AHUs, FCUs, ducting, ventilation, installation and maintenance."
+                      ? "Industrial HVAC ducting and maintenance in Lahore for chillers, AHUs, FCUs, fresh-air and exhaust ventilation systems. Request a site-specific quote."
                       : service.slug === "fire-fighting-equipment"
                         ? "Fire fighting equipment in Lahore, including extinguishers, hydrants, hoses, sprinklers and related installation, inspection and maintenance support."
                         : service.slug === "safety-security-systems"
@@ -328,7 +328,7 @@ function RouteSEO() {
                           : service.slug === "waterproofing-solutions"
                             ? "Waterproofing services in Lahore for roofs, basements, water tanks and wet areas, including membranes, protective coatings and leakage rectification."
                             : service.slug === "pumps-valves-pneumatic"
-                              ? "Industrial pumps and valves supplier in Lahore for centrifugal, submersible and dosing pumps, gate and ball valves, pneumatic fittings, hoses and regulators."
+                              ? "Industrial pumps, valves and pneumatic fittings in Lahore, including centrifugal, submersible and dosing pumps, hoses, regulators and accessories."
                               : service.slug === "civil-engineering"
                                 ? "Civil engineering in Lahore for construction, concrete, flooring, waterproofing, site development and rehabilitation at industrial and commercial properties. Request a scope-based quote."
                                 : service.slug === "mechanical-engineering"
@@ -341,7 +341,7 @@ function RouteSEO() {
       };
       if (path === "/supplies") return {
         title: "General Order Supplier in Lahore | NA Engineering Solutions",
-        description: "General order supplies and industrial supplies in Lahore for factories, offices and projects, including tools, PPE, electrical, mechanical and maintenance items. Request a quote."
+        description: "General order supply for Lahore factories and project teams. We source mechanical, electrical, safety and maintenance items against your BOQ and specifications."
       };
       if (path === "/it-services") return {
         title: "IT Equipment Supplier in Lahore | NA Engineering Solutions",
