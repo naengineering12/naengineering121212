@@ -33,9 +33,9 @@ if (services.length < 10 || articles.length < 5) {
 }
 
 const topLevel = {
-  "/": { title: "Engineering Services & General Order Supplies | NA Engineering Solutions", description: "NA Engineering Solutions supports Lahore businesses with engineering services and General Order Supplies & Services. Send an item list or BOQ for a quote." },
+  "/": { title: "Industrial Supplies for Factories in Lahore | NA Engineering Solutions", description: "Industrial supplies for Lahore factories: maintenance items, mechanical and electrical materials, PPE and BOQ-based sourcing. Send your item list for a quote." },
   "/services": { title: "Engineering Services in Lahore | NA Engineering Solutions", description: "Civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing and industrial maintenance services for facilities and projects in Lahore." },
-  "/supplies": { title: "General Order Supplier in Lahore | NA Engineering Solutions", description: "General order supplies and industrial supplies in Lahore for factories, offices and projects, including tools, PPE, electrical, mechanical and maintenance items. Request a quote." },
+  "/supplies": { title: "General Order Supplier in Lahore | NA Engineering Solutions", description: "General order supply for Lahore factories and project teams. We source mechanical, electrical, safety and maintenance items against your BOQ and specifications." },
   "/it-services": { title: "IT Equipment Supplier in Lahore | NA Engineering Solutions", description: "Business IT supplies in Lahore: computers, laptops, printers, networking equipment, servers, CCTV, UPS and accessories, with installation and support." },
   "/industries": { title: "Industrial & Commercial Engineering Support | NA Engineering", description: "Engineering, maintenance and procurement support for manufacturing, pharmaceutical, food, construction, power, warehouses and commercial facilities in Lahore." },
   "/blog": { title: "Engineering & Industrial Blog | NA Engineering Solutions", description: "Practical guides for industrial maintenance, HVAC, general order procurement, PEB planning and fire safety from NA Engineering Solutions in Lahore.", image: "https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
@@ -74,16 +74,16 @@ function routeMetadata(route) {
       "mechanical-engineering": "Mechanical Engineering in Lahore | NA Engineering Solutions",
       "peb-works": "PEB Contractor in Lahore | NA Engineering Solutions",
       "electrical-works": "Electrical Works in Lahore | NA Engineering Solutions",
-      "mechanical-electrical-supplies": "Mechanical & Electrical Supplies in Lahore | NA Engineering Solutions",
-      "utilities-facility-maintenance": "Industrial Maintenance Services in Lahore | NA Engineering Solutions",
-      "boiler-chemicals": "Boiler Chemicals Supplier in Lahore | NA Engineering Solutions",
-      "seamless-pipes-fittings": "Seamless MS & SS Pipes in Lahore | NA Engineering Solutions",
-      "wastewater-treatment-plant": "Wastewater Treatment Plant Services in Lahore | NA Engineering Solutions",
-      "hvac-supplies-services": "HVAC Services in Lahore | NA Engineering Solutions",
+      "mechanical-electrical-supplies": "Industrial Mechanical & Electrical Supplies in Lahore | NA Engineering",
+      "utilities-facility-maintenance": "Industrial Utility Maintenance Services in Lahore | NA Engineering",
+      "boiler-chemicals": "Boiler Water Treatment Chemicals in Lahore | NA Engineering",
+      "seamless-pipes-fittings": "Seamless MS & SS Pipe Supplier in Lahore | NA Engineering",
+      "wastewater-treatment-plant": "Wastewater Treatment Equipment in Lahore | NA Engineering",
+      "hvac-supplies-services": "Industrial HVAC Ducting & Maintenance in Lahore | NA Engineering",
       "fire-fighting-equipment": "Fire Fighting Equipment in Lahore | NA Engineering Solutions",
       "safety-security-systems": "Safety & Security Systems in Lahore | NA Engineering Solutions",
       "waterproofing-solutions": "Waterproofing Services in Lahore | NA Engineering Solutions",
-      "pumps-valves-pneumatic": "Industrial Pumps & Valves Supplier in Lahore | NA Engineering Solutions",
+      "pumps-valves-pneumatic": "Industrial Pumps & Pneumatic Fittings in Lahore | NA Engineering",
       "engineering-consultancy": "Engineering Consultancy in Lahore | NA Engineering Solutions",
     };
     const serviceDescriptionOverrides = {
@@ -91,16 +91,16 @@ function routeMetadata(route) {
       "mechanical-engineering": "Mechanical engineering services in Lahore for pumps, motors, conveyors, fabrication, welding, industrial repairs and spare parts.",
       "peb-works": "PEB contractor support in Lahore for pre-engineered steel sheds, industrial buildings, platforms, walkways and structural modifications. Discuss your project scope.",
       "electrical-works": "Industrial electrical works in Lahore including wiring, lighting, panels, cables, installation, troubleshooting and maintenance.",
-      "mechanical-electrical-supplies": "Industrial mechanical and electrical supplies in Lahore: motors, pumps, gearboxes, valves, cables, breakers and panels, sourced to your specifications.",
-      "utilities-facility-maintenance": "Industrial maintenance services in Lahore for pumps, compressors, boilers, water, compressed-air and steam utility systems, including preventive and corrective support.",
-      "boiler-chemicals": "Boiler water treatment chemicals in Lahore, including scale inhibitors, oxygen scavengers and pH control products, with dosing and testing support.",
+      "mechanical-electrical-supplies": "Mechanical and electrical supplies for Lahore factories, including motors, pumps, gearboxes, cables, panels, breakers and pneumatic items. Request a quote.",
+      "utilities-facility-maintenance": "Industrial utility maintenance in Lahore for boiler, compressor, water, steam and compressed-air systems, with parts sourcing and maintenance support.",
+      "boiler-chemicals": "Boiler water treatment chemicals in Lahore, including scale inhibitors, oxygen scavengers and pH adjusters, with dosing and water-testing support.",
       "seamless-pipes-fittings": "Seamless MS and SS pipes and fittings in Lahore, including flanges, elbows, reducers and tees in project-specific grades, schedules and sizes.",
-      "wastewater-treatment-plant": "Wastewater treatment plant equipment and services in Lahore, including pumps, blowers, diffusers, dosing systems and maintenance support.",
-      "hvac-supplies-services": "HVAC services in Lahore for industrial and commercial facilities, including chillers, AHUs, FCUs, ducting, ventilation, installation and maintenance.",
+      "wastewater-treatment-plant": "Wastewater treatment equipment in Lahore, including pumps, blowers, diffusers, dosing systems, treatment chemicals and plant maintenance support.",
+      "hvac-supplies-services": "Industrial HVAC ducting and maintenance in Lahore for chillers, AHUs, FCUs, fresh-air and exhaust ventilation systems. Request a site-specific quote.",
       "fire-fighting-equipment": "Fire fighting equipment in Lahore, including extinguishers, hydrants, hoses, sprinklers and related installation, inspection and maintenance support.",
       "safety-security-systems": "Safety and security systems in Lahore, including CCTV, access control, biometric attendance, alarms, emergency lighting and safety signage.",
       "waterproofing-solutions": "Waterproofing services in Lahore for roofs, basements, water tanks and wet areas, including membranes, protective coatings and leakage rectification.",
-      "pumps-valves-pneumatic": "Industrial pumps and valves supplier in Lahore for centrifugal, submersible and dosing pumps, gate and ball valves, pneumatic fittings, hoses and regulators.",
+      "pumps-valves-pneumatic": "Industrial pumps, valves and pneumatic fittings in Lahore, including centrifugal, submersible and dosing pumps, hoses, regulators and accessories.",
       "engineering-consultancy": "Engineering consultancy in Lahore for project planning, technical reviews, scope definition, specifications and execution coordination.",
     };
     return {
@@ -303,8 +303,8 @@ function renderPage(route, page, template) {
           heading = "Engineering & Industrial Blog";
         } else if (route === "/services/hvac-supplies-services") {
           eyebrow = "HVAC SERVICES / LAHORE";
-          heading = "HVAC Services in Lahore";
-          intro = "NA Engineering Solutions provides HVAC services in Lahore for industrial and commercial facilities, including chillers, AHUs, FCUs, fresh-air and exhaust ventilation, GI ducting, equipment supply and installation, preventive maintenance and filter replacement.";
+          heading = "Industrial HVAC Ducting & Maintenance in Lahore";
+          intro = "Industrial HVAC ducting and maintenance in Lahore for chillers, AHUs, FCUs, fresh-air and exhaust ventilation, equipment supply, installation and preventive maintenance.";
         } else if (route === "/services/peb-works") {
           eyebrow = "PRE-ENGINEERED BUILDINGS / PEB WORKS";
           heading = "PEB Contractor in Lahore";
