@@ -74,7 +74,7 @@ function routeMetadata(route) {
       "mechanical-engineering": "Mechanical Engineering in Lahore | NA Engineering Solutions",
       "peb-works": "PEB Contractor in Lahore | NA Engineering Solutions",
       "electrical-works": "Electrical Works in Lahore | NA Engineering Solutions",
-      "mechanical-electrical-supplies": "Industrial Mechanical & Electrical Supplies in Lahore | NA Engineering",
+      "mechanical-electrical-supplies": "Mechanical & Electrical Supplies in Lahore | NA Engineering",
       "utilities-facility-maintenance": "Industrial Utility Maintenance Services in Lahore | NA Engineering",
       "boiler-chemicals": "Boiler Water Treatment Chemicals in Lahore | NA Engineering",
       "seamless-pipes-fittings": "Seamless MS & SS Pipe Supplier in Lahore | NA Engineering",
@@ -316,16 +316,16 @@ function renderPage(route, page, template) {
             "mechanical-engineering": "Mechanical Engineering in Lahore",
             "peb-works": "PEB Contractor in Lahore",
             "electrical-works": "Electrical Works in Lahore",
-            "mechanical-electrical-supplies": "Mechanical & Electrical Supplies in Lahore",
-            "utilities-facility-maintenance": "Industrial Maintenance Services in Lahore",
-            "boiler-chemicals": "Boiler Chemicals Supplier in Lahore",
-            "seamless-pipes-fittings": "Seamless MS & SS Pipes in Lahore",
-            "wastewater-treatment-plant": "Wastewater Treatment Plant Services in Lahore",
+            "mechanical-electrical-supplies": "Mechanical & Electrical Supplies for Factories in Lahore",
+            "utilities-facility-maintenance": "Industrial Utility Maintenance Services in Lahore",
+            "boiler-chemicals": "Boiler Water Treatment Chemicals in Lahore",
+            "seamless-pipes-fittings": "Seamless MS & SS Pipe Fittings in Lahore",
+            "wastewater-treatment-plant": "Wastewater Treatment Equipment in Lahore",
             "hvac-supplies-services": "HVAC Services in Lahore",
             "fire-fighting-equipment": "Fire Fighting Equipment in Lahore",
             "safety-security-systems": "Safety & Security Systems in Lahore",
             "waterproofing-solutions": "Waterproofing Services in Lahore",
-            "pumps-valves-pneumatic": "Industrial Pumps & Valves Supplier in Lahore"
+            "pumps-valves-pneumatic": "Industrial Pumps, Valves & Pneumatic Fittings in Lahore"
           };
           eyebrow = "SERVICES / " + (page.service?.title || "ENGINEERING").toUpperCase();
           heading = serviceHeadingOverrides[route.slice("/services/".length)] || page.service?.title || heading;
