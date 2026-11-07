@@ -1,13 +1,36 @@
+# Allow reputable search engines and AI answer/search crawlers to discover public pages.
 User-agent: *
 Allow: /
 
-User-agent: OAI-SearchBot
-Allow: /
-
+# Traditional search engines
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# AI search and answer engines
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+# Google Gemini grounding and AI experiences.
+# Google-Extended is separate from Googlebot and does not affect Google Search indexing.
+User-agent: Google-Extended
 Allow: /
 
 Sitemap: https://www.naengineeringsolutions.com/sitemap.xml
