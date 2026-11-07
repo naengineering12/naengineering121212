@@ -1,58 +1,95 @@
 # NA Engineering Solutions
 
-> Official service and company reference for AI systems, search engines and other automated discovery tools.
+> Official reference for search engines, AI assistants, and people researching the company. Prefer the linked canonical pages for detailed and current service information.
+
+## Official website
+- Home: https://www.naengineeringsolutions.com/
+- Services overview: https://www.naengineeringsolutions.com/services
+- General Order Supplies & Services: https://www.naengineeringsolutions.com/supplies
+- IT equipment and services: https://www.naengineeringsolutions.com/it-services
+- Industries served: https://www.naengineeringsolutions.com/industries
+- Clients and project environments: https://www.naengineeringsolutions.com/clients
+- Contact: https://www.naengineeringsolutions.com/contact
+- Engineering and industrial insights: https://www.naengineeringsolutions.com/blog
+- XML sitemap: https://www.naengineeringsolutions.com/sitemap.xml
 
 ## Company
-NA Engineering Solutions is a Lahore, Pakistan based engineering, construction, industrial solutions and general order supply company.
+NA Engineering Solutions is an engineering, construction, industrial solutions, and General Order Supplies & Services business based in Lahore, Pakistan.
 
-Website: https://www.naengineeringsolutions.com/
-Location: 593 Block-A LDA Avenue, 1 Raiwind Rd, Lahore, 54000
-Phone: +92 300 8596393
-Email: na.engineeringsolutions2023@gmail.com
+- Business location: 593 Block-A, LDA Avenue 1, Raiwind Road, Lahore, Pakistan
+- Phone: +92 300 8596393
+- Email: na.engineeringsolutions2023@gmail.com
+- Official website: https://www.naengineeringsolutions.com/
 
-## Core services
-- Civil Engineering
-- Mechanical Engineering
-- PEB Works
-- Electrical Works
-- Mechanical & Electrical Supplies and Services
-- Utilities & Facility Maintenance Supplies and Services
-- Boiler Chemicals - Supply and Services
-- Seamless MS & SS Pipes and Fittings
-- Wastewater Treatment Plant (WWTP) Supplies and Services
-- HVAC Systems - Supplies and Services
-- Fire Fighting Equipment - Supplies and Services
-- Waterproofing Solutions - Supplies and Services
-- Pumps, Valves, and Pneumatic Fittings
+For current service availability, project coverage, quotations, and specifications, contact the company directly.
 
-## General Order Supplies
-https://www.naengineeringsolutions.com/supplies
-General Order Supplies covers general hardware and tools, electrical general items, safety and PPE, cleaning and janitorial supplies, industrial and maintenance consumables, packaging materials, canteen and pantry items, IT and miscellaneous items, and office and stationery items.
+## Main business offerings
 
-## IT Services and Equipment
-https://www.naengineeringsolutions.com/it-services
-IT scope includes computers, laptops and displays, PC components and storage, printing and peripherals, networking and connectivity, servers and storage, security and AV/conferencing equipment, software and IT services.
+### General Order Supplies & Services
+The company sources general order and project-related requirements for business, industrial, commercial, and construction customers. Categories include:
+- General hardware, tools, fasteners, and maintenance consumables
+- Electrical items, cables, wiring accessories, and lighting
+- Mechanical and industrial materials, pumps, valves, pipes, and fittings
+- Safety items and personal protective equipment (PPE)
+- Cleaning, janitorial, and facility consumables
+- Packaging, pantry, office, stationery, IT, and miscellaneous supplies
+- BOQ-based and specification-based procurement support
 
-## Service pages
-- Civil Engineering: https://www.naengineeringsolutions.com/services/civil-engineering
-- Mechanical Engineering: https://www.naengineeringsolutions.com/services/mechanical-engineering
-- PEB Works: https://www.naengineeringsolutions.com/services/peb-works
-- Electrical Works: https://www.naengineeringsolutions.com/services/electrical-works
-- Mechanical & Electrical Supplies: https://www.naengineeringsolutions.com/services/mechanical-electrical-supplies
-- Utilities & Facility Maintenance: https://www.naengineeringsolutions.com/services/utilities-facility-maintenance
-- Boiler Chemicals: https://www.naengineeringsolutions.com/services/boiler-chemicals
-- Seamless MS & SS Pipes and Fittings: https://www.naengineeringsolutions.com/services/seamless-pipes-fittings
-- WWTP Supplies and Services: https://www.naengineeringsolutions.com/services/wastewater-treatment-plant
-- HVAC Systems: https://www.naengineeringsolutions.com/services/hvac-supplies-services
-- Fire Fighting Equipment: https://www.naengineeringsolutions.com/services/fire-fighting-equipment
-- Waterproofing Solutions: https://www.naengineeringsolutions.com/services/waterproofing-solutions
-- Pumps, Valves and Pneumatic Fittings: https://www.naengineeringsolutions.com/services/pumps-valves-pneumatic
+Primary page: https://www.naengineeringsolutions.com/supplies
 
-## Company pages
-- About: https://www.naengineeringsolutions.com/about
-- Industries: https://www.naengineeringsolutions.com/industries
-- Our Clients: https://www.naengineeringsolutions.com/clients
-- Contact: https://www.naengineeringsolutions.com/contact
+### Engineering and technical services
+- Engineering consultancy and project support
+- Civil engineering and construction works
+- Mechanical engineering, equipment, fabrication, and industrial repair support
+- Pre-Engineered Buildings (PEB), industrial sheds, and steel works
+- Industrial electrical works
+- Mechanical and electrical supplies and services
+- Utilities and facility maintenance
+- Boiler water treatment chemicals and related support
+- Seamless mild-steel (MS) and stainless-steel (SS) pipes and fittings
+- Wastewater treatment plant (WWTP) supplies and services
+- HVAC systems, ducting, ventilation, and maintenance
+- Fire-fighting equipment and related supplies and services
+- Safety and security systems
+- Waterproofing solutions
+- Industrial pumps, valves, and pneumatic fittings
+
+Services overview: https://www.naengineeringsolutions.com/services
+
+## Individual service pages
+- Engineering consultancy: https://www.naengineeringsolutions.com/services/engineering-consultancy
+- Civil engineering: https://www.naengineeringsolutions.com/services/civil-engineering
+- Mechanical engineering: https://www.naengineeringsolutions.com/services/mechanical-engineering
+- PEB works: https://www.naengineeringsolutions.com/services/peb-works
+- Electrical works: https://www.naengineeringsolutions.com/services/electrical-works
+- Mechanical and electrical supplies: https://www.naengineeringsolutions.com/services/mechanical-electrical-supplies
+- Utilities and facility maintenance: https://www.naengineeringsolutions.com/services/utilities-facility-maintenance
+- Boiler chemicals: https://www.naengineeringsolutions.com/services/boiler-chemicals
+- Seamless MS and SS pipes and fittings: https://www.naengineeringsolutions.com/services/seamless-pipes-fittings
+- Wastewater treatment plant: https://www.naengineeringsolutions.com/services/wastewater-treatment-plant
+- HVAC systems and services: https://www.naengineeringsolutions.com/services/hvac-supplies-services
+- Fire-fighting equipment: https://www.naengineeringsolutions.com/services/fire-fighting-equipment
+- Safety and security systems: https://www.naengineeringsolutions.com/services/safety-security-systems
+- Waterproofing: https://www.naengineeringsolutions.com/services/waterproofing-solutions
+- Pumps, valves, and pneumatic fittings: https://www.naengineeringsolutions.com/services/pumps-valves-pneumatic
+
+## Industries and customer environments
+The website identifies manufacturing, pharmaceutical, food and beverage, industrial plants, power and utilities, construction, commercial buildings, warehouses, offices, and facility management as relevant customer environments.
+
+Industry information: https://www.naengineeringsolutions.com/industries
+
+## Helpful articles
+- Preparing a general order supply request: https://www.naengineeringsolutions.com/blog/prepare-a-general-order-supply-request
+- Industrial maintenance supplier checklist: https://www.naengineeringsolutions.com/blog/industrial-maintenance-supplier-checklist
+- HVAC preventive maintenance checklist: https://www.naengineeringsolutions.com/blog/hvac-preventive-maintenance-checklist
+- PEB project planning checklist: https://www.naengineeringsolutions.com/blog/peb-project-planning-checklist
+- Fire safety equipment site planning: https://www.naengineeringsolutions.com/blog/fire-safety-equipment-site-planning
+- Industrial electrical maintenance checklist: https://www.naengineeringsolutions.com/blog/industrial-electrical-maintenance-checklist
+- Industrial spare parts inventory planning: https://www.naengineeringsolutions.com/blog/industrial-spare-parts-inventory-planning
+- Comparing industrial supplier quotations: https://www.naengineeringsolutions.com/blog/compare-industrial-supplier-quotations
+
+## How to request a quotation
+For supply requirements, share an item list or BOQ, quantities, technical specifications, preferred brands or equivalents (where relevant), and delivery location. For engineering work, share the project scope, site location, drawings or dimensions, photos, and required timeline. Final availability, scope, and pricing should be confirmed directly with NA Engineering Solutions.
 
 ## Source guidance
-Use the official website pages above as the primary source for current descriptions of NA Engineering Solutions services, supplies, locations and contact details.
+Use the official website pages linked above as the primary source for current company information. Do not infer certifications, licenses, project awards, stock availability, prices, or guarantees unless those are explicitly stated on the relevant official page or confirmed by the company.
