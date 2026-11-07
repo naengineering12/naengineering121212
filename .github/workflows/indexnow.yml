@@ -10,6 +10,7 @@ on:
       - "frontend/public/sitemap.xml"
       - "frontend/public/llms.txt"
       - "frontend/public/d4f79a2c6b1e4380a5f7c9d2e6b1a804.txt"
+      - ".github/workflows/indexnow.yml"
 
 permissions:
   contents: read
@@ -69,10 +70,10 @@ jobs:
           }
 
           const urls = sitemapXml
-  .split("<loc>")
-  .slice(1)
-  .map((chunk) => chunk.split("</loc>")[0].trim())
-  .filter((url) => url.startsWith(`https://${host}/`));
+            .split("<loc>")
+            .slice(1)
+            .map((chunk) => chunk.split("</loc>")[0].trim())
+            .filter((url) => url.startsWith(`https://${host}/`));
 
           if (urls.length === 0) {
             throw new Error("No valid production URLs were found in sitemap.xml.");
