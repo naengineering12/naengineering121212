@@ -33,7 +33,7 @@ if (services.length < 10 || articles.length < 5) {
 }
 
 const topLevel = {
-  "/": { title: "Industrial Supplies for Factories in Lahore | NA Engineering Solutions", description: "Industrial supplies for Lahore factories: maintenance items, mechanical and electrical materials, PPE and BOQ-based sourcing. Send your item list for a quote." },
+  "/": { title: "Engineering & Industrial Supplies in Lahore | NA Engineering Solutions", description: "NA Engineering Solutions provides General Order Supplies & Services, industrial procurement and engineering support for Lahore factories and projects." },
   "/services": { title: "Engineering Services in Lahore | NA Engineering Solutions", description: "Civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing and industrial maintenance services for facilities and projects in Lahore." },
   "/supplies": { title: "General Order Supplier Company in Lahore | NA Engineering Solutions", description: "General order supplier company in Lahore for factories, offices and projects. BOQ-based sourcing for industrial, electrical, mechanical, PPE and maintenance supplies." },
   "/it-services": { title: "IT Equipment Supplier in Lahore | NA Engineering Solutions", description: "Business IT supplies in Lahore: computers, laptops, printers, networking equipment, servers, CCTV, UPS and accessories, with installation and support." },
