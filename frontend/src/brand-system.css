@@ -416,13 +416,6 @@ input:focus,textarea:focus,select:focus{outline:2px solid rgba(53,107,145,.25)!i
 }
 @media(max-width:560px){
   .site-container{width:calc(100% - 30px)!important}
-  .site-header,.site-header .site-container.nav-wrap{height:64px!important;min-height:64px!important}
-  .site-header .site-container.nav-wrap{width:calc(100% - 28px)!important}
-  .site-header .logo-img{width:39px!important;height:39px!important}
-  .site-header .logo-text b{font-size:9px!important}
-  .site-header .logo-text small{font-size:7px!important;letter-spacing:.17em!important}
-  .site-header .menu-toggle{width:40px!important;height:40px!important;flex-basis:40px!important}
-  .site-header .nav-cluster{top:calc(100% + 7px)!important}
   .hero,.hero-content{min-height:600px!important}
   .hero-content{padding:96px 0 72px!important}
   .hero .eyebrow{font-size:9px!important;letter-spacing:.15em!important}
@@ -596,7 +589,6 @@ input:focus,textarea:focus,select:focus{outline:2px solid rgba(53,107,145,.25)!i
     display:flex!important;justify-content:center!important;width:100%!important;min-height:46px!important;
     margin:8px 0 0!important;padding:0 16px!important;white-space:normal!important;
   }
-  .App{padding-top:72px!important}
 }
 
 /* Phone proportions and a little extra hero clearance below the floating header. */
@@ -610,7 +602,6 @@ input:focus,textarea:focus,select:focus{outline:2px solid rgba(53,107,145,.25)!i
   .site-header .header-brand-pill .logo-text small{font-size:7px!important;letter-spacing:.16em!important}
   .site-header .menu-toggle{width:40px!important;height:40px!important;flex-basis:40px!important}
   .site-header .nav-cluster{top:calc(100% + 8px)!important;padding:9px!important;border-radius:18px!important}
-  .App{padding-top:64px!important}
 }
 
 
