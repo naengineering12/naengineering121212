@@ -34,13 +34,13 @@ if (services.length < 10 || articles.length < 5) {
 
 const topLevel = {
   "/": { title: "Engineering & Industrial Supplies in Lahore | NA Engineering Solutions", description: "NA Engineering Solutions provides General Order Supplies & Services, industrial procurement and engineering support for Lahore factories and projects." },
-  "/services": { title: "Engineering Services in Lahore | NA Engineering Solutions", description: "Civil, mechanical, electrical, HVAC, PEB, fire fighting, waterproofing and industrial maintenance services for facilities and projects in Lahore." },
+  "/services": { title: "Engineering Services in Lahore | NA Engineering Solutions", description: "Civil, mechanical, electrical, HVAC, PEB, fire-safety and maintenance services in Lahore for factories and commercial sites. Share your scope for a quotation." },
   "/supplies": { title: "General Order Supplier Company in Lahore | NA Engineering Solutions", description: "General order supplier company in Lahore for factories, offices and projects. BOQ-based sourcing for industrial, electrical, mechanical, PPE and maintenance supplies." },
   "/it-services": { title: "IT Equipment Supplier in Lahore | NA Engineering Solutions", description: "Business IT supplies in Lahore: computers, laptops, printers, networking equipment, servers, CCTV, UPS and accessories, with installation and support." },
   "/industries": { title: "Industrial & Commercial Engineering Support | NA Engineering", description: "Engineering, maintenance and procurement support for manufacturing, pharmaceutical, food, construction, power, warehouses and commercial facilities in Lahore." },
   "/blog": { title: "Engineering & Industrial Blog | NA Engineering Solutions", description: "Practical guides for industrial maintenance, HVAC, general order procurement, PEB planning and fire safety from NA Engineering Solutions in Lahore.", image: "https://images.pexels.com/photos/10202865/pexels-photo-10202865.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
   "/clients": { title: "Clients & Project Experience | NA Engineering Solutions", description: "See the industries and project environments supported by NA Engineering Solutions across aviation, manufacturing, chemicals, food production and facilities." },
-  "/contact": { title: "Contact NA Engineering Solutions | Lahore", description: "Contact NA Engineering Solutions in Lahore for engineering services, industrial supplies, maintenance, IT equipment and General Order Supplies & Services." },
+  "/contact": { title: "Contact NA Engineering Solutions | Lahore, Pakistan", description: "Request an engineering or industrial supply quotation in Lahore. Call, WhatsApp or email our team with your BOQ, specifications or site details." },
   "/insights": { title: "Engineering & Industrial Blog | NA Engineering Solutions", description: "Practical guides for industrial maintenance, HVAC, general order procurement, PEB planning and fire safety from NA Engineering Solutions in Lahore." }
   };
 
@@ -87,10 +87,10 @@ function routeMetadata(route) {
       "engineering-consultancy": "Engineering Consultancy in Lahore | NA Engineering Solutions",
     };
     const serviceDescriptionOverrides = {
-      "civil-engineering": "Civil engineering in Lahore for construction, concrete, flooring, waterproofing, site development and rehabilitation at industrial and commercial properties. Request a scope-based quote.",
-      "mechanical-engineering": "Mechanical engineering services in Lahore for pumps, motors, conveyors, fabrication, welding, industrial repairs and spare parts.",
+      "civil-engineering": "Civil engineering in Lahore for concrete, flooring, waterproofing, site development and industrial repairs. Share drawings or a BOQ for a scope review.",
+      "mechanical-engineering": "Mechanical engineering in Lahore for pumps, motors, gearboxes, conveyors, fabrication and maintenance. Share equipment details for a scope review.",
       "peb-works": "PEB contractor support in Lahore for pre-engineered steel sheds, industrial buildings, platforms, walkways and structural modifications. Discuss your project scope.",
-      "electrical-works": "Industrial electrical works in Lahore including wiring, lighting, panels, cables, installation, troubleshooting and maintenance.",
+      "electrical-works": "Industrial electrical works in Lahore for installation, lighting, cables, maintenance and troubleshooting. Share drawings or site details for a quote.",
       "mechanical-electrical-supplies": "Mechanical and electrical supplies for Lahore factories, including motors, pumps, gearboxes, cables, panels, breakers and pneumatic items. Request a quote.",
       "utilities-facility-maintenance": "Industrial utility maintenance in Lahore for boiler, compressor, water, steam and compressed-air systems, with parts sourcing and maintenance support.",
       "boiler-chemicals": "Boiler water treatment chemicals in Lahore, including scale inhibitors, oxygen scavengers and pH adjusters, with dosing and water-testing support.",
