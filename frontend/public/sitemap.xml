@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.naengineeringsolutions.com/</loc><priority>1.0</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/</loc><lastmod>2026-11-13</lastmod><priority>1.0</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/services</loc><lastmod>2026-11-13</lastmod><priority>0.9</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/supplies</loc><priority>0.9</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/it-services</loc><priority>0.8</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/supplies</loc><lastmod>2026-11-13</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/it-services</loc><lastmod>2026-11-13</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/industries</loc><priority>0.8</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/blog</loc><priority>0.8</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/clients</loc><priority>0.8</priority></url>
@@ -11,24 +11,24 @@
   <url><loc>https://www.naengineeringsolutions.com/services/engineering-consultancy</loc><priority>0.8</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/services/civil-engineering</loc><lastmod>2026-11-13</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/services/mechanical-engineering</loc><lastmod>2026-11-13</lastmod><priority>0.8</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/services/peb-works</loc><priority>0.8</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/services/peb-works</loc><lastmod>2026-11-13</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/services/electrical-works</loc><lastmod>2026-11-13</lastmod><priority>0.8</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/services/mechanical-electrical-supplies</loc><priority>0.8</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/services/utilities-facility-maintenance</loc><priority>0.8</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/services/mechanical-electrical-supplies</loc><lastmod>2026-11-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/services/utilities-facility-maintenance</loc><lastmod>2026-11-13</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/services/boiler-chemicals</loc><priority>0.7</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/services/seamless-pipes-fittings</loc><priority>0.7</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/services/wastewater-treatment-plant</loc><priority>0.7</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/services/hvac-supplies-services</loc><priority>0.8</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/services/fire-fighting-equipment</loc><priority>0.8</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/services/hvac-supplies-services</loc><lastmod>2026-11-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/services/fire-fighting-equipment</loc><lastmod>2026-11-13</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/services/safety-security-systems</loc><priority>0.7</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/services/waterproofing-solutions</loc><priority>0.7</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/services/pumps-valves-pneumatic</loc><priority>0.8</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/blog/prepare-a-general-order-supply-request</loc><priority>0.7</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/blog/industrial-maintenance-supplier-checklist</loc><priority>0.7</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/services/waterproofing-solutions</loc><lastmod>2026-11-13</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/services/pumps-valves-pneumatic</loc><lastmod>2026-11-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/blog/prepare-a-general-order-supply-request</loc><lastmod>2026-11-13</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/blog/industrial-maintenance-supplier-checklist</loc><lastmod>2026-11-13</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/blog/hvac-preventive-maintenance-checklist</loc><priority>0.7</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/blog/peb-project-planning-checklist</loc><priority>0.7</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/blog/fire-safety-equipment-site-planning</loc><priority>0.7</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/blog/peb-project-planning-checklist</loc><lastmod>2026-11-13</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/blog/fire-safety-equipment-site-planning</loc><lastmod>2026-11-13</lastmod><priority>0.7</priority></url>
   <url><loc>https://www.naengineeringsolutions.com/blog/industrial-electrical-maintenance-checklist</loc><priority>0.7</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/blog/industrial-spare-parts-inventory-planning</loc><priority>0.7</priority></url>
-  <url><loc>https://www.naengineeringsolutions.com/blog/compare-industrial-supplier-quotations</loc><priority>0.7</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/blog/industrial-spare-parts-inventory-planning</loc><lastmod>2026-11-13</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.naengineeringsolutions.com/blog/compare-industrial-supplier-quotations</loc><lastmod>2026-11-13</lastmod><priority>0.7</priority></url>
 </urlset>
